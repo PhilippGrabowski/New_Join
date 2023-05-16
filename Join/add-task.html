@@ -20,71 +20,7 @@
 <body onload="includeHTML()">
     <div class="header-includer" w3-include-html="src/templates/header.html"></div>
     <div class="sidebar-includer" w3-include-html="src/templates/sidebar.html"></div>
-
-    <div class="main-add-task">
-        <h1><b>Add Task</b></h1>
-        <div class="add-task-container">
-            <div class="left-fill-out-form">
-                <div>
-                    <div class="form-div">
-                        <span>Title</span>
-                        <input class="title-input" type="text" placeholder="Enter a title">
-                    </div>
-                    <div class="form-div">
-                        <span>Description</span>
-                        <textarea class="desc-input" type="text" placeholder="Enter a Description"></textarea>
-                    </div>
-
-                    <div class="form-div">
-                        <span>Category</span>
-                        <div class="category-dropdown-div">
-                            <span>Select a Category</span>
-                            <img class="cursor" src="./src/img/dropdown-arrow.svg">
-                        </div>
-                    </div>
-                    <div class="form-div">
-                        <span>Assigned to</span>
-                        <div class="category-dropdown-div">
-                            <span>Assigned to</span>
-                            <img class="cursor" src="./src/img/dropdown-arrow.svg">
-                        </div>
-                    </div>
-
-                </div>
-                <div>
-
-                </div>
-                <div>
-
-                </div>
-            </div>
-            <div class="line"></div>
-
-            <div class="right-fill-out-form">
-                <div class="form-div">
-                    <span>Due Date</span>
-                    <input class="title-input" type="text" placeholder="Date">
-                </div>
-                <div class="form-div">
-                    <span>Prio</span>
-                    <div class="prio-container">
-                        <input class="prio-input" type="text" placeholder="Date">
-                        <input class="prio-input" type="text" placeholder="Date">
-                        <input class="prio-input" type="text" placeholder="Date">
-                    </div>
-                </div>
-                <div class="form-div">
-                    <span>Subtasks</span>
-                    <input class="title-input" type="text" placeholder="Add new subtask">
-                    <img class="plus-icon cursor" src="./src/img/plus.svg" alt="">
-                </div>
-                <div class="submit-btn-container">
-                    <button class="cancel-btn">Cancel</button>
-                    <button class="create-btn">Create Task</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="main-add-task" w3-include-html="src/templates/add-task-template.html"></div>
 
 </body>
 

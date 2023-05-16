@@ -5,25 +5,42 @@
         <div>
             <div class="form-div">
                 <span>Title</span>
-                <input class="title-input" type="text" placeholder="Enter a title">
+                <input id="title" class="title-input" type="text" placeholder="Enter a title">
             </div>
             <div class="form-div">
                 <span>Description</span>
-                <textarea class="desc-input" type="text" placeholder="Enter a Description"></textarea>
+                <textarea id="description" class="desc-input" type="text" placeholder="Enter a Description"></textarea>
             </div>
 
             <div class="form-div">
                 <span>Category</span>
-                <div class="category-dropdown-div">
-                    <span>Select a Category</span>
-                    <img class="cursor" src="img/dropdown-arrow.svg">
+                <div id="category" class="category-dropdown-div">
+                    <div id="selectedCategory">Select a Category</div>
+                    <img onclick="openCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
+                </div>
+                <div class="d-none" id="showCat">
+                    <div>
+                        <div class="cat">New Category</div>
+                        <div class="cat">
+                            Media
+                            <span class="circle" style="background-color: red;"></span>
+                        </div>
+                        <div class="cat">
+                            Web
+                            <span class="circle" style="background-color: green;"></span>
+                        </div>
+                        <div class="cat">
+                            Testing
+                            <span class="circle" style="background-color: purple;"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-div">
                 <span>Assigned to</span>
-                <div class="category-dropdown-div">
-                    <span>Assigned to</span>
-                    <img class="cursor" src="img/dropdown-arrow.svg">
+                <div id="assigned" class="assigned-dropdown-div">
+                    <div id="assignedPeople">Assigned to</div>
+                    <img class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
             </div>
 
@@ -40,14 +57,21 @@
     <div class="right-fill-out-form">
         <div class="form-div">
             <span>Due Date</span>
-            <input class="title-input" type="text" placeholder="Date">
+            <input id="dueDate" class="title-input" type="date" required min="">
         </div>
         <div class="form-div">
             <span>Prio</span>
             <div class="prio-container">
-                <input class="prio-input" type="text" placeholder="Date">
-                <input class="prio-input" type="text" placeholder="Date">
-                <input class="prio-input" type="text" placeholder="Date">
+                <button class="prio-input">Urgent
+                    <img src="src/img/urgent.svg" alt="">
+                </button>
+                <button class="prio-input">Medium
+                    <img src="src/img/medium.svg" alt="">
+                </button>
+                <button class="prio-input">Low
+                    <img src="src/img/low.svg" alt="">
+                </button>
+
             </div>
         </div>
         <div class="form-div">
