@@ -1,3 +1,13 @@
+/* Body */
+
+body{
+    user-select: none;
+}
+
+
+/* Body */
+
+
 /* Header */
 
 .header {
@@ -188,6 +198,37 @@
     font-size: 16px;
 }
 
+.circle {
+    margin-left: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+  }
+
+#showCat{
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid lightgray;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top: none;
+    margin-top: -5px;
+}
+
+.cat{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.cat:hover{
+    background-color: lightgray;
+    border-radius: 4px;
+}
+
 .title-input {
     outline: none;
     border: 1px solid lightgray;
@@ -210,10 +251,17 @@
 
 .create-btn {
     cursor: pointer;
-    border-radius: 8px;
+    border: none;
     color: white;
-    background-color: black;
-    border: 2px solid black;
+    font-weight: bold;
+    background-color: rgb(38, 38, 38);
+    padding: 10px;
+    border-radius: 8px;
+    height: 40px;
+}
+
+.cursor {
+    cursor: pointer;
 }
 
 .submit-btn-container {
@@ -229,7 +277,6 @@
 }
 
 .create-btn:hover {
-    border: 2px solid lightblue;
     background-color: rgb(59, 175, 243);
 }
 
@@ -239,14 +286,20 @@
 }
 
 .prio-input {
-    width: 85px;
-    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-evenly;
     border: 1px solid lightgray;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
     border-radius: 8px;
+    padding: 10px;
+    justify-content: space-evenly;
+    gap: 15px;
+    align-items: center;
+}
+
+.prio-input:hover {
+    box-shadow: 0px 7px 6px -2px rgba(84, 84, 84, 0.60);
+    transform: scale(1.1);
 }
 
 .plus-icon {
@@ -265,7 +318,17 @@
     color: gray;
     border: 1px solid lightgray;
     border-radius: 8px;
-
+}
+.assigned-dropdown-div {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: gray;
+    border: 1px solid lightgray;
+    border-radius: 8px;
 }
 
 .desc-input {
