@@ -1,0 +1,680 @@
+/* Header */
+
+.header {
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 100vw;
+    height: 89px;
+    left: 0px;
+    top: 0px;
+    background-color: var(--white-color);
+}
+
+.header-left {
+    padding-left: 348px;
+}
+
+.header-right {
+    padding-right: 36px;
+    gap: 20px;
+}
+
+.header-text {
+    font-size: var(--font-size-21);
+    font-weight: 400;
+}
+
+/* Menu (Sidemenu) */
+
+.side-bar {
+    width: 232px;
+    height: 100vh;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    background-color: var(--darkBlue-color);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0px;
+}
+
+.join-logo-pic {
+    width: 90px;
+    height: 110px;
+    object-fit: cover;
+}
+
+.side-bar a {
+    text-decoration: none;
+    color: var(--white-color);
+}
+
+.side-bar-link {
+    width: 232px;
+    height: 60px;
+    align-items: center;
+    gap: 20px;
+    padding-left: 40px;
+    font-size: var(--font-size-16);
+}
+
+.link-img {
+    width: 22px;
+}
+
+.active {
+    background-color: var(--darkBlue2-color);
+}
+
+/* Board-Start*/
+
+#board-content {
+    height: 100vh;
+    padding-top: 64px;
+    padding-left: 48px;
+    padding-right: 48px;
+    margin-top: 90px;
+    margin-left: 230px;
+    background-color: #F6F7F8;
+}
+
+#board-header {
+    justify-content: space-between;
+    align-items: center;
+}
+
+#board-header h1 {
+    font-weight: bolder;
+    font-size: 60px;
+}
+
+#search-and-add{
+    margin-right: 16px;
+}
+
+#search-task{
+    background-color: #fff !important;
+    border-radius: 15px;
+    height: 50px;
+    width: 300px;
+    padding: 8px;
+    padding-right: 8px !important;
+    margin: 8px;
+    border: 1px solid #a8a8a8;
+}
+
+.search-icon {
+    background: url("../img/line-and-magnifier.svg") no-repeat;
+    background-position: right;
+    background-position-x: 245px;
+}
+
+#add-task-button {
+    border-radius: 15px;
+    height: 50px;
+    width: 150px;
+    margin: 8px;
+    padding: 8px;
+    border: none;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#tasks-container {
+    gap: 16px;
+    padding-top: 96px;
+}
+
+.task-container {
+    width: 25%;
+}
+
+.task-column-header {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board-task-box {
+    height: 100px;
+    width: 100%;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 15px;
+    margin-top: 32px;
+}
+
+/* Board-End*/
+
+
+/* Add Task*/
+
+.main-add-task {
+    margin-top: 120px;
+    margin-left: 280px;
+    overflow-y: scroll;
+}
+
+.add-task-container {
+    display: flex;
+    gap: 15px;
+}
+
+.left-fill-out-form {
+    width: 100%;
+}
+
+.right-fill-out-form {
+    width: 100%;
+    margin-right: 20px;
+}
+
+.line {
+    height: 450px;
+    width: 1px;
+    background-color: gray;
+}
+
+.form-div {
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 16px;
+}
+
+.title-input {
+    outline: none;
+    border: 1px solid lightgray;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.cancel-btn {
+    cursor: pointer;
+    border-radius: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.create-btn {
+    cursor: pointer;
+    border-radius: 8px;
+    color: white;
+    background-color: black;
+    border: 2px solid black;
+}
+
+.submit-btn-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
+.cancel-btn:hover {
+    border: 2px solid lightblue;
+    color: rgb(59, 175, 243);
+}
+
+.create-btn:hover {
+    border: 2px solid lightblue;
+    background-color: rgb(59, 175, 243);
+}
+
+.prio-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.prio-input {
+    width: 85px;
+    outline: none;
+    border: 1px solid lightgray;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 8px;
+}
+
+.plus-icon {
+    position: absolute;
+    right: 5px;
+    top: 28px;
+}
+
+.category-dropdown-div {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: gray;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+
+}
+
+.desc-input {
+    outline: none;
+    height: 90px;
+    border: 1px solid lightgray;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 8px;
+    font-size: 16px;
+    resize: none;
+    word-break: break-all;
+}
+
+/*Contacts*/
+
+#contacts {
+    padding: 8.9rem 0 0 23.2rem;
+    width: 100%;
+    height: 100%;
+}
+
+#contactList {
+    width: 45.3rem;
+    height: calc(100vh - 89px);
+    padding: 0 4.8rem;
+    background-color: var(--white-color);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: scroll;
+}
+
+#contactList::-webkit-scrollbar {
+    width: 7px;
+}
+
+#contactList::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: #A8A8A8;
+}
+
+#listContainer {
+    width: 100%;
+    align-items: center;
+    padding: 1rem 0;
+    gap: 1rem;
+}
+
+.contactGroup {
+    width: 100%;
+    align-items: center;
+}
+
+.letter {
+    width: 28.2rem;
+    height: 4rem;
+    font-weight: 400;
+    font-size: var(--font-size-21);
+    align-items: center;
+}
+
+.horizontalLine {
+    width: 32.3rem;
+    border: 1px solid #D1D1D1;
+    border-radius: 3px;
+    margin: 2.4rem 0 1.4rem;
+}
+
+.contactSubList {
+    width: 100%;
+}
+
+.contact {
+    width: 100%;
+    align-items: center;
+    padding: 1.5rem 2.5rem;
+    gap: 3.5rem;
+    border-radius: 10px;
+}
+
+.contact:hover {
+    background: linear-gradient(0deg, rgb(239, 239, 239) 0%, rgb(249, 249, 249) 100%);
+}
+
+.contactInitials {
+    width: 42px;
+    height: 42px;
+    font-weight: 400;
+    font-size: var(--font-size-12);
+    color: var(--white-color);
+    border-radius: 45px;
+}
+
+.contact:hover .contactInitials {
+    scale: 0.9;
+}
+
+.contactName {
+    gap: 5px;
+}
+
+.contactSubListName {
+    font-weight: 400;
+    font-size: var(--font-size-21);
+}
+
+.contactSubListEmail {
+    font-weight: 400;
+    font-size: var(--font-size-16);
+    color: var(--blue-color);
+}
+
+#contactInfo {
+    padding: 8.2rem 4.7rem 0 5.8rem;
+}
+
+.sectionHeader {
+    align-items: center;
+    gap: 3rem;
+}
+
+.sectionHeaderMenu {
+    font-weight: 700;
+    font-size: var(--font-size-61);
+}
+
+.verticalLine {
+    height: 59px;
+    border: 3px solid #29ABE2;
+}
+
+.sectionHeader span ~ span {
+    font-weight: 400;
+    font-size: var(--font-size-27);
+}
+
+.infoContact {
+    padding: 0;
+    margin-top: 48px;
+}
+
+.infoContact:hover {
+    background: unset;
+}
+
+#infoInitials,
+#editContactInitials {
+    width: 120px;
+    height: 120px;
+    font-weight: 500;
+    font-size: var(--font-size-47);
+    border-radius: 70px;
+}
+
+#editContactInitials {
+    width: 180px;
+    height: 100px;
+    margin: 0 70px;
+}
+
+.infoContact:hover #infoInitials {
+    scale: unset;
+}
+
+.infoContactName {
+    gap: 13px;
+}
+
+.infoContactName span {
+    font-weight: 500;
+    font-size: var(--font-size-47);
+}
+
+.infoContactName a {
+    align-items: center;
+    gap: 13px;
+}
+
+.infoContactName a > span {
+    font-weight: 400;
+    font-size: var(--font-size-16);
+}
+
+.infoContactName a:hover .addTaskImg path {
+    stroke-width: 3;
+}
+
+.infoContactName a:hover > span {
+    font-weight: 600;
+}
+
+#contactInformation {
+    height: 7.4rem;
+    align-items: center;
+    gap: 6rem;
+}
+
+#contactInformation span {
+    font-weight: 400;
+    font-size: var(--font-size-21);
+}
+
+#contactInformation a {
+    align-items: flex-end;
+    gap: 6px;
+    margin-bottom: 6.5px;
+}
+
+#contactInformation a:hover .editContactImg path {
+    fill: var(--blue-color);
+}
+
+#contactInformation a span {
+    font-weight: 400;
+    font-size: var(--font-size-16);
+}
+
+#contactInformation a:hover span {
+    font-weight: 600;
+}
+
+#contactInformation a:hover {
+    font-weight: 600;
+    color: var(--blue-color);
+}
+
+#contactInfoContainer {
+    transform: translateX(150%);
+    transition: all 0.5s ease-in-out;
+    gap: 2.1rem;
+}
+
+.information {
+    gap: 1.5rem;
+}
+
+.information span {
+    font-weight: 700;
+    font-size: var(--font-size-16);
+}
+
+.information span ~ span {
+    font-weight: 400;
+}
+
+#contacts button {
+    position: absolute;
+    bottom: 47px;
+    right: 47px;
+    font-weight: 700;
+    font-size: var(--font-size-21);
+    background-color: var(--darkBlue-color);
+    color: var(--white-color);
+    padding: 14px 15px;
+    border-radius: 10px;
+    gap: 10px;
+    align-items: center;
+    border: none;
+}
+
+#contacts button:hover {
+    background-color: var(--blue-color);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* add/edit contact window*/
+#contactOptionMenu {
+    width: 100rem;
+    height: 40rem;
+    position: absolute;
+    top: calc(50% - 20rem);
+    left: calc(50% - 50rem);
+    border-radius: 30px;
+    z-index: 5;
+    transform: translateX(150%);
+    transition: all 0.5s ease-in-out;
+}
+
+.contactOptionContainer {
+    width: 40%;
+    height: 100%;
+    padding-left: 4.7rem;
+    justify-content: center;
+    gap: 12px;
+    background-color: var(--darkBlue-color);
+    color: var(--white-color);
+}
+
+.contactOptionContainer img {
+    width: 44px;
+    height: 54x;
+}
+
+#contactOption {
+    font-weight: 700;
+    font-size: var(--font-size-47);
+}
+
+#addContactHeadline {
+    font-weight: 400;
+    font-size: var(--font-size-21);
+}
+
+.contactOptionHorizontalLine {
+    width: 9rem;
+    border: 1px solid var(--blue-color);
+    border-radius: 3px;
+}
+
+.contactOptionInputContainer {
+    width: 60%;
+    align-items: center;
+    padding-right: 4.7rem;
+    background-color: var(--white-color);
+    position: relative;
+}
+
+.contactOptionInputContainer > i {
+    position: absolute;
+    font-size: var(--font-size-27);
+    color: var(--darkBlue-color);
+    top: 21px;
+    right: 40px;
+}
+
+.contactOptionInputContainer img {
+    width: 12rem;
+    height: 12rem;
+    margin: 0 70px;
+
+}
+
+.contactOptionInputContainer form {
+    width: 100%;
+    gap: 45px;
+}
+
+.contactInputs {
+    gap: 30px;
+}
+
+.contactInputs input {
+    border: none;
+    outline: none;
+}
+
+.input {
+    height: 35px;
+    padding: 0px 16px;
+    border: 1px solid #D1D1D1;
+    border-radius: 6px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.input input {
+    width: 100%;
+    cursor: pointer;
+}
+
+.input i {
+    color: #D1D1D1;
+    font-size: var(--font-size-21);
+}
+
+#contactOptionEditContactButtons {
+    justify-content: flex-end;
+}
+
+.contactOptionButtons {
+    gap: 20px;
+}
+
+.contactOptionButtons button {
+    align-items: center;
+    gap: 5px;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.buttonOption1 {
+    font-weight: 400;
+    font-size: var(--font-size-16);
+    background-color: var(--white-color);
+    color: var(--darkBlue-color);
+    border: 2px solid var(--darkBlue-color);
+}
+
+.buttonOption2 {
+    font-weight: 700;
+    font-size: var(--font-size-16);
+    background-color: var(--darkBlue-color);
+    color: var(--white-color);
+    border: none;
+}
+
+.saveButton {
+    padding: 6px 30px !important;
+}
+
+.buttonOption1:hover {
+    color: var(--blue-color);
+    border-color: var(--blue-color);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.buttonOption2:hover {
+    background-color: var(--blue-color);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+}

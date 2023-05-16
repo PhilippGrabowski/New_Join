@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/fonts.css">
+    <link rel="stylesheet" href="src/css/settings.css">
+    <link rel="stylesheet" href="src/css/global.css">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/mqueries.css">
+    <script src="src/js/settings.js"></script>
+    <script src="src/js/templates.js"></script>
+    <script src="src/js/board.js"></script>
+    <script src="src/js/script.js"></script>
+    <title>Join - Board</title>
+</head>
+
+<body onload="includeHTML()">
+
+    <div class="header-includer" w3-include-html="src/templates/header.html"></div>
+    <div class="sidebar-includer" w3-include-html="src/templates/sidebar.html"></div>
+
+    <div class="* flex-column" id="board-content">
+        <div class="flex-row" id="board-header">
+            <h1>Board</h1>
+            <div id="search-and-add" class="flex-row">
+                <input class="search-icon" id="search-task" placeholder="Find Task" type="text">
+                <button id="add-task-button" class="button flex-row">Add task <img class="filter-white" src="./src/img/plus.svg"></button>
+            </div>
+
+        </div>
+
+        <div class="flex-row" id="tasks-container">
+           <div class="task-container flex-column" id="board-to-do">
+                <div class="task-column-header flex-row">
+                    <h2>To do</h2>
+                    <img src="src/img/plus-button.svg" alt="">
+                </div>
+                <div class="board-task-box">
+                    <span>Design</span>
+                    <h3>Website redesign</h3>
+                    <p>Modify the contents...</p>
+                </div>
+           </div>
+
+           <div class="task-container flex-column" id="board-in-progress">
+                <div class="task-column-header flex-row">
+                    <h2>In progress</h2>
+                    <img src="src/img/plus-button.svg" alt="">
+                </div>
+                <div class="board-task-box">
+                    <span>Design</span>
+                    <h3>Website redesign</h3>
+                    <p>Modify the contents...</p>
+                </div>
+           </div>
+
+           <div class="task-container flex-column" id="board-awaiting-fb">
+                <div class="task-column-header flex-row">
+                    <h2>Awaiting Feedback</h2>
+                    <img src="src/img/plus-button.svg" alt="">
+                </div>
+                <div class="board-task-box">
+                    <span>Design</span>
+                    <h3>Website redesign</h3>
+                    <p>Modify the contents...</p>
+                </div>
+           </div>
+
+           <div class="task-container flex-column" id="board-task-done">
+                <div class="task-column-header flex-row">
+                    <h2>Done</h2>
+                    <img src="src/img/plus-button.svg" alt="">
+                </div>
+                <div class="board-task-box">
+                    <span>Design</span>
+                    <h3>Website redesign</h3>
+                    <p>Modify the contents...</p>
+                </div>
+           </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="src/css/fonts.css">
+    <link rel="stylesheet" href="src/css/settings.css">
+    <link rel="stylesheet" href="src/css/global.css">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/mqueries.css">
+    <script src="//cdn.jsdelivr.net/npm/desvg@1.0.2/desvg.min.js"></script>
+    <script src="src/js/settings.js"></script>
+    <script src="src/js/templates.js"></script>
+    <script src="src/js/contacts.js"></script>
+    <script src="src/js/script.js"></script>
+    <title>Join - Contacts</title>
+</head>
+
+<body onload="includeHTML(), loadContacts()">
+
+    <div class="header-includer" w3-include-html="src/templates/header.html"></div>
+    <div class="sidebar-includer" w3-include-html="src/templates/sidebar.html"></div>
+
+    <section id="contacts" class="flex-row">
+        <article id="contactList">
+            <div id="listContainer" class="flex-column"></div>
+        </article>
+        <article id="contactInfo">
+            <div class="sectionHeader flex-row">
+                <span class="sectionHeaderMenu">Contacts</span>
+                <div class="verticalLine"></div>
+                <span>Better with a team</span>
+            </div>
+            <div id="contactInfoContainer" class="flex-column">
+                <div class="contact infoContact flex-row">
+                    <div id="infoInitials" class="contactInitials grid"></div>
+                    <div class="infoContactName flex-column">
+                        <span id="infoName"></span>
+                        <a class="flex-row curser" onlclick="">
+                            <img class="addTaskImg" src="src/img/group11.svg" alt="">
+                            <span class="blueFont">Add Task</span>
+                        </a>
+                    </div>
+                </div>
+                <div id="contactInformation" class="flex-row">
+                    <span>Contact Information</span>
+                    <a id="editContactLink" class="flex-row curser" onclick="openContactOptionMenu('edit')">
+                        <img class="editContactImg" src="src/img/group8.svg" alt="">
+                        <span>Edit Contact</span>
+                    </a>
+                </div>
+                <div class="information flex-column">
+                    <span>Email</span>
+                    <span id="infoEmail" class="blueFont"></span>
+                </div>
+                <div class="information flex-column">
+                    <span>Phone</span>
+                    <span id="infoPhone"></span>
+                </div>
+            </div>
+        </article>
+        <button class="flex-row curser" onclick="openContactOptionMenu('add')">New contact<img
+                src="src/img/newContact.png" alt=""></button>
+    </section>
+    <div id="contactOptionMenu" class="flex-row box-shadow">
+        <div class="contactOptionContainer flex-column">
+            <img src="src/img/join-logo.svg" alt="">
+            <span id="contactOption">Add contact</span>
+            <span id="addContactHeadline">Tasks are better with a team!</span>
+            <div class="contactOptionHorizontalLine"></div>
+        </div>
+        <div class="contactOptionInputContainer flex-row">
+            <i class='bx bx-x curser' onclick="closeContactOptionMenu()"></i>
+            <img id="addContactUserImg" src="src/img/group 13.png" alt="">
+            <div id="editContactInitials" class="contactInitials grid"></div>
+            <form id="contactForm" class="flex-column" onsubmit="addContact(); return false;">
+                <div class="contactInputs flex-column">
+                    <div class="input flex-row curser"><input required id="contactNameInput" type="text"
+                            placeholder="Name"><i class='bx bx-user'></i>
+                    </div>
+                    <div class="input flex-row curser"><input required id="contactEmailInput" type="email"
+                            placeholder="Email"><i class='bx bx-envelope'></i>
+                    </div>
+                    <div class="input flex-row curser"><input required id="contactPhoneInput" type="tel"
+                            placeholder="Phone" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"><i
+                            class='bx bx-phone'></i>
+                    </div>
+                </div>
+                <div id="contactOptionAddContactButtons" class="contactOptionButtons flex-row">
+                    <button class="buttonOption1 flex-row curser" onclick="closeContactOptionMenu()"
+                        type="button">Cancel<i class='bx bx-x'></i></button>
+                    <button class="buttonOption2 flex-row curser" type="button" onclick="addContact()">Create contact<i
+                            class='bx bx-check'></i></button>
+                </div>
+                <div id="contactOptionEditContactButtons" class="contactOptionButtons flex-row d-none">
+                    <button id="deleteContactButton" class="buttonOption1 curser" onclick=""
+                        type="button">Delete</button>
+                    <button id="saveContactButton" class="buttonOption2 saveButton curser" type="button"
+                        onclick="">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="partitionWindow" class="d-none" onclick="closeContactOptionMenu()"></div>
+</body>
+
+</html>
