@@ -208,6 +208,7 @@ body{
 #showCat{
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom: 5px;
     border: 1px solid lightgray;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
