@@ -23,7 +23,7 @@ function createContactGroup(charLowCase, charUpperCase) {
  * @returns {html.template}
  */
 function createContact(x, y, name, email, id) {
-    return `<div class="contact flex-row curser" onclick="openContactInfo(${id})">
+    return `<div id="${id}" class="contact flex-row curser" onclick="openContactInfo(${id})">
     <div id="contactInitials${id}" class="contactInitials grid">${x}${y}</div>
     <div class="contactName flex-column">
         <span class="contactSubListName">${name}</span>

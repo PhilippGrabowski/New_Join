@@ -19,7 +19,7 @@ body {
     font-family: 'Inter', sans-serif;
     scroll-behavior: smooth;
     background-color: var(--white2-color);
-    overflow-x: hidden;
+    overflow: hidden;
 }
   
 .flex-row {

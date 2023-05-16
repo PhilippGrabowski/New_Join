@@ -264,7 +264,24 @@ function addContact() {
     closeContactOptionMenu();
     clearContactMenuInputs();
     loadContacts();
+    document.getElementById(`${newContact['id']}`).scrollIntoView();
     openContactInfo(newContact['id']);
+    showContactConfirmation(newContact['id'], 'Contact successfully created');
+}
+
+/**
+ * Displays the confirmation for 2 seconds that a contact added successfully
+ * 
+ * @param {number} id - ID of new contact
+ */
+function showContactConfirmation(id, confirmation) {
+    document.getElementById('contactConfirmation').innerHTML = confirmation;
+    document.getElementById('contactConfirmation').style.transform = 'translateY(0%)';
+    document.getElementById(`${id}`).style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    setTimeout(() => {
+        document.getElementById('contactConfirmation').style.transform = 'translateY(1000%)';
+        document.getElementById(`${id}`).style.backgroundColor = 'var(--white-color)';
+    }, 2000);
 }
 
 /**
@@ -347,12 +364,14 @@ function getIdForNewContact() {
  * @param {*} index - index of contact
  */
 function saveContact(index) {
-    contacts[index]['name'] = document.getElementById('contactNameInput').value;
-    contacts[index]['email'] = document.getElementById('contactEmailInput').value;
+    contacts[index]['name'] = firstLettersToUpperCase();
+    contacts[index]['email'] = emailToLowerCase();
     contacts[index]['phone'] = document.getElementById('contactPhoneInput').value;
     addContactInformation(contacts[index]['id']);
     closeContactOptionMenu();
     loadContacts();
+    document.getElementById(`${contacts[index]['id']}`).scrollIntoView();
+    showContactConfirmation(contacts[index]['id'], 'Contact successfully edit');
 }
 
 /**
@@ -365,6 +384,18 @@ function deleteContact(index) {
     document.getElementById('contactInfoContainer').style.transform = 'translateX(150%)';
     closeContactOptionMenu();
     loadContacts();
+    showDeleteContactConfirmation();
+}
+
+/**
+ * Displays the confirmation for 2 seconds that a contact was deleted successfully
+ */
+function showDeleteContactConfirmation() {
+    document.getElementById('contactConfirmation').innerHTML = 'Contact successfully deleted';
+    document.getElementById('contactConfirmation').style.transform = 'translateY(0%)';
+    setTimeout(() => {
+        document.getElementById('contactConfirmation').style.transform = 'translateY(1000%)';
+    }, 2000);
 }
 
 /**

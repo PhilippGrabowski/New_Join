@@ -33,6 +33,7 @@
                 <span class="sectionHeaderMenu">Contacts</span>
                 <div class="verticalLine"></div>
                 <span>Better with a team</span>
+                <div id="contactConfirmation" class="confirmation box-shadow"></div>
             </div>
             <div id="contactInfoContainer" class="flex-column">
                 <div class="contact infoContact flex-row">
@@ -92,8 +93,8 @@
                 <div id="contactOptionAddContactButtons" class="contactOptionButtons flex-row">
                     <button class="buttonOption1 flex-row curser" onclick="closeContactOptionMenu()"
                         type="button">Cancel<i class='bx bx-x'></i></button>
-                    <button class="buttonOption2 flex-row curser" type="button" onclick="addContact()">Create contact<i
-                            class='bx bx-check'></i></button>
+                    <button class="buttonOption2 flex-row curser" type="button" onclick="addContact()"
+                        disabled="disabled">Create contact<i class='bx bx-check'></i></button>
                 </div>
                 <div id="contactOptionEditContactButtons" class="contactOptionButtons flex-row d-none">
                     <button id="deleteContactButton" class="buttonOption1 curser" onclick=""
