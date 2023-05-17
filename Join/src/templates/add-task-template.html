@@ -5,11 +5,12 @@
         <div>
             <div class="form-div">
                 <span>Title</span>
-                <input id="title" class="title-input" type="text" placeholder="Enter a title">
+                <input required id="title" class="title-input" type="text" placeholder="Enter a title">
             </div>
             <div class="form-div">
                 <span>Description</span>
-                <textarea id="description" class="desc-input" type="text" placeholder="Enter a Description"></textarea>
+                <textarea required id="description" class="desc-input" type="text"
+                    placeholder="Enter a Description"></textarea>
             </div>
 
             <div class="form-div">
@@ -19,21 +20,10 @@
                     <img onclick="openCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
                 <div class="d-none" id="showCat">
-                    <div>
                         <div class="cat">New Category</div>
-                        <div class="cat">
-                            Media
-                            <span class="circle" style="background-color: red;"></span>
-                        </div>
-                        <div class="cat">
-                            Web
-                            <span class="circle" style="background-color: green;"></span>
-                        </div>
-                        <div class="cat">
-                            Testing
-                            <span class="circle" style="background-color: purple;"></span>
-                        </div>
-                    </div>
+                        <div onclick="selectCategory(0)" class="cat" id="0">Media<span class="circle" style="background-color: red;"></span></div>
+                        <div onclick="selectCategory(1)" class="cat" id="1">Web<span class="circle" style="background-color: green;"></span></div>
+                        <div onclick="selectCategory(2)" class="cat" id="2">Testing<span class="circle" style="background-color: purple;"></span></div>
                 </div>
             </div>
             <div class="form-div">
@@ -65,10 +55,10 @@
                 <button onclick="selectedPrio(0)" class="prio-input" id="urgent">Urgent
                     <img id="img-urgent" src="src/img/urgent.svg" alt="">
                 </button>
-                <button onclick="selectedPrio(1)"  class="prio-input" id="medium">Medium
+                <button onclick="selectedPrio(1)" class="prio-input" id="medium">Medium
                     <img id="img-medium" src="src/img/medium.svg" alt="">
                 </button>
-                <button onclick="selectedPrio(2)"  class="prio-input" id="low">Low
+                <button onclick="selectedPrio(2)" class="prio-input" id="low">Low
                     <img id="img-low" src="src/img/low.svg" alt="">
                 </button>
 
@@ -80,8 +70,8 @@
             <img class="plus-icon cursor" src="img/plus.svg" alt="">
         </div>
         <div class="submit-btn-container">
-            <button class="cancel-btn">Cancel</button>
-            <button class="create-btn">Create Task</button>
+            <button onclick="closeAddTask()" class="cancel-btn">Cancel</button>
+            <button onclick="createTask()" class="create-btn">Create Task</button>
         </div>
     </div>
 </div>

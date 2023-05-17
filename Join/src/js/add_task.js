@@ -8,11 +8,34 @@ let priorities = [
     { priority: 'low', color: 'green' },
 ]
 let prio;
+let categoryColors = [
+    {color: 'red'},
+    {color: 'green'},
+    {color: 'purple'},
+]
 
 function createTask() {
     let title = document.getElementById('title');
     let description = document.getElementById('description');
     let category = document.getElementById('selectedCategory');
+    let dueDate = document.getElementById('dueDate');
+
+    if(title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0){
+        tasks.push(pushTask(title,description,dueDate,prio,category));
+        //closeAddTask()
+    }
+
+}
+
+function pushTask(title, description, duedate, prio, category){
+    let task = {
+        'title': title.value,
+        'description': description.value,
+        'duedate': duedate.value,
+        'priority': prio,
+        'category': category.textContent
+    }
+    return task;
 }
 
 function openCategories() {
@@ -37,6 +60,16 @@ function selectedPrio(selected) {
     resetSelectedColor(selected);
 }
 
+function selectCategory(cat){
+    let category = document.getElementById(`${cat}`).textContent;
+    document.getElementById('selectedCategory').innerHTML = `<div class="selected-category"><span>${category}</span><span class="circle" style="background-color:${categoryColors[cat].color}"></span></div>`
+    document.getElementById('showCat').classList.add('d-none');
+    document.getElementById('category').style.borderBottom = "1px solid lightgray";
+    document.getElementById('category').style.borderBottomLeftRadius = "8px";
+    document.getElementById('category').style.borderBottomRightRadius = "8px";
+    console.log(category);
+}
+
 function setSelectedColor(id) {
     let selected = document.getElementById(`${priorities[id].priority}`);
     selected.style.backgroundColor = `${priorities[id].color}`;
@@ -56,4 +89,8 @@ function resetSelectedColor(id) {
         }
         
     }
+}
+
+function closeAddTask(){
+    document.location = "board.html";
 }
