@@ -1,6 +1,6 @@
 /* Body */
 
-body{
+body {
     user-select: none;
 }
 
@@ -100,11 +100,11 @@ body{
     font-size: 60px;
 }
 
-#search-and-add{
+#search-and-add {
     margin-right: 16px;
 }
 
-#search-task{
+#search-task {
     background-color: #fff !important;
     border-radius: 15px;
     height: 50px;
@@ -149,13 +149,70 @@ body{
     align-items: center;
 }
 
+.task-column-header img {
+    cursor: pointer;
+}
+
+.task-column-header img:hover {
+    filter: invert(61%) sepia(25%) saturate(1347%) hue-rotate(155deg) brightness(92%) contrast(92%);
+    transition: ease-in-out 125ms;
+}
+
 .board-task-box {
-    height: 100px;
     width: 100%;
     background-color: #fff;
     padding: 16px;
     border-radius: 15px;
     margin-top: 32px;
+}
+
+.board-task-box span {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 4px 12px;
+    background-color: blue;
+    border-radius: 5px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+}
+
+.board-task-box h3 {
+    font-size: 15px;
+    padding: 12px 0px 8px 0px;
+}
+
+.board-task-box p {
+    color: #A8A8A8;
+    font-size: 15px;
+}
+
+.add-task-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: ease-in-out 225ms;
+}
+
+.add-task-container-board {
+    position: relative;
+    padding: 35px;
+    border-radius: 25px;
+    background-color: #fff;
+    margin: 50px;
+    height: 90%;
+}
+
+.close-window {
+    z-index: 200;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
 }
 
 /* Board-End*/
@@ -203,11 +260,15 @@ body{
     width: 12px;
     height: 12px;
     border-radius: 100%;
-  }
+}
 
-#showCat{
-    padding-left: 10px;
-    padding-right: 10px;
+.selected-category {
+    display: flex;
+    align-items: center;
+}
+
+#showCat {
+    padding-bottom: 5px;
     border: 1px solid lightgray;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -215,7 +276,7 @@ body{
     margin-top: -5px;
 }
 
-.cat{
+.cat {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -224,7 +285,8 @@ body{
     padding-top: 4px;
     padding-bottom: 4px;
 }
-.cat:hover{
+
+.cat:hover {
     background-color: lightgray;
     border-radius: 4px;
 }
@@ -319,6 +381,7 @@ body{
     border: 1px solid lightgray;
     border-radius: 8px;
 }
+
 .assigned-dropdown-div {
     display: flex;
     justify-content: space-between;
@@ -342,7 +405,7 @@ body{
     border-radius: 8px;
     font-size: 16px;
     resize: none;
-    word-break: break-all;
+    word-wrap: break-word;
 }
 
 /*Contacts*/
@@ -462,7 +525,7 @@ body{
     border: 3px solid #29ABE2;
 }
 
-.sectionHeader span ~ span {
+.sectionHeader span~span {
     font-weight: 400;
     font-size: var(--font-size-27);
 }
@@ -509,7 +572,7 @@ body{
     gap: 13px;
 }
 
-.infoContactName a > span {
+.infoContactName a>span {
     font-weight: 400;
     font-size: var(--font-size-16);
 }
@@ -518,7 +581,7 @@ body{
     stroke-width: 3;
 }
 
-.infoContactName a:hover > span {
+.infoContactName a:hover>span {
     font-weight: 600;
 }
 
@@ -572,7 +635,7 @@ body{
     font-size: var(--font-size-16);
 }
 
-.information span ~ span {
+.information span~span {
     font-weight: 400;
 }
 
@@ -648,7 +711,7 @@ body{
     position: relative;
 }
 
-.contactOptionInputContainer > i {
+.contactOptionInputContainer>i {
     position: absolute;
     font-size: var(--font-size-27);
     color: var(--darkBlue-color);
