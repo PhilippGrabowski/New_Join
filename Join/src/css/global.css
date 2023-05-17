@@ -59,6 +59,12 @@ body {
 
 .button {
     background-color: #2A3647;
+    cursor: pointer;
+}
+
+.button-hover:hover {
+    background-color: #29abe2;
+    transition: ease-in-out 125ms;
 }
 
 .filter-white {

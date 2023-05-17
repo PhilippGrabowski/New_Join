@@ -149,13 +149,42 @@ body{
     align-items: center;
 }
 
+.task-column-header img {
+    cursor: pointer;
+}
+
+.task-column-header img:hover {
+    filter: invert(61%) sepia(25%) saturate(1347%) hue-rotate(155deg) brightness(92%) contrast(92%);
+    transition: ease-in-out 125ms;
+}
+
 .board-task-box {
-    height: 100px;
     width: 100%;
     background-color: #fff;
     padding: 16px;
     border-radius: 15px;
     margin-top: 32px;
+}
+
+.board-task-box span {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 4px 12px;
+    background-color: blue;
+    border-radius: 5px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+}
+
+.board-task-box h3 {
+    font-size: 15px;
+    padding: 12px 0px 8px 0px;
+}
+
+.board-task-box p {
+    color: #A8A8A8;
+    font-size: 15px;
 }
 
 /* Board-End*/
