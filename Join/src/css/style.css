@@ -835,3 +835,22 @@ body {
     font-size: var(--font-size-12);
     color: var(--white-color);
 }
+
+#existingContactInfo {
+    gap: 30px;
+}
+
+#matchingInputsReport {
+    font-weight: 600;
+    font-size: var(--font-size-27);
+}
+
+#existingContactInfoButtons {
+    gap: 20px;
+}
+
+#existingContactInfoButtons button {
+    padding: 6px;
+    border-radius: 6px;
+}
+

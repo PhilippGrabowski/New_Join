@@ -270,8 +270,8 @@ function closeErrorReports() {
  * Displays confirmation when Contact successfully created
  */
 function addContact() {
-    if (contactNotAdded()) {
-        let newContact = createNewContact();
+    let newContact = createNewContact();
+    if (contactNotAdded(newContact)) {
         contacts.push(newContact);
         closeContactMenu();
         clearContactMenuInputs();
@@ -444,11 +444,29 @@ window.addEventListener('load', function() {
     deSVG('.addTaskImg', true);
 });
 
-function contactNotAdded() {
-    // for (i = 0; i < contactInputs.length; i++) {
-        
-    // } 
+function contactNotAdded(newContact) {
+    for (i = 0; i < contacts.length; i++) {
+        if (contacts[i]['name'] === newContact['name'] && contacts[i]['email'] === newContact['email']) {
+            openExistingContactInfo(i, 'email');
+            return false;
+        } else if (contacts[i]['name'] === newContact['name'] && contacts[i]['phone'] === newContact['phone']) {
+            openExistingContactInfo(i, 'phone number');
+            return false;
+        }
+    }
     return true;
+}
+
+function openExistingContactInfo(index, contactdata) {
+    changeContactMenuElements('contactForm', 'existingContactInfo');
+    document.getElementById('matchingInputsReport').innerHTML = `The contact with name and ${contactdata} already exist.`;
+    document.getElementById('showContactButton').setAttribute('onclick', `showExistingContact(${index})`);
+}
+
+function showExistingContact(index) {
+    openContactInfo(contacts[index]['id']);
+    closeContactMenu();
+    changeContactMenuElements('existingContactInfo', 'contactForm');
 }
 
 /**

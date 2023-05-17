@@ -6,7 +6,7 @@ const regPhone1 = new RegExp('^[0-9+]+$');
 const regPhone2 = new RegExp('^[0-9+][0-9\\s]*$');
 const regPhone3 = new RegExp('^(?!.* {2})[0-9+][0-9\\s]*$');
 const regPhone4 = regPhone3;
-const regEmail= new RegExp(`^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$`);
+const regEmail= new RegExp(`^[a-zA-Z0-9äÄüÜöÖß_.+-]{3,30}@[a-zA-Z0-9-ß]{3,9}\.[a-z]{2,3}$`);
 let contacts = [
     {
         'id' : 0,
