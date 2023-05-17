@@ -654,6 +654,11 @@ body{
     color: var(--darkBlue-color);
     top: 21px;
     right: 40px;
+    border-radius:50px;
+}
+
+.contactOptionInputContainer > i:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .contactOptionInputContainer img {
@@ -663,13 +668,14 @@ body{
 
 }
 
-.contactOptionInputContainer form {
+#contactForm {
     width: 100%;
-    gap: 45px;
+    margin-top: 20px;
+    gap: 30px;
 }
 
 .contactInputs {
-    gap: 30px;
+    gap: 20px;
 }
 
 .contactInputs input {
@@ -759,4 +765,10 @@ body{
     border-radius: 20px;
     padding: 14px 15px;
     z-index: 3;
+}
+
+.error {
+    font-weight: 400;
+    font-size: var(--font-size-12);
+    color: var(--white-color);
 }
