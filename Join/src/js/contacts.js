@@ -304,7 +304,7 @@ function showContactConfirmation(id, confirmation) {
     document.getElementById('contactConfirmation').style.transform = 'translateY(0%)';
     document.getElementById(`${id}`).style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
     setTimeout(() => {
-        document.getElementById('contactConfirmation').style.transform = 'translateY(1000%)';
+        document.getElementById('contactConfirmation').style.transform = 'translateY(400%)';
         document.getElementById(`${id}`).style.backgroundColor = 'var(--white-color)';
     }, 2000);
 }

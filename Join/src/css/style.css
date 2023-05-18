@@ -11,34 +11,38 @@ body {
 /* Header */
 
 .header {
+    width: 100vw;
+    height: 89px;
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    width: 100vw;
-    height: 89px;
     left: 0px;
     top: 0px;
+    padding: 20px 2.3vw 20px 25vw;
     background-color: var(--white-color);
 }
 
-.header-left {
-    padding-left: 348px;
+.header-right {
+    align-items: center;
+    gap: 26px;
 }
 
-.header-right {
-    padding-right: 36px;
-    gap: 20px;
+#helpLink{
+    width: 31px;
+}
+
+#profilPicture {
+    width: 49px;
 }
 
 .header-text {
     font-size: 21px;
-    font-weight: 400;
 }
 
 /* Menu (Sidemenu) */
 
 .side-bar {
-    width: 232px;
+    width: 15vw;
     height: 100vh;
     align-items: center;
     justify-content: space-around;
@@ -50,28 +54,41 @@ body {
     border-radius: 0px;
 }
 
+#side-bar_join-logo_container {
+    width: 100%;
+    justify-content: center;
+}
+
 .join-logo-pic {
-    width: 90px;
-    height: 110px;
-    object-fit: cover;
+    width: 50%;
+}
+
+.link-container {
+    width: 100%;
+    align-items: center;
 }
 
 .side-bar a {
+    width: 100%;
     text-decoration: none;
     color: var(--white-color);
 }
 
 .side-bar-link {
-    width: 232px;
+    width: 100%;
     height: 60px;
     align-items: center;
     gap: 20px;
-    padding-left: 40px;
+    padding-left: 20%;
     font-size: 16px;
 }
 
 .link-img {
     width: 22px;
+}
+
+#legalNoticeContainer {
+    width: 100%;
 }
 
 .active {
@@ -411,15 +428,14 @@ body {
 /*Contacts*/
 
 #contacts {
-    padding: 8.9rem 0 0 23.2rem;
+    padding: 8.9rem 0 0 15vw;
     width: 100%;
     height: 100%;
 }
 
 #contactList {
-    width: 45.3rem;
+    width: 30vw;
     height: calc(100vh - 89px);
-    padding: 0 4.8rem;
     background-color: var(--white-color);
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
     overflow-y: scroll;
@@ -437,28 +453,31 @@ body {
 #listContainer {
     width: 100%;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1rem 12%;
     gap: 1rem;
 }
 
 .contactGroup {
     width: 100%;
-    align-items: center;
 }
 
 .letter {
-    width: 28.2rem;
+    width: 100%;
     height: 4rem;
-    font-weight: 400;
+    padding-left: 3rem;
     font-size: var(--font-size-21);
     align-items: center;
 }
 
+.line-container {
+    width: 100%;
+    justify-content: center;
+}
 .horizontalLine {
-    width: 32.3rem;
+    width: 90%;
     border: 1px solid #D1D1D1;
     border-radius: 3px;
-    margin: 2.4rem 0 1.4rem;
+    margin: 1.6rem 0 1rem;
 }
 
 .contactSubList {
@@ -468,7 +487,7 @@ body {
 .contact {
     width: 100%;
     align-items: center;
-    padding: 1.5rem 2.5rem;
+    padding: 1.5rem 0 1.5rem 1.5rem;
     gap: 3.5rem;
     border-radius: 10px;
 }
@@ -480,7 +499,6 @@ body {
 .contactInitials {
     width: 42px;
     height: 42px;
-    font-weight: 400;
     font-size: var(--font-size-12);
     color: var(--white-color);
     border-radius: 45px;
@@ -495,17 +513,16 @@ body {
 }
 
 .contactSubListName {
-    font-weight: 400;
     font-size: var(--font-size-21);
 }
 
 .contactSubListEmail {
-    font-weight: 400;
     font-size: var(--font-size-16);
     color: var(--blue-color);
 }
 
 #contactInfo {
+    width: calc(100vw - 45vw);
     padding: 8.2rem 4.7rem 0 5.8rem;
 }
 
@@ -526,7 +543,6 @@ body {
 }
 
 .sectionHeader span~span {
-    font-weight: 400;
     font-size: var(--font-size-27);
 }
 
@@ -572,8 +588,7 @@ body {
     gap: 13px;
 }
 
-.infoContactName a>span {
-    font-weight: 400;
+.infoContactName a > span {
     font-size: var(--font-size-16);
 }
 
@@ -592,7 +607,6 @@ body {
 }
 
 #contactInformation span {
-    font-weight: 400;
     font-size: var(--font-size-21);
 }
 
@@ -607,7 +621,6 @@ body {
 }
 
 #contactInformation a span {
-    font-weight: 400;
     font-size: var(--font-size-16);
 }
 
@@ -641,8 +654,8 @@ body {
 
 #contacts button {
     position: absolute;
-    bottom: 47px;
-    right: 47px;
+    bottom: 7vh;
+    right: 2.3vw;
     font-weight: 700;
     font-size: var(--font-size-21);
     background-color: var(--darkBlue-color);
@@ -675,7 +688,7 @@ body {
 .contactOptionContainer {
     width: 40%;
     height: 100%;
-    padding-left: 4.7rem;
+    padding-left: 4.7%;
     justify-content: center;
     gap: 12px;
     background-color: var(--darkBlue-color);
@@ -693,7 +706,6 @@ body {
 }
 
 #addContactHeadline {
-    font-weight: 400;
     font-size: var(--font-size-21);
 }
 
@@ -711,7 +723,7 @@ body {
     position: relative;
 }
 
-.contactOptionInputContainer>i {
+.contactOptionInputContainer > i {
     position: absolute;
     font-size: var(--font-size-27);
     color: var(--darkBlue-color);
@@ -782,7 +794,6 @@ body {
 }
 
 .buttonOption1 {
-    font-weight: 400;
     font-size: var(--font-size-16);
     background-color: var(--white-color);
     color: var(--darkBlue-color);
@@ -814,15 +825,14 @@ body {
 
 #contactConfirmation {
     position: absolute;
-    bottom: -250px;
-    left: 0px;
-    transform: translateY(1000%);
+    bottom: 7vh;
+    left: calc(100vw - 49.6vw);
+    transform: translateY(400%);
     transition: all 0.3s ease-in-out;
 }
 
 .confirmation {
     font-size: var(--font-size-16);
-    font-weight: 400;
     color: var(--white-color);
     background-color: var(--darkBlue-color);
     border-radius: 20px;
@@ -831,7 +841,6 @@ body {
 }
 
 .error {
-    font-weight: 400;
     font-size: var(--font-size-12);
     color: var(--white-color);
 }
@@ -853,4 +862,3 @@ body {
     padding: 6px;
     border-radius: 6px;
 }
-

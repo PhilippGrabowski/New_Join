@@ -8,7 +8,7 @@
 function createContactGroup(charLowCase, charUpperCase) {
     return `<div class="contactGroup flex-column">
     <div class="letter flex-row">${charUpperCase}</div>
-    <div class="horizontalLine"></div>
+    <div class="line-container flex-row"><div class="horizontalLine"></div></div>
     <div id="group${charLowCase}" class="contactSubList flex-column"></div></div>`;
 }
 

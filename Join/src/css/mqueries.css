@@ -1,0 +1,74 @@
+/* Side-bar*/
+@media (max-width: 1200px) {
+    .side-bar-link {
+        font-size: 14px;
+        padding-left: 15%;
+        gap: 10px;
+    }
+    .link-img {
+        width: 18px;
+    }
+}
+
+/* Contacts */
+@media (max-height: 768px) {
+    :root {
+        /* Font-Size */
+        --font-size-12: 10px;
+        --font-size-14: 12px;
+        --font-size-16: 14px;
+        --font-size-21: 18px;
+        --font-size-23: 21px;
+        --font-size-27: 23px;
+        --font-size-36: 27px;
+        --font-size-47: 36px;
+        --font-size-61: 47px;
+        --font-size-64: 61px;
+    }
+    #contactInfo {
+        padding: 6.5rem 0 0 6.4%;
+    }
+    #contactInfoContainer {
+        gap: 1.6rem;
+    }
+    .infoContact {
+        margin-top: 36px;
+    }
+    #infoInitials {
+        width: 90px;
+        height: 90px;
+    }
+    .infoContactName {
+        gap: 10px;
+    }
+    #contactInformation {
+        height: 5.5rem;
+    }
+    .information {
+        gap: 1.2rem;
+    }
+    #contacts button {
+        padding: 10px 12px;
+    }
+    #contacts button img {
+        height: 18px;
+    }
+    .confirmation {
+        padding: 10px 12px;
+    }
+    .error {
+        font-size: var(--font-size-14);
+    }
+    #contactOption {
+        font-size: var(--font-size-61);
+    }
+    #addContactHeadline {
+        font-size: 21px;
+    }
+}
+@media (max-width: 1200px) {
+    #contactOptionMenu {
+        width: 80vw;
+        left: calc(50% - 40vw);
+    }
+}
