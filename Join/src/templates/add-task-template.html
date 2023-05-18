@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="style.css">
-
 <div class="add-task-container">
     <div class="left-fill-out-form">
         <div>
@@ -20,10 +18,13 @@
                     <img onclick="openCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
                 <div class="d-none" id="showCat">
-                        <div class="cat">New Category</div>
-                        <div onclick="selectCategory(0)" class="cat" id="0">Media<span class="circle" style="background-color: red;"></span></div>
-                        <div onclick="selectCategory(1)" class="cat" id="1">Web<span class="circle" style="background-color: green;"></span></div>
-                        <div onclick="selectCategory(2)" class="cat" id="2">Testing<span class="circle" style="background-color: purple;"></span></div>
+                    <div class="cat">New Category</div>
+                    <div onclick="selectCategory(0)" class="cat" id="0">Media<span class="circle"
+                            style="background-color: red;"></span></div>
+                    <div onclick="selectCategory(1)" class="cat" id="1">Web<span class="circle"
+                            style="background-color: green;"></span></div>
+                    <div onclick="selectCategory(2)" class="cat" id="2">Testing<span class="circle"
+                            style="background-color: purple;"></span></div>
                 </div>
             </div>
             <div class="form-div">
@@ -67,7 +68,7 @@
         <div class="form-div">
             <span>Subtasks</span>
             <input class="title-input" type="text" placeholder="Add new subtask">
-            <img class="plus-icon cursor" src="img/plus.svg" alt="">
+            <img class="plus-icon cursor" src="src/img/plus.svg" alt="">
         </div>
         <div class="submit-btn-container">
             <button onclick="closeAddTask()" class="cancel-btn">Cancel</button>

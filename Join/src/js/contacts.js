@@ -46,12 +46,24 @@ function renderContacts(x) {
         contactSubList.innerHTML = '';
         let names = [];
         filterContactsByChar(names, x);
-        for (let i = 0; i < names.length; i++) {
-            let y = getFirstCharofLastname(i, names);
-            x = x.toUpperCase();
-            contactSubList.innerHTML += createContact(x, y, names[i]['name'], names[i]['email'],  names[i]['id']);
-            document.getElementById(`contactInitials${names[i]['id']}`).style.backgroundColor = names[i]['color'];
-        }
+        createContacts(x, contactSubList, names);
+    }
+}
+
+/**
+ * Iterates through the new array of seperated contacts and determie the first letters of the surname, at the same time the array is sorted alphabetically
+ * then the contact templates are generated and the appropriate background-color is assigned to the initials
+ * 
+ * @param {*} x - The current letter from the loop through the alphabet as a lowercase letter
+ * @param {*} element  - The Id for the element in which the contacts are generated
+ * @param {Array.<{id: Number, name: String, email: String, phone: String, color: String}>} names - Array for seperated contacts 
+ */
+function createContacts(x, element, names) {
+    for (let i = 0; i < names.length; i++) {
+        let y = getFirstCharofLastname(i, names);
+        x = x.toUpperCase();
+        element.innerHTML += createContact(x, y, names[i]['name'], names[i]['email'],  names[i]['id']);
+        document.getElementById(`contactInitials${names[i]['id']}`).style.backgroundColor = names[i]['color'];
     }
 }
 
@@ -89,8 +101,8 @@ function sortFilteredContacts(names) {
 /**
  * Returns first letter of the name as a lowercase letter
  * 
- * @param {number} i - Index of contacts
- * @returns {string} - first letter of the name as a lowercase letter
+ * @param {number} i - Index of contact
+ * @returns {string} - first letter of the name of the contact as a lowercase letter
  */
 function getFirstChar(i) {
     let char = contacts[i]['name'];
@@ -444,6 +456,19 @@ window.addEventListener('load', function() {
     deSVG('.addTaskImg', true);
 });
 
+/**
+ * Checks if the new created contact already exist by iterating through the contact list
+ * if the name and the email or phone number matches with a contact from the contact list, it opens a info container
+ * if not it returns true
+ * 
+ * @param {object} newContact - new created contact
+ * @param {number} newContact.id - id of created contact
+ * @param {string} newContact.name - name of created contact
+ * @param {string} newContact.email - email of created contact
+ * @param {string} newContact.phone - phone of created contact
+ * @param {string} newContact.color - background-color for initial container of created contact
+ * @returns {boolean}
+ */
 function contactNotAdded(newContact) {
     for (i = 0; i < contacts.length; i++) {
         if (contacts[i]['name'] === newContact['name'] && contacts[i]['email'] === newContact['email']) {
@@ -457,12 +482,23 @@ function contactNotAdded(newContact) {
     return true;
 }
 
+/**
+ * Opens the info container about a existing contact
+ * 
+ * @param {number} index - index of existing contact
+ * @param {string} contactdata - the matching input (email or phone number)
+ */
 function openExistingContactInfo(index, contactdata) {
     changeContactMenuElements('contactForm', 'existingContactInfo');
     document.getElementById('matchingInputsReport').innerHTML = `The contact with name and ${contactdata} already exist.`;
     document.getElementById('showContactButton').setAttribute('onclick', `showExistingContact(${index})`);
 }
 
+/**
+ * Opens the contact info container of the existing contact
+ * 
+ * @param {*} index index of existing contact
+ */
 function showExistingContact(index) {
     openContactInfo(contacts[index]['id']);
     closeContactMenu();
@@ -494,23 +530,23 @@ function checkEmailInput() {
     let input = document.getElementById(contactInputs[1]['inputID']).value;
     if (charIsNotValid(regEmail, input) && input != '') {
         displayError(contactInputs[1]['errorReportID'], contactInputs[1]['errorReportText'][0]);
-    } else if (charIsNotValid(regEmail, input) == false && input.length > contactInputs[1]['inputlenght']) {
-        document.getElementById(contactInputs[1]['errorReportID']).innerHTML = contactInputs[1]['validReportText'];
-        document.getElementById(contactInputs[1]['errorReportID']).style.color = 'var(--darkGreen-color)';
     } else if (input == '') {
         document.getElementById(contactInputs[1]['errorReportID']).style.color = 'var(--white-color)';
     }
+    displayValidInputs();
 }
 
 /**
- * checks after leaving inputfield if input is valid
+ * checks after leaving inputfield if every input is valid
  *  if input is valid, a report will be displayed
  */
-function displayValidInput(index) {
-    let input = document.getElementById(contactInputs[index]['inputID']).value;
-    if (charIsNotValid(contactInputs[index]['regex'][3], input) == false && input.length > contactInputs[index]['inputlenght']) {
-        document.getElementById(contactInputs[index]['errorReportID']).innerHTML = contactInputs[index]['validReportText'];
-        document.getElementById(contactInputs[index]['errorReportID']).style.color = 'var(--darkGreen-color)';
+function displayValidInputs() {
+    for (let i = 0; i < contactInputs.length; i++) {
+        let input = document.getElementById(contactInputs[i]['inputID']).value;
+        if (charIsNotValid(contactInputs[i]['regex'][3], input) == false && input.length > contactInputs[i]['inputlenght']) {
+            document.getElementById(contactInputs[i]['errorReportID']).innerHTML = contactInputs[i]['validReportText'];
+            document.getElementById(contactInputs[i]['errorReportID']).style.color = 'var(--darkGreen-color)';
+        }
     }
 }
 

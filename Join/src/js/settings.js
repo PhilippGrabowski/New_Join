@@ -92,7 +92,7 @@ let contactInputs = [
     {
         'inputID' : 'contactEmailInput',
         'inputlenght' : 7,
-        'regex' : [regEmail],
+        'regex' : [regEmail, regEmail, regEmail, regEmail],
         'errorReportID' : 'emailError',
         'errorReportText' : ['error: email is not valid'],
         'validReportText' : 'valid email'

@@ -83,7 +83,7 @@
                         <div class="input flex-row curser"><input required id="contactNameInput" type="text"
                                 placeholder="Name" minlength="3"
                                 pattern="^(?!.* {2})[a-zA-Z][a-zA-Z]*([ ]+[a-zA-Z][a-zA-Z]*)+$" onkeyup="checkInput(0)"
-                                onblur="displayValidInput(0)"><i class='bx bx-user'></i>
+                                onblur="displayValidInputs()"><i class='bx bx-user'></i>
                         </div>
                         <span id="nameError" class="error">valid firstname (secondname) lastname</span>
                     </div>
@@ -99,7 +99,7 @@
                         <div class="input flex-row curser"><input required id="contactPhoneInput" type="tel"
                                 placeholder="Phone" minlength="10"
                                 pattern="^(?!.* {2})[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" onkeyup="checkInput(2)"
-                                onblur="displayValidInput(2)"><i class='bx bx-phone'></i>
+                                onblur="displayValidInputs()"><i class='bx bx-phone'></i>
                         </div>
                         <span id="phoneError" class="error">valid phone number</span>
                     </div>

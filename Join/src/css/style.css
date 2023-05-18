@@ -31,7 +31,7 @@ body {
 }
 
 .header-text {
-    font-size: var(--font-size-21);
+    font-size: 21px;
     font-weight: 400;
 }
 
@@ -67,7 +67,7 @@ body {
     align-items: center;
     gap: 20px;
     padding-left: 40px;
-    font-size: var(--font-size-16);
+    font-size: 16px;
 }
 
 .link-img {
