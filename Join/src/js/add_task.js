@@ -1,7 +1,40 @@
 const STORAGE_TOKEN = 'D4DBS7MA276TXS8PQ3TJKAHG12EW5IEPOBMLYDL9';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 loadTasks();
-let tasks = [];
+let tasks = [
+    {
+        'title': 'Test',
+        'description': 'Test',
+        'duedate': 'Test',
+        'priority': 'Test',
+        'category': 'Test',
+        'status': 'open'
+    },
+    {
+        'title': 'Test',
+        'description': 'Test',
+        'duedate': 'Test',
+        'priority': 'Test',
+        'category': 'Test',
+        'status': 'progress'
+    },
+    {
+        'title': 'Test',
+        'description': 'Test',
+        'duedate': 'Test',
+        'priority': 'Test',
+        'category': 'Test',
+        'status': 'feedback'
+    },
+    {
+        'title': 'Test',
+        'description': 'Test',
+        'duedate': 'Test',
+        'priority': 'Test',
+        'category': 'Test',
+        'status': 'done'
+    }
+];
 let priorities = [
     { priority: 'urgent', color: 'red' },
     { priority: 'medium', color: 'orange' },
@@ -38,7 +71,8 @@ function pushTask(title, description, duedate, prio, category) {
         'description': description.value,
         'duedate': duedate.value,
         'priority': prio,
-        'category': category.textContent
+        'category': category.textContent,
+        'status': 'open'
     }
     return task;
 }

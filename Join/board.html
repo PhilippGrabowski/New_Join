@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="src/css/global.css">
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/mqueries.css">
+    <script src="src/js/add_task.js"></script>
     <script src="src/js/settings.js"></script>
     <script src="src/js/templates.js"></script>
     <script src="src/js/board.js"></script>
@@ -17,7 +18,7 @@
     <title>Join - Board</title>
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(), updateHTML();">
 
     <div id="add-task-overlay" class="add-task-overlay" style="transform: translateX(2000px);">
         <div id="add-task-container-board" class="add-task-container-board">
@@ -61,6 +62,7 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <div class="task-container flex-column" id="board-in-progress">
                     <div class="task-column-header flex-row">
                         <h2>In progress</h2>
@@ -95,6 +97,46 @@
                         <h3>Website redesign</h3>
                         <p>Modify the contents...</p>
                     </div>
+=======
+        <div class="flex-row" id="tasks-container">
+            <div class="task-status-container flex-column">
+                <div class="task-column-header flex-row">
+                    <h2>To do</h2>
+                    <img src="src/img/plus-button.svg" alt="">
+                </div>
+                <div class="task-container flex-column" id="board-to-do">
+
+                </div>
+            </div>
+
+            <div class="task-status-container flex-column">
+                <div class="task-column-header flex-row">
+                    <h2>In progress</h2>
+                    <img src="src/img/plus-button.svg" alt="">
+                </div>
+                <div class="task-container flex-column" id="board-in-progress">
+
+                </div>
+            </div>
+
+            <div class="task-status-container flex-column">
+                <div class="task-column-header flex-row">
+                    <h2>Awaiting feedback</h2>
+                    <img src="src/img/plus-button.svg" alt="">
+                </div>
+                <div class="task-container flex-column" id="board-awaiting-feedback">
+
+                </div>
+            </div>
+
+            <div class="task-status-container flex-column">
+                <div class="task-column-header flex-row">
+                    <h2>Done</h2>
+                    <img src="src/img/plus-button.svg" alt="">
+                </div>
+                <div class="task-container flex-column" id="board-task-done">
+
+>>>>>>> a3944eb28c4ace089fe9b1b15a23102a04c7b867
                 </div>
             </div>
         </div>
