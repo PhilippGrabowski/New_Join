@@ -55,8 +55,8 @@ function updateTaskDone(){
 
 function generateTaskCard(element){
     return /*html*/`
-        <div class="task-container flex-column" id="board-to-do">
-            <div class="board-task-box">
+        <div draggable="true" class="board-task-box flex-column">
+            <div>
                 <span>${element['category']}</span>
                 <h3>${element['title']}</h3>
                 <p>${element['description']}</p>

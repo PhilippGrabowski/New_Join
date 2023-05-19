@@ -152,6 +152,7 @@ body {
 #tasks-container {
     gap: 16px;
     padding-top: 96px;
+    width: 100%;
 }
 
 .task-status-container {
@@ -178,6 +179,7 @@ body {
     padding: 16px;
     border-radius: 15px;
     margin-top: 32px;
+    cursor: grab;
 }
 
 .board-task-box span {

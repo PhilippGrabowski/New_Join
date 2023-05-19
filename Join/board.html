@@ -46,47 +46,50 @@
             </div>
 
             <div class="flex-row" id="tasks-container">
-                <div class="task-status-container flex-column">
-                    <div class="task-column-header flex-row">
-                        <h2>To do</h2>
-                        <img src="src/img/plus-button.svg" alt="">
-                    </div>
-                    <div class="task-container flex-column" id="board-to-do">
 
+
+                <div class="flex-row" id="tasks-container">
+                    <div ondragover="allowDrop(event)" class="task-status-container flex-column">
+                        <div class="task-column-header flex-row">
+                            <h2>To do</h2>
+                            <img src="src/img/plus-button.svg" alt="">
+                        </div>
+                        <div class="task-container flex-column" id="board-to-do">
+
+                        </div>
+                    </div>
+
+                    <div ondragover="allowDrop(event)" class="task-status-container flex-column">
+                        <div class="task-column-header flex-row">
+                            <h2>In progress</h2>
+                            <img src="src/img/plus-button.svg" alt="">
+                        </div>
+                        <div class="task-container flex-column" id="board-in-progress">
+
+                        </div>
+                    </div>
+
+                    <div ondragover="allowDrop(event)" class="task-status-container flex-column">
+                        <div class="task-column-header flex-row">
+                            <h2>Awaiting feedback</h2>
+                            <img src="src/img/plus-button.svg" alt="">
+                        </div>
+                        <div class="task-container flex-column" id="board-awaiting-feedback">
+
+                        </div>
+                    </div>
+
+                    <div ondragover="allowDrop(event)" class="task-status-container flex-column">
+                        <div class="task-column-header flex-row">
+                            <h2>Done</h2>
+                            <img src="src/img/plus-button.svg" alt="">
+                        </div>
+                        <div class="task-container flex-column" id="board-task-done">
+
+                        </div>
                     </div>
                 </div>
-
-                <div class="task-status-container flex-column">
-                    <div class="task-column-header flex-row">
-                        <h2>In progress</h2>
-                        <img src="src/img/plus-button.svg" alt="">
-                    </div>
-                    <div class="task-container flex-column" id="board-in-progress">
-
-                    </div>
-                </div>
-
-                <div class="task-status-container flex-column">
-                    <div class="task-column-header flex-row">
-                        <h2>Awaiting feedback</h2>
-                        <img src="src/img/plus-button.svg" alt="">
-                    </div>
-                    <div class="task-container flex-column" id="board-awaiting-feedback">
-
-                    </div>
-                </div>
-
-                <div class="task-status-container flex-column">
-                    <div class="task-column-header flex-row">
-                        <h2>Done</h2>
-                        <img src="src/img/plus-button.svg" alt="">
-                    </div>
-                    <div class="task-container flex-column" id="board-task-done">
-
-                    </div>
-                </div>
-            </div>
-
+    </section>
 
 </body>
 
