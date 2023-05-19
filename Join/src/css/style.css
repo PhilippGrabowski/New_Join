@@ -152,6 +152,7 @@ body {
 #tasks-container {
     gap: 16px;
     padding-top: 96px;
+    width: 100%;
 }
 
 .task-status-container {
