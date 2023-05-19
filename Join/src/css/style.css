@@ -181,6 +181,7 @@ body {
     padding: 16px;
     border-radius: 15px;
     margin-top: 32px;
+    cursor: grab;
 }
 
 .board-task-box span {
