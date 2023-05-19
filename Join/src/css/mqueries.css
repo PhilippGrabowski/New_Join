@@ -1,4 +1,10 @@
 /* Side-bar*/
+@media (min-width: 1920px) {
+    .side-bar {
+        width: 288px;
+    }
+}
+
 @media (max-width: 1200px) {
     .side-bar-link {
         font-size: 14px;
@@ -7,6 +13,57 @@
     }
     .link-img {
         width: 18px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .side-bar {
+        width: 150px;
+    }
+}
+
+/* Board */
+@media (min-width: 1920px) {
+    #board-section {
+        padding: 8.9rem 0 0 28.8rem;
+    }
+    #board-content {
+        width: calc(100vw - 28.8rem);
+    }
+}
+
+@media (max-width: 1000px) {
+    #board-section {
+        padding: 8.9rem 0 0 150px;
+    }
+    #board-content {
+        width: calc(100vw - 150px);
+    }
+}
+
+/* Add Task */
+@media (max-height: 768px) {
+    .main-add-task-container {
+        padding: 6.5rem 0 0 6.4%;
+        gap: 20px;
+    }
+}
+
+@media (min-width: 1920px) {
+    #add-task-section {
+        padding: 8.9rem 0 0 28.8rem;
+    }
+    .main-add-task-container {
+        width: calc(100vw - 28.8rem);
+    }
+}
+
+@media (max-width: 1000px) {
+    #add-task-section {
+        padding: 8.9rem 0 0 150px;
+    }
+    .main-add-task-container {
+        width: calc(100vw - 150px);
     }
 }
 
@@ -25,7 +82,7 @@
         --font-size-61: 47px;
         --font-size-64: 61px;
     }
-    #contactInfo {
+    #contactInfo, .main-add-task-container {
         padding: 6.5rem 0 0 6.4%;
     }
     #contactInfoContainer {
@@ -66,9 +123,57 @@
         font-size: 21px;
     }
 }
+
+@media (min-width: 1920px) {
+    #contacts {
+        padding: 8.9rem 0 0 28.8rem;
+    }
+    #contactList {
+        width: 57.6rem;
+    }
+    #contactInfo {
+        width: calc(100vw - 86.4rem);
+    }
+}
+
 @media (max-width: 1200px) {
     #contactOptionMenu {
         width: 80vw;
         left: calc(50% - 40vw);
+    }
+    .contact {
+        gap: 1.5rem;
+    }
+    .contactSubListName {
+        font-size: 16px;
+    }
+    #listContainer {
+        padding: 1rem 6%;
+    }
+}
+
+@media (max-width: 1000px) {
+    #contacts, #add-task-section {
+        padding: 8.9rem 0 0 150px;
+    }
+    #contactList {
+        width: 100px;
+    }
+    #listContainer {
+        padding: 1rem 15px;
+    }
+    .letter {
+        padding-left: 2.7rem;
+    }
+    .horizontalLine {
+        margin: 1.6rem 0 1rem 0.2rem;
+    }
+    .contact {
+        display: -webkit-box;
+        overflow-x: hidden;
+        padding: 1.5rem 0 1.5rem 1.1rem;
+    }
+    #contactInfo, .main-add-task-container {
+        width: calc(100vw - 250px);
     }
 }
