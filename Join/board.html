@@ -32,71 +32,73 @@
     <div class="header-includer" w3-include-html="src/templates/header.html"></div>
     <div class="sidebar-includer" w3-include-html="src/templates/sidebar.html"></div>
 
-    <div class="* flex-column" id="board-content">
-        <div class="flex-row" id="board-header">
-            <h1>Board</h1>
-            <div id="search-and-add" class="flex-row">
-                <input class="search-icon" id="search-task" placeholder="Find Task" type="text">
-                <button onclick="openAddTask()" id="add-task-button" class="button flex-row button-hover">Add task <img
-                        class="filter-white" src="./src/img/plus.svg"></button>
+    <section id="board-section">
+        <div class="* flex-column" id="board-content">
+            <div class="flex-row" id="board-header">
+                <h1>Board</h1>
+                <div id="search-and-add" class="flex-row">
+                    <input class="search-icon" id="search-task" placeholder="Find Task" type="text">
+                    <button onclick="openAddTask()" id="add-task-button" class="button flex-row button-hover">Add task
+                        <img class="filter-white" src="./src/img/plus.svg"></button>
+                </div>
+
             </div>
 
+            <div class="flex-row" id="tasks-container">
+                <div class="task-container flex-column" id="board-to-do">
+                    <div class="task-column-header flex-row">
+                        <h2>To do</h2>
+                        <img src="src/img/plus-button.svg" alt="">
+                    </div>
+                    <div class="board-task-box">
+                        <span>Design</span>
+                        <h3>Website redesign</h3>
+                        <p>Modify the contents...</p>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0"
+                        aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="task-container flex-column" id="board-in-progress">
+                    <div class="task-column-header flex-row">
+                        <h2>In progress</h2>
+                        <img src="src/img/plus-button.svg" alt="">
+                    </div>
+                    <div class="board-task-box">
+                        <span>Design</span>
+                        <h3>Website redesign</h3>
+                        <p>Modify the contents...</p>
+                    </div>
+                </div>
+
+                <div class="task-container flex-column" id="board-awaiting-fb">
+                    <div class="task-column-header flex-row">
+                        <h2>Awaiting Feedback</h2>
+                        <img src="src/img/plus-button.svg" alt="">
+                    </div>
+                    <div class="board-task-box">
+                        <span>Design</span>
+                        <h3>Website redesign</h3>
+                        <p>Modify the contents...</p>
+                    </div>
+                </div>
+
+                <div class="task-container flex-column" id="board-task-done">
+                    <div class="task-column-header flex-row">
+                        <h2>Done</h2>
+                        <img src="src/img/plus-button.svg" alt="">
+                    </div>
+                    <div class="board-task-box">
+                        <span>Design</span>
+                        <h3>Website redesign</h3>
+                        <p>Modify the contents...</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="flex-row" id="tasks-container">
-            <div class="task-container flex-column" id="board-to-do">
-                <div class="task-column-header flex-row">
-                    <h2>To do</h2>
-                    <img src="src/img/plus-button.svg" alt="">
-                </div>
-                <div class="board-task-box">
-                    <span>Design</span>
-                    <h3>Website redesign</h3>
-                    <p>Modify the contents...</p>
-                </div>
-                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
-                    aria-valuemax="100">
-                    <div class="progress-bar" style="width: 0%"></div>
-                </div>
-            </div>
-
-            <div class="task-container flex-column" id="board-in-progress">
-                <div class="task-column-header flex-row">
-                    <h2>In progress</h2>
-                    <img src="src/img/plus-button.svg" alt="">
-                </div>
-                <div class="board-task-box">
-                    <span>Design</span>
-                    <h3>Website redesign</h3>
-                    <p>Modify the contents...</p>
-                </div>
-            </div>
-
-            <div class="task-container flex-column" id="board-awaiting-fb">
-                <div class="task-column-header flex-row">
-                    <h2>Awaiting Feedback</h2>
-                    <img src="src/img/plus-button.svg" alt="">
-                </div>
-                <div class="board-task-box">
-                    <span>Design</span>
-                    <h3>Website redesign</h3>
-                    <p>Modify the contents...</p>
-                </div>
-            </div>
-
-            <div class="task-container flex-column" id="board-task-done">
-                <div class="task-column-header flex-row">
-                    <h2>Done</h2>
-                    <img src="src/img/plus-button.svg" alt="">
-                </div>
-                <div class="board-task-box">
-                    <span>Design</span>
-                    <h3>Website redesign</h3>
-                    <p>Modify the contents...</p>
-                </div>
-            </div>
-        </div>
-
+    </section>
 
 </body>
 

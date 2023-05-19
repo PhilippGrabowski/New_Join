@@ -20,7 +20,12 @@
 <body onload="includeHTML()">
     <div class="header-includer" w3-include-html="src/templates/header.html"></div>
     <div class="sidebar-includer" w3-include-html="src/templates/sidebar.html"></div>
-    <div class="main-add-task" w3-include-html="src/templates/add-task-template.html"></div>
+    <section id="add-task-section">
+        <article class="main-add-task-container flex-column">
+            <span class="sectionHeaderMenu">Add Task</span>
+            <div class="main-add-task" w3-include-html="src/templates/add-task-template.html"></div>
+        </article>
+    </section>
 
 </body>
 
