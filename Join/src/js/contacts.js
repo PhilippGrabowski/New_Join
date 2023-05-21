@@ -132,8 +132,36 @@ function getFirstCharofLastname(i, array) {
  * @param {number} id - ID of contact
  */
 function openContactInfo(id) {
+    if (window.innerWidth <= 600) {
+        document.getElementById('contactList').style.display = 'none';
+        document.getElementById('newContactButton').style.display = 'none';
+        document.getElementById('contactInfo').style.display = 'unset';
+        displayContactInfoButtons(id);
+    }
     document.getElementById('contactInfoContainer').style.transform = 'translateX(0)';
     addContactInformation(id);
+}
+
+/**
+ * Displays the mobile contact-info buttons
+ * 
+ * @param {*} id - ID of contact
+ */
+function displayContactInfoButtons(id) {
+    let contactIndex =  getIndexOfContact(id);
+    document.getElementById('mobilContactInfoButtonContainer').innerHTML = createContactInfoButtons(contactIndex);
+    document.getElementById('mobilContactInfoButtonContainer').style.display = 'flex';
+}
+
+/**
+ * Closes contact-info and opens contact-list
+ */
+function closeContactInfo() {
+    document.getElementById('contactList').style.display = 'unset';
+    document.getElementById('newContactButton').style.display = 'unset';
+    document.getElementById('contactInfo').style.display = 'none';
+    document.getElementById('mobilContactInfoButtonContainer').style.display = 'none';
+    document.getElementById('contactInfoContainer').style.transform = 'translateX(150%)';
 }
 
 /**
@@ -148,6 +176,9 @@ function addContactInformation(id) {
     document.getElementById('infoEmail').innerHTML = contacts[id]['email'];
     document.getElementById('infoPhone').innerHTML = contacts[id]['phone'];
     document.getElementById('editContactLink').setAttribute('onclick', `openContactMenu('edit',${id})`);
+    if (window.innerWidth <= 600) {
+    document.getElementById('mobilEditContactImg').setAttribute('onclick', `openContactMenu('edit',${id})`);
+    }
 }
 
 /**
@@ -189,8 +220,8 @@ function openAddContactMenu() {
     document.getElementById('contactOption').innerHTML = 'Add contact';
     document.getElementById('addContactHeadline').classList.remove('d-none');
     document.getElementById('contactForm').setAttribute('onsubmit', 'addContact(); return false;');
-    changeContactMenuElements('contactOptionEditContactButtons', 'contactOptionAddContactButtons');
-    changeContactMenuElements('editContactInitials', 'addContactUserImg');
+    switchContactElements('contactOptionEditContactButtons', 'contactOptionAddContactButtons');
+    switchContactElements('editContactInitials', 'addContactUserImg');
     clearContactMenuInputs();
 }
 
@@ -203,8 +234,8 @@ function openEditContactMenu(id) {
     document.getElementById('contactOption').innerHTML = 'Edit contact';
     document.getElementById('addContactHeadline').classList.add('d-none');
     document.getElementById('contactForm').setAttribute('onsubmit', 'saveContact(); return false;');
-    changeContactMenuElements('contactOptionAddContactButtons', 'contactOptionEditContactButtons');
-    changeContactMenuElements('addContactUserImg', 'editContactInitials');
+    switchContactElements('contactOptionAddContactButtons', 'contactOptionEditContactButtons');
+    switchContactElements('addContactUserImg', 'editContactInitials');
     fillEditContactMenuElements(id);
 }
 
@@ -214,7 +245,7 @@ function openEditContactMenu(id) {
  * @param {string} element1 - ID of the Container for hiding the element
  * @param {string} element2 - ID of the Container for displaying the element
  */
-function changeContactMenuElements(element1, element2) {
+function switchContactElements(element1, element2) {
     document.getElementById(element1).classList.add('d-none');
     document.getElementById(element2).classList.remove('d-none');
 }
@@ -407,7 +438,11 @@ function saveContact(index) {
 function deleteContact(index) {
     contacts.splice(index, 1);
     document.getElementById('contactInfoContainer').style.transform = 'translateX(150%)';
-    closeContactMenu();
+    if (window.innerWidth <= 600) {
+        closeContactInfo();
+    } else {
+        closeContactMenu();
+    }
     loadContacts();
     showDeleteContactConfirmation();
 }
@@ -489,7 +524,7 @@ function contactNotAdded(newContact) {
  * @param {string} contactdata - the matching input (email or phone number)
  */
 function openExistingContactInfo(index, contactdata) {
-    changeContactMenuElements('contactForm', 'existingContactInfo');
+    switchContactElements('contactForm', 'existingContactInfo');
     document.getElementById('matchingInputsReport').innerHTML = `The contact with name and ${contactdata} already exist.`;
     document.getElementById('showContactButton').setAttribute('onclick', `showExistingContact(${index})`);
 }
@@ -502,36 +537,40 @@ function openExistingContactInfo(index, contactdata) {
 function showExistingContact(index) {
     openContactInfo(contacts[index]['id']);
     closeContactMenu();
-    changeContactMenuElements('existingContactInfo', 'contactForm');
+    switchContactElements('existingContactInfo', 'contactForm');
 }
 
 /**
- * checks after each input whether the input is valid
- * if input is not valid, a error report will be displayed
+ * checks after every typed char if input is valid
+ * if input is valid or not, a report will be displayed
+ * 
+ * @param {*} index - index of inputfield
  */
-function checkInput(index) {
+function checkInputOnkeyUp(index) {
     let input = document.getElementById(contactInputs[index]['inputID']).value;
     if (firstCharisNotValid(contactInputs[index]['regex'][0], input)) {
-        displayError(contactInputs[index]['errorReportID'], contactInputs[index]['errorReportText'][0]);
-    } else if (charIsNotValid(contactInputs[index]['regex'][1], input)) {
         displayError(contactInputs[index]['errorReportID'], contactInputs[index]['errorReportText'][1]);
-    } else if (twoSpacesInRow(contactInputs[index]['regex'][2], input)) {
+    } else if (charIsNotValid(contactInputs[index]['regex'][1], input)) {
         displayError(contactInputs[index]['errorReportID'], contactInputs[index]['errorReportText'][2]);
+    } else if (twoSpacesInRow(contactInputs[index]['regex'][2], input)) {
+        displayError(contactInputs[index]['errorReportID'], contactInputs[index]['errorReportText'][3]);
     } else {
         document.getElementById(contactInputs[index]['errorReportID']).style.color = 'var(--white-color)';
     }
 }
 
 /**
- * checks after leaving email input if input is valid
- *  if input is valid or not, a report will be displayed
+ * checks after leaving inputfield if input is valid
+ * if input is valid or not, a report will be displayed
+ * 
+ * @param {*} index - index of inputfield
  */
-function checkEmailInput() {
-    let input = document.getElementById(contactInputs[1]['inputID']).value;
-    if (charIsNotValid(regEmail, input) && input != '') {
-        displayError(contactInputs[1]['errorReportID'], contactInputs[1]['errorReportText'][0]);
+function checkInputOnblur(index) {
+    let input = document.getElementById(contactInputs[index]['inputID']).value;
+    if (charIsNotValid(contactInputs[index]['regex'][3], input)) {
+        displayError(contactInputs[index]['errorReportID'], contactInputs[index]['errorReportText'][0]);
     } else if (input == '') {
-        document.getElementById(contactInputs[1]['errorReportID']).style.color = 'var(--white-color)';
+        document.getElementById(contactInputs[index]['errorReportID']).style.color = 'var(--white-color)';
     }
     displayValidInputs();
 }
@@ -543,7 +582,7 @@ function checkEmailInput() {
 function displayValidInputs() {
     for (let i = 0; i < contactInputs.length; i++) {
         let input = document.getElementById(contactInputs[i]['inputID']).value;
-        if (charIsNotValid(contactInputs[i]['regex'][3], input) == false && input.length > contactInputs[i]['inputlenght']) {
+        if (charIsNotValid(contactInputs[i]['regex'][3], input) == false && input.length >= contactInputs[i]['inputlenght']) {
             document.getElementById(contactInputs[i]['errorReportID']).innerHTML = contactInputs[i]['validReportText'];
             document.getElementById(contactInputs[i]['errorReportID']).style.color = 'var(--darkGreen-color)';
         }
@@ -579,7 +618,7 @@ function firstCharisNotValid(reg, input) {
  * @returns {boolean}
  */
 function charIsNotValid(reg, input) {
-    return reg.test(input) == false && input.length > 1;
+    return reg.test(input) == false && input.length >= 1;
 }
 
 /**
@@ -589,6 +628,6 @@ function charIsNotValid(reg, input) {
  * @param {string} input - input value
  * @returns {boolean}
  */
-function twoSpacesInRow(reg, name) {
-    return reg.test(name) == false && name.length > 1;
+function twoSpacesInRow(reg, input) {
+    return reg.test(input) == false && input.length > 1;
 }

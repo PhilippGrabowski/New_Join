@@ -1,0 +1,186 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    position: relative;
+}
+
+#loginLogo {
+    position: absolute;
+    top: calc(50vh - 7rem);
+    left: calc(50vw - 3rem);
+    width: 75px;
+    scale: 2.7;
+    transition: all 0.5s ease-in;
+}
+
+/*Signup Container*/
+#signupContainer {
+    position: absolute;
+    top: 4.6rem;
+    right: 7.9vw;
+    align-items: center;
+    gap: 2.4vw;
+}
+
+#signupContainer span {
+    color: var(--darkBlue-color);
+    font-size: 21px;
+}
+
+#signupContainer button {
+    font-weight: 700;
+    font-size: 16px;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+/*Login Container*/
+#loginContainer {
+    width: 45.28vw;
+    align-items: center;
+    background-color: var(--white-color);
+    padding: 35px 8vw;
+    gap: 2rem;
+    border-radius: 30px;
+}
+
+.LoginHeaderContainer {
+    align-items: center;
+    gap: 1.8rem;
+}
+
+.LoginHeader {
+    font-weight: 700;
+    font-size: var(--font-size-61);
+    color: var(--darkBlue-color);
+}
+
+.LoginhorizontalLine {
+    width: 110px;
+    border: 2px solid #29ABE2;
+    border-radius: 2px;
+}
+
+#LoginForm {
+    width: 100%;
+    align-items: center;
+    gap: 2rem;
+}
+
+.loginInputsContainer {
+    width: 100%;
+    gap: 2rem;
+}
+
+.loginInputsContainer input {
+    border: none;
+    outline: none;
+}
+
+.input {
+    height: 35px;
+    padding: 0px 16px;
+    border: 1px solid #D1D1D1;
+    border-radius: 6px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.input input {
+    width: 100%;
+    cursor: pointer;
+}
+
+.input i {
+    color: #D1D1D1;
+    font-size: var(--font-size-21);
+}
+
+#loginCheckboxContainer {
+    width: 100%;
+    gap: 1.8rem;
+    font-size: 14px;
+}
+
+.checkbox-row {
+    gap: 1rem;
+}
+
+#loginCheckboxContainer a {
+    color: var(--blue-color);
+}
+
+#loginButtonsContainer {
+    width: 100%;
+    gap: 1.8rem;
+}
+
+#loginButton {
+    padding: 6px 30px;
+    border-radius: 6px;
+}
+
+#guestLoginButton {
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.flex-end,
+.flex-start {
+    width: 50%;
+}
+
+.flex-end {
+    justify-content: flex-end;
+}
+
+.flex-start {
+    justify-content: flex-start;
+}
+
+.flex-start a {
+    text-decoration: none;
+}
+
+
+
+
+
+
+.includedInputs {
+    gap: 20px;
+}
+
+.error {
+    font-size: var(--font-size-12);
+    color: var(--white-color);
+}
+
+.buttonOption2 {
+    font-weight: 700;
+    font-size: var(--font-size-16);
+    background-color: var(--darkBlue-color);
+    color: var(--white-color);
+    border: none;
+}
+
+.buttonOption2:hover {
+    background-color: var(--blue-color);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.buttonOption1 {
+    font-size: var(--font-size-16);
+    background-color: var(--white-color);
+    color: var(--darkBlue-color);
+    border: 2px solid var(--darkBlue-color);
+}
+
+.buttonOption1:hover {
+    color: var(--blue-color);
+    border-color: var(--blue-color);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+}

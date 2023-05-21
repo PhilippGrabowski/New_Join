@@ -30,3 +30,14 @@ function createContact(x, y, name, email, id) {
         <span class="contactSubListEmail">${email}</span>
     </div></div>`;
 }
+
+/**
+ * Returns the HTML-Template for the contact-info buttons
+ * 
+ * @param {*} index - index of contact
+ * @returns {html.template}
+ */
+function createContactInfoButtons(index) {
+    return `<i id="mobilContactTrash" class='bx bx-trash' onclick="deleteContact(${index})"></i>
+    <img id="mobilEditContactImg" class="editContactImg" src="src/img/frame100.svg" alt="" onclick="">`
+}

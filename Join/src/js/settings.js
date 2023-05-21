@@ -5,7 +5,7 @@ const regName4 = new RegExp('^(?!.* {2})[a-zA-Z][a-zA-Z]*([ ]+[a-zA-Z][a-zA-Z]*)
 const regPhone1 = new RegExp('^[0-9+]+$');
 const regPhone2 = new RegExp('^[0-9+][0-9\\s]*$');
 const regPhone3 = new RegExp('^(?!.* {2})[0-9+][0-9\\s]*$');
-const regPhone4 = regPhone3;
+const regPhone4 = new RegExp('^(?!.* {2})[0-9+][0-9\\s]{8,}$');
 const regEmail= new RegExp(`^[a-zA-Z0-9äÄüÜöÖß_.+-]{3,30}@[a-zA-Z0-9-ß]{3,9}\.[a-z]{2,3}$`);
 let contacts = [
     {
@@ -86,7 +86,7 @@ let contactInputs = [
         'inputlenght' : 2,
         'regex' : [regName1, regName2, regName3, regName4],
         'errorReportID' : 'nameError',
-        'errorReportText' : ['error: first char must be a letter', 'error: only letters excepted', 'error: spaces in row are not excepted'],
+        'errorReportText' : ['error: name is not valid', 'error: first char must be a letter', 'error: only letters excepted', 'error: spaces in row are not excepted'],
         'validReportText' : 'valid firstname (secondname) lastname'
     },
     {
@@ -102,7 +102,7 @@ let contactInputs = [
         'inputlenght' : 9,
         'regex' : [regPhone1, regPhone2, regPhone3, regPhone4],
         'errorReportID' : 'phoneError',
-        'errorReportText' : ['error: first char must be a number or +', 'error: only numbers excepted', 'error: spaces in row are not excepted'],
+        'errorReportText' : ['error: phone number is not valid', 'error: first char must be a number or +', 'error: only numbers excepted', 'error: spaces in row are not excepted'],
         'validReportText' : 'valid phone number'
     }
 ];

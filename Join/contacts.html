@@ -30,9 +30,15 @@
         </article>
         <article id="contactInfo">
             <div class="sectionHeader flex-row">
-                <span class="sectionHeaderMenu">Contacts</span>
+                <span id="mobileJoinHeadline">Kanban Project Management Tool</span>
+                <div class="sectionHeaderMenuContainer flex-row">
+                    <span class="sectionHeaderMenu">Contacts</span>
+                    <div class="arrowBackContainer flex-column"><i id="contactInfoArrowLeft"
+                            class='bx bx-left-arrow-alt' onclick="closeContactInfo()"></i></div>
+                </div>
                 <div class="verticalLine"></div>
-                <span>Better with a team</span>
+                <span id="contactSubHeadline">Better with a team</span>
+                <div id="headerHorizontalLine" class="horizontalLine"></div>
             </div>
             <div id="contactInfoContainer" class="flex-column">
                 <div class="contact infoContact flex-row">
@@ -62,8 +68,9 @@
                 </div>
             </div>
         </article>
-        <button class="flex-row curser" onclick="openContactMenu('add')">New contact<img src="src/img/newContact.png"
-                alt=""></button>
+        <button id="newContactButton" class="flex-row curser" onclick="openContactMenu('add')"><span
+                id="newContactButtonSpan">New
+                contact</span><img src="src/img/newContact.png" alt=""></button>
     </section>
     <div id="contactOptionMenu" class="flex-row box-shadow">
         <div class="contactOptionContainer flex-column">
@@ -78,27 +85,12 @@
             <div id="editContactInitials" class="contactInitials grid"></div>
             <form id="contactForm" class="flex-column" onsubmit="">
                 <div class="contactInputs flex-column">
-                    <div class="flex-column">
-                        <div class="input flex-row curser"><input required id="contactNameInput" type="text"
-                                placeholder="Name" minlength="3"
-                                pattern="^(?!.* {2})[a-zA-Z][a-zA-Z]*([ ]+[a-zA-Z][a-zA-Z]*)+$" onkeyup="checkInput(0)"
-                                onblur="displayValidInputs()"><i class='bx bx-user'></i>
-                        </div>
-                        <span id="nameError" class="error">valid firstname (secondname) lastname</span>
-                    </div>
-                    <div class="flex-column">
-                        <div class="input flex-row curser"><input required id="contactEmailInput" type="email"
-                                placeholder="Email" minlength="8"
-                                pattern="^[a-zA-Z0-9äÄüÜöÖß_.+-]{3,30}@[a-zA-Z0-9-ß]{3,9}\.[a-z]{2,3}$"
-                                onblur="checkEmailInput()"><i class='bx bx-envelope'></i>
-                        </div>
-                        <span id="emailError" class="error">valid email</span>
-                    </div>
+                    <div class="input-includer" w3-include-html="src/templates/input-template.html"></div>
                     <div class="flex-column">
                         <div class="input flex-row curser"><input required id="contactPhoneInput" type="tel"
                                 placeholder="Phone" minlength="10"
-                                pattern="^(?!.* {2})[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" onkeyup="checkInput(2)"
-                                onblur="displayValidInputs()"><i class='bx bx-phone'></i>
+                                pattern="^(?!.* {2})[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"
+                                onkeyup="checkInputOnkeyUp(2)" onblur="checkInputOnblur(2)"><i class='bx bx-phone'></i>
                         </div>
                         <span id="phoneError" class="error">valid phone number</span>
                     </div>
@@ -120,7 +112,7 @@
                 <span id="matchingInputsReport"></span>
                 <div id="existingContactInfoButtons" class="flex-row">
                     <button typ="button" class="buttonOption1 curser"
-                        onclick="changeContactMenuElements('existingContactInfo', 'contactForm')">Change inputs</button>
+                        onclick="switchContactElements('existingContactInfo', 'contactForm')">Change inputs</button>
                     <button id="showContactButton" typ="button" class="buttonOption2 curser" onclick="">Show
                         contact</button>
                 </div>
@@ -129,6 +121,7 @@
     </div>
     <div id="partitionWindow" class="d-none" onclick="closeContactMenu()"></div>
     <div id="contactConfirmation" class="confirmation box-shadow"></div>
+    <div id="mobilContactInfoButtonContainer" class="flex-column"></div>
 </body>
 
 </html>

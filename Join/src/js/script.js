@@ -46,3 +46,7 @@ function getActiveLink() {
         element.classList.add("active");
     }
 }
+
+function toggleLogoutLink() {
+    document.getElementById('logoutLink').classList.toggle('d-none');
+}
