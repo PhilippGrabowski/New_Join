@@ -47,18 +47,21 @@ body {
     position: relative;
 }
 
-.LoginHeaderContainer {
+.LoginHeaderContainer,
+.forgotPasswordHeaderContainer {
     align-items: center;
     gap: 1.8rem;
 }
 
-.LoginHeader {
+.LoginHeader,
+.forgotpasswordHeader {
     font-weight: 700;
     font-size: var(--font-size-61);
     color: var(--darkBlue-color);
 }
 
-.LoginhorizontalLine {
+.LoginhorizontalLine,
+.forgotPasswordhorizontalLine {
     width: 110px;
     border: 2px solid #29ABE2;
     border-radius: 2px;
@@ -77,7 +80,9 @@ body {
 }
 
 .loginInputsContainer input,
-.signupInputsContainer input {
+.signupInputsContainer input,
+.resetPasswordInputsContainer input,
+#forgotPasswordEmailInput {
     border: none;
     outline: none;
 }
@@ -122,7 +127,8 @@ body {
 }
 
 #loginButton,
-#signupButton {
+#signupButton,
+#forgotpPasswordButton {
     padding: 6px 30px;
     border-radius: 6px;
 }
@@ -153,13 +159,47 @@ body {
     width: 100%;
     justify-content: center;
 }
-#SignupArrowLeft {
+
+#SignupArrowLeft,
+#forgotPasswordArrowLeft {
     position: absolute;
     font-size: 27px;
     left: 2.5vw;
     color: var(--blue-color);
 }
 
+#forgotPasswordContainer {
+    width: 57.36vw;
+    align-items: center;
+    background-color: var(--white-color);
+    padding: 35px 6vw;
+    gap: 2rem;
+    border-radius: 30px;
+    position: relative;
+}
+
+.forgotpasswordSubHeader {
+    font-size: 18px;
+    text-align: center;
+}
+
+#forgotPasswordEmailInputContainer {
+    width: 60%;
+}
+
+#forgotpPasswordButton {
+    margin-top: 2rem;
+    padding: 8px 30px;
+}
+
+.resetPasswordInputsContainer {
+    width: 60%;
+    gap: 1rem;
+}
+
+.confirmbtn {
+    margin-top: .5rem;
+}
 
 
 

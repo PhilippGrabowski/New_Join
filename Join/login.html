@@ -22,13 +22,13 @@
 
     <img Id="loginLogo" src="src/img/capa2.svg" alt="">
 
-    <div Id="signupContainer" class="flex-row">
+    <div Id="signupContainer" class="flex-row d-none">
         <span>Not a Join user?</span>
         <button class="buttonOption2 curser" onclick="toggleLoginMenu('Sign up')">Sign up</button>
     </div>
 
     <div id="loginContainer" class="flex-column box-shadow d-none">
-        <i id="SignupArrowLeft" class='bx bx-left-arrow-alt d-none' onclick="toggleLoginMenu('Log in')"></i>
+        <i id="SignupArrowLeft" class='bx bx-left-arrow-alt curser d-none' onclick="toggleLoginMenu('Log in')"></i>
         <div class="LoginHeaderContainer flex-column">
             <span class="LoginHeader">Log in</span>
             <div class="LoginhorizontalLine"></div>
@@ -36,7 +36,7 @@
         <form id="LoginForm" class="flex-column" onsubmit="">
             <div class="loginInputsContainer flex-column">
                 <div class="flex-column">
-                    <div class="input flex-row curser"><input required id="contactEmailInput" type="email"
+                    <div class="input flex-row curser"><input required id="loginEmailInput" type="email"
                             placeholder="Email" minlength="8"
                             pattern="^[a-zA-Z0-9äÄüÜöÖß_.+-]{3,30}@[a-zA-Z0-9-ß]{3,9}\.[a-z]{2,3}$"><i
                             class='bx bx-envelope'></i>
@@ -64,7 +64,8 @@
                     <input type="checkbox" name="remember" value="sport" class="curser">
                     <span>Remember me</span>
                 </div>
-                <div class="flex-start flex-row"><a class="curser">Forgot my password</a></div>
+                <div class="flex-start flex-row"><a class="curser" onclick="toggleForgotPasswordMenu()">Forgot my
+                        password</a></div>
             </div>
             <div id="loginButtonsContainer" class="flex-row">
                 <div class="flex-end flex-row">
@@ -77,9 +78,42 @@
 
             </div>
             <div id="signupButtonsContainer" class="flex-row d-none">
-                <button id="signupButton" class="buttonOption2 curser" onclick="" type="button">Sign up</button>
+                <button id="signupButton" class="buttonOption2 curser" onclick="toggleLoginMenu('Log in')"
+                    type="button">Sign up</button>
             </div>
         </form>
+    </div>
+
+    <div id="forgotPasswordContainer" class="flex-column box-shadow d-none">
+        <i id="forgotPasswordArrowLeft" class='bx bx-left-arrow-alt curser' onclick="toggleForgotPasswordMenu()"></i>
+        <div class="forgotPasswordHeaderContainer flex-column">
+            <span class="forgotpasswordHeader">I forgot my password</span>
+            <div class="forgotPasswordhorizontalLine"></div>
+        </div>
+        <span class="forgotpasswordSubHeader">Don't worry! We will send you an email with the instructions to reset your
+            password.</span>
+        <div id="forgotPasswordEmailInputContainer" class="input flex-row curser"><input required
+                id="forgotPasswordEmailInput" type="email" placeholder="Email" minlength="8"
+                pattern="^[a-zA-Z0-9äÄüÜöÖß_.+-]{3,30}@[a-zA-Z0-9-ß]{3,9}\.[a-z]{2,3}$"><i class='bx bx-envelope'></i>
+        </div>
+        <div class="resetPasswordInputsContainer flex-column d-none">
+            <div class="flex-column">
+                <div class="input flex-row curser"><input required id="newPasswordInput" type="password"
+                        placeholder="New password">
+                </div>
+                <span id="phoneError" class="error">valid phone number</span>
+            </div>
+            <div class="flex-column">
+                <div class="input flex-row curser"><input required id="ConfirmPasswordInput" type="password"
+                        placeholder="Confirm password">
+                </div>
+                <span id="phoneError" class="error">valid phone number</span>
+            </div>
+        </div>
+        <div id="forgotPasswordButtonContainer" class="flex-row">
+            <button id="forgotpPasswordButton" class="buttonOption2 curser" onclick="changeToResetPasswordMenu()"
+                type="button">Send me the email</button>
+        </div>
     </div>
 
 </body>
