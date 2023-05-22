@@ -67,8 +67,11 @@
         </div>
         <div class="form-div">
             <span>Subtasks</span>
-            <input class="title-input" type="text" placeholder="Add new subtask">
-            <img class="plus-icon cursor" src="src/img/plus.svg" alt="">
+            <input id="subtask-content" class="title-input" type="text" placeholder="Add new subtask">
+            <img onclick="displaySubTask()" class="plus-icon cursor" src="src/img/plus.svg" alt="">
+        </div>
+        <div class="subtask-display-content" id="displaySub">
+
         </div>
         <div class="submit-btn-container">
             <button onclick="closeAddTask()" class="cancel-btn">Cancel</button>

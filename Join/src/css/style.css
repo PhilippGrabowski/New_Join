@@ -287,6 +287,28 @@ body {
     gap: 15px;
 }
 
+.subtask-div-container{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subtask-left-side{
+    display: flex;
+}
+.subtask-right-side{
+    display: flex;
+}
+
+.add-task-trash-pic{
+    cursor: pointer;
+    width: 16px;
+}
+
 .left-fill-out-form {
     width: 100%;
 }
