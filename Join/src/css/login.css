@@ -10,7 +10,7 @@ body {
     position: absolute;
     top: calc(50vh - 7rem);
     left: calc(50vw - 3rem);
-    width: 75px;
+    width: 7.5rem;
     scale: 2.7;
     transition: all 0.5s ease-in;
 }
@@ -26,13 +26,13 @@ body {
 
 #signupContainer span {
     color: var(--darkBlue-color);
-    font-size: 21px;
+    font-size: var(--font-size-21);
 }
 
 #signupContainer button {
     font-weight: 700;
-    font-size: 16px;
-    padding: 16px;
+    font-size: var(--font-size-16);
+    padding: 1.6rem;
     border-radius: 10px;
 }
 
@@ -47,21 +47,18 @@ body {
     position: relative;
 }
 
-.LoginHeaderContainer,
-.forgotPasswordHeaderContainer {
+.headlineContainer {
     align-items: center;
     gap: 1.8rem;
 }
 
-.LoginHeader,
-.forgotpasswordHeader {
+.headline {
     font-weight: 700;
     font-size: var(--font-size-61);
     color: var(--darkBlue-color);
 }
 
-.LoginhorizontalLine,
-.forgotPasswordhorizontalLine {
+.horizontalLine {
     width: 110px;
     border: 2px solid #29ABE2;
     border-radius: 2px;
@@ -73,21 +70,12 @@ body {
     gap: 2rem;
 }
 
-.loginInputsContainer,
-.signupInputsContainer {
+.inputContainer {
     width: 100%;
     gap: 2rem;
 }
 
-.loginInputsContainer input,
-.signupInputsContainer input,
-.resetPasswordInputsContainer input,
-#forgotPasswordEmailInput {
-    border: none;
-    outline: none;
-}
-
-.input {
+.input{
     height: 35px;
     padding: 0px 16px;
     border: 1px solid #D1D1D1;
@@ -97,7 +85,9 @@ body {
     gap: 5px;
 }
 
-.input input {
+.input input{
+    border: none;
+    outline: none;
     width: 100%;
     cursor: pointer;
 }
@@ -198,7 +188,7 @@ body {
 }
 
 .confirmbtn {
-    margin-top: .5rem;
+    margin-top: .5rem !important;
 }
 
 

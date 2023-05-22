@@ -29,12 +29,12 @@
 
     <div id="loginContainer" class="flex-column box-shadow d-none">
         <i id="SignupArrowLeft" class='bx bx-left-arrow-alt curser d-none' onclick="toggleLoginMenu('Log in')"></i>
-        <div class="LoginHeaderContainer flex-column">
-            <span class="LoginHeader">Log in</span>
-            <div class="LoginhorizontalLine"></div>
+        <div class="headlineContainer flex-column">
+            <span class="headline">Log in</span>
+            <div class="horizontalLine"></div>
         </div>
         <form id="LoginForm" class="flex-column" onsubmit="">
-            <div class="loginInputsContainer flex-column">
+            <div id="loginInputContainer" class="inputContainer flex-column">
                 <div class="flex-column">
                     <div class="input flex-row curser"><input required id="loginEmailInput" type="email"
                             placeholder="Email" minlength="8"
@@ -50,7 +50,7 @@
                     <span id="phoneError" class="error">valid phone number</span>
                 </div>
             </div>
-            <div class="signupInputsContainer flex-column d-none">
+            <div id="signupInputContainer" class="inputContainer flex-column d-none">
                 <div class="input-includer" w3-include-html="src/templates/input-template.html"></div>
                 <div class="flex-column">
                     <div class="input flex-row curser"><input required id="PasswordSignupInput" type="password"
@@ -64,8 +64,9 @@
                     <input type="checkbox" name="remember" value="sport" class="curser">
                     <span>Remember me</span>
                 </div>
-                <div class="flex-start flex-row"><a class="curser" onclick="toggleForgotPasswordMenu()">Forgot my
-                        password</a></div>
+                <div class="flex-start flex-row">
+                    <a class="curser" onclick="toggleForgotPasswordMenu()">Forgot my password</a>
+                </div>
             </div>
             <div id="loginButtonsContainer" class="flex-row">
                 <div class="flex-end flex-row">
@@ -86,9 +87,9 @@
 
     <div id="forgotPasswordContainer" class="flex-column box-shadow d-none">
         <i id="forgotPasswordArrowLeft" class='bx bx-left-arrow-alt curser' onclick="toggleForgotPasswordMenu()"></i>
-        <div class="forgotPasswordHeaderContainer flex-column">
-            <span class="forgotpasswordHeader">I forgot my password</span>
-            <div class="forgotPasswordhorizontalLine"></div>
+        <div class="headlineContainer flex-column">
+            <span class="headline">I forgot my password</span>
+            <div class="horizontalLine"></div>
         </div>
         <span class="forgotpasswordSubHeader">Don't worry! We will send you an email with the instructions to reset your
             password.</span>
