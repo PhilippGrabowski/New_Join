@@ -22,12 +22,13 @@
 
     <img Id="loginLogo" src="src/img/capa2.svg" alt="">
 
-    <div Id="signupContainer" class="flex-row d-none">
+    <div Id="signupContainer" class="flex-row">
         <span>Not a Join user?</span>
-        <button class="buttonOption2">Sign up</button>
+        <button class="buttonOption2 curser" onclick="toggleLoginMenu('Sign up')">Sign up</button>
     </div>
 
     <div id="loginContainer" class="flex-column box-shadow d-none">
+        <i id="SignupArrowLeft" class='bx bx-left-arrow-alt d-none' onclick="toggleLoginMenu('Log in')"></i>
         <div class="LoginHeaderContainer flex-column">
             <span class="LoginHeader">Log in</span>
             <div class="LoginhorizontalLine"></div>
@@ -49,6 +50,15 @@
                     <span id="phoneError" class="error">valid phone number</span>
                 </div>
             </div>
+            <div class="signupInputsContainer flex-column d-none">
+                <div class="input-includer" w3-include-html="src/templates/input-template.html"></div>
+                <div class="flex-column">
+                    <div class="input flex-row curser"><input required id="PasswordSignupInput" type="password"
+                            placeholder="Password"><i class='bx bx-lock'></i>
+                    </div>
+                    <span id="phoneError" class="error">valid phone number</span>
+                </div>
+            </div>
             <div id="loginCheckboxContainer" class="flex-row">
                 <div class="checkbox-row flex-end flex-row">
                     <input type="checkbox" name="remember" value="sport" class="curser">
@@ -56,7 +66,7 @@
                 </div>
                 <div class="flex-start flex-row"><a class="curser">Forgot my password</a></div>
             </div>
-            <div id="loginButtonsContainer" class="contactOptionButtons flex-row">
+            <div id="loginButtonsContainer" class="flex-row">
                 <div class="flex-end flex-row">
                     <button id="loginButton" class="buttonOption2 curser" onclick="" type="button">Log in</button>
                 </div>
@@ -65,6 +75,9 @@
                         onclick="">Guest Log in</a>
                 </div>
 
+            </div>
+            <div id="signupButtonsContainer" class="flex-row d-none">
+                <button id="signupButton" class="buttonOption2 curser" onclick="" type="button">Sign up</button>
             </div>
         </form>
     </div>

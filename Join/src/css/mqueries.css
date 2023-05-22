@@ -41,6 +41,13 @@
     }
 }
 
+/* Login */
+@media (min-width: 1920px) {
+    #loginContainer {
+        width: 6.52rem;
+    }
+}
+
 /* Board */
 @media (min-width: 1920px) {
     #board-section {

@@ -44,6 +44,7 @@ body {
     padding: 35px 8vw;
     gap: 2rem;
     border-radius: 30px;
+    position: relative;
 }
 
 .LoginHeaderContainer {
@@ -69,12 +70,14 @@ body {
     gap: 2rem;
 }
 
-.loginInputsContainer {
+.loginInputsContainer,
+.signupInputsContainer {
     width: 100%;
     gap: 2rem;
 }
 
-.loginInputsContainer input {
+.loginInputsContainer input,
+.signupInputsContainer input {
     border: none;
     outline: none;
 }
@@ -118,7 +121,8 @@ body {
     gap: 1.8rem;
 }
 
-#loginButton {
+#loginButton,
+#signupButton {
     padding: 6px 30px;
     border-radius: 6px;
 }
@@ -145,6 +149,16 @@ body {
     text-decoration: none;
 }
 
+#signupButtonsContainer {
+    width: 100%;
+    justify-content: center;
+}
+#SignupArrowLeft {
+    position: absolute;
+    font-size: 27px;
+    left: 2.5vw;
+    color: var(--blue-color);
+}
 
 
 
