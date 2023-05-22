@@ -2,31 +2,42 @@
 :root {
     /* Colors */
     --black-color: #000000;
-    --white-color: #ffffff; /*Background Header*/
+    --white-color: #ffffff;
     --white2-color: #f6f7f8; /*Background Body*/
     --red-color: #ff3d00; /*Prio urgent*/
     --lightOrange-color: #ffc350; /*Prio medium*/
     --lightGreen-color: #02cf2f; /*Prio low*/
     --darkBlue-color: #2a3647; /*Menu*/
     --darkBlue2-color: #091931; /*Menu active*/
-    --blue-color: #29abe2; /*Emails*/
-    /*Category add Task*/
-    --darkGreen-color: rgb(78, 150, 61);
-    --turquoise-color: rgb(31, 215, 193);
-    --lightBlue-color: rgb(1, 144, 224);
-    --pink-color: rgb(252, 113, 255);
-    --purple-color: rgb(147, 39, 255);
-    --orange-color: rgb(255, 122, 0);
+    --blue-color: #29abe2; /*Emails and Links*/
     
     /* Font-Size */
     --font-size-12: 12px;
     --font-size-14: 14px;
     --font-size-16: 16px;
+    --font-size-18: 18px;
     --font-size-21: 21px;
-    --font-size-23: 23px;
+    --font-size-24: 24px;
     --font-size-27: 27px;
     --font-size-36: 36px;
     --font-size-47: 47px;
     --font-size-61: 61px;
     --font-size-64: 64px;
+  }
+
+  @media (max-height: 768px) {
+    :root {
+        /* Font-Size */
+        --font-size-12: 10px;
+        --font-size-14: 12px;
+        --font-size-16: 14px;
+        --font-size-18: 16px;
+        --font-size-21: 18px;
+        --font-size-24: 21px;
+        --font-size-27: 24px;
+        --font-size-36: 27px;
+        --font-size-47: 36px;
+        --font-size-61: 47px;
+        --font-size-64: 61px;
+    }
   }

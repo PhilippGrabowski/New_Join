@@ -37,7 +37,7 @@ function toggleForgotPasswordMenu() {
 
 function changeToResetPasswordMenu() {
     document.getElementById('forgotPasswordArrowLeft').setAttribute('onclick', 'changeToForgotPassword()');
-    document.querySelector('.headline').innerHTML = 'Reset your password';
+    document.getElementById('forgotPasswordHeadline').innerHTML = 'Reset your password';
     document.querySelector('.forgotpasswordSubHeader').innerHTML = 'Change your account password';
     document.getElementById('forgotPasswordEmailInputContainer').classList.add('d-none');
     document.querySelector('.resetPasswordInputsContainer').classList.remove('d-none');
@@ -48,7 +48,7 @@ function changeToResetPasswordMenu() {
 
 function changeToForgotPassword() {
     document.getElementById('forgotPasswordArrowLeft').setAttribute('onclick', 'toggleForgotPasswordMenu()');
-    document.querySelector('.headline').innerHTML = 'I forgot my password';
+    document.getElementById('forgotPasswordHeadline').innerHTML = 'I forgot my password';
     document.querySelector('.forgotpasswordSubHeader').innerHTML = `Don't worry! We will send you an email with the instructions to reset your
     password.`;
     document.getElementById('forgotPasswordEmailInputContainer').classList.remove('d-none');

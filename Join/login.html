@@ -9,12 +9,11 @@
     <link rel="stylesheet" href="src/css/fonts.css">
     <link rel="stylesheet" href="src/css/settings.css">
     <link rel="stylesheet" href="src/css/global.css">
-    <link rel="stylesheet" href="src/css/login.css">
-    <link rel="stylesheet" href="src/css/mqueries.css">
+    <link rel="stylesheet" href="src/css/login/style.css">
+    <link rel="stylesheet" href="src/css/login/mqueries.css">
     <script src="src/js/settings.js"></script>
-    <script src="src/js/templates.js"></script>
-    <script src="src/js/login.js"></script>
-    <script src="src/js/script.js"></script>
+    <script src="src/js/login/script.js"></script>
+    <script src="src/js/global.js"></script>
     <title>Join - Login</title>
 </head>
 
@@ -30,10 +29,10 @@
     <div id="loginContainer" class="flex-column box-shadow d-none">
         <i id="SignupArrowLeft" class='bx bx-left-arrow-alt curser d-none' onclick="toggleLoginMenu('Log in')"></i>
         <div class="headlineContainer flex-column">
-            <span class="headline">Log in</span>
+            <span id="loginHeadline" class="headline">Log in</span>
             <div class="horizontalLine"></div>
         </div>
-        <form id="LoginForm" class="flex-column" onsubmit="">
+        <form id="loginForm" class="flex-column" onsubmit="">
             <div id="loginInputContainer" class="inputContainer flex-column">
                 <div class="flex-column">
                     <div class="input flex-row curser"><input required id="loginEmailInput" type="email"
@@ -88,7 +87,7 @@
     <div id="forgotPasswordContainer" class="flex-column box-shadow d-none">
         <i id="forgotPasswordArrowLeft" class='bx bx-left-arrow-alt curser' onclick="toggleForgotPasswordMenu()"></i>
         <div class="headlineContainer flex-column">
-            <span class="headline">I forgot my password</span>
+            <span id="forgotPasswordHeadline" class="headline">I forgot my password</span>
             <div class="horizontalLine"></div>
         </div>
         <span class="forgotpasswordSubHeader">Don't worry! We will send you an email with the instructions to reset your
