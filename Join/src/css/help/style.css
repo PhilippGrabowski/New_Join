@@ -1,0 +1,99 @@
+/* === Help === */
+
+.content {
+    padding: 89px 0 0 15vw;
+    width: 100%;
+    height: 100%;
+}
+
+#helpContainer {
+    width: 85vw;
+    height: calc(100vh - 89px);
+    padding: 82px 8.3vw 0 8.3vw;
+}
+
+.headline-row {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.headline {
+    font-weight: 700;
+    font-size: var(--font-size-61);
+}
+
+.arrowLeftContainer {
+    height: 100%;
+}
+
+i {
+    font-size: var(--font-size-47);
+}
+
+.info {
+    width: 100%;
+    height: calc(100vh - 275.8px);
+}
+
+.summaryContainer {
+    width: 100%;
+    margin-top: 48px;
+}
+
+.guide span,
+.summaryContainer span {
+    font-weight: 700;
+    font-size: var(--font-size-27);
+}
+
+.summaryContainer p {
+    margin-top: 10px;
+    font-size: var(--font-size-16);
+}
+
+.guide {
+    width: 100%;
+    margin-top: 36px;
+}
+
+/* === Media Queries === */
+
+/* === Height === */
+
+@media (max-height: 768px) {
+    #helpContainer {
+        padding: 65px 8.3vw 0 8.3vw;
+    }
+    .summaryContainer {
+        margin-top: 36px;
+    }
+    .summaryContainer p {
+        margin-top: 7px;
+    }
+    .guide {
+        margin-top: 27px;
+    }
+    .info {
+        height: calc(100vh - 246.8px);
+    }
+}
+
+/* === Width === */
+
+@media (min-width: 1920px) {
+    .content {
+        padding: 89px 0 0 288px;
+    }
+    #helpContainer {
+        width: calc(100vw - 288px);
+    }
+}
+
+@media (max-width: 1000px) {
+    .content {
+        padding: 89px 0 0 150px;
+    }
+    #helpContainer {
+        width: calc(100vw - 150px);
+    }
+}

@@ -1,116 +1,5 @@
-/* Header*/
-@media (max-width: 768px) {
-    .header {
-        padding: 20px 2.3vw 20px 21.5rem;
-    }
-    .header-text {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 600px) {
-    .header-text {
-        display: none;
-    }
-    #helpLink {
-        display: none;
-    }
-}
-
-/* Side-bar*/
-@media (min-width: 1920px) {
-    .side-bar {
-        width: 28.8rem;
-    }
-}
-
-@media (max-width: 1200px) {
-    .side-bar-link {
-        font-size: 14px;
-        padding-left: 15%;
-        gap: 1rem;
-    }
-    .link-img {
-        width: 1.8rem;
-    }
-}
-
-@media (max-width: 1000px) {
-    .side-bar {
-        width: 15rem;
-    }
-}
-
-/* Login */
-@media (min-width: 1920px) {
-    #loginContainer {
-        width: 6.52rem;
-    }
-    #forgotPasswordContainer {
-        width: 8.26rem;
-    }
-}
-
-/* Board */
-@media (min-width: 1920px) {
-    #board-section {
-        padding: 8.9rem 0 0 28.8rem;
-    }
-    #board-content {
-        width: calc(100vw - 28.8rem);
-    }
-}
-
-@media (max-width: 1000px) {
-    #board-section {
-        padding: 8.9rem 0 0 15rem;
-    }
-    #board-content {
-        width: calc(100vw - 15rem);
-    }
-}
-
-/* Add Task */
+/* === Media Queries Height === */
 @media (max-height: 768px) {
-    .main-add-task-container {
-        padding: 6.5rem 0 0 6.4%;
-        gap: 2rem;
-    }
-}
-
-@media (min-width: 1920px) {
-    #add-task-section {
-        padding: 8.9rem 0 0 28.8rem;
-    }
-    .main-add-task-container {
-        width: calc(100vw - 28.8rem);
-    }
-}
-
-@media (max-width: 1000px) {
-    #add-task-section {
-        padding: 8.9rem 0 0 15rem;
-    }
-    .main-add-task-container {
-        width: calc(100vw - 15rem);
-    }
-}
-
-/* Contacts */
-@media (max-height: 768px) {
-    :root {
-        /* Font-Size */
-        --font-size-12: 10px;
-        --font-size-14: 12px;
-        --font-size-16: 14px;
-        --font-size-21: 18px;
-        --font-size-23: 21px;
-        --font-size-27: 23px;
-        --font-size-36: 27px;
-        --font-size-47: 36px;
-        --font-size-61: 47px;
-        --font-size-64: 61px;
-    }
     #contactInfo {
         padding: 6.5rem 0 0 6.4%;
     }
@@ -153,6 +42,7 @@
     }
 }
 
+/* === Media Queries Width === */
 @media (min-width: 1920px) {
     #contacts {
         padding: 8.9rem 2.3vw 0 28.8rem;
@@ -235,7 +125,7 @@
         border-radius: 2px;
     }
     #contactSubHeadline {
-        font-size: var(--font-size-23);
+        font-size: var(--font-size-24);
     }
     .contact {
         margin-top: 1.8rem;

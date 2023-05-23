@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="src/css/fonts.css">
     <link rel="stylesheet" href="src/css/settings.css">
     <link rel="stylesheet" href="src/css/global.css">
-    <link rel="stylesheet" href="src/css/style.css">
-    <link rel="stylesheet" href="src/css/mqueries.css">
+    <link rel="stylesheet" href="src/css/header.css">
+    <link rel="stylesheet" href="src/css/sidebar.css">
+    <link rel="stylesheet" href="src/css/help/style.css">
     <script src="src/js/settings.js"></script>
-    <script src="src/js/templates.js"></script>
-    <script src="src/js/script.js"></script>
+    <script src="src/js/global.js"></script>
     <title>Join - Help</title>
 </head>
 
@@ -20,6 +21,37 @@
 
     <div class="header-includer" w3-include-html="src/templates/header.html"></div>
     <div class="sidebar-includer" w3-include-html="src/templates/sidebar.html"></div>
+
+    <section class="content">
+        <div id="helpContainer">
+            <div class="headline-row flex-row">
+                <span class="headline">Help</span>
+                <div class="arrowLeftContainer flex-column">
+                    <i class='bx bx-left-arrow-alt curser' onclick=""></i>
+                </div>
+            </div>
+            <div class="info">
+                <div class="summaryContainer">
+                    <span>What is Join?</span>
+                    <p>Join is a project management and workflow system. It uses a visual board with columns
+                        representing
+                        different stages of work to provide a clear view of the workflow. Work items are represented as
+                        cards and their movement across the board indicates progress.
+                        Join focuses on limiting work in progress to improve efficiency and avoid overloading the team.
+                        It promotes transparency, collaboration, and continuous improvement by visualizing work and
+                        enabling
+                        self-organization. Also it encourages teams to pull work into the system based on available
+                        capacity
+                        rather than pushing more work in. Explicit policies are established to guide how work should be
+                        handled and to ensure a smooth flow of tasks.
+                    </p>
+                </div>
+                <div class="guide">
+                    <span>How to use it</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </body>
 

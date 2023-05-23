@@ -11,17 +11,18 @@ body {
     top: calc(50vh - 7rem);
     left: calc(50vw - 3rem);
     width: 7.5rem;
-    scale: 2.7;
+    scale: 2.8;
     transition: all 0.5s ease-in;
 }
 
-/*Signup Container*/
+/* === Signup Container === */
+
 #signupContainer {
     position: absolute;
-    top: 4.6rem;
-    right: 7.9vw;
+    top: 46px;
+    right: 8vw;
     align-items: center;
-    gap: 2.4vw;
+    gap: 2.5vw;
 }
 
 #signupContainer span {
@@ -32,24 +33,27 @@ body {
 #signupContainer button {
     font-weight: 700;
     font-size: var(--font-size-16);
-    padding: 1.6rem;
+    padding: 16px;
     border-radius: 10px;
 }
 
-/*Login Container*/
+/* === Login Container === */
+
 #loginContainer {
-    width: 45.28vw;
+    min-width: 46rem;
+    width: 45vw;
+    max-width: 65rem;
     align-items: center;
     background-color: var(--white-color);
     padding: 35px 8vw;
-    gap: 2rem;
+    gap: 20px;
     border-radius: 30px;
     position: relative;
 }
 
 .headlineContainer {
     align-items: center;
-    gap: 1.8rem;
+    gap: 18px;
 }
 
 .headline {
@@ -64,15 +68,15 @@ body {
     border-radius: 2px;
 }
 
-#LoginForm {
+#loginForm {
     width: 100%;
     align-items: center;
-    gap: 2rem;
+    gap: 20px;
 }
 
 .inputContainer {
     width: 100%;
-    gap: 2rem;
+    gap: 20px;
 }
 
 .input{
@@ -86,9 +90,9 @@ body {
 }
 
 .input input{
+    width: 100%;
     border: none;
     outline: none;
-    width: 100%;
     cursor: pointer;
 }
 
@@ -99,12 +103,12 @@ body {
 
 #loginCheckboxContainer {
     width: 100%;
-    gap: 1.8rem;
-    font-size: 14px;
+    gap: 18px;
+    font-size: var(--font-size-14);
 }
 
 .checkbox-row {
-    gap: 1rem;
+    gap: 10px;
 }
 
 #loginCheckboxContainer a {
@@ -113,7 +117,7 @@ body {
 
 #loginButtonsContainer {
     width: 100%;
-    gap: 1.8rem;
+    gap: 18px;
 }
 
 #loginButton,
@@ -160,16 +164,17 @@ body {
 
 #forgotPasswordContainer {
     width: 57.36vw;
+    max-width: 826px;
     align-items: center;
     background-color: var(--white-color);
     padding: 35px 6vw;
-    gap: 2rem;
+    gap: 20px;
     border-radius: 30px;
     position: relative;
 }
 
 .forgotpasswordSubHeader {
-    font-size: 18px;
+    font-size: var(--font-size-18);
     text-align: center;
 }
 
@@ -178,17 +183,17 @@ body {
 }
 
 #forgotpPasswordButton {
-    margin-top: 2rem;
+    margin-top: 20px;
     padding: 8px 30px;
 }
 
 .resetPasswordInputsContainer {
     width: 60%;
-    gap: 1rem;
+    gap: 10px;
 }
 
 .confirmbtn {
-    margin-top: .5rem !important;
+    margin-top: 5px !important;
 }
 
 
