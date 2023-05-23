@@ -43,19 +43,14 @@
 }
 
 /* === Media Queries Width === */
-@media (min-width: 1920px) {
-    #contacts {
-        padding: 8.9rem 2.3vw 0 28.8rem;
-    }
+
+@media (max-width: 1264px) {
     #contactList {
-        width: 57.6rem;
+        width: 320px;
     }
     #contactInfo {
-        width: calc(100vw - 86.4rem);
+        width: calc(100vw - 550px);
     }
-}
-
-@media (max-width: 1200px) {
     #contactOptionMenu {
         width: 80vw;
         left: calc(50% - 40vw);
@@ -71,12 +66,12 @@
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1096px) {
     #contacts {
-        padding: 8.9rem 2.3vw 0 15rem;
+        padding: 8.9rem 2.3vw 0 180px;
     }
     #contactList {
-        width: 10rem;
+        width: 100px;
     }
     #listContainer {
         padding: 1rem 1.5rem;
@@ -93,25 +88,13 @@
         padding: 1.5rem 0 1.5rem 1.1rem;
     }
     #contactInfo {
-        width: calc(100vw - 25rem);
+        width: calc(100vw - 280px);
     }
 }
 
-@media (max-width: 768px) {
-    #contactList {
-        width: 7rem;
-    }
-    #listContainer {
-        padding: 1rem 1rem;
-    }
+@media (max-width: 800px) {
     #contactList::-webkit-scrollbar {
         width: 4px;
-    }
-    .letter {
-        padding-left: 1.75rem;
-    }
-    #contactInfo {
-        width: calc(100vw - 22rem);
     }
     #newContactButtonSpan {
         display: none;
@@ -127,17 +110,14 @@
     #contactSubHeadline {
         font-size: var(--font-size-24);
     }
-    .contact {
-        margin-top: 1.8rem;
-        padding: 1.5rem 0 1.5rem 0;
-    }
     #infoInitials {
         width: 6rem;
         height: 6rem;
         font-size: var(--font-size-36);
     }
     .infoContactName {
-        gap: 0.5rem; /* jc center*/
+        gap: 0.5rem;
+        justify-content: center;
     }
     .infoContactName span {
         font-size: var(--font-size-36);
@@ -158,13 +138,19 @@
     }
 }
 
-@media (max-width: 768px) and (max-height: 768px) {
+@media (max-width: 800px) and (max-height: 768px) {
     #contactInformation {
         height: 3rem;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 670px) and (max-height: 768px) {
+    .infoContact {
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 670px) {
     #contacts {
         padding: 8.9rem 0 0 15rem;
     }
@@ -175,11 +161,11 @@
     #listContainer {
         padding: 8rem 8.5% 1rem 8.5%;
     }
+    #contactList::-webkit-scrollbar {
+        width: 7px;
+    }
     .letter {
         padding-left: 4rem;
-    }
-    .contact {
-        padding: 1.5rem 0 1.5rem 2.5rem;
     }
     #contacts button {
         bottom: unset;
@@ -188,6 +174,7 @@
     #newContactButtonSpan {
         display: unset;
     }
+
     /*contactinfo*/
     #contactInfo {
         display: none;
@@ -222,5 +209,28 @@
     }
     .arrowBackContainer {
         display: flex;
+    }
+}
+
+@media (max-width: 550px) {
+    #newContactButtonSpan {
+        display: none;
+    }
+}
+
+@media (max-width: 468px) {
+    #contacts {
+        height: 100vh;
+        padding: 79px 2.3vw 80px 2.3vw;
+    }
+    #contactList {
+        height: 100%;
+    }
+    #contactInfo {
+        width: 100%;
+        padding: 3.25rem 2.3vw 0 6.4%;
+    }
+    #mobilContactInfoButtonContainer {
+        bottom: 130px;
     }
 }

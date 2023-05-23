@@ -4,8 +4,12 @@ body {
 }
 
 /* Board-Start*/
+#board-section {
+    padding: 8.9rem 0 0 230px;
+}
+
 #board-content {
-    width: calc(100vw - 15vw);
+    width: calc(100vw - 230px);
     height: 100%;
     padding: 8.2rem 4.7rem 0 5.8rem;
     background-color: #F6F7F8;
@@ -139,21 +143,12 @@ body {
 }
 
 /* Board */
-@media (min-width: 1920px) {
+@media (max-width: 1096px) {
     #board-section {
-        padding: 8.9rem 0 0 28.8rem;
+        padding: 8.9rem 2.3vw 0 180px;
     }
     #board-content {
-        width: calc(100vw - 28.8rem);
-    }
-}
-
-@media (max-width: 1000px) {
-    #board-section {
-        padding: 8.9rem 0 0 15rem;
-    }
-    #board-content {
-        width: calc(100vw - 15rem);
+        width: calc(100vw - 18rem);
     }
 }
 
@@ -162,13 +157,13 @@ body {
 
 /* Add Task*/
 #add-task-section, #board-section {
-    padding: 8.9rem 0 0 15vw;
+    padding: 8.9rem 0 0 230px;
     width: 100vw;
     height: 100vh;
 }
 
 .main-add-task-container {
-    width: calc(100vw - 15vw);
+    width: calc(100vw - 230px);
     height: 100%;
     padding: 8.2rem 4.7rem 0 5.8rem;
     gap: 40px;
@@ -392,20 +387,11 @@ body {
     }
 }
 
-@media (min-width: 1920px) {
+@media (max-width: 1096px) {
     #add-task-section {
-        padding: 8.9rem 0 0 28.8rem;
+        padding: 8.9rem 2.3vw 0 180px;
     }
     .main-add-task-container {
-        width: calc(100vw - 28.8rem);
-    }
-}
-
-@media (max-width: 1000px) {
-    #add-task-section {
-        padding: 8.9rem 0 0 15rem;
-    }
-    .main-add-task-container {
-        width: calc(100vw - 15rem);
+        width: calc(100vw - 18rem);
     }
 }

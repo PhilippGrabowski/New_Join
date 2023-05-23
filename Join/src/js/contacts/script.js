@@ -132,7 +132,7 @@ function getFirstCharofLastname(i, array) {
  * @param {number} id - ID of contact
  */
 function openContactInfo(id) {
-    if (window.innerWidth <= 600) {
+    if (window.innerWidth <= 670) {
         document.getElementById('contactList').style.display = 'none';
         document.getElementById('newContactButton').style.display = 'none';
         document.getElementById('contactInfo').style.display = 'unset';
