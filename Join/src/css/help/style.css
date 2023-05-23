@@ -40,8 +40,7 @@ i {
     margin-top: 48px;
 }
 
-.guide span,
-.summaryContainer span {
+.subheadline {
     font-weight: 700;
     font-size: var(--font-size-27);
 }
@@ -56,6 +55,20 @@ i {
     margin-top: 36px;
 }
 
+.stepContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(5, auto);
+    gap: 2.4vw;
+    row-gap: 10px;
+    margin-top: 36px;
+}
+
+.step {
+    font-size: var(--font-size-16);
+}
+
 /* === Media Queries === */
 
 /* === Height === */
@@ -63,6 +76,9 @@ i {
 @media (max-height: 768px) {
     #helpContainer {
         padding: 65px 8.3vw 0 8.3vw;
+    }
+    .info {
+        height: calc(100vh - 246.8px);
     }
     .summaryContainer {
         margin-top: 36px;
@@ -73,8 +89,8 @@ i {
     .guide {
         margin-top: 27px;
     }
-    .info {
-        height: calc(100vh - 246.8px);
+    .stepContainer {
+        margin-top: 27px;
     }
 }
 

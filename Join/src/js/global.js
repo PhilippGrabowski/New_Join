@@ -50,3 +50,7 @@ function getActiveLink() {
 function toggleLogoutLink() {
     document.getElementById('logoutLink').classList.toggle('d-none');
 }
+
+function openHelp() {
+    document.location = 'help.html';
+}
