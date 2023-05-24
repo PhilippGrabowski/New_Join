@@ -2,7 +2,7 @@
 
 #header {
     height: 89px;
-    padding: 20px 2.3vw 20px 25vw;
+    padding: 20px 2.3vw 20px 340px;
 }
 
 .header {
@@ -94,9 +94,15 @@
 
 /* === Media Queries === */
 
+@media (max-width: 1096px) {
+    #header {
+        padding: 20px 2.3vw 20px 290px;
+    }
+}
+
 @media (max-width: 768px) {
-    .header {
-        padding: 20px 2.3vw 20px 21.5rem;
+    #header {
+        padding: 20px 2.3vw 20px 200px;
     }
     .header-text {
         font-size: var(--font-size-18);
