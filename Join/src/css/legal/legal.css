@@ -1,5 +1,18 @@
 .legal-container{
-    margin: 8.9rem 0 0 15vw;
+    height: calc(100vh - 89px);
+    margin-left: 230px;
+    margin-top: 89px;
     padding: 32px;
-    padding-bottom: 0;
+    color: rgb(87, 87, 87);
+    overflow-y: scroll;
+    
+}
+
+.legal-container a {
+    text-decoration: underline;
+    color: darkgrey;
+}
+
+.legal-container a:hover {
+    font-weight: bolder;
 }
