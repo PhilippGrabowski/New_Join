@@ -64,7 +64,7 @@ function pushTask(title, description, duedate, prio, category) {
         'priority': prio,
         'category': category.textContent,
         'subtask' : createSubTask(),
-        'status': 'open'
+        'status': 'in-progress'
     }
     return task;
 }
