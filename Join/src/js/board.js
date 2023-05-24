@@ -1,8 +1,23 @@
+
 let taskInProgress = [];
 
 let taskAwaitingFeedback = [];
 
 let taskDone = [];
+
+let currentLoadedTask
+
+
+async function init(){
+    let task = await getTasks('task');
+    currentLoadedTask = JSON.parse(task['data']['value']);
+}
+
+
+async function getTasks(key){
+    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
+    return fetch(url).then(res => res.json());
+}
 
 //<----------------------------------------- UpdateHTML-Function for Drag & Drop -------------------------------------->
 
