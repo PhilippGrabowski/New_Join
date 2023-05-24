@@ -7,8 +7,6 @@ body {
 
 
 
-<<<<<<< HEAD
-=======
 /* Add Task*/
 #add-task-section, #board-section {
     padding: 8.9rem 0 0 230px;
@@ -249,4 +247,3 @@ body {
         width: calc(100vw - 18rem);
     }
 }
->>>>>>> ef513e480630f3f61337647a93ff7a49ab554cec

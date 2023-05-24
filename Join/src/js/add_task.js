@@ -1,9 +1,10 @@
-/* Const Variables for the Remote Storage saving */
+/* Const for the Remote Storage saving */
 
 const STORAGE_TOKEN = 'D4DBS7MA276TXS8PQ3TJKAHG12EW5IEPOBMLYDL9';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 /* Remotely loads exisiting Tasks if some Tasks where created */
+
 
 loadTasks();
 
@@ -42,7 +43,7 @@ function createTask() {
     let dueDate = document.getElementById('dueDate');
 
     if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
-        tasks.push(pushTask(title, description, dueDate, prio, category));
+        tasks.push(pushTask(title, description, dueDate, prio, category, subtasks));
         saveTask();
     }
 
@@ -51,10 +52,10 @@ function createTask() {
 function checkSubtask(i) {
     let checkbox = document.getElementById(`subtask${i}`);
     if (checkbox.checked) {
-        bool.splice(i, 1);
+        bool[i] = "true";
     }
     else if (!checkbox.checked) {
-        bool.splice(i, 1);
+        bool[i] = "false";
     }
 }
 
@@ -73,9 +74,8 @@ function pushTask(title, description, duedate, prio, category) {
         'duedate': duedate.value,
         'priority': prio,
         'category': category.textContent,
-        'subtask': createSubTask(),
-        'status': 'open'
-
+        'subtask' : subtasks,
+        'status': 'in-progress'
     }
     return task;
 }
@@ -216,7 +216,8 @@ function displaySubTask() {
         subtaskName.push(subInput.value);
         bool.push('false');
     }
-    for (let i = 0; i < subtaskName.length; i++) { displayContainer.innerHTML += returnSubtaskHTML(i); }
+    
+    for (let i = 0; i < subtaskName.length; i++) { displayContainer.innerHTML += returnSubtaskHTML(i); bool[i] = "false"; }
     subInput.value = '';
 }
 
@@ -241,5 +242,6 @@ function returnSubtaskHTML(i) {
 
 function deleteSubTask(i) {
     subtaskName.splice(i, 1);
+    bool.splice(i, 1);
     displaySubTask();
 }
