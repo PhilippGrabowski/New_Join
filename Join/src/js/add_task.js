@@ -1,4 +1,4 @@
-/* Cont Variables for the Remote Storage saving */
+/* Const Variables for the Remote Storage saving */
 
 const STORAGE_TOKEN = 'D4DBS7MA276TXS8PQ3TJKAHG12EW5IEPOBMLYDL9';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
@@ -11,14 +11,14 @@ let tasks = [];
 
 let subtaskName = [];
 
+let bool = [];
+
 let subtasks = [
     {
-        "subtask_Name" : subtaskName
-    },
-    {
-
+        "checked": bool,
+        "subtask_Name": subtaskName
     }
-]
+];
 
 let priorities = [
     { priority: 'urgent', color: 'red' },
@@ -45,7 +45,17 @@ function createTask() {
         tasks.push(pushTask(title, description, dueDate, prio, category));
         saveTask();
     }
-    
+
+}
+
+function checkSubtask(i) {
+    let checkbox = document.getElementById(`subtask${i}`);
+    if (checkbox.checked) {
+        bool.splice(i, 1);
+    }
+    else if (!checkbox.checked) {
+        bool.splice(i, 1);
+    }
 }
 
 /* Pushes the Task with all the neccessary Information into the Tasks Array
@@ -63,7 +73,7 @@ function pushTask(title, description, duedate, prio, category) {
         'duedate': duedate.value,
         'priority': prio,
         'category': category.textContent,
-        'subtask' : createSubTask(),
+        'subtask': createSubTask(),
         'status': 'open'
     }
     return task;
@@ -115,7 +125,7 @@ function setSelectedColor(id) {
     let selectedImg = document.getElementById(`img-${priorities[id].priority}`);
     selectedImg.style = `filter: brightness(0) invert(1)`;
     selected.style.color = `white`;
-    
+
 }
 
 /* Changes the Color or resets it on the previous Priority Button when the user decides to switch to a different Priority */
@@ -127,7 +137,7 @@ function resetSelectedColor(id) {
             document.getElementById(`${priorities[i].priority}`).style.color = 'black';
             document.getElementById(`img-${priorities[i].priority}`).style = `filter: brightness(1) invert(0)`;
         }
-        
+
     }
 }
 
@@ -139,9 +149,9 @@ function closeAddTask() {
 
 /* The Task gets changed into a string */
 
-async function saveTask(){
-    
-   await setTask('task', JSON.stringify(tasks));
+async function saveTask() {
+
+    await setTask('task', JSON.stringify(tasks));
 }
 
 /**
@@ -151,7 +161,7 @@ async function saveTask(){
  */
 
 async function setTask(key, value) {
-    
+
     const payload = { key, value, token: STORAGE_TOKEN };
     return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) }).then(res => res.json());
 }
@@ -190,21 +200,22 @@ function deleteTask() {
 }
 
 /* Creates and shows the Subtask that the user sets */
-function createSubTask(){
+function createSubTask() {
 
 }
 
 /* Pushes the Subtask that the User creates himself into an array and displays it */
 
-function displaySubTask(){
+function displaySubTask() {
     let subInput = document.getElementById('subtask-content');
     let displayContainer = document.getElementById('displaySub');
     displayContainer.innerHTML = '';
-    if(subInput.value != 0){
+    if (subInput.value != 0) {
         console.log("Hallo");
         subtaskName.push(subInput.value);
+        bool.push('false');
     }
-    for (let i = 0; i < subtaskName.length; i++) {displayContainer.innerHTML += returnSubtaskHTML(i);}
+    for (let i = 0; i < subtaskName.length; i++) { displayContainer.innerHTML += returnSubtaskHTML(i); }
     subInput.value = '';
 }
 
@@ -212,11 +223,11 @@ function displaySubTask(){
 /** Returns the HTML for the Subtask 
  * @param {string} i - The number of the for Loop that is used in the displaySubTask Function
  */
-function returnSubtaskHTML(i){
+function returnSubtaskHTML(i) {
     return `
     <div class="subtask-div-container">
         <div class="subtask-left-side">
-            <input type="checkbox" name="subtask" id="subtask${i}">
+            <input onclick="checkSubtask(${i})" type="checkbox" name="subtask" id="subtask${i}">
             ${subtaskName[i]}
         </div>
         <div class="subtask-right-side">
@@ -227,7 +238,7 @@ function returnSubtaskHTML(i){
 
 /* Deletes the Subtask */
 
-function deleteSubTask(i){
-    subtaskName.splice(i,1);
+function deleteSubTask(i) {
+    subtaskName.splice(i, 1);
     displaySubTask();
 }
