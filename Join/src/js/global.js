@@ -47,6 +47,30 @@ function getActiveLink() {
     }
 }
 
-function toggleLogoutLink() {
-    document.getElementById('logoutLink').classList.toggle('d-none');
+function openHeaderMenu() {
+    if (window.innerWidth >= 468) {
+        document.getElementById('headerMenu').classList.remove('d-none');
+    } else {
+        document.getElementById('mobileHeaderMenu').classList.remove('d-none');
+    }
+    
+}
+
+function closeHeaderMenu() {
+    let headerMenu = document.getElementById('headerMenu');
+    let mobileHeaderMenu = document.getElementById('mobileHeaderMenu');
+    if (headerMenu.classList.contains('d-none') === false && window.innerWidth >= 468) {
+        headerMenu.classList.add('d-none');
+    }
+    if (mobileHeaderMenu.classList.contains('d-none') === false && window.innerWidth < 468) {
+        mobileHeaderMenu.classList.add('d-none');
+    }
+}
+
+function openHelp() {
+    document.location = 'help.html';
+}
+
+function stopPropagation(event) {
+    event.stopPropagation();
 }
