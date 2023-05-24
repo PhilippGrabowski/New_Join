@@ -73,13 +73,9 @@ function pushTask(title, description, duedate, prio, category) {
         'duedate': duedate.value,
         'priority': prio,
         'category': category.textContent,
-<<<<<<< HEAD
         'subtask': createSubTask(),
         'status': 'open'
-=======
-        'subtask' : createSubTask(),
-        'status': 'in-progress'
->>>>>>> ef513e480630f3f61337647a93ff7a49ab554cec
+
     }
     return task;
 }
