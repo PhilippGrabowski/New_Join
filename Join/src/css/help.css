@@ -1,15 +1,30 @@
 /* === Help === */
 
-.content {
-    padding: 89px 0 0 15vw;
-    width: 100%;
-    height: 100%;
+#help_includer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    padding: 89px 0 0 230px;
+    z-index: 2;
+    background-color: var(--white2-color);
 }
 
-#helpContainer {
-    width: 85vw;
+#help_container {
+    width: 100%;
     height: calc(100vh - 89px);
+    height: calc(100svh - 89px);
     padding: 82px 8.3vw 0 8.3vw;
+    overflow-y: auto;
+}
+
+#help_container::-webkit-scrollbar {
+    width: 7px;
+}
+
+#help_container::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: #A8A8A8;
 }
 
 .headline-row {
@@ -22,20 +37,26 @@
     font-size: var(--font-size-61);
 }
 
-.arrowLeftContainer {
+.arrow_left_container {
     height: 100%;
+    border-radius: 50%;
 }
 
-i {
+.arrow_left_container:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#return_arrow i {
     font-size: var(--font-size-47);
 }
 
 .info {
     width: 100%;
     height: calc(100vh - 275.8px);
+    height: calc(100svh - 275.8px);
 }
 
-.summaryContainer {
+.summary_container {
     width: 100%;
     margin-top: 48px;
 }
@@ -55,7 +76,7 @@ i {
     margin-top: 36px;
 }
 
-.stepContainer {
+.step_container {
     width: 100%;
     display: grid;
     grid-template-columns: auto auto;
@@ -63,6 +84,7 @@ i {
     gap: 2.4vw;
     row-gap: 10px;
     margin-top: 36px;
+    padding-bottom: 30px;
 }
 
 .step {
@@ -74,42 +96,42 @@ i {
 /* === Height === */
 
 @media (max-height: 768px) {
-    #helpContainer {
-        padding: 65px 8.3vw 0 8.3vw;
+    #help_container {
+        padding: 65px 8.3vw 30px 8.3vw;
     }
     .info {
         height: calc(100vh - 246.8px);
+        height: calc(100svh - 246.8px);
     }
-    .summaryContainer {
+    .summary_container {
         margin-top: 36px;
     }
-    .summaryContainer p {
+    .summary_container p {
         margin-top: 7px;
     }
     .guide {
         margin-top: 27px;
     }
-    .stepContainer {
+    .step_container {
         margin-top: 27px;
     }
 }
 
 /* === Width === */
 
-@media (min-width: 1920px) {
-    .content {
-        padding: 89px 0 0 288px;
-    }
-    #helpContainer {
-        width: calc(100vw - 288px);
+@media (max-width: 1096px) {
+    #help_includer {
+        padding: 89px 0 0 180px;
     }
 }
 
-@media (max-width: 1000px) {
-    .content {
-        padding: 89px 0 0 150px;
+@media (max-width: 468px) {
+    #help_includer {
+        padding: 79px 0 80px 0;
     }
-    #helpContainer {
-        width: calc(100vw - 150px);
+    #help_container {
+        height: calc(100vh - 159px);
+        height: calc(100svh - 159px);
+        padding: 0 2.3vw 0 2.3vw;
     }
 }

@@ -1,5 +1,5 @@
 function includeHTML() {
-    var z, i, elmnt, file, xhttp;
+    let z, i, elmnt, file, xhttp;
     /* looping through  */
     z = document.getElementsByTagName("*");
     for (i = 0; i < z.length; i++) {
@@ -25,40 +25,50 @@ function includeHTML() {
 }
 
 function getActiveLink() {
-    if(window.location.href.indexOf("summary") > -1){
-        var element = document.getElementById("summaryLink");
+    if (window.location.href.indexOf("summary") > -1) {
+        addActiveBgr('summary_link', 'mobile_summary_link');
+    }
+    if (window.location.href.indexOf("board") > -1) {
+        addActiveBgr('board_link', 'mobile_board_link');
+    }
+    if (window.location.href.indexOf("add-task") > -1) {
+        addActiveBgr('add_task_link', 'mobile_add_task_link');
+    }
+    if (window.location.href.indexOf("contacts") > -1) {
+        addActiveBgr('contact_link', 'mobile_contact_link');
+    }
+    if (window.location.href.indexOf("legal-notice") > -1) {
+        let element = document.getElementById("legal_notice_link");
         element.classList.add("active");
     }
-    if(window.location.href.indexOf("board") > -1){
-        var element = document.getElementById("boardLink");
-        element.classList.add("active");
-    }
-    if(window.location.href.indexOf("add-task") > -1){
-        var element = document.getElementById("addTaskLink");
-        element.classList.add("active");
-    }
-    if(window.location.href.indexOf("contacts") > -1){
-        var element = document.getElementById("contactsLink");
-        element.classList.add("active");
-    }
-    if(window.location.href.indexOf("legal-notice") > -1){
-        var element = document.getElementById("legalNoticeLink");
+}
+
+window.addEventListener('resize', () => {
+    getActiveLink();
+});
+
+function addActiveBgr(id1, id2) {
+    let element = document.getElementById(id1);
+    let element2 = document.getElementById(id2);
+    if (window.innerWidth <= 468) {
+        element2.classList.add("active");
+    } else {
         element.classList.add("active");
     }
 }
 
 function openHeaderMenu() {
     if (window.innerWidth >= 468) {
-        document.getElementById('headerMenu').classList.remove('d-none');
+        document.getElementById('header_menu').classList.remove('d-none');
     } else {
-        document.getElementById('mobileHeaderMenu').classList.remove('d-none');
+        document.getElementById('mobile_header_menu').classList.remove('d-none');
     }
     
 }
 
 function closeHeaderMenu() {
-    let headerMenu = document.getElementById('headerMenu');
-    let mobileHeaderMenu = document.getElementById('mobileHeaderMenu');
+    let headerMenu = document.getElementById('header_menu');
+    let mobileHeaderMenu = document.getElementById('mobile_header_menu');
     if (headerMenu.classList.contains('d-none') === false && window.innerWidth >= 468) {
         headerMenu.classList.add('d-none');
     }
@@ -67,8 +77,9 @@ function closeHeaderMenu() {
     }
 }
 
-function openHelp() {
-    document.location = 'help.html';
+function toggleHelp() {
+    document.getElementById('help_link').classList.toggle('d-none');
+    document.getElementById('help_includer').classList.toggle('d-none');
 }
 
 function stopPropagation(event) {
