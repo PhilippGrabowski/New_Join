@@ -1,0 +1,149 @@
+#board-section {
+    padding: 8.9rem 0 0 230px;
+}
+
+#board-content {
+    width: calc(100vw - 230px);
+    height: 100%;
+    padding: 8.2rem 4.7rem 0 5.8rem;
+    background-color: #F6F7F8;
+}
+
+#board-header {
+    justify-content: space-between;
+    align-items: center;
+}
+
+#board-header h1 {
+    font-weight: bolder;
+    font-size: 60px;
+}
+
+#search-and-add {
+    margin-right: 16px;
+}
+
+#search-task {
+    background-color: #fff !important;
+    border-radius: 15px;
+    height: 50px;
+    width: 300px;
+    padding: 8px;
+    padding-right: 8px !important;
+    margin: 8px;
+    border: 1px solid #a8a8a8;
+}
+
+.search-icon {
+    background: url("../img/line-and-magnifier.svg") no-repeat;
+    background-position: right;
+    background-position-x: 245px;
+}
+
+#add-task-button {
+    border-radius: 15px;
+    height: 50px;
+    width: 150px;
+    margin: 8px;
+    padding: 8px;
+    border: none;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#tasks-container {
+    gap: 16px;
+    padding-top: 96px;
+    width: 100%;
+}
+
+.task-status-container {
+    width: 25%;
+}
+
+.task-column-header {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-column-header img {
+    cursor: pointer;
+}
+
+.task-column-header img:hover {
+    filter: invert(61%) sepia(25%) saturate(1347%) hue-rotate(155deg) brightness(92%) contrast(92%);
+    transition: ease-in-out 125ms;
+}
+
+.board-task-box {
+    width: 100%;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 15px;
+    margin-top: 32px;
+    cursor: grab;
+}
+
+.board-task-box span {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 4px 12px;
+    background-color: blue;
+    border-radius: 5px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+}
+
+.board-task-box h3 {
+    font-size: 15px;
+    padding: 12px 0px 8px 0px;
+}
+
+.board-task-box p {
+    color: #A8A8A8;
+    font-size: 15px;
+}
+
+.add-task-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: ease-in-out 225ms;
+}
+
+.add-task-container-board {
+    position: relative;
+    padding: 35px;
+    border-radius: 25px;
+    background-color: #fff;
+    margin: 50px;
+    height: 90%;
+}
+
+.close-window {
+    z-index: 200;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+}
+
+/* Board */
+@media (max-width: 1096px) {
+    #board-section {
+        padding: 8.9rem 2.3vw 0 180px;
+    }
+    #board-content {
+        width: calc(100vw - 18rem);
+    }
+}
+
+/* Board-End*/
