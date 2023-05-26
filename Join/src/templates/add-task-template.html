@@ -31,7 +31,10 @@
                 <span>Assigned to</span>
                 <div id="assigned" class="assigned-dropdown-div">
                     <div id="assignedPeople">Assigned to</div>
-                    <img class="cursor" src="src/img/dropdown-arrow.svg">
+                    <img onclick="openAssignedTo(), renderContacts()" class="cursor" src="src/img/dropdown-arrow.svg">
+                </div>
+                <div class="d-none" id="showAssigned">
+
                 </div>
             </div>
 
