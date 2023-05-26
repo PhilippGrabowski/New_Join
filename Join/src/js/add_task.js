@@ -8,6 +8,8 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 loadTasks();
 
+let firstRender = true;
+
 let tasks = [];
 
 let subtaskName = [];
@@ -34,16 +36,19 @@ let categoryColors = [
     { color: 'purple' },
 ]
 
+let assignedContacts = []
+
 /* Creates a Json out of the Information that has been set in the Add-Task Section */
 
 function createTask() {
+    
     let title = document.getElementById('title');
     let description = document.getElementById('description');
     let category = document.getElementById('selectedCategory');
     let dueDate = document.getElementById('dueDate');
 
     if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
-        tasks.push(pushTask(title, description, dueDate, prio, category, subtasks));
+        tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts));
         saveTask();
     }
 
@@ -74,7 +79,8 @@ function pushTask(title, description, duedate, prio, category) {
         'duedate': duedate.value,
         'priority': prio,
         'category': category.textContent,
-        'subtask' : subtasks,
+        'subtask': subtasks,
+        'assigned': assignedContacts,
         'status': 'in-progress'
     }
     return task;
@@ -97,6 +103,53 @@ function openCategories() {
         document.getElementById('category').style.borderBottom = "1px solid lightgray";
     }
 }
+
+function openAssignedTo() {
+    let showAssigned = document.getElementById('showAssigned');
+    showAssigned.classList.toggle('d-none');
+    let checkBottomBorder = !showAssigned.classList.contains('d-none');
+    if (checkBottomBorder) {
+        document.getElementById('assigned').style.borderBottomLeftRadius = "0px";
+        document.getElementById('assigned').style.borderBottomRightRadius = "0px";
+        document.getElementById('assigned').style.borderBottom = "none";
+    }
+    else {
+        document.getElementById('assigned').style.borderBottomLeftRadius = "8px";
+        document.getElementById('assigned').style.borderBottomRightRadius = "8px";
+        document.getElementById('assigned').style.borderBottom = "1px solid lightgray";
+    }
+}
+
+function renderContacts() {
+    let list = document.getElementById('showAssigned');
+    if (firstRender) {
+        assignedContacts.length = contacts.length;
+        list.innerHTML = '';
+        for (let i = 0; i < contacts.length; i++) {
+            list.innerHTML += `
+            <div class="contact-container">
+            ${contacts[i].name}
+            <input onclick="assignTask(${i})" type="checkbox" id="assigned${i}">
+            </div>`
+        }
+        firstRender = false;
+    }
+}
+
+function assignTask(i) {
+    let checkbox = document.getElementById(`assigned${i}`);
+    if (checkbox.checked) {
+        assignedContacts[i] = contacts[i].name;
+        assignedContacts.length = contacts.length;
+    }
+    else if (!checkbox.checked) {
+        assignedContacts[i] = '';
+        assignedContacts.length = contacts.length;
+    }
+}
+
+
+
 
 /* Sets the Priority that the User gives the Task */
 
@@ -216,7 +269,7 @@ function displaySubTask() {
         subtaskName.push(subInput.value);
         bool.push('false');
     }
-    
+
     for (let i = 0; i < subtaskName.length; i++) { displayContainer.innerHTML += returnSubtaskHTML(i); bool[i] = "false"; }
     subInput.value = '';
 }
