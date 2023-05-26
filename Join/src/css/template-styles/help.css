@@ -61,11 +61,11 @@
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-#return_arrow i {
+.return_arrow i {
     font-size: var(--font-size-47);
 }
 
-.info {
+.help_info {
     width: 100%;
     padding-right: 1vw;
     height: calc(100vh - 275.8px);
@@ -114,7 +114,7 @@
     #help_container {
         padding: 65px 8.3vw 0px 8.3vw;
     }
-    .info {
+    .help_info {
         height: calc(100vh - 246.8px);
         height: calc(100svh - 246.8px);
     }
@@ -147,7 +147,7 @@
     .headline {
         font-size: var(--font-size-47);
     }
-    #return_arrow i {
+    .return_arrow i {
         font-size: var(--font-size-36);
     }
     .guide {

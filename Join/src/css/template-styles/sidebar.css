@@ -8,6 +8,7 @@
     padding: 5vh 0 7vh 0;
     padding: 5svh 0 7svh 0;
     gap: 10vh;
+    gap: 10svh;
     position: fixed;
     left: 0px;
     top: 0px;
@@ -71,7 +72,7 @@
 
 /* === Mbile Sidebar === */
 
-#mobileSidebar {
+#mobile_sidebar {
     width: 100vw;
     height: 80px;
     position: absolute;
@@ -86,11 +87,11 @@
     z-index: 3;
 }
 
-#mobileSidebar a {
+#mobile_sidebar a {
     height: 100%;
 }
 
-#mobileSidebar .sidebar_link {
+#mobile_sidebar .sidebar_link {
     height: 100%;
     justify-content: center;
     align-items: center;
@@ -99,11 +100,11 @@
     font-size: 16px;
 }
 
-#mobileSidebar .sidebar_link:active {
+#mobile_sidebar .sidebar_link:active {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-#mobileSidebar .sidebar_link_img {
+#mobile_sidebar .sidebar_link_img {
     width: 22px;
 }
 
@@ -111,7 +112,7 @@
 
 @media (max-width: 1096px) {
     #sidebar {
-        width: 18rem;
+        width: 180px;
     }
     .sidebar_logo {
         width: 80px;
@@ -119,10 +120,10 @@
     #sidebar .sidebar_link {
         font-size: 14px;
         padding: 0 15%;
-        gap: 1rem;
+        gap: 10px;
     }
     .sidebar_link_img {
-        width: 1.8rem;
+        width: 18px;
     }
 }
 
@@ -142,10 +143,10 @@
 }
 
 @media (max-width: 380px) {
-    #mobileSidebar .sidebar_link {
+    #mobile_sidebar .sidebar_link {
         font-size: 12px;
     }
-    #mobileSidebar .sidebar_link_img {
+    #mobile_sidebar .sidebar_link_img {
         width: 18px;
     }
 }
