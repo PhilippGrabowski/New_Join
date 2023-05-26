@@ -46,12 +46,13 @@ function createTask() {
     let description = document.getElementById('description');
     let category = document.getElementById('selectedCategory');
     let dueDate = document.getElementById('dueDate');
+    let dragId = 0;
 
     if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
-        tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts));
+        tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, dragId));
         saveTask();
     }
-
+    id++;
 }
 
 function checkSubtask(i) {
@@ -72,7 +73,7 @@ function checkSubtask(i) {
  * @param {*} category - the category that the task falls under
  */
 
-function pushTask(title, description, duedate, prio, category) {
+function pushTask(title, description, duedate, prio, category, DragId) {
     let task = {
         'title': title.value,
         'description': description.value,
@@ -81,7 +82,8 @@ function pushTask(title, description, duedate, prio, category) {
         'category': category.textContent,
         'subtask': subtasks,
         'assigned': assignedContacts,
-        'status': 'in-progress'
+        'status': 'to-do',
+        'id': DragId
     }
     return task;
 }
