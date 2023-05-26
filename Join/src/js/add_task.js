@@ -38,6 +38,8 @@ let categoryColors = [
 
 let assignedContacts = []
 
+let renderAssignedContacts = [];
+
 /* Creates a Json out of the Information that has been set in the Add-Task Section */
 
 function createTask() {
@@ -138,17 +140,38 @@ function renderContacts() {
 
 function assignTask(i) {
     let checkbox = document.getElementById(`assigned${i}`);
+    
     if (checkbox.checked) {
+        renderAssignedContacts.push(contacts[i].name);
         assignedContacts[i] = contacts[i].name;
         assignedContacts.length = contacts.length;
     }
     else if (!checkbox.checked) {
         assignedContacts[i] = '';
+        deleteAssignedContact();
         assignedContacts.length = contacts.length;
     }
+    renderContactBubbles();
+
 }
 
+function deleteAssignedContact(){
+    
+}
 
+function renderContactBubbles(){
+    let firstLetter = renderAssignedContacts.map(first => {return first[0]});
+    let render = document.getElementById('renderContactBubbles');
+    render.innerHTML = '';
+    for (let i = 0; i < renderAssignedContacts.length; i++) {
+        render.innerHTML = `
+        <div>
+            ${firstLetter}
+        </div>
+        
+        `
+    }
+}
 
 
 /* Sets the Priority that the User gives the Task */
