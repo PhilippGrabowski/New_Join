@@ -2,7 +2,7 @@
 
 #header {
     height: 89px;
-    padding: 20px 2.3vw 20px 340px;
+    padding: 20px 2.3vw 20px 350px;
     z-index: 3;
 }
 
@@ -48,7 +48,7 @@
     right: 2.3vw;
     bottom: -39.2px;
     font-size: 16px;
-    padding: 1rem 4rem;
+    padding: 10px 40px;
     border: none;
     border-radius: 20px 0px 20px 20px;
     color: var(--white-color);
@@ -108,7 +108,7 @@
 
 @media (max-width: 1096px) {
     #header {
-        padding: 20px 2.3vw 20px 290px;
+        padding: 20px 2.3vw 20px 250px;
     }
 }
 

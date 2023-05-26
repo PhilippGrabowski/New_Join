@@ -102,6 +102,9 @@
     #contactInfo {
         width: calc(100vw - 280px);
     }
+    .contactInitials {
+        margin-right: 15px;
+    }
 }
 
 @media (max-width: 900px) {

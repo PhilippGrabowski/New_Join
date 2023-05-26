@@ -12,8 +12,11 @@
     <link rel="stylesheet" href="src/css//template-styles/header.css">
     <link rel="stylesheet" href="src/css/template-styles/sidebar.css">
     <link rel="stylesheet" href="src/css/template-styles/help.css">
+    <link rel="stylesheet" href="src/css/summary/style.css">
+    <link rel="stylesheet" href="src/css/summary/mqueries.css">
+    <script src="//cdn.jsdelivr.net/npm/desvg@1.0.2/desvg.min.js"></script>
     <script src="src/js/settings.js"></script>
-    <script src="src/js/summary.js"></script>
+    <script src="src/js/summary/script.js"></script>
     <script src="src/js/global.js"></script>
     <title>Join - Summary</title>
 </head>
@@ -27,6 +30,77 @@
     <div id="mobile_sidebar_includer" w3-include-html="src/templates/sidebar-mobile.html"></div>
 
     <div id="help_includer" w3-include-html="src/templates/help.html" class="d-none"></div>
+
+    <section class="content">
+        <div class="content_container">
+            <div class="content_header_container flex-row">
+                <span class="mobile_join_headline">Kanban Project Management Tool</span>
+                <span class="content_header_headline">Summary</span>
+                <div class="vertical_line"></div>
+                <span id="content_header_subheadline">Everything in a nutshell!</span>
+                <div id="header_horizontal_line" class="horizontal_line"></div>
+            </div>
+            <div id="summary_container" class="flex-row">
+                <div class="summary_tasks flex-column">
+                    <div class="summary_task_row flex-row">
+                        <a href="board.html" class="summary_task grid curser box-shadow">
+                            <span id="summary_task_in_bord_amount">5</span>
+                            <span>Task in Bord</span>
+                        </a>
+                        <a href="board.html" class="summary_task grid curser box-shadow">
+                            <span id="summary_task_in_progress_amount">2</span>
+                            <span>Task in Progress</span>
+                        </a>
+                        <a href="board.html" class="summary_task grid curser box-shadow">
+                            <span id="summary_awaiting_feedback_amount">2</span>
+                            <span>Awaiting Feedback</span>
+                        </a>
+                    </div>
+                    <a href="board.html" class="upcoming_task_container flex-row curser box-shadow">
+                        <div class="priority_task_container flex-row">
+                            <div class="priority_symbol grid">
+                                <i class='bx bx-chevrons-up'></i>
+                            </div>
+                            <div class="priority_container flex-column">
+                                <span id="priority_amount">1</span>
+                                <span id="priority">Urgent</span>
+                            </div>
+                        </div>
+                        <div class="vertical_line_2"></div>
+                        <div class="priority_deadline_container flex-column">
+                            <span id="deadline_date">October 16, 2022</span>
+                            <span>Upcoming Deadline</span>
+                        </div>
+                    </a>
+                    <div class="personal_task_row flex-row">
+                        <a href="board.html" class="personal_task_container flex-row curser box-shadow">
+                            <div class="to_do_symbol_container grid">
+                                <img class="edit_task_img" src="src/img/group8.svg" alt="">
+                            </div>
+                            <div class="priority_container flex-column">
+                                <span id="to_do_amount">1</span>
+                                <span class="to_do_text">To-do</span>
+                            </div>
+                        </a>
+                        <a href="board.html" class="personal_task_container flex-row curser box-shadow">
+                            <div class="to_do_symbol_container grid">
+                                <i class='bx bx-check'></i>
+                            </div>
+                            <div class="priority_container flex-column">
+                                <span id="done_amount">1</span>
+                                <span class="to_do_text">Done</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="space"></div>
+                <div class="greeting_container flex-column">
+                    <span id="greeting">Good morning,</span>
+                    <span>Sofia Müller</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </body>
 

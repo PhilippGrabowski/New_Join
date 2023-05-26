@@ -32,6 +32,8 @@ async function loadAllTasks(){
 
 //<----------------------------------------- UpdateHTML-Function for Drag & Drop -------------------------------------->
 
+let currentDraggedElement;
+
 function updateHTML(){
     updateToDo();
     updateTaskInProgress();
@@ -40,52 +42,66 @@ function updateHTML(){
 }
 
 function updateToDo(){
-    let open = tasks.filter(t => t['status'] == 'open');
+    let open = tasks.filter(t => t['status'] == 'to-do');
     document.getElementById('board-to-do').innerHTML = '';
 
     for (let i = 0; i < open.length; i++) {
         const element = open[i];
-        document.getElementById('board-to-do').innerHTML += generateTaskCard(element);
+        document.getElementById('board-to-do').innerHTML += generateTaskCard(element, i);
     }
 }
 
 function updateTaskInProgress(){
-    let open = tasks.filter(t => t['status'] == 'progress');
+    let inProgress = tasks.filter(t => t['status'] == 'in-progress');
     document.getElementById('board-in-progress').innerHTML = '';
 
-    for (let i = 0; i < open.length; i++) {
-        const element = open[i];
-        document.getElementById('board-in-progress').innerHTML += generateTaskCard(element);
+    for (let i = 0; i < inProgress.length; i++) {
+        const element = inProgress[i];
+        document.getElementById('board-in-progress').innerHTML += generateTaskCard(element, i);
     }
 }
 
 function updateTaskAwaitingFeedback(){
-    let open = tasks.filter(t => t['status'] == 'feedback');
+    let awaitingFeedback = tasks.filter(t => t['status'] == 'feedback');
     document.getElementById('board-awaiting-feedback').innerHTML = '';
 
-    for (let i = 0; i < open.length; i++) {
-        const element = open[i];
-        document.getElementById('board-awaiting-feedback').innerHTML += generateTaskCard(element);
+    for (let i = 0; i < awaitingFeedback.length; i++) {
+        const element = awaitingFeedback[i];
+        document.getElementById('board-awaiting-feedback').innerHTML += generateTaskCard(element, i);
     }
 }
 
 function updateTaskDone(){
-    let open = tasks.filter(t => t['status'] == 'done');
+    let done = tasks.filter(t => t['status'] == 'done');
     document.getElementById('board-task-done').innerHTML = '';
 
-    for (let i = 0; i < open.length; i++) {
-        const element = open[i];
-        document.getElementById('board-task-done').innerHTML += generateTaskCard(element);
+    for (let i = 0; i < done.length; i++) {
+        const element = done[i];
+        document.getElementById('board-task-done').innerHTML += generateTaskCard(element, i);
     }
 }
 
-function generateTaskCard(element){
+function startDragging(i){
+    currentDraggedElement = i;
+}
+
+function allowDrop(ev){
+    ev.preventDefault();
+}
+
+function moveTo(category){
+    currentLoadedTask[currentDraggedElement]['status'] = category;
+    updateHTML();
+}
+
+function generateTaskCard(element, i){
     return /*html*/`
-        <div draggable="true" class="board-task-box flex-column">
+        <div draggable="true" ondragstart="startDragging(${i})"; class="board-task-box flex-column" id="${i}">
             <div>
                 <span>${element['category']}</span>
                 <h3>${element['title']}</h3>
                 <p>${element['description']}</p>
+                <p>${element['assigned']}</p>
             </div>
         </div>
     `; 
