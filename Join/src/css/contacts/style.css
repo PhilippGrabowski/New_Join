@@ -292,7 +292,7 @@
 
 /* add/edit contact window*/
 #contactOptionMenu {
-    width: 100rem;
+    width: clamp(725px, 80vw, 1000px);
     height: 40rem;
     position: absolute;
     top: calc(50% - 20rem);
@@ -306,7 +306,7 @@
 .contactOptionContainer {
     width: 40%;
     height: 100%;
-    padding-left: 4.7%;
+    padding-left: 4%;
     justify-content: center;
     gap: 12px;
     background-color: var(--darkBlue-color);

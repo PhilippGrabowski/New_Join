@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="src/css/global.css">
     <link rel="stylesheet" href="src/css//template-styles/header.css">
     <link rel="stylesheet" href="src/css/template-styles/sidebar.css">
-    <link rel="stylesheet" href="src/css/help.css">
-    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/template-styles/help.css">
     <link rel="stylesheet" href="src/css//board/board.css">
     <script src="src/js/add_task.js"></script>
     <script src="src/js/settings.js"></script>
@@ -21,7 +20,7 @@
     <title>Join - Board</title>
 </head>
 
-<body onload="includeHTML(), init();">
+<body onload="includeHTML(), init();" onclick="closeHeaderMenu()">
 
     <div id="add-task-overlay" class="add-task-overlay" style="transform: translateX(2500px);">
         <div id="add-task-container-board" class="add-task-container-board">

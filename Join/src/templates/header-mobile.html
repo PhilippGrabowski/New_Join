@@ -3,8 +3,8 @@
     <img class="profil_img curser" src="src/img/profile-picture.png" alt=""
         onclick="stopPropagation(event); openHeaderMenu()">
     <div id="mobile_header_menu" class="flex-column d-none" onclick="stopPropagation(event)">
-        <a href="help.html" id="mobile_help_link">Help</a>
-        <a href="legal-notice.html" id="mobile_legal_notice_link">Legal notice</a>
-        <a href="login.html" id="mobile_logout_link">Log out</a>
+        <a id="mobile_help_link" class="curser" onclick="toggleHelp(); closeHeaderMenu()">Help</a>
+        <a href="legal-notice.html" id="mobile_legal_notice_link" class="curser">Legal notice</a>
+        <a href="login.html" id="mobile_logout_link" class="curser">Log out</a>
     </div>
 </div>

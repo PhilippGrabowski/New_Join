@@ -52,8 +52,20 @@
         width: calc(100vw - 550px);
     }
     #contactOptionMenu {
-        width: 80vw;
         left: calc(50% - 40vw);
+    }
+    .contactOptionInputContainer img {
+        margin: 0px 20px;
+    }
+    #editContactInitials {
+        margin: 0px 20px;
+        height: 120px;
+    }
+    #contactOption {
+        font-size: var(--font-size-47);
+    }
+    #addContactHeadline {
+        font-size: 18px;
     }
     .contact {
         gap: 1.5rem;
@@ -74,7 +86,7 @@
         width: 100px;
     }
     #listContainer {
-        padding: 1rem 1.5rem;
+        padding: 1rem 1.1rem;
     }
     .letter {
         padding-left: 2.7rem;
@@ -89,6 +101,12 @@
     }
     #contactInfo {
         width: calc(100vw - 280px);
+    }
+}
+
+@media (max-width: 900px) {
+    #contactOptionMenu {
+        left: calc(50% - 362.5px);
     }
 }
 
@@ -136,7 +154,65 @@
     #contactInformation a span {
         font-size: var(--font-size-14);
     }
-}
+
+    /*option Menu add*/
+    #contactOptionMenu {
+        flex-direction: column;
+        height: 80vh;
+        width: 400px;
+        top: calc(50% - 40vh);
+        left: calc(50% - 200px);
+    }
+    .contactOptionContainer {
+        height: 400px;
+        width: 100%;
+        padding-left: 50px;
+    }
+    .contactOptionContainer img {
+        display: none;
+    }
+    #contactOption {
+        font-size: var(--font-size-61);
+    }
+    #addContactHeadline {
+        font-size: 21px;
+    }
+    .contactOptionInputContainer {
+        height: 400px;
+        width: 100%;
+        position: relative;
+        justify-content: center;
+        padding: 0 40px;
+    }
+    .contactOptionInputContainer > i {
+        top: -270px;
+        color: var(--white-color);
+        font-size: var(--font-size-47);
+    }
+    .contactOptionInputContainer img {
+        position: absolute;
+        top: -75px;
+        left: calc(50% - 80px);
+        width: 110px;
+        height: 110px;
+    }
+    #contactForm {
+        gap: 20px;
+    }
+    .contactInputs,
+    .includedInputs {
+        gap: 10px;
+    }
+    .contactOptionButtons {
+        justify-content: center;
+        padding: 10px;
+    }
+    .contactOptionButtons button:first-of-type {
+        display: none;
+    }
+
+    /*option Menu edit*/
+
 
 @media (max-width: 800px) and (max-height: 768px) {
     #contactInformation {
@@ -219,18 +295,56 @@
 }
 
 @media (max-width: 468px) {
+    body {
+        background-color: var(--white-color);
+    }
     #contacts {
         height: 100vh;
-        padding: 79px 2.3vw 80px 2.3vw;
+        padding: 79px 5px 80px 0;
     }
+
+    /*contactlist*/
     #contactList {
         height: 100%;
+        box-shadow: none;
     }
+    .contact:hover {
+        background: var(--white-color);
+    }
+    .contact:active {
+        background: linear-gradient(0deg, rgb(239, 239, 239) 0%, rgb(249, 249, 249) 100%);
+    }
+    .contact:hover .contactInitials {
+        scale: 1.0;
+    }
+    #contacts button {
+        right: 5.8vw;
+    }
+    #newContactButtonSpan {
+        display: unset;
+    }
+}
+
+    /*contactinfo*/
     #contactInfo {
         width: 100%;
         padding: 3.25rem 2.3vw 0 6.4%;
     }
     #mobilContactInfoButtonContainer {
         bottom: 130px;
+    }
+    #contacts button:hover {
+        background-color: var(--darkBlue-color);
+        box-shadow: none;
+    }
+    #contacts button:active {
+        background-color: var(--blue-color);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@media (max-width: 380px) {
+    #newContactButtonSpan {
+        display: none;
     }
 }

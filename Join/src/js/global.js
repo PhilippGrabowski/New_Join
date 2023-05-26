@@ -67,13 +67,10 @@ function openHeaderMenu() {
 }
 
 function closeHeaderMenu() {
-    let headerMenu = document.getElementById('header_menu');
-    let mobileHeaderMenu = document.getElementById('mobile_header_menu');
-    if (headerMenu.classList.contains('d-none') === false && window.innerWidth >= 468) {
-        headerMenu.classList.add('d-none');
-    }
-    if (mobileHeaderMenu.classList.contains('d-none') === false && window.innerWidth < 468) {
-        mobileHeaderMenu.classList.add('d-none');
+    if (window.innerWidth >= 468) {
+        document.getElementById('header_menu').classList.add('d-none');
+    } else {
+        document.getElementById('mobile_header_menu').classList.add('d-none');
     }
 }
 

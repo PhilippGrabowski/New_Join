@@ -158,7 +158,7 @@ function displayContactInfoButtons(id) {
  */
 function closeContactInfo() {
     document.getElementById('contactList').style.display = 'unset';
-    document.getElementById('newContactButton').style.display = 'unset';
+    document.getElementById('newContactButton').style.display = 'flex';
     document.getElementById('contactInfo').style.display = 'none';
     document.getElementById('mobilContactInfoButtonContainer').style.display = 'none';
     document.getElementById('contactInfoContainer').style.transform = 'translateX(150%)';

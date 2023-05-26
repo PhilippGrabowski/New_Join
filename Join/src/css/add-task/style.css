@@ -1,12 +1,13 @@
 /* Add Task*/
-#add-task-section, #board-section {
-    padding: 8.9rem 0 0 15vw;
+#add-task-section {
+    padding: 8.9rem 0 0 230px;
     width: 100vw;
     height: 100vh;
+    height: 100svh;
 }
 
 .main-add-task-container {
-    width: calc(100vw - 15vw);
+    width: calc(100vw - 230px);
     height: 100%;
     padding: 8.2rem 4.7rem 0 5.8rem;
     gap: 40px;
@@ -236,20 +237,11 @@
     }
 }
 
-@media (min-width: 1920px) {
+@media (max-width: 1096px) {
     #add-task-section {
-        padding: 8.9rem 0 0 28.8rem;
+        padding: 8.9rem 0 0 180px;
     }
     .main-add-task-container {
-        width: calc(100vw - 28.8rem);
-    }
-}
-
-@media (max-width: 1000px) {
-    #add-task-section {
-        padding: 8.9rem 0 0 15rem;
-    }
-    .main-add-task-container {
-        width: calc(100vw - 15rem);
+        width: calc(100vw - 180px);
     }
 }
