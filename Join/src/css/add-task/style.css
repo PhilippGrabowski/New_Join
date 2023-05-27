@@ -262,3 +262,12 @@
         width: calc(100vw - 180px);
     }
 }
+
+@media (max-width: 670px) {
+    #add-task-section {
+        padding: 8.9rem 0 0 90px;
+    }
+    .main-add-task-container {
+        width: calc(100vw - 90px);
+    }
+}

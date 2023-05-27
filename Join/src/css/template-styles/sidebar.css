@@ -127,6 +127,23 @@
     }
 }
 
+@media (max-width: 670px) {
+    #sidebar {
+        width: 90px;
+        overflow: hidden;
+    }
+    .sidebar_logo {
+        width: 40px;
+    }
+    #sidebar .sidebar_link {
+        padding: 0 30px;
+        gap: 50px;
+    }
+    .sidebar_link_img {
+        width: 22px;
+    }
+}
+
 @media (min-width: 468px) {
     #mobile_sidebar_includer {
         display: none;

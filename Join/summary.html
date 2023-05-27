@@ -21,7 +21,7 @@
     <title>Join - Summary</title>
 </head>
 
-<body onload="includeHTML()" onclick="closeHeaderMenu()">
+<body onload="includeHTML(); renderGreeting();" onclick="closeHeaderMenu()">
 
     <div id="header_includer" w3-include-html="src/templates/header.html"></div>
     <div id="sidebar_includer" w3-include-html="src/templates/sidebar.html"></div>
@@ -34,7 +34,8 @@
     <section class="content">
         <div class="content_container">
             <div class="content_header_container flex-row">
-                <span class="mobile_join_headline">Kanban Project Management Tool</span>
+                <span id="summary_mobile_join_headline" class="mobile_join_headline">Kanban Project Management
+                    Tool</span>
                 <span class="content_header_headline">Summary</span>
                 <div class="vertical_line"></div>
                 <span id="content_header_subheadline">Everything in a nutshell!</span>
@@ -95,12 +96,18 @@
                 </div>
                 <div class="space"></div>
                 <div class="greeting_container flex-column">
-                    <span id="greeting">Good morning,</span>
+                    <span id="greeting"></span>
                     <span>Sofia Müller</span>
                 </div>
             </div>
         </div>
     </section>
+    <div id="mobile_greeting_container" class="grid">
+        <div class="mobile_greeting_container flex-column">
+            <span id="mobile_greeting">Good morning,</span>
+            <span>Sofia Müller</span>
+        </div>
+    </div>
 
 </body>
 

@@ -1,0 +1,384 @@
+@media (max-height: 768px) {
+    .content_container {
+        padding: 65px 0px 0px 120px;
+    }
+    .content_header_headline {
+        width: 242px;
+    }
+    #summary_container {
+        margin-top: 60px;
+    }
+    .summary_task {
+        width: 130px;
+        height: 130px;
+        padding: 15px 30px;
+    }
+    .summary_tasks {
+        gap: 27px;
+    }
+    .summary_task_row {
+        gap: 27px;
+    }
+    .summary_task span {
+        font-size: 50px;
+    }
+    #deadline_date,
+    .summary_task span ~ span {
+        font-size: var(--font-size-18);
+    }
+    .upcoming_task_container {
+        padding: 16px 0px;
+    }
+    .priority_symbol {
+        width: 45px;
+        height: 45px;
+    }
+    .priority_symbol i {
+        font-size: var(--font-size-47);
+    }
+    #priority_amount {
+        font-size: var(--font-size-47);
+    }
+    #priority,
+    .priority_deadline_container span ~ span {
+        font-size: 12px;
+    }
+    .vertical_line_2 {
+        height: 75px;
+        margin: 0px 45px;
+    }
+    .personal_task_container {
+        padding: 18px 45px;
+    }
+    .to_do_symbol_container {
+        width: 50px;
+        height: 50px;
+    }
+    .to_do_symbol_container i {
+        font-size: var(--font-size-47);
+    }
+    .to_do_text {
+        font-size: var(--font-size-18);
+    }
+    #done_amount,
+    #to_do_amount {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 1400px) and (min-height: 768px) {
+    #greeting {
+        font-size:var(--font-size-36);
+    }
+    .greeting_container span ~ span {
+        font-size: var(--font-size-47);
+    }
+    .content_header_headline {
+        width: 240px;
+        font-size: var(--font-size-47);
+    }
+    #content_header_subheadline {
+        font-size: var(--font-size-24);
+    }
+}
+
+@media (min-width: 1300px) and (min-height: 768px) {
+    #mobile_greeting_container {
+        display: none;
+    }
+}
+
+@media (max-width: 1300px) and (min-height: 768px) {
+    .greeting_container {
+        display: none;
+    }
+    #mobile_greeting_container {
+        display: grid;
+    }
+    .space {
+        display: none
+    }
+}
+
+@media (max-width: 1240px) and (max-height: 768px) {
+    .greeting_container {
+        text-align: center;
+    }
+    #greeting {
+        font-size: var(--font-size-36);
+    }
+    .greeting_container span ~ span {
+        font-size: var(--font-size-47);
+    }
+}
+
+@media (min-width: 1096px) and (max-height: 768px) {
+    #mobile_greeting_container {
+        display: none;
+    }
+}
+
+@media (max-width: 1096px) and (max-height: 768px) {
+    .greeting_container {
+        display: none;
+    }
+    #mobile_greeting_container {
+        display: grid;
+    }
+    .space {
+        display: none
+    }
+}
+
+@media (max-width: 1096px) {
+    .content {
+        padding: 89px 0 0 180px;
+    }
+    .content_container {
+        width: calc(100vw - 180px);
+        padding: 82px 0 0 70px;
+    }
+}
+
+@media (max-width: 900px) and (min-height: 768px) {
+    .content_header_headline {
+        width: fit-content;
+        font-size: var(--font-size-36);
+    }
+    .vertical_line {
+        height: 40px;
+        border: 2px solid #29ABE2;
+        border-radius: 2px;
+    }
+    #content_header_subheadline {
+        font-size: var(--font-size-21);
+    }
+    .summary_task_row {
+        gap: 27px;
+    }
+    .summary_tasks {
+        gap: 27px;
+    }
+    .summary_task span {
+        font-size: 50px;
+    }
+    #deadline_date, .summary_task span ~ span {
+        font-size: var(--font-size-16);
+    }
+    .summary_task {
+        width: 130px;
+        height: 130px;
+        padding: 15px 30px;
+    }
+    #priority_amount {
+        font-size: var(--font-size-47);
+    }
+    .priority_symbol {
+        width: 45px;
+        height: 45px;
+    }
+    .priority_symbol i {
+        font-size: var(--font-size-36);
+    }
+    .vertical_line_2 {
+        height: 75px;
+        margin: 0px 45px;
+    }
+    #done_amount, #to_do_amount {
+        font-size: var(--font-size-47);
+    }
+    .to_do_text {
+        font-size: var(--font-size-16);
+    }
+    .to_do_symbol_container {
+        width: 50px;
+        height: 50px;
+    }
+    .personal_task_container {
+        padding: 18px 45px;
+    }
+    .to_do_symbol_container i {
+        font-size: var(--font-size-36);
+    }
+}
+
+@media (max-width: 900px) and (max-height: 768px) {
+    .content_header_headline {
+        font-size: var(--font-size-47);
+    }
+    .vertical_line {
+        height: 40px;
+        border: 2px solid #29ABE2;
+        border-radius: 2px;
+    }
+    #content_header_subheadline {
+        font-size: var(--font-size-24);
+    }
+    .content_header_headline {
+        width: fit-content;
+    }
+}
+
+@media (max-width: 780px) {
+    .header_text {
+        display: none;
+    }
+    .content_container {
+        padding: 0px 0px 0px 9vw;
+    }
+    .content_header_container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    #summary_mobile_join_headline {
+        display: unset;
+    }
+    .vertical_line {
+        display: none;
+    }
+    #content_header_subheadline {
+        font-size: var(--font-size-18);
+    }
+    .horizontal_line {
+        display: unset;
+        margin: 0;
+    }
+    #summary_container {
+        margin-top: 40px;
+    }
+    .summary_task {
+        width: 110px;
+        height: 110px;
+        padding: 10px 25px;
+        place-content: center;
+    }
+    .summary_task span {
+        font-size: var(--font-size-47);
+    }
+    .summary_task span ~ span {
+        font-size: var(--font-size-14);
+    }
+    .priority_deadline_container {
+        gap: 8px;
+    }
+    .vertical_line_2 {
+        height: 68px;
+        margin: 0px 20px;
+    }
+    #done_amount, #to_do_amount {
+        font-size: var(--font-size-47);
+    }
+    .to_do_text {
+        font-size: var(--font-size-14);
+    }
+    .to_do_symbol_container {
+        width: 40px;
+        height: 40px;
+    }
+    .edit_task_img {
+        width: 15px;
+        height: 24px;
+    }
+    .personal_task_container {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 670px) {
+    .content {
+        padding: 89px 0 0 90px;
+    }
+    .content_container {
+        width: calc(100vw - 90px);
+    }
+    #mobile_greeting_container {
+        padding: 89px 0 0 90px;
+    }
+}
+
+@media (max-width: 560px) {
+    .content_container {
+        padding: 0px 0px 0px 20px;
+    }
+    .summary_task_row {
+        gap: 10px;
+    }
+    .personal_task_container {
+        padding: 18px 35px;
+    }
+}
+
+@media (max-width: 468px) {
+    .content {
+        padding: 79px 0px 80px 0px;
+    }
+    .content_container {
+        width: 100vw;
+        padding: 0px 5.8vw 0px 5.8vw;
+    }
+    #mobile_greeting_container {
+        padding: 79px 0px 80px 0px;
+    }
+    #mobile_greeting {
+        font-size: var(--font-size-36);
+    }
+    .mobile_greeting_container span ~ span {
+        font-size: var(--font-size-47);
+    }
+}
+
+@media (max-width: 468px) and (min-height: 768px) {
+    .summary_task {
+        width: 90px;
+        height: 90px;
+        padding: 10px 20px;
+    }
+    .summary_task span {
+        font-size: var(--font-size-27);
+    }
+    #priority_amount {
+        font-size: var(--font-size-27);
+    }
+    #priority, .priority_deadline_container span ~ span {
+        font-size: var(--font-size-14);
+    }
+    .priority_task_container {
+        gap: 10px;
+    }
+    #done_amount, #to_do_amount {
+        font-size: var(--font-size-27);
+    }
+    .personal_task_container {
+        padding: 10px 25px;
+    }
+}
+
+@media (max-width: 468px) and (max-height: 768px) {
+    .summary_task_row {
+        gap: 15px;
+    }
+    .summary_tasks {
+        gap: 20px;
+    }
+    .summary_task span {
+        font-size: var(--font-size-36);
+    }
+    .summary_task {
+        width: 90px;
+        height: 90px;
+        padding: 10px 25px;
+    }
+    #priority_amount {
+        font-size: var(--font-size-36);
+    }
+    #deadline_date {
+        font-size: var(--font-size-16);
+    }
+    #to_do_amount {
+        font-size: var(--font-size-36);
+    }
+    .personal_task_container {
+        padding: 10px 25px;
+    }
+}
