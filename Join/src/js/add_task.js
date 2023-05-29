@@ -23,6 +23,15 @@ let subtasks = [
     }
 ];
 
+let colorType = [
+    { color: 'lightblue' },
+    { color: 'red' },
+    { color: 'green' },
+    { color: 'orange' },
+    { color: 'pink' },
+    { color: 'blue' },
+]
+
 let priorities = [
     { priority: 'urgent', color: 'red' },
     { priority: 'medium', color: 'orange' },
@@ -31,19 +40,29 @@ let priorities = [
 let prio;
 
 let categoryColors = [
-    { color: 'red' },
-    { color: 'green' },
-    { color: 'purple' },
+    {
+        color: 'red',
+        category: 'Media'
+
+    },
+    {
+        color: 'green',
+        category: 'Web'
+
+    },
+    {
+        color: 'purple',
+        category: 'Testing'
+    }
 ]
 
 let assignedContacts = []
 
-let renderAssignedContacts = [];
 
 /* Creates a Json out of the Information that has been set in the Add-Task Section */
 
 function createTask() {
-    
+
     let title = document.getElementById('title');
     let description = document.getElementById('description');
     let category = document.getElementById('selectedCategory');
@@ -108,6 +127,72 @@ function openCategories() {
     }
 }
 
+function displayCategoryHTML() {
+    let cat = document.getElementById('category');
+    cat.style = '';
+    cat.classList.add('category-dropdown-div');
+    cat.innerHTML = `
+        <div id="selectedCategory">Select a Category</div>
+        <img onclick="openCategories(),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
+    `
+}
+
+
+function displayCategories() {
+    let show = document.getElementById('showCat');
+    show.innerHTML = '';
+    show.innerHTML = `<div onclick="createNewCategory(), displayCategoryColors()" class="cat">New Category</div>`;
+    for (let i = 0; i < categoryColors.length; i++) {
+        show.innerHTML += `<div onclick="selectCategory(${i})" class="cat" id="${i}">${categoryColors[i].category}<span class="circle"
+        style="background-color: ${categoryColors[i].color};"></span></div>`
+    }
+}
+
+function createNewCategory() {
+    openCategories();
+    let show = document.getElementById('showCat');
+    let categoryContainer = document.getElementById('category');
+    categoryContainer.classList.remove('category-dropdown-div');
+    categoryContainer.style = '';
+    show.classList.add('d-none');
+    categoryContainer.innerHTML = `
+        <div>
+            <input class="title-input" type="text" placeholder="New Category name">
+            <img class="tick-icon" src="src/img/tick.png">
+            <img onclick="displayCategories(), displayCategoryHTML()" class="x-icon" src="src/img/x.png">
+        </div>
+        <div id="categoryColors">
+            
+        </div>
+    `;
+
+}
+
+function displayCategoryColors(){
+    let color = document.getElementById('categoryColors');
+    color.innerHTML = '';
+    for (let i = 0; i < colorType.length; i++) {
+        color.innerHTML += `
+        <div class="colortype" id="colorCode${i}" onclick="selectColor(${i})" style="background-color: ${colorType[i].color}">
+        `
+    }
+}
+
+function selectColor(i){
+    let selected = document.getElementById(`colorCode${i}`);
+    selected.classList.add('highlighted-color');
+    removeOtherSelected(i);
+}
+
+function removeOtherSelected(i){
+    for (let k = 0; k < colorType.length; k++) {
+        if (i != k) {
+          document.getElementById(`colorCode${k}`).classList.remove('highlighted-color');
+        }
+      }
+}
+
+
 function openAssignedTo() {
     let showAssigned = document.getElementById('showAssigned');
     showAssigned.classList.toggle('d-none');
@@ -127,50 +212,58 @@ function openAssignedTo() {
 function renderContacts() {
     let list = document.getElementById('showAssigned');
     if (firstRender) {
-        assignedContacts.length = contacts.length;
         list.innerHTML = '';
         for (let i = 0; i < contacts.length; i++) {
             list.innerHTML += `
             <div class="contact-container">
             ${contacts[i].name}
-            <input onclick="assignTask(${i})" type="checkbox" id="assigned${i}">
+            <input onclick="assignTask(${i})" class="cursor" type="checkbox" id="contact${contacts[i].id}">
             </div>`
         }
         firstRender = false;
     }
 }
 
+function removeObjectWithId(arr, id) {
+    const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
+
+    if (objWithIdIndex > -1) {
+        arr.splice(objWithIdIndex, 1);
+    }
+
+    return arr;
+}
+
 function assignTask(i) {
-    let checkbox = document.getElementById(`assigned${i}`);
-    
+    let checkbox = document.getElementById(`contact${contacts[i].id}`);
     if (checkbox.checked) {
-        renderAssignedContacts.push(contacts[i].name);
-        assignedContacts[i] = contacts[i].name;
-        assignedContacts.length = contacts.length;
+        assignedContacts.push(
+            {
+                'name': contacts[i].name,
+                'id': contacts[i].id
+            }
+        );
+        renderContactBubbles();
     }
     else if (!checkbox.checked) {
-        assignedContacts[i] = '';
-        deleteAssignedContact();
-        assignedContacts.length = contacts.length;
+        removeObjectWithId(assignedContacts, i);
+        renderContactBubbles();
     }
-    renderContactBubbles();
-
 }
 
-function deleteAssignedContact(){
-    
-}
 
-function renderContactBubbles(){
-    let firstLetter = renderAssignedContacts.map(first => {return first[0]});
+function renderContactBubbles() {
     let render = document.getElementById('renderContactBubbles');
     render.innerHTML = '';
-    for (let i = 0; i < renderAssignedContacts.length; i++) {
-        render.innerHTML = `
-        <div>
+    let firstLetter;
+    for (let i = 0; i < assignedContacts.length; i++) {
+        firstLetter = assignedContacts[i].name.charAt(0);
+        render.innerHTML += `
+        <div class="contact-display">
             ${firstLetter}
         </div>
-        
+
+
         `
     }
 }
@@ -276,11 +369,6 @@ async function loadTasks() {
 function deleteTask() {
     tasks.splice(0, 1);
     saveTask();
-}
-
-/* Creates and shows the Subtask that the user sets */
-function createSubTask() {
-
 }
 
 /* Pushes the Subtask that the User creates himself into an array and displays it */
