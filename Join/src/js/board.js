@@ -42,47 +42,47 @@ function updateHTML(){
 }
 
 function updateToDo(){
-    let open = tasks.filter(t => t['status'] == 'to-do');
+    let open = currentLoadedTask.filter(t => t['status'] == 'to-do');
     document.getElementById('board-to-do').innerHTML = '';
 
     for (let i = 0; i < open.length; i++) {
         const element = open[i];
-        document.getElementById('board-to-do').innerHTML += generateTaskCard(element, i);
+        document.getElementById('board-to-do').innerHTML += generateTaskCard(element);
     }
 }
 
 function updateTaskInProgress(){
-    let inProgress = tasks.filter(t => t['status'] == 'in-progress');
+    let inProgress = currentLoadedTask.filter(t => t['status'] == 'in-progress');
     document.getElementById('board-in-progress').innerHTML = '';
 
     for (let i = 0; i < inProgress.length; i++) {
         const element = inProgress[i];
-        document.getElementById('board-in-progress').innerHTML += generateTaskCard(element, i);
+        document.getElementById('board-in-progress').innerHTML += generateTaskCard(element);
     }
 }
 
 function updateTaskAwaitingFeedback(){
-    let awaitingFeedback = tasks.filter(t => t['status'] == 'feedback');
+    let awaitingFeedback = currentLoadedTask.filter(t => t['status'] == 'awaiting-feedback');
     document.getElementById('board-awaiting-feedback').innerHTML = '';
 
     for (let i = 0; i < awaitingFeedback.length; i++) {
         const element = awaitingFeedback[i];
-        document.getElementById('board-awaiting-feedback').innerHTML += generateTaskCard(element, i);
+        document.getElementById('board-awaiting-feedback').innerHTML += generateTaskCard(element);
     }
 }
 
 function updateTaskDone(){
-    let done = tasks.filter(t => t['status'] == 'done');
+    let done = currentLoadedTask.filter(t => t['status'] == 'done');
     document.getElementById('board-task-done').innerHTML = '';
 
     for (let i = 0; i < done.length; i++) {
         const element = done[i];
-        document.getElementById('board-task-done').innerHTML += generateTaskCard(element, i);
+        document.getElementById('board-task-done').innerHTML += generateTaskCard(element);
     }
 }
 
-function startDragging(i){
-    currentDraggedElement = i;
+function startDragging(id){
+    currentDraggedElement = id;
 }
 
 function allowDrop(ev){
@@ -94,9 +94,9 @@ function moveTo(category){
     updateHTML();
 }
 
-function generateTaskCard(element, i){
+function generateTaskCard(element){
     return /*html*/`
-        <div draggable="true" ondragstart="startDragging(${i})"; class="board-task-box flex-column" id="${i}">
+        <div draggable="true" ondragstart="startDragging(${element['id']})"; class="board-task-box flex-column">
             <div>
                 <span>${element['category']}</span>
                 <h3>${element['title']}</h3>

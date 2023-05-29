@@ -53,8 +53,8 @@ function createTask() {
     if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, dragId));
         saveTask();
+        dragId++;
     }
-    id++;
 }
 
 function checkSubtask(i) {
@@ -75,7 +75,7 @@ function checkSubtask(i) {
  * @param {*} category - the category that the task falls under
  */
 
-function pushTask(title, description, duedate, prio, category, DragId) {
+function pushTask(title, description, duedate, prio, category, subtasks, assignedContacts, DragId) {
     let task = {
         'title': title.value,
         'description': description.value,
