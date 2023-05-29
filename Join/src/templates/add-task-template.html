@@ -15,16 +15,10 @@
                 <span>Category</span>
                 <div id="category" class="category-dropdown-div">
                     <div id="selectedCategory">Select a Category</div>
-                    <img onclick="openCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
+                    <img onclick="openCategories(),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
                 <div class="d-none" id="showCat">
                     <div class="cat">New Category</div>
-                    <div onclick="selectCategory(0)" class="cat" id="0">Media<span class="circle"
-                            style="background-color: red;"></span></div>
-                    <div onclick="selectCategory(1)" class="cat" id="1">Web<span class="circle"
-                            style="background-color: green;"></span></div>
-                    <div onclick="selectCategory(2)" class="cat" id="2">Testing<span class="circle"
-                            style="background-color: purple;"></span></div>
                 </div>
             </div>
             <div class="form-div">
