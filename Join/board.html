@@ -20,7 +20,7 @@
     <title>Join - Board</title>
 </head>
 
-<body onload="includeHTML(), init();" onclick="closeHeaderMenu()">
+<body onload="includeHTML(); init();" onclick="closeHeaderMenu()">
 
     <div id="add-task-overlay" class="add-task-overlay" style="transform: translateX(2500px);">
         <div id="add-task-container-board" class="add-task-container-board">
@@ -68,7 +68,7 @@
                         </div>
                     </div>
 
-                    <div ondrop="moveTo('in-progress')" ondragover="allowDrop(event); dragHighlight('board-in-progress')" ondragleave="endHighlight('board-in-progress')" class="task-status-container flex-column">
+                    <div ondragover="allowDrop(event)" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)" class="task-status-container flex-column">
                         <div class="task-column-header flex-row">
                             <div class="flex-row align-task-column-header">
                                 <h2> In progress</h2>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div ondrop="moveTo('awaiting-feedback')" ondragover="allowDrop(event); dragHighlight('board-awaiting-feedback')" ondragleave="endHighlight('board-awaiting-feedback')" class="task-status-container flex-column">
+                    <div ondragover="allowDrop(event)" ondrop="moveTo('awaiting-feedback')" ondragover="allowDrop(event)" class="task-status-container flex-column">
                         <div class="task-column-header flex-row">
                             <div class="flex-row align-task-column-header">
                                 <h2>Awaiting feedback</h2>
@@ -92,7 +92,7 @@
                         </div>
                     </div>
 
-                    <div ondrop="moveTo('done')" ondragover="allowDrop(event); dragHighlight('board-task-done')" ondragleave="endHighlight('board-task-done')" class="task-status-container flex-column">
+                    <div ondragover="allowDrop(event)" ondrop="moveTo('done')" ondragover="allowDrop(event)" class="task-status-container flex-column">
                         <div class="task-column-header flex-row">
                             <div class="flex-row align-task-column-header">
                                 <h2>Done</h2>

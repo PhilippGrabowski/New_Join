@@ -54,8 +54,8 @@ function renderContacts(x) {
  * Iterates through the new array of seperated contacts and determie the first letters of the surname, at the same time the array is sorted alphabetically
  * then the contact templates are generated and the appropriate background-color is assigned to the initials
  * 
- * @param {*} x - The current letter from the loop through the alphabet as a lowercase letter
- * @param {*} element  - The Id for the element in which the contacts are generated
+ * @param {string} x - The current letter from the loop through the alphabet as a lowercase letter
+ * @param {string} element  - The Id for the element in which the contacts are generated
  * @param {Array.<{id: Number, name: String, email: String, phone: String, color: String}>} names - Array for seperated contacts 
  */
 function createContacts(x, element, names) {
@@ -145,7 +145,7 @@ function openContactInfo(id) {
 /**
  * Displays the mobile contact-info buttons
  * 
- * @param {*} id - ID of contact
+ * @param {number} id - ID of contact
  */
 function displayContactInfoButtons(id) {
     let contactIndex =  getIndexOfContact(id);
@@ -417,7 +417,7 @@ function getIdForNewContact() {
 /**
  * Saves edit contact informations
  * 
- * @param {*} index - index of contact
+ * @param {number} index - index of contact
  */
 function saveContact(index) {
     contacts[index]['name'] = firstLettersToUpperCase();
@@ -461,7 +461,7 @@ function showDeleteContactConfirmation() {
 /**
  * Generates and returns a random RGB-Color
  * 
- * @returns 
+ * @returns {string} - random color
  */
 function createRandomRGBColor() {
     let red = getRandomInt(0, 255);
@@ -475,7 +475,7 @@ function createRandomRGBColor() {
  * 
  * @param {number} min - The minimum value
  * @param {number} max - The maximum value
- * @returns 
+ * @returns {number} - random number
  */
 function getRandomInt (min, max) {
     min = Math.ceil(min); // Runded immer auf und gibt Ganzzahl zurück
@@ -532,7 +532,7 @@ function openExistingContactInfo(index, contactdata) {
 /**
  * Opens the contact info container of the existing contact
  * 
- * @param {*} index index of existing contact
+ * @param {number} index index of existing contact
  */
 function showExistingContact(index) {
     openContactInfo(contacts[index]['id']);
@@ -544,7 +544,7 @@ function showExistingContact(index) {
  * checks after every typed char if input is valid
  * if input is valid or not, a report will be displayed
  * 
- * @param {*} index - index of inputfield
+ * @param {number} index - index of inputfield
  */
 function checkInputOnkeyUp(index) {
     let input = document.getElementById(contactInputs[index]['inputID']).value;
@@ -563,7 +563,7 @@ function checkInputOnkeyUp(index) {
  * checks after leaving inputfield if input is valid
  * if input is valid or not, a report will be displayed
  * 
- * @param {*} index - index of inputfield
+ * @param {number} index - index of inputfield
  */
 function checkInputOnblur(index) {
     let input = document.getElementById(contactInputs[index]['inputID']).value;
