@@ -35,7 +35,7 @@
 }
 
 .search-icon {
-    background: url("../img/line-and-magnifier.svg") no-repeat;
+    background: url("../../img/line-and-magnifier.svg") no-repeat;
     background-position: right;
     background-position-x: 245px;
 }
@@ -58,12 +58,16 @@
     gap: 16px;
     margin-top: 96px;
     width: 100%;
+    overflow-y: scroll;
+}
+
+#tasks-container::-webkit-scrollbar {
+    display: none;
 }
 
 .task-status-container {
     width: 25%;
     height: 861px;
-    overflow-y: scroll;
     position: relative;
 }
 
@@ -96,6 +100,10 @@
     border-radius: 15px;
     margin-top: 32px;
     cursor: grab;
+}
+
+.dragbox-shadow {
+    background-color: #A8A8A8;
 }
 
 .board-task-box span {

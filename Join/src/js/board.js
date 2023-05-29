@@ -5,7 +5,9 @@ let taskAwaitingFeedback = [];
 
 let taskDone = [];
 
-let currentLoadedTask
+let currentLoadedTask;
+
+let checkForShadow;
 
 
 async function init(){
@@ -47,7 +49,9 @@ function updateToDo(){
 
     for (let i = 0; i < open.length; i++) {
         const element = open[i];
-        document.getElementById('board-to-do').innerHTML += generateTaskCard(element);
+        const boxCount = 'to-do'+ i;
+        const prio = open[i]['priority'];
+        document.getElementById('board-to-do').innerHTML += generateTaskCard(element, boxCount, prio);
     }
 }
 
@@ -57,6 +61,7 @@ function updateTaskInProgress(){
 
     for (let i = 0; i < inProgress.length; i++) {
         const element = inProgress[i];
+        const boxCount = 'in-progress'+ i;
         document.getElementById('board-in-progress').innerHTML += generateTaskCard(element);
     }
 }
@@ -67,6 +72,7 @@ function updateTaskAwaitingFeedback(){
 
     for (let i = 0; i < awaitingFeedback.length; i++) {
         const element = awaitingFeedback[i];
+        const boxCount = 'awaiting-feedback'+ i;
         document.getElementById('board-awaiting-feedback').innerHTML += generateTaskCard(element);
     }
 }
@@ -77,6 +83,7 @@ function updateTaskDone(){
 
     for (let i = 0; i < done.length; i++) {
         const element = done[i];
+        const boxCount = 'done'+ i;
         document.getElementById('board-task-done').innerHTML += generateTaskCard(element);
     }
 }
@@ -94,18 +101,34 @@ function moveTo(category){
     updateHTML();
 }
 
-function generateTaskCard(element){
+function dragHighlight(section){
+    let areaToHighlight = document.getElementById(section);
+    areaToHighlight.classList.add('dragbox-shadow')
+    
+}
+
+function endHighlight(section){
+    let areaToHighlight = document.getElementById(section);
+    areaToHighlight.classList.remove('dragbox-shadow')
+}
+
+function generateTaskCard(element, boxCount, prio){
     return /*html*/`
-        <div draggable="true" ondragstart="startDragging(${element['id']})"; class="board-task-box flex-column">
+        <div draggable="true" ondragstart="startDragging(${element['id']})"; class="board-task-box flex-column" id='${boxCount}'>
             <div>
                 <span>${element['category']}</span>
                 <h3>${element['title']}</h3>
                 <p>${element['description']}</p>
-                <p>${element['assigned']}</p>
+                <div>
+                    <p>${element['assigned']}</p>
+                    <img src="New_Join\Join\src\img\low.svg">
+                </div>
+                
             </div>
         </div>
     `; 
 }
+
 
 
 //<--------------------------------------------- Open and Close Add-Task Window on Board.html ------------------------------------------->
