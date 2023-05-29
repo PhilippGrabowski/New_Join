@@ -42,7 +42,7 @@ function updateHTML(){
 }
 
 function updateToDo(){
-    let open = tasks.filter(t => t['status'] == 'to-do');
+    let open = taskInProgress.filter(t => t['status'] == 'to-do');
     document.getElementById('board-to-do').innerHTML = '';
 
     for (let i = 0; i < open.length; i++) {
@@ -52,7 +52,7 @@ function updateToDo(){
 }
 
 function updateTaskInProgress(){
-    let inProgress = tasks.filter(t => t['status'] == 'in-progress');
+    let inProgress = taskInProgress.filter(t => t['status'] == 'in-progress');
     document.getElementById('board-in-progress').innerHTML = '';
 
     for (let i = 0; i < inProgress.length; i++) {
