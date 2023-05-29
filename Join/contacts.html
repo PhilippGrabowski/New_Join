@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="src/css/contacts/style.css">
     <link rel="stylesheet" href="src/css/contacts/mqueries.css">
     <script src="//cdn.jsdelivr.net/npm/desvg@1.0.2/desvg.min.js"></script>
+    <script src="src/js/add_task.js"></script>
     <script src="src/js/settings.js"></script>
     <script src="src/js/contacts/templates.js"></script>
     <script src="src/js/contacts/script.js"></script>
@@ -22,7 +23,7 @@
     <title>Join - Contacts</title>
 </head>
 
-<body onload="includeHTML(), loadContacts()" onclick="closeHeaderMenu()">
+<body onload="includeHTML(), renderContacts()" onclick="closeHeaderMenu()">
 
     <div id="header_includer" w3-include-html="src/templates/header.html"></div>
     <div id="sidebar_includer" w3-include-html="src/templates/sidebar.html"></div>

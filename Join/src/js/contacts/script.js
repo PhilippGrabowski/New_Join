@@ -1,13 +1,14 @@
 /**
  * Generates the complete contact list by looping through the alphabet array and adding the contacts to the respective letters
  */
-function loadContacts() {
+async function renderContacts() {
+    await loadContacts();
     let contactList = document.getElementById('listContainer');
     contactList.innerHTML = '';
     for (let i = 0; i < alphabet.length; i++) {
         let letter = alphabet[i];
         renderLetterGroups(contactList, letter);
-        renderContacts(letter);
+        renderContact(letter);
     }
 }
 
@@ -40,7 +41,7 @@ function renderLetterGroups(element, x) {
  * 
  * @param {string} x - The current letter from the loop through the alphabet as a lowercase letter
  */
-function renderContacts(x) {
+function renderContact(x) {
     let contactSubList = document.getElementById(`group${x}`);
     if (contactSubList) {
         contactSubList.innerHTML = '';
@@ -316,9 +317,10 @@ function addContact() {
     let newContact = createNewContact();
     if (contactNotAdded(newContact)) {
         contacts.push(newContact);
+        saveContacts();
         closeContactMenu();
         clearContactMenuInputs();
-        loadContacts();
+        renderContacts();
         document.getElementById(`${newContact['id']}`).scrollIntoView();
         openContactInfo(newContact['id']);
         showContactConfirmation(newContact['id'], 'Contact successfully created');
@@ -348,12 +350,14 @@ function showContactConfirmation(id, confirmation) {
 function createNewContact() {
     let id = getIdForNewContact();
     let name = firstLettersToUpperCase();
+    let initials = createInitials();
     let email = emailToLowerCase();
     let phone = document.getElementById('contactPhoneInput').value;
     let color = createRandomRGBColor();
     let newContact = {
         'id' : id,
         'name' : name,
+        'initials' : initials,
         'email' : email,
         'phone' : phone,
         'color' : color
@@ -423,9 +427,10 @@ function saveContact(index) {
     contacts[index]['name'] = firstLettersToUpperCase();
     contacts[index]['email'] = emailToLowerCase();
     contacts[index]['phone'] = document.getElementById('contactPhoneInput').value;
+    saveContacts()
     addContactInformation(contacts[index]['id']);
     closeContactMenu();
-    loadContacts();
+    renderContacts();
     document.getElementById(`${contacts[index]['id']}`).scrollIntoView();
     showContactConfirmation(contacts[index]['id'], 'Contact successfully edit');
 }
@@ -437,13 +442,14 @@ function saveContact(index) {
  */
 function deleteContact(index) {
     contacts.splice(index, 1);
+    saveContacts();
     document.getElementById('contactInfoContainer').style.transform = 'translateX(150%)';
     if (window.innerWidth <= 600) {
         closeContactInfo();
     } else {
         closeContactMenu();
     }
-    loadContacts();
+    renderContacts();
     showDeleteContactConfirmation();
 }
 
@@ -630,4 +636,37 @@ function charIsNotValid(reg, input) {
  */
 function twoSpacesInRow(reg, input) {
     return reg.test(input) == false && input.length > 1;
+}
+
+
+
+
+function createInitials() {
+    let name = document.getElementById('contactNameInput').value;
+    let firstInitial = name.charAt(0);
+    firstInitial = firstInitial.toUpperCase();
+
+    let index = name.lastIndexOf(' ');
+    let secondInitial = name.charAt(index + 1);
+    secondInitial = secondInitial.toUpperCase();
+
+    return `${firstInitial}${secondInitial}`
+}
+
+async function saveContacts() {
+    await setTask('contact', JSON.stringify(contacts));
+}
+
+async function getItem(key) {
+    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
+    return fetch(url).then(res => res.json());
+}
+
+async function loadContacts() {
+    let contact = await getItem('contact');
+    contact = JSON.parse(contact['data']['value']);
+    for (let i = 0; i < contact.length; i++) {
+        let loadedContact = contact[i];
+        contacts.push(loadedContact);  
+    }
 }
