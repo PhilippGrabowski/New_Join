@@ -35,9 +35,7 @@
 }
 
 .search-icon {
-    background: url("../../img/line-and-magnifier.svg") no-repeat;
-    background-position: right;
-    background-position-x: 245px;
+    background: url('../../img/capa2.svg') no-repeat;
 }
 
 #add-task-button {
