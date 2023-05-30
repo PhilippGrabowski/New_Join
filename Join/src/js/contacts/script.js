@@ -229,10 +229,8 @@ function switchContactElements(element1, element2) {
 function fillEditContactMenuElements(id) {
     let index =  getIndexOfContact(id);
     fillEditContactMenuInputs(index);
-    document.getElementById('editContactInitials').innerHTML = contacts[index].initials;
-    document.getElementById('editContactInitials').style.backgroundColor = contacts[index].color;
-    document.getElementById('deleteContactButton').setAttribute('onclick', `deleteContact(${index})`);
-    document.getElementById('saveContactButton').setAttribute('onclick', `saveContact(${index})`);
+    fillEditContactMenuInitials(index);
+    addOnclickFunctions(index);
 }
 
 /**
@@ -244,6 +242,26 @@ function fillEditContactMenuInputs(index) {
     document.getElementById('contactNameInput').value = contacts[index].name;
     document.getElementById('contactEmailInput').value = contacts[index].email;
     document.getElementById('contactPhoneInput').value = contacts[index].phone;
+}
+
+/**
+ * Fills the Initial circle with the contact data
+ * 
+ * @param {number} index - Index of contact
+ */
+function fillEditContactMenuInitials(index) {
+    document.getElementById('editContactInitials').innerHTML = contacts[index].initials;
+    document.getElementById('editContactInitials').style.backgroundColor = contacts[index].color;
+}
+
+/**
+ * Adds onclick functions to the edit-contact-menu buttons
+ * 
+ * @param {number} index - Index of contact
+ */
+function addOnclickFunctions(index) {
+    document.getElementById('deleteContactButton').setAttribute('onclick', `deleteContact(${index})`);
+    document.getElementById('saveContactButton').setAttribute('onclick', `saveContact(${index})`);
 }
 
 /**
