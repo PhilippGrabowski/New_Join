@@ -51,18 +51,16 @@ let dragId = 0;
 
 /* Creates a Json out of the Information that has been set in the Add-Task Section */
 
-function createTask() {
+async function createTask() {
 
     let title = document.getElementById('title');
     let description = document.getElementById('description');
     let category = document.getElementById('selectedCategory');
     let dueDate = document.getElementById('dueDate');
-    console.log(dragId);
     if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, dragId));
-        saveTask();
+        await saveTask();
         dragId++;
-        console.log(dragId);
     }
     document.location.href = 'board.html';
 }
