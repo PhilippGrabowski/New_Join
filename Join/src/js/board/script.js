@@ -1,6 +1,4 @@
 
-let taskInProgress = [];
-
 let taskAwaitingFeedback = [];
 
 let taskDone = [];
@@ -14,22 +12,6 @@ async function init(){
     await loadAllTasks();
     updateHTML();
 }
-
-
-async function getTasks(key){
-    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json());
-}
-
-async function loadAllTasks(){
-    let task = await getTasks('task');
-    currentLoadedTask = JSON.parse(task['data']['value']);
-    for (let i = 0; i < currentLoadedTask.length; i++) {
-        const taskToPush = currentLoadedTask[i];
-        taskInProgress.push(taskToPush);  
-    }
-}
-
 
 
 //<----------------------------------------- UpdateHTML-Function for Drag & Drop -------------------------------------->
