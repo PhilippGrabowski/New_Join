@@ -8,8 +8,8 @@ const regPhone3 = new RegExp('^(?!.* {2})[0-9+][0-9\\s]*$');
 const regPhone4 = new RegExp('^(?!.* {2})[0-9+][0-9\\s]{8,}$');
 const regEmail= new RegExp(`^[a-zA-Z0-9äÄüÜöÖß_.+-]{3,30}@[a-zA-Z0-9-ß]{3,9}\.[a-z]{2,3}$`);
 let contacts = [];
-let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-let contactInputs = [
+let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+let inputs = [
     {
         'inputID' : 'contactNameInput',
         'inputlenght' : 2,

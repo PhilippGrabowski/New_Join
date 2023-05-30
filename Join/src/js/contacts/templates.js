@@ -1,40 +1,41 @@
 /**
  * Returns the HTML-Template for the container for the matching letter
  * 
- * @param {string} charLowCase - matching letter as a lowercase letter
- * @param {string} charUpperCase - matching letter as a uppercase letter
+ * @param {string} letter - matching letter as a uppercase letter
  * @returns {html.template}
  */
-function createContactGroup(charLowCase, charUpperCase) {
+function createContactGroup(letter) {
     return `<div class="contactGroup flex-column">
-    <div class="letter flex-row">${charUpperCase}</div>
+    <div class="letter flex-row">${letter}</div>
     <div class="line-container flex-row"><div class="horizontalLine"></div></div>
-    <div id="group${charLowCase}" class="contactSubList flex-column"></div></div>`;
+    <div id="group${letter}" class="contactSubList flex-column"></div></div>`;
 }
 
 /**
  * Returns the HTML-Template for the contact
  * 
- * @param {string} x - First letter of the firstname as a uppercase letter
- * @param {string} y - First letter of the lastname as a uppercase letter
- * @param {string} name - Name of the contact (firstname and lastname)
- * @param {string} email - Email of the contact
- * @param {number} id - ID of the contact
+ * @param {object} contact - the contact object
+ * @param {number} contact.id - ID of the contact object
+ * @param {string} contact.name - Name of the contact object
+ * @param {string} contact.initials - Initials of the contact object
+ * @param {string} contact.email - Email of the contact object
+ * @param {string} contact.phone - Phone number of the contact object
+ * @param {string} contact.color - Assigned color of the contact object
  * @returns {html.template}
  */
-function createContact(x, y, name, email, id) {
-    return `<div id="${id}" class="contact flex-row curser" onclick="openContactInfo(${id})">
-    <div id="contactInitials${id}" class="contactInitials grid">${x}${y}</div>
+function createContact(contact) {
+    return `<div id="${contact.id}" class="contact flex-row curser" onclick="openContactInfo(${contact.id})">
+    <div id="contactInitials${contact.id}" class="contactInitials grid">${contact.initials}</div>
     <div class="contactName flex-column">
-        <span class="contactSubListName">${name}</span>
-        <span class="contactSubListEmail">${email}</span>
+        <span class="contactSubListName">${contact.name}</span>
+        <span class="contactSubListEmail">${contact.email}</span>
     </div></div>`;
 }
 
 /**
  * Returns the HTML-Template for the contact-info buttons
  * 
- * @param {*} index - index of contact
+ * @param {number} index - index of contact
  * @returns {html.template}
  */
 function createContactInfoButtons(index) {

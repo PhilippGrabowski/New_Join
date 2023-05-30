@@ -23,7 +23,7 @@
     <title>Join - Contacts</title>
 </head>
 
-<body onload="includeHTML(), renderContacts()" onclick="closeHeaderMenu()">
+<body onload="includeHTML(), LoadContactList()" onclick="closeHeaderMenu()">
 
     <div id="header_includer" w3-include-html="src/templates/header.html"></div>
     <div id="sidebar_includer" w3-include-html="src/templates/sidebar.html"></div>
@@ -77,7 +77,7 @@
                 </div>
             </div>
         </article>
-        <button id="newContactButton" class="flex-row curser" onclick="openContactMenu('add')"><span
+        <button id="newContactButton" class="flex-row curser" onclick="openContactMenu('add');"><span
                 id="newContactButtonSpan">New
                 contact</span><img src="src/img/newContact.png" alt=""></button>
     </section>

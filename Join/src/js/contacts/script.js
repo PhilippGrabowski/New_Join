@@ -1,14 +1,23 @@
+/*___________________________Render Contact List Functions______________________________*/
+
+/**
+ * Loads and generates the contact list
+ */
+async function LoadContactList() {
+    await loadContacts();
+    renderContactList();
+}
+
 /**
  * Generates the complete contact list by looping through the alphabet array and adding the contacts to the respective letters
  */
-async function renderContacts() {
-    await loadContacts();
+function renderContactList() {
     let contactList = document.getElementById('listContainer');
     contactList.innerHTML = '';
     for (let i = 0; i < alphabet.length; i++) {
         let letter = alphabet[i];
         renderLetterGroups(contactList, letter);
-        renderContact(letter);
+        renderContacts(letter);
     }
 }
 
@@ -18,15 +27,14 @@ async function renderContacts() {
  * only if a match is made once, a container is generated for the corresponding letter
  * 
  * @param {string} element - The Id for the element in which the individual contact groups with the respective contacts are generated
- * @param {string} x - The current letter from the loop through the alphabet as a lowercase letter
+ * @param {string} letter - The current letter from the loop through the alphabet as a uppercase letter
  */
-function renderLetterGroups(element, x) {
+function renderLetterGroups(element, letter) {
     let matchAmount = 0;
     for (let i = 0; i < contacts.length; i++) {
-        let y = getFirstChar(i);
-        if (x === y && matchAmount == 0) {
-            let upperCaseLetter = x.toUpperCase();
-            element.innerHTML += createContactGroup(x, upperCaseLetter);
+        let char = getFirstChar(contacts[i].name);
+        if (letter === char && matchAmount == 0) {
+            element.innerHTML += createContactGroup(letter);
             matchAmount++;
             break;
         }
@@ -35,36 +43,32 @@ function renderLetterGroups(element, x) {
 
 /**
  * Adds contacts to the corresponding containers 
- * Contacts are separated into a new array according to the initial letter
- * from the iteration through the new array the first letters of the surnames are determined, at the same time the array is sorted alphabetically
+ * Contacts are separated into a new array according to the initial letter, at the same time the array is sorted alphabetically
  * then the contact templates are generated and the appropriate background-color is assigned to the initials
  * 
- * @param {string} x - The current letter from the loop through the alphabet as a lowercase letter
+ * @param {string} letter - The current letter from the loop through the alphabet as a uppercase letter
  */
-function renderContact(x) {
-    let contactSubList = document.getElementById(`group${x}`);
+function renderContacts(letter) {
+    let contactSubList = document.getElementById(`group${letter}`);
     if (contactSubList) {
         contactSubList.innerHTML = '';
         let names = [];
-        filterContactsByChar(names, x);
-        createContacts(x, contactSubList, names);
+        filterContactsByChar(names, letter);
+        createContacts(contactSubList, names);
     }
 }
 
 /**
- * Iterates through the new array of seperated contacts and determie the first letters of the surname, at the same time the array is sorted alphabetically
- * then the contact templates are generated and the appropriate background-color is assigned to the initials
+ * Iterates through the new array of seperated contacts to generate the contact templates
+ * then the appropriate background-color is assigned to the initials
  * 
- * @param {string} x - The current letter from the loop through the alphabet as a lowercase letter
  * @param {string} element  - The Id for the element in which the contacts are generated
- * @param {Array.<{id: Number, name: String, email: String, phone: String, color: String}>} names - Array for seperated contacts 
+ * @param {Array.<{id: Number, name: String, initials: String, email: String, phone: String, color: String}>} names - Array for seperated contacts 
  */
-function createContacts(x, element, names) {
+function createContacts(element, names) {
     for (let i = 0; i < names.length; i++) {
-        let y = getFirstCharofLastname(i, names);
-        x = x.toUpperCase();
-        element.innerHTML += createContact(x, y, names[i]['name'], names[i]['email'],  names[i]['id']);
-        document.getElementById(`contactInitials${names[i]['id']}`).style.backgroundColor = names[i]['color'];
+        element.innerHTML += createContact(names[i]);
+        document.getElementById(`contactInitials${names[i].id}`).style.backgroundColor = names[i].color;
     }
 }
 
@@ -72,13 +76,13 @@ function createContacts(x, element, names) {
  * Seperate contacts into a new array according to the initial letter by looping through the contact array
  * than the array is sorted alphabetically
  * 
- * @param {Array.<{id: Number, name: String, email: String, phone: String, color: String}>} names - Array for seperated contacts
- * @param {string} x - The current letter from the loop through the alphabet as a lowercase letter
+ * @param {Array.<{id: Number, name: String, initials: String, email: String, phone: String, color: String}>} names - Array for seperated contacts
+ * @param {string} x - The current letter from the loop through the alphabet as a uppercase letter
  */
-function filterContactsByChar(names, x) {
+function filterContactsByChar(names, letter) {
     for (let i = 0; i < contacts.length; i++) {
-        let y = getFirstChar(i);
-        if (x === y) {
+        let char = getFirstChar(contacts[i].name);
+        if (letter === char) {
             names.push(contacts[i]);
         }
     }
@@ -88,8 +92,8 @@ function filterContactsByChar(names, x) {
 /**
  * Sort the new array alphabetically
  * 
- * @param {Array.<{id: Number, name: String, email: String, phone: String, color: String}>} names - Array for seperated contacts
- * @returns {Array.<{id: Number, name: String, email: String, phone: String, color: String}>} - Alphabetically sorted array
+ * @param {Array.<{id: Number, name: String, initials: String, email: String, phone: String, color: String}>} names - Array for seperated contacts
+ * @returns {Array.<{id: Number, name: String, initials: String, email: String, phone: String, color: String}>} - Alphabetically sorted array
  */
 function sortFilteredContacts(names) {
     return names.sort((a, b) => {
@@ -99,33 +103,8 @@ function sortFilteredContacts(names) {
     });
 }
 
-/**
- * Returns first letter of the name as a lowercase letter
- * 
- * @param {number} i - Index of contact
- * @returns {string} - first letter of the name of the contact as a lowercase letter
- */
-function getFirstChar(i) {
-    let char = contacts[i]['name'];
-    char = char.charAt(0);
-    char = char.toLowerCase();
-    return char;
-}
 
-/**
- * Returns the first letter of the lastname as a uppercase letter
- * 
- * @param {number} i - Index of seperated contacts
- * @param {Array.<{id: Number, name: String, email: String, phone: String, color: String}>} array - Array for seperated contacts
- * @returns {string} - first letter of the lastname as a uppercase letter
- */
-function getFirstCharofLastname(i, array) {
-    let char = array[i]['name'];
-    let index = char.lastIndexOf(' ');
-    char = char.charAt(index + 1);
-    char = char.toUpperCase();
-    return char;
-}
+/*__________________________Contact Information Functions________________________________*/
 
 /**
  * Displays and fills container for contact information 
@@ -155,7 +134,25 @@ function displayContactInfoButtons(id) {
 }
 
 /**
- * Closes contact-info and opens contact-list
+ * fills container for contact information with contact data
+ * 
+ * @param {number} id - ID of contact
+ */
+function addContactInformation(id) {
+    let index = getIndexOfContact(id);
+    document.getElementById('infoInitials').innerHTML = contacts[index].initials;
+    document.getElementById('infoInitials').style.backgroundColor = contacts[index].color;
+    document.getElementById('infoName').innerHTML = contacts[index].name;
+    document.getElementById('infoEmail').innerHTML = contacts[index].email;
+    document.getElementById('infoPhone').innerHTML = contacts[index].phone;
+    document.getElementById('editContactLink').setAttribute('onclick', `openContactMenu('edit',${id})`);
+    if (window.innerWidth <= 600) {
+    document.getElementById('mobilEditContactImg').setAttribute('onclick', `openContactMenu('edit',${id})`);
+    }
+}
+
+/**
+ * Closes container for contact information and opens contact list for mobile Version
  */
 function closeContactInfo() {
     document.getElementById('contactList').style.display = 'unset';
@@ -165,35 +162,8 @@ function closeContactInfo() {
     document.getElementById('contactInfoContainer').style.transform = 'translateX(150%)';
 }
 
-/**
- * fills container for contact information with contact data
- * 
- * @param {number} id - ID of contact
- */
-function addContactInformation(id) {
-    document.getElementById('infoInitials').innerHTML = getInitial(id);
-    document.getElementById('infoInitials').style.backgroundColor = contacts[id]['color'];
-    document.getElementById('infoName').innerHTML = contacts[id]['name'];
-    document.getElementById('infoEmail').innerHTML = contacts[id]['email'];
-    document.getElementById('infoPhone').innerHTML = contacts[id]['phone'];
-    document.getElementById('editContactLink').setAttribute('onclick', `openContactMenu('edit',${id})`);
-    if (window.innerWidth <= 600) {
-    document.getElementById('mobilEditContactImg').setAttribute('onclick', `openContactMenu('edit',${id})`);
-    }
-}
 
-/**
- * Returns the initials of the contact in capital letters
- * 
- * @param {number} id - ID of contact
- * @returns {string} - Initials of contact
- */
-function getInitial(id) {
-    let charFirstname = getFirstChar(id);
-    charFirstname = charFirstname.toUpperCase();
-    let charLastname = getFirstCharofLastname(id, contacts);
-    return `${charFirstname}${charLastname}`;
-}
+/*_____________________________Contact Add/Edit Menu Functions_____________________________*/
 
 /**
  * Opens either the add-contact or edit-contact menu depending on the passed string
@@ -257,26 +227,12 @@ function switchContactElements(element1, element2) {
  * @param {number} id - Contact-ID for edit contact
  */
 function fillEditContactMenuElements(id) {
-    let contactIndex =  getIndexOfContact(id);
-    fillEditContactMenuInputs(contactIndex);
-    document.getElementById('editContactInitials').innerHTML = getInitial(contactIndex);
-    document.getElementById('editContactInitials').style.backgroundColor = contacts[contactIndex]['color'];
-    document.getElementById('deleteContactButton').setAttribute('onclick', `deleteContact(${contactIndex})`);
-    document.getElementById('saveContactButton').setAttribute('onclick', `saveContact(${contactIndex})`);
-}
-
-/**
- * Returns the index of the contact from the contact array
- * 
- * @param {number} id - Contact-ID for searching the index from contact array
- * @returns {number} - Index of contact
- */
-function getIndexOfContact(id) {
-    for (let i = 0; i < contacts.length; i++) {
-        if (id === contacts[i]['id']) {
-            return i;
-        }
-    }
+    let index =  getIndexOfContact(id);
+    fillEditContactMenuInputs(index);
+    document.getElementById('editContactInitials').innerHTML = contacts[index].initials;
+    document.getElementById('editContactInitials').style.backgroundColor = contacts[index].color;
+    document.getElementById('deleteContactButton').setAttribute('onclick', `deleteContact(${index})`);
+    document.getElementById('saveContactButton').setAttribute('onclick', `saveContact(${index})`);
 }
 
 /**
@@ -285,9 +241,9 @@ function getIndexOfContact(id) {
  * @param {number} index - Index of contact
  */
 function fillEditContactMenuInputs(index) {
-    document.getElementById('contactNameInput').value = contacts[index]['name'];
-    document.getElementById('contactEmailInput').value = contacts[index]['email'];
-    document.getElementById('contactPhoneInput').value = contacts[index]['phone'];
+    document.getElementById('contactNameInput').value = contacts[index].name;
+    document.getElementById('contactEmailInput').value = contacts[index].email;
+    document.getElementById('contactPhoneInput').value = contacts[index].phone;
 }
 
 /**
@@ -300,6 +256,15 @@ function closeContactMenu() {
 }
 
 /**
+ * Clears the Inputfields of the Contact Menu
+ */
+function clearContactMenuInputs() {
+    document.getElementById('contactNameInput').value = '';
+    document.getElementById('contactEmailInput').value = '';
+    document.getElementById('contactPhoneInput').value = '';
+}
+
+/**
  * Closes all error reports
  */
 function closeErrorReports() {
@@ -307,6 +272,9 @@ function closeErrorReports() {
         document.getElementById(errorReports[i]).style.color = 'var(--white-color)';
     }
 }
+
+
+/*_________________________Add/Edit/Delete Contact Functions___________________________*/
 
 /**
  * Add a new contact to the contact list
@@ -320,26 +288,11 @@ function addContact() {
         saveContacts();
         closeContactMenu();
         clearContactMenuInputs();
-        renderContacts();
-        document.getElementById(`${newContact['id']}`).scrollIntoView();
-        openContactInfo(newContact['id']);
-        showContactConfirmation(newContact['id'], 'Contact successfully created');
+        openContactInfo(newContact.id);
+        renderContactList();
+        document.getElementById(`${newContact.id}`).scrollIntoView();
+        showContactConfirmation(newContact.id, 'Contact successfully created');
     }
-}
-
-/**
- * Displays the confirmation for 2 seconds that a contact added successfully
- * 
- * @param {number} id - ID of new contact
- */
-function showContactConfirmation(id, confirmation) {
-    document.getElementById('contactConfirmation').innerHTML = confirmation;
-    document.getElementById('contactConfirmation').style.transform = 'translateY(0%)';
-    document.getElementById(`${id}`).style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
-    setTimeout(() => {
-        document.getElementById('contactConfirmation').style.transform = 'translateY(400%)';
-        document.getElementById(`${id}`).style.backgroundColor = 'var(--white-color)';
-    }, 2000);
 }
 
 /**
@@ -366,6 +319,25 @@ function createNewContact() {
 }
 
 /**
+ * Generates and returns a new ID number for new contact
+ * 
+ * @returns {number} - new ID number for new contact
+ */
+function getIdForNewContact() {
+    if (contacts.length === 0) {
+        return 1;
+    } else {
+        let ids = [];
+        for (let i = 0; i < contacts.length; i++) {
+            ids.push(contacts[i].id);
+        }
+        let maxId = Math.max.apply(Math, ids);
+        maxId++;
+        return maxId;
+    }
+}
+
+/**
  * Returns the firstname (if exist secondname) and lastname where the first letter is an uppercase letter
  * name is converted to an array of all characters
  * while looping through the array, after each blank character the following character is converted to an uppercase letter
@@ -388,6 +360,18 @@ function firstLettersToUpperCase() {
 }
 
 /**
+ * Determines the first letter of first and last name and returns these initials 
+ * 
+ * @returns {string} - Initials of contact
+ */
+function createInitials() {
+    let name = document.getElementById('contactNameInput').value;
+    let firstInitial = getFirstChar(name);
+    let secondInitial = getFirstCharofLastname(name);
+    return `${firstInitial}${secondInitial}`
+}
+
+/**
  * Returns email to lowercase
  * 
  * @returns {string} - Email of conatact
@@ -399,40 +383,21 @@ function emailToLowerCase() {
 }
 
 /**
- * Clears the Inputfields of the Contact Menu
- */
-function clearContactMenuInputs() {
-    document.getElementById('contactNameInput').value = '';
-    document.getElementById('contactEmailInput').value = '';
-    document.getElementById('contactPhoneInput').value = '';
-}
-
-/**
- * Generates and returns a new ID number for new contact
- * 
- * @returns {number} - new ID number for new contact
- */
-function getIdForNewContact() {
-    let lastId = contacts[contacts.length - 1]['id'];
-    lastId++;
-    return lastId;
-}
-
-/**
  * Saves edit contact informations
  * 
  * @param {number} index - index of contact
  */
-function saveContact(index) {
-    contacts[index]['name'] = firstLettersToUpperCase();
-    contacts[index]['email'] = emailToLowerCase();
-    contacts[index]['phone'] = document.getElementById('contactPhoneInput').value;
+async function saveContact(index) {
+    contacts[index].name = firstLettersToUpperCase();
+    contacts[index].initials = createInitials();;
+    contacts[index].email = emailToLowerCase();
+    contacts[index].phone = document.getElementById('contactPhoneInput').value;
     saveContacts()
-    addContactInformation(contacts[index]['id']);
+    addContactInformation(contacts[index].id);
     closeContactMenu();
-    renderContacts();
-    document.getElementById(`${contacts[index]['id']}`).scrollIntoView();
-    showContactConfirmation(contacts[index]['id'], 'Contact successfully edit');
+    await renderContactList();
+    document.getElementById(`${contacts[index].id}`).scrollIntoView();
+    showContactConfirmation(contacts[index].id, 'Contact successfully edit');
 }
 
 /**
@@ -440,7 +405,7 @@ function saveContact(index) {
  * 
  * @param {number} index - index of contact
  */
-function deleteContact(index) {
+async function deleteContact(index) {
     contacts.splice(index, 1);
     saveContacts();
     document.getElementById('contactInfoContainer').style.transform = 'translateX(150%)';
@@ -449,8 +414,23 @@ function deleteContact(index) {
     } else {
         closeContactMenu();
     }
-    renderContacts();
+    await renderContactList();
     showDeleteContactConfirmation();
+}
+
+/**
+ * Displays the confirmation for 2 seconds that a contact added successfully
+ * 
+ * @param {number} id - ID of new contact
+ */
+function showContactConfirmation(id, confirmation) {
+    document.getElementById('contactConfirmation').innerHTML = confirmation;
+    document.getElementById('contactConfirmation').style.transform = 'translateY(0%)';
+    document.getElementById(`${id}`).style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    setTimeout(() => {
+        document.getElementById('contactConfirmation').style.transform = 'translateY(400%)';
+        document.getElementById(`${id}`).style.backgroundColor = 'var(--white-color)';
+    }, 2000);
 }
 
 /**
@@ -463,39 +443,6 @@ function showDeleteContactConfirmation() {
         document.getElementById('contactConfirmation').style.transform = 'translateY(1000%)';
     }, 2000);
 }
-
-/**
- * Generates and returns a random RGB-Color
- * 
- * @returns {string} - random color
- */
-function createRandomRGBColor() {
-    let red = getRandomInt(0, 255);
-    let green = getRandomInt(0, 255);
-    let blue = getRandomInt(0, 255);
-    return `rgb(${red}, ${green}, ${blue})`;
-}
-
-/**
- * Generates and returns a random number between a min and max (min and max are included)
- * 
- * @param {number} min - The minimum value
- * @param {number} max - The maximum value
- * @returns {number} - random number
- */
-function getRandomInt (min, max) {
-    min = Math.ceil(min); // Runded immer auf und gibt Ganzzahl zurück
-    max = Math.floor(max); // Runded immer ab und gibt Ganzzahl zurück
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-/**
- * Rewrite SVG files read by img tags to inline codes for changing attributes
- */
-window.addEventListener('load', function() {
-    deSVG('.editContactImg', true);
-    deSVG('.addTaskImg', true);
-});
 
 /**
  * Checks if the new created contact already exist by iterating through the contact list
@@ -512,10 +459,10 @@ window.addEventListener('load', function() {
  */
 function contactNotAdded(newContact) {
     for (i = 0; i < contacts.length; i++) {
-        if (contacts[i]['name'] === newContact['name'] && contacts[i]['email'] === newContact['email']) {
+        if (contacts[i].name === newContact.name && contacts[i].email === newContact.email) {
             openExistingContactInfo(i, 'email');
             return false;
-        } else if (contacts[i]['name'] === newContact['name'] && contacts[i]['phone'] === newContact['phone']) {
+        } else if (contacts[i].name === newContact.name && contacts[i].phone === newContact.phone) {
             openExistingContactInfo(i, 'phone number');
             return false;
         }
@@ -546,6 +493,9 @@ function showExistingContact(index) {
     switchContactElements('existingContactInfo', 'contactForm');
 }
 
+
+/*_____________________________Input Validation Functions_______________________________*/
+
 /**
  * checks after every typed char if input is valid
  * if input is valid or not, a report will be displayed
@@ -553,15 +503,15 @@ function showExistingContact(index) {
  * @param {number} index - index of inputfield
  */
 function checkInputOnkeyUp(index) {
-    let input = document.getElementById(contactInputs[index]['inputID']).value;
-    if (firstCharisNotValid(contactInputs[index]['regex'][0], input)) {
-        displayError(contactInputs[index]['errorReportID'], contactInputs[index]['errorReportText'][1]);
-    } else if (charIsNotValid(contactInputs[index]['regex'][1], input)) {
-        displayError(contactInputs[index]['errorReportID'], contactInputs[index]['errorReportText'][2]);
-    } else if (twoSpacesInRow(contactInputs[index]['regex'][2], input)) {
-        displayError(contactInputs[index]['errorReportID'], contactInputs[index]['errorReportText'][3]);
+    let input = document.getElementById(inputs[index].inputID).value;
+    if (firstCharisNotValid(inputs[index].regex[0], input)) {
+        displayError(inputs[index].errorReportID, inputs[index].errorReportText[1]);
+    } else if (charIsNotValid(inputs[index].regex[1], input)) {
+        displayError(inputs[index].errorReportID, inputs[index].errorReportText[2]);
+    } else if (twoSpacesInRow(inputs[index].regex[2], input)) {
+        displayError(inputs[index].errorReportID, inputs[index].errorReportText[3]);
     } else {
-        document.getElementById(contactInputs[index]['errorReportID']).style.color = 'var(--white-color)';
+        document.getElementById(inputs[index].errorReportID).style.color = 'var(--white-color)';
     }
 }
 
@@ -572,11 +522,11 @@ function checkInputOnkeyUp(index) {
  * @param {number} index - index of inputfield
  */
 function checkInputOnblur(index) {
-    let input = document.getElementById(contactInputs[index]['inputID']).value;
-    if (charIsNotValid(contactInputs[index]['regex'][3], input)) {
-        displayError(contactInputs[index]['errorReportID'], contactInputs[index]['errorReportText'][0]);
+    let input = document.getElementById(inputs[index].inputID).value;
+    if (charIsNotValid(inputs[index].regex[3], input)) {
+        displayError(inputs[index].errorReportID, inputs[index].errorReportText[0]);
     } else if (input == '') {
-        document.getElementById(contactInputs[index]['errorReportID']).style.color = 'var(--white-color)';
+        document.getElementById(inputs[index].errorReportID).style.color = 'var(--white-color)';
     }
     displayValidInputs();
 }
@@ -586,11 +536,11 @@ function checkInputOnblur(index) {
  *  if input is valid, a report will be displayed
  */
 function displayValidInputs() {
-    for (let i = 0; i < contactInputs.length; i++) {
-        let input = document.getElementById(contactInputs[i]['inputID']).value;
-        if (charIsNotValid(contactInputs[i]['regex'][3], input) == false && input.length >= contactInputs[i]['inputlenght']) {
-            document.getElementById(contactInputs[i]['errorReportID']).innerHTML = contactInputs[i]['validReportText'];
-            document.getElementById(contactInputs[i]['errorReportID']).style.color = 'var(--darkGreen-color)';
+    for (let i = 0; i < inputs.length; i++) {
+        let input = document.getElementById(inputs[i].inputID).value;
+        if (charIsNotValid(inputs[i].regex[3], input) == false && input.length >= inputs[i].inputlenght) {
+            document.getElementById(inputs[i].errorReportID).innerHTML = inputs[i].validReportText;
+            document.getElementById(inputs[i].errorReportID).style.color = 'var(--darkGreen-color)';
         }
     }
 }
@@ -639,30 +589,14 @@ function twoSpacesInRow(reg, input) {
 }
 
 
+/*______________________________Storage Functions_______________________________*/
 
-
-function createInitials() {
-    let name = document.getElementById('contactNameInput').value;
-    let firstInitial = name.charAt(0);
-    firstInitial = firstInitial.toUpperCase();
-
-    let index = name.lastIndexOf(' ');
-    let secondInitial = name.charAt(index + 1);
-    secondInitial = secondInitial.toUpperCase();
-
-    return `${firstInitial}${secondInitial}`
-}
-
-async function saveContacts() {
-    await setTask('contact', JSON.stringify(contacts));
-}
-
-async function getItem(key) {
-    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json());
-}
-
+/**
+ * Loads and converts the JSON string, of the key contact, into a object from the remote storage
+ * than pushs the loaded data into the contact list
+ */
 async function loadContacts() {
+    contacts = [];
     let contact = await getItem('contact');
     contact = JSON.parse(contact['data']['value']);
     for (let i = 0; i < contact.length; i++) {
@@ -670,3 +604,111 @@ async function loadContacts() {
         contacts.push(loadedContact);  
     }
 }
+
+/**
+ * methode to retrieve the saved value associated with a specified key from the storage
+ * 
+ * @param {string} key - Key where item has been saved
+ * @returns {JSON}
+ */
+async function getItem(key) {
+    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
+    return fetch(url).then(res => res.json());
+}
+
+/**
+ * 
+ * 
+ * @param {string} key 
+ * @param {*} value 
+ * @returns {Promise<any>}
+ */
+async function setItem(key, value) {
+    const payload = { key, value, token: STORAGE_TOKEN };
+    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload)})
+    .then(res => res.json());
+}
+
+/**
+ * changes the array contacts from json array to string and saves it in the remote storage
+ */
+async function saveContacts() {
+    await setItem('contact', JSON.stringify(contacts));
+}
+
+
+/*_____________________________General Functions________________________________*/
+
+/**
+ * Returns first letter of the name as a uppercase letter
+ * 
+ * @param {string} contactName - Name of contact
+ * @returns {string} - first letter of the name of the contact as a uppercase letter
+ */
+function getFirstChar(contactName) {
+    let name = contactName;
+    let char = name.charAt(0);
+    char = char.toUpperCase();
+    return char;
+}
+
+/**
+ * Returns the first letter of the lastname as a uppercase letter
+ * 
+ * @param {string} contactName - Name of contact
+ * @returns {string} - first letter of the lastname as a uppercase letter
+ */
+function getFirstCharofLastname(contactName) {
+    let name = contactName;
+    let index = name.lastIndexOf(' ');
+    let char = name.charAt(index + 1);
+    char = char.toUpperCase();
+    return char;
+}
+
+/**
+ * Returns the index of the contact from the contact array
+ * 
+ * @param {number} id - Contact-ID for searching the index from contact array
+ * @returns {number} - Index of contact
+ */
+function getIndexOfContact(id) {
+    for (let i = 0; i < contacts.length; i++) {
+        if (id === contacts[i].id) {
+            return i;
+        }
+    }
+}
+
+/**
+ * Generates and returns a random RGB-Color
+ * 
+ * @returns {string} - random color
+ */
+function createRandomRGBColor() {
+    let red = getRandomInt(0, 255);
+    let green = getRandomInt(0, 255);
+    let blue = getRandomInt(0, 255);
+    return `rgb(${red}, ${green}, ${blue})`;
+}
+
+/**
+ * Generates and returns a random number between a min and max (min and max are included)
+ * 
+ * @param {number} min - The minimum value
+ * @param {number} max - The maximum value
+ * @returns {number} - random number
+ */
+function getRandomInt (min, max) {
+    min = Math.ceil(min); // Runded immer auf und gibt Ganzzahl zurück
+    max = Math.floor(max); // Runded immer ab und gibt Ganzzahl zurück
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+/**
+ * Rewrite SVG files read by img tags to inline codes for changing attributes
+ */
+window.addEventListener('load', function() {
+    deSVG('.editContactImg', true);
+    deSVG('.addTaskImg', true);
+});
