@@ -1,10 +1,8 @@
 function includeHTML() {
     let z, i, elmnt, file, xhttp;
-    /* looping through  */
     z = document.getElementsByTagName("*");
     for (i = 0; i < z.length; i++) {
         elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
         file = elmnt.getAttribute("w3-include-html");
         if (file) {
             xhttp = new XMLHttpRequest();

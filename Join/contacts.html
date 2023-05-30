@@ -15,10 +15,11 @@
     <link rel="stylesheet" href="src/css/contacts/style.css">
     <link rel="stylesheet" href="src/css/contacts/mqueries.css">
     <script src="//cdn.jsdelivr.net/npm/desvg@1.0.2/desvg.min.js"></script>
+    <script src="src/js/storage.js"></script>
     <script src="src/js/add_task.js"></script>
-    <script src="src/js/settings.js"></script>
     <script src="src/js/contacts/templates.js"></script>
     <script src="src/js/contacts/script.js"></script>
+    <script src="src/js/validation.js"></script>
     <script src="src/js/global.js"></script>
     <title>Join - Contacts</title>
 </head>
@@ -96,7 +97,7 @@
                 <div class="contactInputs flex-column">
                     <div class="input-includer" w3-include-html="src/templates/input-template.html"></div>
                     <div class="flex-column">
-                        <div class="input flex-row curser"><input required id="contactPhoneInput" type="tel"
+                        <div class="input flex-row curser"><input required id="inputPhone" type="tel"
                                 placeholder="Phone" minlength="10"
                                 pattern="^(?!.* {2})[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"
                                 onkeyup="checkInputOnkeyUp(2)" onblur="checkInputOnblur(2)"><i class='bx bx-phone'></i>

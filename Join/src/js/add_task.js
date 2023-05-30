@@ -1,16 +1,6 @@
-/* Const for the Remote Storage saving */
-
-const STORAGE_TOKEN = 'D4DBS7MA276TXS8PQ3TJKAHG12EW5IEPOBMLYDL9';
-const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
-
-/* Remotely loads exisiting Tasks if some Tasks where created */
-
-
 loadTasks();
 
 let firstRender = true;
-
-let tasks = [];
 
 let subtaskName = [];
 
@@ -324,46 +314,8 @@ function closeAddTask() {
 
 async function saveTask() {
 
-    await setTask('task', JSON.stringify(tasks));
+    await setItem('task', JSON.stringify(tasks));
 }
-
-/**
- * This Method saves the Task into a Payload and POSTS it into the Storage_URL
- * @param {string} key - Sets the Name of the Task that gets Saved
- * @param {json} value - Saves the JSON that has been created through the Task section
- */
-
-async function setTask(key, value) {
-
-    const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) }).then(res => res.json());
-}
-
-
-/**
- * This Method searches for an existing Task if a Task has been saved by a Key Name
- * @param {string} key - The Name of the Task that has been saved
- */
-async function getTask(key) {
-    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json()).then(res => {
-        if (res.data) {
-            return res.data.value;
-        }
-        else {
-            return res;
-        }
-
-    });
-}
-
-
-/* Loads existing Tasks */
-
-async function loadTasks() {
-    tasks = JSON.parse(await getTask('task'));
-}
-
 
 /* This is just for a Console test to see if the Tasks get deleted permanently */
 
