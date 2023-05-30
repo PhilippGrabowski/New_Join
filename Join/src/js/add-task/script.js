@@ -1,5 +1,3 @@
-loadTasks();
-
 let firstRender = true;
 
 let subtaskName = [];
@@ -59,12 +57,14 @@ function createTask() {
     let description = document.getElementById('description');
     let category = document.getElementById('selectedCategory');
     let dueDate = document.getElementById('dueDate');
-
+    console.log(dragId);
     if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, dragId));
         saveTask();
         dragId++;
+        console.log(dragId);
     }
+    document.location.href = 'board.html';
 }
 
 function checkSubtask(i) {

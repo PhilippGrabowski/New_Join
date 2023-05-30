@@ -3,13 +3,11 @@ let taskAwaitingFeedback = [];
 
 let taskDone = [];
 
-let currentLoadedTask;
-
 let currentDraggedElement;
 
 
 async function init(){
-    await loadAllTasks();
+    await loadTasks();
     updateHTML();
 }
 
@@ -34,7 +32,7 @@ function updateHTML(){
  */
 function updateToDo(){
     let toDoBox = document.getElementById('board-to-do');
-    let open = currentLoadedTask.filter(t => t['status'] == 'to-do');
+    let open = tasks.filter(t => t['status'] == 'to-do');
     toDoBox.innerHTML = '';
 
     for (let i = 0; i < open.length; i++) {
@@ -52,7 +50,7 @@ function updateToDo(){
  */
 function updateTaskInProgress(){
     let inProgressBox = document.getElementById('board-in-progress');
-    let inProgress = currentLoadedTask.filter(t => t['status'] == 'in-progress');
+    let inProgress = tasks.filter(t => t['status'] == 'in-progress');
     inProgressBox.innerHTML = '';
 
     for (let i = 0; i < inProgress.length; i++) {
@@ -69,7 +67,7 @@ function updateTaskInProgress(){
  */
 function updateTaskAwaitingFeedback(){
     let feedbackBox = document.getElementById('board-awaiting-feedback');
-    let awaitingFeedback = currentLoadedTask.filter(t => t['status'] == 'awaiting-feedback');
+    let awaitingFeedback = tasks.filter(t => t['status'] == 'awaiting-feedback');
     feedbackBox.innerHTML = '';
 
     for (let i = 0; i < awaitingFeedback.length; i++) {
@@ -87,7 +85,7 @@ function updateTaskAwaitingFeedback(){
  */
 function updateTaskDone(){
     let taskDoneBox = document.getElementById('board-task-done');
-    let done = currentLoadedTask.filter(t => t['status'] == 'done');
+    let done = tasks.filter(t => t['status'] == 'done');
     taskDoneBox.innerHTML = '';
 
     for (let i = 0; i < done.length; i++) {
@@ -116,7 +114,7 @@ function allowDrop(ev){
  * @param {string} category - the coulmn the element is to be dropped in
  */
 async function moveTo(category){
-    currentLoadedTask[currentDraggedElement]['status'] = category;
+    tasks[currentDraggedElement]['status'] = category;
     await saveStatusChange(currentDraggedElement);
     updateHTML();
 }
@@ -126,9 +124,9 @@ async function moveTo(category){
  * @param {number} currentDraggedElement - The id of the last dropped element
  */
 async function saveStatusChange(currentDraggedElement){
-    let elementToSave = currentLoadedTask[currentDraggedElement];
-    currentLoadedTask.splice(currentDraggedElement, 1);
-    currentLoadedTask.push(elementToSave);
+    let elementToSave = tasks[currentDraggedElement];
+    tasks.splice(currentDraggedElement, 1);
+    tasks.push(elementToSave);
     await saveRemote();
 }
 
@@ -137,7 +135,7 @@ async function saveStatusChange(currentDraggedElement){
  * This function saves the changed status to remote storage
  */
 async function saveRemote(){
-    await setItem('task', JSON.stringify(currentLoadedTask));
+    await setItem('task', JSON.stringify(tasks));
 }
 
 
@@ -241,6 +239,14 @@ function closeTaskPopUp(){
 
 function renderPopUpDetails(id){
     let taskPopUp = document.getElementById('task-popup');
-    let clickedElement = currentLoadedTask[id];
+    let clickedElement = tasks[id];
     taskPopUp.innerHTML += generatePopUpHTML(clickedElement);
+}
+
+
+
+
+function deleteAllTasks() {
+    tasks = [];
+    saveRemote();
 }

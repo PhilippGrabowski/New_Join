@@ -7,29 +7,21 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 /*____________________________________Data_____________________________________*/
 
 let tasks = [];
-let taskInProgress = [];
 let contacts = [];
 
 /*______________________________Storage Functions_______________________________*/
 
 /**
  * Loads and converts the JSON string, of the key task, into a object from the remote storage
- * than pushs the loaded data into the tasks array
- */
-async function loadTasks() {
-    tasks = JSON.parse(await getTask('task'));
-}
-
-/**
- * Loads and converts the JSON string, of the key task, into a object from the remote storage
  * than pushs the loaded data into the taskinprogress array
  */
-async function loadAllTasks(){
+async function loadTasks() {
+    tasks = [];
     let task = await getItem('task');
-    currentLoadedTask = JSON.parse(task['data']['value']);
-    for (let i = 0; i < currentLoadedTask.length; i++) {
-        const taskToPush = currentLoadedTask[i];
-        taskInProgress.push(taskToPush);  
+    task = JSON.parse(task['data']['value']);
+    for (let i = 0; i < task.length; i++) {
+        let loadedTask = task[i];
+        tasks.push(loadedTask);  
     }
 }
 
