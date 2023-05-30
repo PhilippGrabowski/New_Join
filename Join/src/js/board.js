@@ -7,7 +7,9 @@ let taskDone = [];
 
 let currentLoadedTask;
 
-let checkForShadow;
+const delay = 100;
+
+let lastExecution = 0;
 
 
 async function init(){
@@ -44,48 +46,56 @@ function updateHTML(){
 }
 
 function updateToDo(){
+    let toDoBox = document.getElementById('board-to-do');
     let open = currentLoadedTask.filter(t => t['status'] == 'to-do');
-    document.getElementById('board-to-do').innerHTML = '';
+    toDoBox.innerHTML = '';
 
     for (let i = 0; i < open.length; i++) {
         const element = open[i];
         const boxCount = 'to-do'+ i;
         const prio = open[i]['priority'];
-        document.getElementById('board-to-do').innerHTML += generateTaskCard(element, boxCount, prio);
+        toDoBox.innerHTML += generateTaskCard(element, boxCount, prio);
     }
+    addBoxShadow(toDoBox, 1);
 }
 
 function updateTaskInProgress(){
+    let inProgressBox = document.getElementById('board-in-progress');
     let inProgress = currentLoadedTask.filter(t => t['status'] == 'in-progress');
-    document.getElementById('board-in-progress').innerHTML = '';
+    inProgressBox.innerHTML = '';
 
     for (let i = 0; i < inProgress.length; i++) {
         const element = inProgress[i];
         const boxCount = 'in-progress'+ i;
-        document.getElementById('board-in-progress').innerHTML += generateTaskCard(element);
+        inProgressBox.innerHTML += generateTaskCard(element);
     }
+    addBoxShadow(inProgressBox, 2);
 }
 
 function updateTaskAwaitingFeedback(){
+    let feedbackBox = document.getElementById('board-awaiting-feedback');
     let awaitingFeedback = currentLoadedTask.filter(t => t['status'] == 'awaiting-feedback');
-    document.getElementById('board-awaiting-feedback').innerHTML = '';
+    feedbackBox.innerHTML = '';
 
     for (let i = 0; i < awaitingFeedback.length; i++) {
         const element = awaitingFeedback[i];
         const boxCount = 'awaiting-feedback'+ i;
-        document.getElementById('board-awaiting-feedback').innerHTML += generateTaskCard(element);
+        feedbackBox.innerHTML += generateTaskCard(element);
     }
+    addBoxShadow(feedbackBox, 3);
 }
 
 function updateTaskDone(){
+    let taskDoneBox = document.getElementById('board-task-done');
     let done = currentLoadedTask.filter(t => t['status'] == 'done');
-    document.getElementById('board-task-done').innerHTML = '';
+    taskDoneBox.innerHTML = '';
 
     for (let i = 0; i < done.length; i++) {
         const element = done[i];
         const boxCount = 'done'+ i;
-        document.getElementById('board-task-done').innerHTML += generateTaskCard(element);
+        taskDoneBox.innerHTML += generateTaskCard(element);
     }
+    addBoxShadow(taskDoneBox, 4);
 }
 
 function startDragging(id){
@@ -101,15 +111,21 @@ function moveTo(category){
     updateHTML();
 }
 
-function dragHighlight(section){
-    let areaToHighlight = document.getElementById(section);
-    areaToHighlight.classList.add('dragbox-shadow')
-    
+function dragHighlight(counter){
+    let currentBoxShadow = document.getElementById(`dragbox-shadow${counter}`);
+    currentBoxShadow.classList.remove('d-none');
 }
 
-function endHighlight(section){
-    let areaToHighlight = document.getElementById(section);
-    areaToHighlight.classList.remove('dragbox-shadow')
+function endHighlight(counter){
+    let currentBoxShadow = document.getElementById(`dragbox-shadow${counter}`);
+    currentBoxShadow.classList.add('d-none');
+}
+
+function addBoxShadow(toDo, progress, feedback, done){
+    toDo.innerHTML += generateBoxShadow();
+    progress.innerHTML += generateBoxShadow();
+    feedback.innerHTML += generateBoxShadow();
+    done.innerHTML += generateBoxShadow();
 }
 
 function generateTaskCard(element, boxCount, prio){
@@ -127,6 +143,16 @@ function generateTaskCard(element, boxCount, prio){
             </div>
         </div>
     `; 
+}
+
+function addBoxShadow(tasksBox, counter){
+    tasksBox.innerHTML += generateBoxShadow(counter);
+}
+
+function generateBoxShadow(counter){
+    return /*html*/`
+    <div class="dragbox-shadow d-none" id="dragbox-shadow${counter}"></div>
+    `;
 }
 
 
