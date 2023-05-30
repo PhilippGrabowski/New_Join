@@ -7,9 +7,7 @@ let taskDone = [];
 
 let currentLoadedTask;
 
-const delay = 100;
-
-let lastExecution = 0;
+let currentDraggedElement;
 
 
 async function init(){
@@ -36,8 +34,10 @@ async function loadAllTasks(){
 
 //<----------------------------------------- UpdateHTML-Function for Drag & Drop -------------------------------------->
 
-let currentDraggedElement;
 
+/**
+ * This function is updating the current HTML ensure every content inside an array is displayed
+ */
 function updateHTML(){
     updateToDo();
     updateTaskInProgress();
@@ -45,6 +45,11 @@ function updateHTML(){
     updateTaskDone();
 }
 
+/**
+ * The following four functions filter an array and then render the contents into the designated columns.
+ * @param {element} toDoBox - the div for tasks still to do
+ * @param {Array} open - This array contains all taks that have the status 'to-do'
+ */
 function updateToDo(){
     let toDoBox = document.getElementById('board-to-do');
     let open = currentLoadedTask.filter(t => t['status'] == 'to-do');
@@ -59,6 +64,10 @@ function updateToDo(){
     addBoxShadow(toDoBox, 1);
 }
 
+/**
+ * @param {element} inProgressBox - the div for tasks that are in progress
+ * @param {Array} inProgress - This array contains all tasks that have the status 'in-progress' 
+ */
 function updateTaskInProgress(){
     let inProgressBox = document.getElementById('board-in-progress');
     let inProgress = currentLoadedTask.filter(t => t['status'] == 'in-progress');
@@ -72,6 +81,10 @@ function updateTaskInProgress(){
     addBoxShadow(inProgressBox, 2);
 }
 
+/**
+ * @param {element} feedbackBox - The div for tasks that are waiting for feedback
+ * @param {Array} awaitingFeedback - This array contains all tasks that have the status 'awaiting-feedback'
+ */
 function updateTaskAwaitingFeedback(){
     let feedbackBox = document.getElementById('board-awaiting-feedback');
     let awaitingFeedback = currentLoadedTask.filter(t => t['status'] == 'awaiting-feedback');
@@ -85,6 +98,11 @@ function updateTaskAwaitingFeedback(){
     addBoxShadow(feedbackBox, 3);
 }
 
+
+/**
+ * @param {element} taskDoneBox - The div for tasks that are done
+ * @param {Array} done - This array contains all tasks that have the status 'done'
+ */
 function updateTaskDone(){
     let taskDoneBox = document.getElementById('board-task-done');
     let done = currentLoadedTask.filter(t => t['status'] == 'done');
@@ -98,6 +116,10 @@ function updateTaskDone(){
     addBoxShadow(taskDoneBox, 4);
 }
 
+/**
+ * This function is saving the id of the current dragged element
+ * @param {*} id - To differ between the task-divs
+ */
 function startDragging(id){
     currentDraggedElement = id;
 }
@@ -106,21 +128,64 @@ function allowDrop(ev){
     ev.preventDefault();
 }
 
-function moveTo(category){
+
+/**
+ * This function changes the status of a tasks, saves it and then updates the HTML
+ * @param {string} category - the coulmn the element is to be dropped in
+ */
+async function moveTo(category){
     currentLoadedTask[currentDraggedElement]['status'] = category;
+    await saveStatusChange(currentDraggedElement);
     updateHTML();
 }
 
+/**
+ * This function deletes the task with the old status and pushes it back to the array with the new status.
+ * @param {number} currentDraggedElement - The id of the last dropped element
+ */
+async function saveStatusChange(currentDraggedElement){
+    let elementToSave = currentLoadedTask[currentDraggedElement];
+    currentLoadedTask.splice(currentDraggedElement, 1);
+    currentLoadedTask.push(elementToSave);
+    await saveRemote();
+}
+
+
+/**
+ * This function saves the changed status to remote storage
+ */
+async function saveRemote(){
+    await setTask('task', JSON.stringify(currentLoadedTask));
+}
+
+
+/**
+ * This function displays a shadow in the column a draggable element is dragged over
+ * @param {number} counter - This is used to differ between the hidden box-shadows inside the task columns
+ */
 function dragHighlight(counter){
     let currentBoxShadow = document.getElementById(`dragbox-shadow${counter}`);
     currentBoxShadow.classList.remove('d-none');
 }
 
+
+/**
+ * This function hides the box shadow as soon as the column isn't hovered any more
+ * @param {number} counter - This is used to differ between the hidden box-shadows inside the task columns
+ */
 function endHighlight(counter){
     let currentBoxShadow = document.getElementById(`dragbox-shadow${counter}`);
     currentBoxShadow.classList.add('d-none');
 }
 
+
+/**
+ * This function adds a hidden div to the four tasks columns. This is needed for the dragHighlight function.
+ * @param {element} toDo - The div where the box shadow will be added
+ * @param {element} progress - The div where the box shadow will be added 
+ * @param {element} feedback - The div where the box shadow will be added 
+ * @param {element} done - The div where the box shadow will be added 
+ */
 function addBoxShadow(toDo, progress, feedback, done){
     toDo.innerHTML += generateBoxShadow();
     progress.innerHTML += generateBoxShadow();
@@ -128,9 +193,12 @@ function addBoxShadow(toDo, progress, feedback, done){
     done.innerHTML += generateBoxShadow();
 }
 
+
+
+//<----------------------------------------------- generate HTML functions ---------------------------------------------------------------->
 function generateTaskCard(element, boxCount, prio){
     return /*html*/`
-        <div draggable="true" ondragstart="startDragging(${element['id']})"; class="board-task-box flex-column" id='${boxCount}'>
+        <div draggable="true" onclick="openTaskPopUp(${element['id']})" ondragstart="startDragging(${element['id']})"; class="board-task-box flex-column" id='${boxCount}'>
             <div>
                 <span>${element['category']}</span>
                 <h3>${element['title']}</h3>
