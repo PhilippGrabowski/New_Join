@@ -155,7 +155,7 @@ async function saveStatusChange(currentDraggedElement){
  * This function saves the changed status to remote storage
  */
 async function saveRemote(){
-    await setTask('task', JSON.stringify(currentLoadedTask));
+    await setItem('task', JSON.stringify(currentLoadedTask));
 }
 
 
