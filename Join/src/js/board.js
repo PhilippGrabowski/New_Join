@@ -7,7 +7,7 @@ let taskDone = [];
 
 let currentLoadedTask;
 
-let checkForShadow;
+let currentDraggedElement;
 
 
 async function init(){
@@ -34,8 +34,10 @@ async function loadAllTasks(){
 
 //<----------------------------------------- UpdateHTML-Function for Drag & Drop -------------------------------------->
 
-let currentDraggedElement;
 
+/**
+ * This function is updating the current HTML ensure every content inside an array is displayed
+ */
 function updateHTML(){
     updateToDo();
     updateTaskInProgress();
@@ -43,51 +45,81 @@ function updateHTML(){
     updateTaskDone();
 }
 
+/**
+ * The following four functions filter an array and then render the contents into the designated columns.
+ * @param {element} toDoBox - the div for tasks still to do
+ * @param {Array} open - This array contains all taks that have the status 'to-do'
+ */
 function updateToDo(){
+    let toDoBox = document.getElementById('board-to-do');
     let open = currentLoadedTask.filter(t => t['status'] == 'to-do');
-    document.getElementById('board-to-do').innerHTML = '';
+    toDoBox.innerHTML = '';
 
     for (let i = 0; i < open.length; i++) {
         const element = open[i];
         const boxCount = 'to-do'+ i;
         const prio = open[i]['priority'];
-        document.getElementById('board-to-do').innerHTML += generateTaskCard(element, boxCount, prio);
+        toDoBox.innerHTML += generateTaskCard(element, boxCount, prio);
     }
+    addBoxShadow(toDoBox, 1);
 }
 
+/**
+ * @param {element} inProgressBox - the div for tasks that are in progress
+ * @param {Array} inProgress - This array contains all tasks that have the status 'in-progress' 
+ */
 function updateTaskInProgress(){
+    let inProgressBox = document.getElementById('board-in-progress');
     let inProgress = currentLoadedTask.filter(t => t['status'] == 'in-progress');
-    document.getElementById('board-in-progress').innerHTML = '';
+    inProgressBox.innerHTML = '';
 
     for (let i = 0; i < inProgress.length; i++) {
         const element = inProgress[i];
         const boxCount = 'in-progress'+ i;
-        document.getElementById('board-in-progress').innerHTML += generateTaskCard(element);
+        inProgressBox.innerHTML += generateTaskCard(element);
     }
+    addBoxShadow(inProgressBox, 2);
 }
 
+/**
+ * @param {element} feedbackBox - The div for tasks that are waiting for feedback
+ * @param {Array} awaitingFeedback - This array contains all tasks that have the status 'awaiting-feedback'
+ */
 function updateTaskAwaitingFeedback(){
+    let feedbackBox = document.getElementById('board-awaiting-feedback');
     let awaitingFeedback = currentLoadedTask.filter(t => t['status'] == 'awaiting-feedback');
-    document.getElementById('board-awaiting-feedback').innerHTML = '';
+    feedbackBox.innerHTML = '';
 
     for (let i = 0; i < awaitingFeedback.length; i++) {
         const element = awaitingFeedback[i];
         const boxCount = 'awaiting-feedback'+ i;
-        document.getElementById('board-awaiting-feedback').innerHTML += generateTaskCard(element);
+        feedbackBox.innerHTML += generateTaskCard(element);
     }
+    addBoxShadow(feedbackBox, 3);
 }
 
+
+/**
+ * @param {element} taskDoneBox - The div for tasks that are done
+ * @param {Array} done - This array contains all tasks that have the status 'done'
+ */
 function updateTaskDone(){
+    let taskDoneBox = document.getElementById('board-task-done');
     let done = currentLoadedTask.filter(t => t['status'] == 'done');
-    document.getElementById('board-task-done').innerHTML = '';
+    taskDoneBox.innerHTML = '';
 
     for (let i = 0; i < done.length; i++) {
         const element = done[i];
         const boxCount = 'done'+ i;
-        document.getElementById('board-task-done').innerHTML += generateTaskCard(element);
+        taskDoneBox.innerHTML += generateTaskCard(element);
     }
+    addBoxShadow(taskDoneBox, 4);
 }
 
+/**
+ * This function is saving the id of the current dragged element
+ * @param {*} id - To differ between the task-divs
+ */
 function startDragging(id){
     currentDraggedElement = id;
 }
@@ -96,25 +128,77 @@ function allowDrop(ev){
     ev.preventDefault();
 }
 
-function moveTo(category){
+
+/**
+ * This function changes the status of a tasks, saves it and then updates the HTML
+ * @param {string} category - the coulmn the element is to be dropped in
+ */
+async function moveTo(category){
     currentLoadedTask[currentDraggedElement]['status'] = category;
+    await saveStatusChange(currentDraggedElement);
     updateHTML();
 }
 
-function dragHighlight(section){
-    let areaToHighlight = document.getElementById(section);
-    areaToHighlight.classList.add('dragbox-shadow')
-    
+/**
+ * This function deletes the task with the old status and pushes it back to the array with the new status.
+ * @param {number} currentDraggedElement - The id of the last dropped element
+ */
+async function saveStatusChange(currentDraggedElement){
+    let elementToSave = currentLoadedTask[currentDraggedElement];
+    currentLoadedTask.splice(currentDraggedElement, 1);
+    currentLoadedTask.push(elementToSave);
+    await saveRemote();
 }
 
-function endHighlight(section){
-    let areaToHighlight = document.getElementById(section);
-    areaToHighlight.classList.remove('dragbox-shadow')
+
+/**
+ * This function saves the changed status to remote storage
+ */
+async function saveRemote(){
+    await setTask('task', JSON.stringify(currentLoadedTask));
 }
 
+
+/**
+ * This function displays a shadow in the column a draggable element is dragged over
+ * @param {number} counter - This is used to differ between the hidden box-shadows inside the task columns
+ */
+function dragHighlight(counter){
+    let currentBoxShadow = document.getElementById(`dragbox-shadow${counter}`);
+    currentBoxShadow.classList.remove('d-none');
+}
+
+
+/**
+ * This function hides the box shadow as soon as the column isn't hovered any more
+ * @param {number} counter - This is used to differ between the hidden box-shadows inside the task columns
+ */
+function endHighlight(counter){
+    let currentBoxShadow = document.getElementById(`dragbox-shadow${counter}`);
+    currentBoxShadow.classList.add('d-none');
+}
+
+
+/**
+ * This function adds a hidden div to the four tasks columns. This is needed for the dragHighlight function.
+ * @param {element} toDo - The div where the box shadow will be added
+ * @param {element} progress - The div where the box shadow will be added 
+ * @param {element} feedback - The div where the box shadow will be added 
+ * @param {element} done - The div where the box shadow will be added 
+ */
+function addBoxShadow(toDo, progress, feedback, done){
+    toDo.innerHTML += generateBoxShadow();
+    progress.innerHTML += generateBoxShadow();
+    feedback.innerHTML += generateBoxShadow();
+    done.innerHTML += generateBoxShadow();
+}
+
+
+
+//<----------------------------------------------- generate HTML functions ---------------------------------------------------------------->
 function generateTaskCard(element, boxCount, prio){
     return /*html*/`
-        <div draggable="true" ondragstart="startDragging(${element['id']})"; class="board-task-box flex-column" id='${boxCount}'>
+        <div draggable="true" onclick="openTaskPopUp(${element['id']})" ondragstart="startDragging(${element['id']})"; class="board-task-box flex-column" id='${boxCount}'>
             <div>
                 <span>${element['category']}</span>
                 <h3>${element['title']}</h3>
@@ -129,14 +213,52 @@ function generateTaskCard(element, boxCount, prio){
     `; 
 }
 
+function addBoxShadow(tasksBox, counter){
+    tasksBox.innerHTML += generateBoxShadow(counter);
+}
+
+function generateBoxShadow(counter){
+    return /*html*/`
+    <div class="dragbox-shadow d-none" id="dragbox-shadow${counter}"></div>
+    `;
+}
+
+function generatePopUpHTML(clickedElement){
+    return /*html*/`
+        <span>${clickedElement['category']}</span>
+        <h2>${clickedElement['title']}</h2>
+        <p>Due date: ${clickedElement['duedate']}</p>
+        <p>Priority: ${clickedElement['priority']}</p>
+        <div class="flex-column">
+            
+        </div>
+    `;
+}
 
 
-//<--------------------------------------------- Open and Close Add-Task Window on Board.html ------------------------------------------->
+
+//<--------------------------------------------- Open and Close PopUps ------------------------------------------->
 
 function openAddTask(){
     document.getElementById('add-task-overlay').style.transform = 'translateX(0)';
 }
 
-function closeWindow(){
-    document.getElementById('add-task-overlay').style.transform = 'translateX(2000px)';
+function closeAddTask(){
+    document.getElementById('add-task-overlay').style.transform = 'translateX(3500px)';
+}
+
+
+function openTaskPopUp(id){
+    renderPopUpDetails(id);
+    document.getElementById('task-popup-background').classList.remove('d-none');
+}
+
+function closeTaskPopUp(){
+    document.getElementById('task-popup-background').classList.add('d-none');
+}
+
+function renderPopUpDetails(id){
+    let taskPopUp = document.getElementById('task-popup');
+    let clickedElement = currentLoadedTask[id];
+    taskPopUp.innerHTML += generatePopUpHTML(clickedElement);
 }
