@@ -36,3 +36,51 @@ let inputs = [
     }
 ];
 let errorReports = ['nameError', 'emailError', 'phoneError'];
+
+
+/*______________________________Storage Functions_______________________________*/
+
+/**
+ * Loads and converts the JSON string, of the key contact, into a object from the remote storage
+ * than pushs the loaded data into the contact list
+ */
+async function loadContacts() {
+    contacts = [];
+    let contact = await getItem('contact');
+    contact = JSON.parse(contact['data']['value']);
+    for (let i = 0; i < contact.length; i++) {
+        let loadedContact = contact[i];
+        contacts.push(loadedContact);  
+    }
+}
+
+/**
+ * methode to retrieve the saved value associated with a specified key from the storage
+ * 
+ * @param {string} key - Key where item has been saved
+ * @returns {}
+ */
+async function getItem(key) {
+    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
+    return fetch(url).then(res => res.json());
+}
+
+/**
+ * 
+ * 
+ * @param {string} key 
+ * @param {*} value 
+ * @returns {}
+ */
+async function setItem(key, value) {
+    const payload = { key, value, token: STORAGE_TOKEN };
+    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload)})
+    .then(res => res.json());
+}
+
+/**
+ * changes the array contacts from json array to string and saves it in the remote storage
+ */
+async function saveContacts() {
+    await setItem('contact', JSON.stringify(contacts));
+}
