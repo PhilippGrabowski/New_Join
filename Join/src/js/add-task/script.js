@@ -46,8 +46,6 @@ let categoryColors = [
 
 let assignedContacts = []
 
-let dragId = 0;
-
 
 /* Creates a Json out of the Information that has been set in the Add-Task Section */
 
@@ -57,10 +55,10 @@ async function createTask() {
     let description = document.getElementById('description');
     let category = document.getElementById('selectedCategory');
     let dueDate = document.getElementById('dueDate');
+    let dragId = getId();
     if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, dragId));
         await saveTask();
-        dragId++;
     }
     document.location.href = 'board.html';
 }
@@ -361,4 +359,23 @@ function deleteSubTask(i) {
     subtaskName.splice(i, 1);
     bool.splice(i, 1);
     displaySubTask();
+}
+
+/**
+ * Returns Id for draggable Tasks
+ * 
+ * @returns {number}
+ */
+function getId() {
+    if (tasks.length === 0) {
+        return 1;
+    } else {
+        let ids = [];
+        for (let i = 0; i < tasks.length; i++) {
+            ids.push(tasks[i].id);
+        }
+        let maxId = Math.max.apply(Math, ids);
+        maxId++;
+        return maxId;
+    }
 }
