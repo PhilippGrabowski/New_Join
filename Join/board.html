@@ -22,12 +22,18 @@
 
 <body onload="includeHTML(); init();" onclick="closeHeaderMenu()">
 
-    <div id="add-task-overlay" class="add-task-overlay" style="transform: translateX(2500px);">
+    <div id="add-task-overlay" class="add-task-overlay" style="transform: translateX(3500px);">
         <div id="add-task-container-board" class="add-task-container-board">
-            <img onclick="closeWindow()" class="close-window" src="src/img/close-window.png">
+            <img onclick="closeAddTask()" class="close-window" src="src/img/close-window.png">
             <div w3-include-html="src/templates/add-task-template.html">
 
             </div>
+        </div>
+    </div>
+
+    <div class="task-popup-background d-none" id="task-popup-background">
+        <div class="task-popup" id="task-popup">
+            <img onclick="closeTaskPopUp()" src="src/img/close-window.png">
         </div>
     </div>
 

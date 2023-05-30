@@ -1,3 +1,4 @@
+/*board styling*/
 #board-section {
     padding: 8.9rem 0 0 230px;
 }
@@ -130,6 +131,8 @@
     font-size: 15px;
 }
 
+/*styling add task overlay*/
+
 .add-task-overlay {
     position: absolute;
     top: 0;
@@ -155,6 +158,38 @@
     position: absolute;
     top: 16px;
     right: 16px;
+    cursor: pointer;
+}
+
+/*styling task popup*/
+
+.task-popup-background{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.task-popup{
+    width: 650px;
+    height: 850px;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 50px;
+    gap: 25px;
+    position: relative;
+}
+
+.task-popup img {
+    position: absolute;
+    top: 30px;
+    right: 30px;
     cursor: pointer;
 }
 

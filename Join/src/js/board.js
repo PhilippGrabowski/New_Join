@@ -223,14 +223,42 @@ function generateBoxShadow(counter){
     `;
 }
 
+function generatePopUpHTML(clickedElement){
+    return /*html*/`
+        <span>${clickedElement['category']}</span>
+        <h2>${clickedElement['title']}</h2>
+        <p>Due date: ${clickedElement['duedate']}</p>
+        <p>Priority: ${clickedElement['priority']}</p>
+        <div class="flex-column">
+            
+        </div>
+    `;
+}
 
 
-//<--------------------------------------------- Open and Close Add-Task Window on Board.html ------------------------------------------->
+
+//<--------------------------------------------- Open and Close PopUps ------------------------------------------->
 
 function openAddTask(){
     document.getElementById('add-task-overlay').style.transform = 'translateX(0)';
 }
 
-function closeWindow(){
-    document.getElementById('add-task-overlay').style.transform = 'translateX(2000px)';
+function closeAddTask(){
+    document.getElementById('add-task-overlay').style.transform = 'translateX(3500px)';
+}
+
+
+function openTaskPopUp(id){
+    renderPopUpDetails(id);
+    document.getElementById('task-popup-background').classList.remove('d-none');
+}
+
+function closeTaskPopUp(){
+    document.getElementById('task-popup-background').classList.add('d-none');
+}
+
+function renderPopUpDetails(id){
+    let taskPopUp = document.getElementById('task-popup');
+    let clickedElement = currentLoadedTask[id];
+    taskPopUp.innerHTML += generatePopUpHTML(clickedElement);
 }
