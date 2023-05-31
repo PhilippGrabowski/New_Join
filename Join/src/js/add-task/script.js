@@ -20,6 +20,8 @@ let colorType = [
     { color: 'blue' },
 ]
 
+let selectedColor = [];
+
 let priorities = [
     { priority: 'urgent', color: 'red' },
     { priority: 'medium', color: 'orange' },
@@ -123,6 +125,15 @@ function displayCategoryHTML() {
         <img onclick="openCategories(),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
     `
 }
+function displayNewCategoryHTML() {
+    let cat = document.getElementById('category');
+    cat.style = '';
+    cat.classList.add('category-dropdown-div');
+    cat.innerHTML = `
+        <div id="selectedCategory">Select a Category</div>
+        <img onclick="openCategories(),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
+    `
+}
 
 
 function displayCategories() {
@@ -130,9 +141,17 @@ function displayCategories() {
     show.innerHTML = '';
     show.innerHTML = `<div onclick="createNewCategory(), displayCategoryColors()" class="cat">New Category</div>`;
     for (let i = 0; i < categoryColors.length; i++) {
-        show.innerHTML += `<div onclick="selectCategory(${i})" class="cat" id="${i}">${categoryColors[i].category}<span class="circle"
-        style="background-color: ${categoryColors[i].color};"></span></div>`
+        show.innerHTML += `
+            <div class="category-container" onclick="selectCategory(${i})">
+            <div class="cat" id="${i}">${categoryColors[i].category}<span class="circle"style="background-color: ${categoryColors[i].color};"></span></div>
+            </div>
+            `
     }
+}
+
+function deleteCategory(i) {
+    categoryColors.splice(i, 1);
+    displayCategories();
 }
 
 function createNewCategory() {
@@ -144,8 +163,8 @@ function createNewCategory() {
     show.classList.add('d-none');
     categoryContainer.innerHTML = `
         <div>
-            <input class="title-input" type="text" placeholder="New Category name">
-            <img class="tick-icon" src="src/img/tick.png">
+            <input id="newCatText" class="title-input" type="text" placeholder="New Category name">
+            <img onclick="displayNewCategory()" class="tick-icon" src="src/img/tick.png">
             <img onclick="displayCategories(), displayCategoryHTML()" class="x-icon" src="src/img/x.png">
         </div>
         <div id="categoryColors">
@@ -155,7 +174,7 @@ function createNewCategory() {
 
 }
 
-function displayCategoryColors(){
+function displayCategoryColors() {
     let color = document.getElementById('categoryColors');
     color.innerHTML = '';
     for (let i = 0; i < colorType.length; i++) {
@@ -165,18 +184,34 @@ function displayCategoryColors(){
     }
 }
 
-function selectColor(i){
+function selectColor(i) {
     let selected = document.getElementById(`colorCode${i}`);
     selected.classList.add('highlighted-color');
+    selectedColor.push(colorType[i].color);
     removeOtherSelected(i);
 }
 
-function removeOtherSelected(i){
+function removeOtherSelected(i) {
     for (let k = 0; k < colorType.length; k++) {
         if (i != k) {
-          document.getElementById(`colorCode${k}`).classList.remove('highlighted-color');
+            document.getElementById(`colorCode${k}`).classList.remove('highlighted-color');
         }
-      }
+    }
+}
+
+function displayNewCategory() {
+    let input = document.getElementById('newCatText').value;
+    let colorArrayLength = selectedColor.length;
+    if (input != 0 && colorArrayLength != 0) {
+
+        categoryColors.push(
+            {
+                color: `${selectedColor[colorArrayLength - 1]}`,
+                category: `${input}`
+            }
+        )
+        displayNewCategoryHTML();
+    }
 }
 
 
@@ -227,13 +262,14 @@ function assignTask(i) {
         assignedContacts.push(
             {
                 'name': contacts[i].name,
+                'initials': contacts[i].initials,
                 'id': contacts[i].id
             }
         );
         renderContactBubbles();
     }
     else if (!checkbox.checked) {
-        removeObjectWithId(assignedContacts, i);
+        removeObjectWithId(assignedContacts, contacts[i].id);
         renderContactBubbles();
     }
 }
@@ -244,7 +280,7 @@ function renderContactBubbles() {
     render.innerHTML = '';
     let firstLetter;
     for (let i = 0; i < assignedContacts.length; i++) {
-        firstLetter = assignedContacts[i].name.charAt(0);
+        firstLetter = assignedContacts[i].initials;
         render.innerHTML += `
         <div class="contact-display">
             ${firstLetter}
@@ -259,7 +295,12 @@ function renderContactBubbles() {
 /* Sets the Priority that the User gives the Task */
 
 function selectedPrio(selected) {
-    prio = priorities[selected].priority;
+    prio = [
+        {
+            priority: `${priorities[selected].priority}`,
+            color: `${priorities[selected].color}`
+        }
+    ]
     setSelectedColor(selected);
     resetSelectedColor(selected);
 }
@@ -278,10 +319,10 @@ function selectCategory(cat) {
 
 /* Sets the Color of the Priorities for a Visual Feedback effect */
 
-function setSelectedColor(id) {
-    let selected = document.getElementById(`${priorities[id].priority}`);
-    selected.style.backgroundColor = `${priorities[id].color}`;
-    let selectedImg = document.getElementById(`img-${priorities[id].priority}`);
+function setSelectedColor(index) {
+    let selected = document.getElementById(`${priorities[index].priority}`);
+    selected.style.backgroundColor = `${priorities[index].color}`;
+    let selectedImg = document.getElementById(`img-${priorities[index].priority}`);
     selectedImg.style = `filter: brightness(0) invert(1)`;
     selected.style.color = `white`;
 
@@ -289,9 +330,9 @@ function setSelectedColor(id) {
 
 /* Changes the Color or resets it on the previous Priority Button when the user decides to switch to a different Priority */
 
-function resetSelectedColor(id) {
+function resetSelectedColor(index) {
     for (let i = 0; i < priorities.length; i++) {
-        if (i != id) {
+        if (i != index) {
             document.getElementById(`${priorities[i].priority}`).style.backgroundColor = 'white';
             document.getElementById(`${priorities[i].priority}`).style.color = 'black';
             document.getElementById(`img-${priorities[i].priority}`).style = `filter: brightness(1) invert(0)`;

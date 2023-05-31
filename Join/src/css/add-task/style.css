@@ -147,6 +147,10 @@ body{
     padding-bottom: 4px;
 }
 
+.category-container:hover {
+    background-color: lightgray;
+    border-radius: 4px;
+}
 .cat:hover {
     background-color: lightgray;
     border-radius: 4px;
@@ -214,6 +218,17 @@ body{
     width: 16px;
     height: 16px;
     cursor: pointer;
+}
+
+.category-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.padding-right{
+    margin-right: 10px;
 }
 
 .colortype:hover{
