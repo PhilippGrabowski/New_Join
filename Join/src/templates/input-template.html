@@ -1,13 +1,13 @@
 <div class="includedInputs flex-column">
     <div class="flex-column">
-        <div class="input flex-row curser"><input required id="contactNameInput" type="text" placeholder="Name"
-                minlength="3" pattern="^(?!.* {2})[a-zA-Z][a-zA-Z]*([ ]+[a-zA-Z][a-zA-Z]*)+$"
-                onkeyup="checkInputOnkeyUp(0)" onblur="checkInputOnblur(0)"><i class='bx bx-user'></i>
+        <div class="input flex-row curser"><input required id="inputName" type="text" placeholder="Name" minlength="3"
+                pattern="^(?!.* {2})[a-zA-Z][a-zA-Z]*([ ]+[a-zA-Z][a-zA-Z]*)+$" onkeyup="checkInputOnkeyUp(0)"
+                onblur="checkInputOnblur(0)"><i class='bx bx-user'></i>
         </div>
         <span id="nameError" class="error">valid firstname (secondname) lastname</span>
     </div>
     <div class="flex-column">
-        <div class="input flex-row curser"><input required id="contactEmailInput" type="email" placeholder="Email"
+        <div class="input flex-row curser"><input required id="inputEmail" type="email" placeholder="Email"
                 minlength="8" pattern="^[a-zA-Z0-9äÄüÜöÖß_.+-]{3,30}@[a-zA-Z0-9-ß]{3,9}\.[a-z]{2,3}$"
                 onblur="checkInputOnblur(1)"><i class='bx bx-envelope'></i>
         </div>

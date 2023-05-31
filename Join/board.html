@@ -13,14 +13,15 @@
     <link rel="stylesheet" href="src/css/template-styles/sidebar.css">
     <link rel="stylesheet" href="src/css/template-styles/help.css">
     <link rel="stylesheet" href="src/css//board/board.css">
-    <script src="src/js/add_task.js"></script>
-    <script src="src/js/settings.js"></script>
-    <script src="src/js/board.js"></script>
+    <script src="src/js/storage.js"></script>
+    <script src="src/js/add-task/script.js"></script>
+    <script src="src/js/board/templates.js"></script>
+    <script src="src/js/board/script.js"></script>
     <script src="src/js/global.js"></script>
     <title>Join - Board</title>
 </head>
 
-<body onload="includeHTML(); init();" onclick="closeHeaderMenu()">
+<body onload="includeHTML(); init()" onclick="closeHeaderMenu()">
 
     <div id="add-task-overlay" class="add-task-overlay" style="transform: translateX(3500px);">
         <div id="add-task-container-board" class="add-task-container-board">
@@ -34,6 +35,7 @@
     <div class="task-popup-background d-none" id="task-popup-background">
         <div class="task-popup" id="task-popup">
             <img onclick="closeTaskPopUp()" src="src/img/close-window.png">
+            <div id="popup-content"></div>
         </div>
     </div>
 
@@ -57,58 +59,63 @@
 
             </div>
 
-            <div class="flex-row">
-
-
-                <div class="flex-row" id="tasks-container">
-                    <div ondrop="moveTo('to-do')" ondragover="allowDrop(event); dragHighlight(1)" ondragleave="endHighlight(1)"  class="task-status-container flex-column">
-                        <div class="task-column-header">
-                            <div class="flex-row align-task-column-header">
-                                <h2>To do</h2>
-                                <img src="src/img/plus-button.svg" alt="">
-                            </div>
-                        </div>
-                        <div class="task-container flex-column" id="board-to-do">
-                            
+            <div class="flex-row" id="tasks-container">
+                <div ondrop="moveTo('to-do'); endHighlight('to-do-shadow')"
+                    ondragover="allowDrop(event); dragHighlight('to-do-shadow')"
+                    ondragleave="endHighlight('to-do-shadow')" class="task-status-container flex-column">
+                    <div class="task-column-header">
+                        <div class="flex-row align-task-column-header">
+                            <h2>To do</h2>
+                            <img src="src/img/plus-button.svg" alt="">
                         </div>
                     </div>
+                    <div class="task-container flex-column" id="board-to-do">
 
-                    <div ondrop="moveTo('in-progress')" ondragover="allowDrop(event); dragHighlight(2)" ondragleave="endHighlight(2)" class="task-status-container flex-column">
-                        <div class="task-column-header flex-row">
-                            <div class="flex-row align-task-column-header">
-                                <h2> In progress</h2>
-                                <img src="src/img/plus-button.svg" alt="">
-                            </div>
-                        </div>
-                        <div class="task-container flex-column" id="board-in-progress">
-
-                        </div>
-                    </div>
-
-                    <div ondrop="moveTo('awaiting-feedback')" ondragover="allowDrop(event); dragHighlight(3)" ondragleave="endHighlight(3)" class="task-status-container flex-column">
-                        <div class="task-column-header flex-row">
-                            <div class="flex-row align-task-column-header">
-                                <h2>Awaiting feedback</h2>
-                                <img src="src/img/plus-button.svg" alt="">
-                            </div>
-                        </div>
-                        <div class="task-container flex-column" id="board-awaiting-feedback">
-
-                        </div>
-                    </div>
-
-                    <div ondrop="moveTo('done')" ondragover="allowDrop(event); dragHighlight(4)" ondragleave="endHighlight(4)" class="task-status-container flex-column">
-                        <div class="task-column-header flex-row">
-                            <div class="flex-row align-task-column-header">
-                                <h2>Done</h2>
-                                <img src="src/img/plus-button.svg" alt="">
-                            </div>
-                        </div>
-                        <div class="task-container flex-column" id="board-task-done">
-
-                        </div>
                     </div>
                 </div>
+
+                <div ondrop="moveTo('in-progress'); endHighlight('in-progress-shadow')"
+                    ondragover="allowDrop(event); dragHighlight('in-progress-shadow')"
+                    ondragleave="endHighlight('in-progress-shadow')" class="task-status-container flex-column">
+                    <div class="task-column-header flex-row">
+                        <div class="flex-row align-task-column-header">
+                            <h2> In progress</h2>
+                            <img src="src/img/plus-button.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="task-container flex-column" id="board-in-progress">
+
+                    </div>
+                </div>
+
+                <div ondrop="moveTo('awaiting-feedback'); endHighlight('awaiting-feedback-shadow')"
+                    ondragover="allowDrop(event); dragHighlight('awaiting-feedback-shadow')"
+                    ondragleave="endHighlight('awaiting-feedback-shadow')" class="task-status-container flex-column">
+                    <div class="task-column-header flex-row">
+                        <div class="flex-row align-task-column-header">
+                            <h2>Awaiting feedback</h2>
+                            <img src="src/img/plus-button.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="task-container flex-column" id="board-awaiting-feedback">
+
+                    </div>
+                </div>
+
+                <div ondrop="moveTo('done'); endHighlight('done-shadow')"
+                    ondragover="allowDrop(event); dragHighlight('done-shadow')"
+                    ondragleave="endHighlight('done-shadow')" class="task-status-container flex-column">
+                    <div class="task-column-header flex-row">
+                        <div class="flex-row align-task-column-header">
+                            <h2>Done</h2>
+                            <img src="src/img/plus-button.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="task-container flex-column" id="board-task-done">
+
+                    </div>
+                </div>
+            </div>
     </section>
 
 </body>

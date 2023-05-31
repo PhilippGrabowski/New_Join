@@ -1,3 +1,8 @@
+/*____________________________________Alphabet Array____________________________________*/
+
+let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+
 /*___________________________Render Contact List Functions______________________________*/
 
 /**
@@ -26,8 +31,8 @@ function renderContactList() {
  * when iterating through the contact array, the first letter of the contact name is compared with the letter of the alphabet
  * only if a match is made once, a container is generated for the corresponding letter
  * 
- * @param {string} element - The Id for the element in which the individual contact groups with the respective contacts are generated
- * @param {string} letter - The current letter from the loop through the alphabet as a uppercase letter
+ * @param {string} element - Id for the element in which the individual contact groups with the respective contacts are generated
+ * @param {string} letter - Current letter from the loop through the alphabet as a uppercase letter
  */
 function renderLetterGroups(element, letter) {
     let matchAmount = 0;
@@ -46,7 +51,7 @@ function renderLetterGroups(element, letter) {
  * Contacts are separated into a new array according to the initial letter, at the same time the array is sorted alphabetically
  * then the contact templates are generated and the appropriate background-color is assigned to the initials
  * 
- * @param {string} letter - The current letter from the loop through the alphabet as a uppercase letter
+ * @param {string} letter - Current letter from the loop through the alphabet as a uppercase letter
  */
 function renderContacts(letter) {
     let contactSubList = document.getElementById(`group${letter}`);
@@ -62,7 +67,7 @@ function renderContacts(letter) {
  * Iterates through the new array of seperated contacts to generate the contact templates
  * then the appropriate background-color is assigned to the initials
  * 
- * @param {string} element  - The Id for the element in which the contacts are generated
+ * @param {string} element  - Id for the element in which the contacts are generated
  * @param {Array.<{id: Number, name: String, initials: String, email: String, phone: String, color: String}>} names - Array for seperated contacts 
  */
 function createContacts(element, names) {
@@ -77,7 +82,7 @@ function createContacts(element, names) {
  * than the array is sorted alphabetically
  * 
  * @param {Array.<{id: Number, name: String, initials: String, email: String, phone: String, color: String}>} names - Array for seperated contacts
- * @param {string} x - The current letter from the loop through the alphabet as a uppercase letter
+ * @param {string} letter - Current letter from the loop through the alphabet as a uppercase letter
  */
 function filterContactsByChar(names, letter) {
     for (let i = 0; i < contacts.length; i++) {
@@ -193,7 +198,7 @@ function openAddContactMenu() {
     document.getElementById('contactForm').setAttribute('onsubmit', 'addContact(); return false;');
     switchContactElements('contactOptionEditContactButtons', 'contactOptionAddContactButtons');
     switchContactElements('editContactInitials', 'addContactUserImg');
-    clearContactMenuInputs();
+    clearInputs();
 }
 
 /**
@@ -239,9 +244,9 @@ function fillEditContactMenuElements(id) {
  * @param {number} index - Index of contact
  */
 function fillEditContactMenuInputs(index) {
-    document.getElementById('contactNameInput').value = contacts[index].name;
-    document.getElementById('contactEmailInput').value = contacts[index].email;
-    document.getElementById('contactPhoneInput').value = contacts[index].phone;
+    document.getElementById('inputName').value = contacts[index].name;
+    document.getElementById('inputEmail').value = contacts[index].email;
+    document.getElementById('inputPhone').value = contacts[index].phone;
 }
 
 /**
@@ -273,24 +278,6 @@ function closeContactMenu() {
     closeErrorReports();
 }
 
-/**
- * Clears the Inputfields of the Contact Menu
- */
-function clearContactMenuInputs() {
-    document.getElementById('contactNameInput').value = '';
-    document.getElementById('contactEmailInput').value = '';
-    document.getElementById('contactPhoneInput').value = '';
-}
-
-/**
- * Closes all error reports
- */
-function closeErrorReports() {
-    for (let i = 0; i < errorReports.length; i++) {
-        document.getElementById(errorReports[i]).style.color = 'var(--white-color)';
-    }
-}
-
 
 /*_________________________Add/Edit/Delete Contact Functions___________________________*/
 
@@ -305,7 +292,7 @@ function addContact() {
         contacts.push(newContact);
         saveContacts();
         closeContactMenu();
-        clearContactMenuInputs();
+        clearInputs();
         openContactInfo(newContact.id);
         renderContactList();
         document.getElementById(`${newContact.id}`).scrollIntoView();
@@ -323,7 +310,7 @@ function createNewContact() {
     let name = firstLettersToUpperCase();
     let initials = createInitials();
     let email = emailToLowerCase();
-    let phone = document.getElementById('contactPhoneInput').value;
+    let phone = document.getElementById('inputPhone').value;
     let color = createRandomRGBColor();
     let newContact = {
         'id' : id,
@@ -337,7 +324,7 @@ function createNewContact() {
 }
 
 /**
- * Generates and returns a new ID number for new contact
+ * Generates and returns a new ID number for new contact while iterating through the contacts array and getting the max id
  * 
  * @returns {number} - new ID number for new contact
  */
@@ -364,7 +351,7 @@ function getIdForNewContact() {
  * @returns {string} - Name of contact
  */
 function firstLettersToUpperCase() {
-    let name = document.getElementById('contactNameInput').value;
+    let name = document.getElementById('inputName').value;
     name = name.toLowerCase();
     let chars = Array.from(name);
     chars[0] = chars[0].toUpperCase();
@@ -383,7 +370,7 @@ function firstLettersToUpperCase() {
  * @returns {string} - Initials of contact
  */
 function createInitials() {
-    let name = document.getElementById('contactNameInput').value;
+    let name = document.getElementById('inputName').value;
     let firstInitial = getFirstChar(name);
     let secondInitial = getFirstCharofLastname(name);
     return `${firstInitial}${secondInitial}`
@@ -395,7 +382,7 @@ function createInitials() {
  * @returns {string} - Email of conatact
  */
 function emailToLowerCase() {
-    let email = document.getElementById('contactEmailInput').value;
+    let email = document.getElementById('inputEmail').value;
     email = email.toLowerCase();
     return email;
 }
@@ -405,17 +392,26 @@ function emailToLowerCase() {
  * 
  * @param {number} index - index of contact
  */
-async function saveContact(index) {
+function saveContact(index) {
+    changeContactData(index);
+    addContactInformation(contacts[index].id);
+    closeContactMenu();
+    renderContactList();
+    document.getElementById(`${contacts[index].id}`).scrollIntoView();
+    showContactConfirmation(contacts[index].id, 'Contact successfully edit');
+}
+
+/**
+ * Changes the contact data and saves it
+ * 
+ * @param {number} index - index of contact
+ */
+function changeContactData(index) {
     contacts[index].name = firstLettersToUpperCase();
     contacts[index].initials = createInitials();;
     contacts[index].email = emailToLowerCase();
-    contacts[index].phone = document.getElementById('contactPhoneInput').value;
-    saveContacts()
-    addContactInformation(contacts[index].id);
-    closeContactMenu();
-    await renderContactList();
-    document.getElementById(`${contacts[index].id}`).scrollIntoView();
-    showContactConfirmation(contacts[index].id, 'Contact successfully edit');
+    contacts[index].phone = document.getElementById('inputPhone').value;
+    saveContacts();
 }
 
 /**
@@ -423,7 +419,7 @@ async function saveContact(index) {
  * 
  * @param {number} index - index of contact
  */
-async function deleteContact(index) {
+function deleteContact(index) {
     contacts.splice(index, 1);
     saveContacts();
     document.getElementById('contactInfoContainer').style.transform = 'translateX(150%)';
@@ -432,7 +428,7 @@ async function deleteContact(index) {
     } else {
         closeContactMenu();
     }
-    await renderContactList();
+    renderContactList();
     showDeleteContactConfirmation();
 }
 
@@ -512,101 +508,6 @@ function showExistingContact(index) {
 }
 
 
-/*_____________________________Input Validation Functions_______________________________*/
-
-/**
- * checks after every typed char if input is valid
- * if input is valid or not, a report will be displayed
- * 
- * @param {number} index - index of inputfield
- */
-function checkInputOnkeyUp(index) {
-    let input = document.getElementById(inputs[index].inputID).value;
-    if (firstCharisNotValid(inputs[index].regex[0], input)) {
-        displayError(inputs[index].errorReportID, inputs[index].errorReportText[1]);
-    } else if (charIsNotValid(inputs[index].regex[1], input)) {
-        displayError(inputs[index].errorReportID, inputs[index].errorReportText[2]);
-    } else if (twoSpacesInRow(inputs[index].regex[2], input)) {
-        displayError(inputs[index].errorReportID, inputs[index].errorReportText[3]);
-    } else {
-        document.getElementById(inputs[index].errorReportID).style.color = 'var(--white-color)';
-    }
-}
-
-/**
- * checks after leaving inputfield if input is valid
- * if input is valid or not, a report will be displayed
- * 
- * @param {number} index - index of inputfield
- */
-function checkInputOnblur(index) {
-    let input = document.getElementById(inputs[index].inputID).value;
-    if (charIsNotValid(inputs[index].regex[3], input)) {
-        displayError(inputs[index].errorReportID, inputs[index].errorReportText[0]);
-    } else if (input == '') {
-        document.getElementById(inputs[index].errorReportID).style.color = 'var(--white-color)';
-    }
-    displayValidInputs();
-}
-
-/**
- * checks after leaving inputfield if every input is valid
- *  if input is valid, a report will be displayed
- */
-function displayValidInputs() {
-    for (let i = 0; i < inputs.length; i++) {
-        let input = document.getElementById(inputs[i].inputID).value;
-        if (charIsNotValid(inputs[i].regex[3], input) == false && input.length >= inputs[i].inputlenght) {
-            document.getElementById(inputs[i].errorReportID).innerHTML = inputs[i].validReportText;
-            document.getElementById(inputs[i].errorReportID).style.color = 'var(--darkGreen-color)';
-        }
-    }
-}
-
-/**
- * Displays an error report
- * 
- * @param {string} errorReport - error report that will be displayed
- */
-function displayError(element, errorReport) {
-    document.getElementById(element).innerHTML = errorReport;
-    document.getElementById(element).style.color = 'var(--red-color)';
-}
-
-/**
- * Returns true if first char is not valid or false if it is
- * 
- * @param {string} reg - regular expression
- * @param {string} name - input value
- * @returns {boolean}
- */
-function firstCharisNotValid(reg, input) {
-    return reg.test(input.charAt(0)) == false && input !== "";
-}
-
-/**
- * Returns true if char is not valid or false if it is
- * 
- * @param {string} reg - regular expression
- * @param {string} input - input value
- * @returns {boolean}
- */
-function charIsNotValid(reg, input) {
-    return reg.test(input) == false && input.length >= 1;
-}
-
-/**
- * Returns true if there are two spaces in row or false if not
- * 
- * @param {string} reg - regular expression
- * @param {string} input - input value
- * @returns {boolean}
- */
-function twoSpacesInRow(reg, input) {
-    return reg.test(input) == false && input.length > 1;
-}
-
-
 /*_____________________________General Functions________________________________*/
 
 /**
@@ -673,6 +574,13 @@ function getRandomInt (min, max) {
     min = Math.ceil(min); // Runded immer auf und gibt Ganzzahl zurück
     max = Math.floor(max); // Runded immer ab und gibt Ganzzahl zurück
     return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+/**
+ * changes the array contacts from json array to string and saves it in the remote storage
+ */
+async function saveContacts() {
+    await setItem('contact', JSON.stringify(contacts));
 }
 
 /**

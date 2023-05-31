@@ -15,13 +15,13 @@
     <link rel="stylesheet" href="src/css/summary/style.css">
     <link rel="stylesheet" href="src/css/summary/mqueries.css">
     <script src="//cdn.jsdelivr.net/npm/desvg@1.0.2/desvg.min.js"></script>
-    <script src="src/js/settings.js"></script>
+    <script src="src/js/storage.js"></script>
     <script src="src/js/summary/script.js"></script>
     <script src="src/js/global.js"></script>
     <title>Join - Summary</title>
 </head>
 
-<body onload="includeHTML(); renderGreeting();" onclick="closeHeaderMenu()">
+<body onload="includeHTML(); renderGreeting(); loadTasks()" onclick="closeHeaderMenu()">
 
     <div id="header_includer" w3-include-html="src/templates/header.html"></div>
     <div id="sidebar_includer" w3-include-html="src/templates/sidebar.html"></div>

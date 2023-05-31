@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="src/css/template-styles/sidebar.css">
     <link rel="stylesheet" href="src/css/template-styles/help.css">
     <link rel="stylesheet" href="src/css/add-task/style.css">
-    <script src="src/js/settings.js"></script>
-    <script src="src/js/add_task.js"></script>
+    <script src="src/js/storage.js"></script>
+    <script src="src/js/add-task/script.js"></script>
     <script src="src/js/global.js"></script>
     <title>Join - Board</title>
 </head>
 
-<body onload="includeHTML()" onunload="displayCategoryHTML()" onclick="closeHeaderMenu()">
+<body onload="includeHTML(); loadContacts(); loadTasks();" onunload="displayCategoryHTML()" onclick="closeHeaderMenu()">
     <div id="header_includer" w3-include-html="src/templates/header.html"></div>
     <div id="sidebar_includer" w3-include-html="src/templates/sidebar.html"></div>
 
