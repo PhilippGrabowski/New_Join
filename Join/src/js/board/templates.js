@@ -8,7 +8,7 @@ function generateTaskCard(element){
                 <p>${element['description']}</p>
                 <div>
                     <p>${element['assigned']}</p>
-                    <img src="New_Join\Join\src\img\low.svg">
+                    <img src="./src/img/low.svg">
                 </div>
                 
             </div>
