@@ -101,6 +101,7 @@ function closeAddTask(){
 
 function openTaskPopUp(id){
     renderPopUpDetails(id);
+    renderAssignedContacts(id);
     document.getElementById('task-popup-background').classList.remove('d-none');
 }
 
@@ -113,4 +114,28 @@ function renderPopUpDetails(id){
     let index = getIndexOfTask(id);
     taskPopUp.innerHTML = '';
     taskPopUp.innerHTML += generatePopUpHTML(tasks[index]);
+}
+
+function renderAssignedContacts(id){
+    let assignedContactsBox = document.getElementById('task-popup-contacts');
+    let index = getIndexOfTask(id);
+    assignedContactsBox.innerHTML = '';
+    let contactsToDisplay = tasks[index]['assigned'];
+
+    for (let i = 0; i < contactsToDisplay.length; i++) {
+        const contact = contactsToDisplay[i];
+        assignedContactsBox.innerHTML += generateTaskPopupContacts(contact);
+
+        let initialsBox = document.getElementById('contact-first-chars');
+        initialsBox.innerHTML = '';
+        initialsBox.innerHTML += renderContactInitials(contact);
+    }
+
+}
+
+function renderContactInitials(contact){
+    let name = contact['name'];
+    let firstInitial = getFirstChar(name);
+    let secondInitial = getFirstCharofLastname(name);
+    return `${firstInitial}${secondInitial}`;
 }

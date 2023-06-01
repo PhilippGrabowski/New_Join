@@ -95,8 +95,8 @@
     cursor: pointer;
 }
 
-.task-column-header img:hover {
-    filter: invert(61%) sepia(25%) saturate(1347%) hue-rotate(155deg) brightness(92%) contrast(92%);
+.hover-white-button:hover {
+    filter: invert(61%) sepia(28%) saturate(1489%) hue-rotate(164deg) brightness(91%) contrast(94%);
     transition: ease-in-out 125ms;
 }
 
@@ -118,7 +118,7 @@
     border: 2px dotted darkgray;
 }
 
-.board-task-box span {
+.category-tag {
     display: inline-block;
     margin-bottom: 16px;
     padding: 4px 12px;
@@ -194,11 +194,38 @@
     position: relative;
 }
 
-.task-popup img {
+.close-task-popup {
     position: absolute;
     top: 30px;
     right: 30px;
     cursor: pointer;
+}
+
+.delete-and-edit-task {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    background-color: #fff;
+}
+
+.edit-task {
+    height: 50px;
+    width: 50px;
+    background-color: #2A3647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 10px 10px 0;
+}
+
+.task-popup-headline {
+    font-weight: 700;
+    font-size: 61px;
+    line-height: 73.2px;
+}
+
+.task-popup-margin{
+    margin-top: 25px;
 }
 
 /* Board */
