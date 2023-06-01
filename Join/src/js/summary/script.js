@@ -1,18 +1,11 @@
-/**
- * Rewrite SVG files read by img tags to inline codes for changing attributes
- */
-window.addEventListener('load', function() {
-    deSVG('.edit_task_img', true);
-});
+/*____________________________________________Settings________________________________________________*/
 
-/**
- * Hides mobile greeting while resizing window 
- */
-window.addEventListener('resize', function() {
-    if (window.innerWidth <= 1096) {
-        document.getElementById('mobile_greeting_container').classList.add('d-none');
-    }
-})
+let taskAmountElements = ['to_do_amount', 'summary_task_in_progress_amount', 'summary_awaiting_feedback_amount', 'done_amount'];
+let stat = ['to-do', 'in-progress', 'awaiting-feedback', 'done'];
+
+
+/*___________________________________________Greeting Functions_______________________________________*/
+
 
 /**
  * a greeting is generated depending on the time
@@ -34,15 +27,6 @@ function renderGreeting() {
 }
 
 /**
- * Returns the hour of the current time
- */
-function getHour() {
-    let date = new Date();
-    let hour = date.getHours();
-    return hour;
-}
-
-/**
  * Generated greeting
  * 
  * @param {number} hour - Hour of the current time
@@ -58,3 +42,54 @@ function renderGreetingText(hour, greeting) {
         greeting.innerHTML = 'Good night,';
     }
 }
+
+/**
+ * Returns the hour of the current time
+ */
+function getHour() {
+    let date = new Date();
+    let hour = date.getHours();
+    return hour;
+}
+
+/**
+ * Hides mobile greeting while resizing window 
+ */
+window.addEventListener('resize', function() {
+    if (window.innerWidth <= 1096) {
+        document.getElementById('mobile_greeting_container').classList.add('d-none');
+    }
+})
+
+/*__________________________________Render Board - Summary Functions___________________________________*/
+
+async function fillSummaryContent() {
+    await loadTasks();
+    fillTaskAmounts();
+    
+    
+    let task = tasks.filter(t => t['priorities'] === stat[i]);
+}
+
+/**
+ * Sets the total number ogf tasks and the number of tasks according to the status 
+ */
+function fillTaskAmounts() {
+    document.getElementById('summary_task_in_bord_amount').innerHTML = tasks.length;
+    for (let i = 0; i < taskAmountElements.length; i++) {
+        let taskAmountElement = document.getElementById(taskAmountElements[i]);
+        let task = tasks.filter(t => t['status'] === stat[i]);
+        taskAmountElement.innerHTML = task.length;
+    }
+}
+
+
+/*_____________________________General Functions________________________________*/
+
+/**
+ * Rewrite SVG files read by img tags to inline codes for changing attributes
+ */
+window.addEventListener('load', function() {
+    deSVG('.edit_task_img', true);
+});
+

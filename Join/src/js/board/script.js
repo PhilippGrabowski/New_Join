@@ -139,3 +139,30 @@ function renderContactInitials(contact){
     let secondInitial = getFirstCharofLastname(name);
     return `${firstInitial}${secondInitial}`;
 }
+
+/**
+ * Returns first letter of the name as a uppercase letter
+ * 
+ * @param {string} contactName - Name of contact
+ * @returns {string} - first letter of the name of the contact as a uppercase letter
+ */
+function getFirstChar(contactName) {
+    let name = contactName;
+    let char = name.charAt(0);
+    char = char.toUpperCase();
+    return char;
+}
+
+/**
+ * Returns the first letter of the lastname as a uppercase letter
+ * 
+ * @param {string} contactName - Name of contact
+ * @returns {string} - first letter of the lastname as a uppercase letter
+ */
+function getFirstCharofLastname(contactName) {
+    let name = contactName;
+    let index = name.lastIndexOf(' ');
+    let char = name.charAt(index + 1);
+    char = char.toUpperCase();
+    return char;
+}
