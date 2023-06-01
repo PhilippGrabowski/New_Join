@@ -23,9 +23,9 @@ let colorType = [
 let selectedColor = [];
 
 let priorities = [
-    { priority: 'urgent', color: 'red' },
-    { priority: 'medium', color: 'orange' },
-    { priority: 'low', color: 'green' },
+    { priority: 'urgent', color: 'var(--red-color)' },
+    { priority: 'medium', color: 'var(--lightOrange-color)' },
+    { priority: 'low', color: 'var(--lightGreen-color)' },
 ]
 let prio;
 

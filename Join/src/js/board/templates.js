@@ -28,7 +28,7 @@ function generatePopUpHTML(clickedElement){
         <h1 class="task-popup-headline-main task-popup-margin">${clickedElement['title']}</h1>
         <span class="task-popup-text task-popup-margin"></span>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Due date:</h3> ${clickedElement['duedate']}</span>
-        <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Priority:</h3> ${clickedElement['priority']}</span>
+        <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Priority:</h3> ${clickedElement['priority'][0]['priority']}</span>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Assigned To:</h3></span>
         <div class="flex-column task-popup-margin" id="task-popup-contacts">
         

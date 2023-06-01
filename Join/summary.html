@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="src/css/summary/mqueries.css">
     <script src="//cdn.jsdelivr.net/npm/desvg@1.0.2/desvg.min.js"></script>
     <script src="src/js/storage.js"></script>
+    <script src="src/js/summary/templates.js"></script>
     <script src="src/js/summary/script.js"></script>
     <script src="src/js/global.js"></script>
     <title>Join - Summary</title>
@@ -45,26 +46,24 @@
                 <div class="summary_tasks flex-column">
                     <div class="summary_task_row flex-row">
                         <a href="board.html" class="summary_task grid curser box-shadow">
-                            <span id="summary_task_in_bord_amount">5</span>
+                            <span id="summary_task_in_bord_amount"></span>
                             <span>Task in Bord</span>
                         </a>
                         <a href="board.html" class="summary_task grid curser box-shadow">
-                            <span id="summary_task_in_progress_amount">2</span>
+                            <span id="summary_task_in_progress_amount"></span>
                             <span>Task in Progress</span>
                         </a>
                         <a href="board.html" class="summary_task grid curser box-shadow">
-                            <span id="summary_awaiting_feedback_amount">2</span>
+                            <span id="summary_awaiting_feedback_amount"></span>
                             <span>Awaiting Feedback</span>
                         </a>
                     </div>
                     <a href="board.html" class="upcoming_task_container flex-row curser box-shadow">
                         <div class="priority_task_container flex-row">
-                            <div class="priority_symbol grid">
-                                <i class='bx bx-chevrons-up'></i>
-                            </div>
+                            <div id="priority_symbol" class="priority_symbol grid"></div>
                             <div class="priority_container flex-column">
-                                <span id="priority_amount">1</span>
-                                <span id="priority">Urgent</span>
+                                <span id="priority_amount"></span>
+                                <span id="priority"></span>
                             </div>
                         </div>
                         <div class="vertical_line_2"></div>

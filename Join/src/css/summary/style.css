@@ -127,7 +127,6 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: var(--red-color);
 }
 
 .priority_symbol i {
@@ -249,4 +248,12 @@
 .mobile_greeting_container {
     gap: 3px;
     text-align: center;
+}
+
+.upper_minus {
+    transform: translateY(-5px);
+}
+
+.lower_minus {
+    transform: translateY(-55px);
 }
