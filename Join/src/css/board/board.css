@@ -218,10 +218,22 @@
     border-radius: 0 10px 10px 0;
 }
 
-.task-popup-headline {
+.task-popup-headline-main {
     font-weight: 700;
     font-size: 61px;
     line-height: 73.2px;
+}
+
+.task-popup-headline-secondary {
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 25.2px;
+}
+
+.task-popup-text {
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25.2px;
 }
 
 .task-popup-margin{

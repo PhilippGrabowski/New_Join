@@ -25,11 +25,11 @@ function generateBoxShadow(container){
 function generatePopUpHTML(clickedElement){
     return /*html*/`
         <span class="category-tag task-popup-margin">${clickedElement['category']}</span>
-        <h1 class="task-popup-headline task-popup-margin">${clickedElement['title']}</h1>
-        <span class="task-popup-descritpion task-popup-margin"></span>
-        <span class="flex-row task-popup-margin"><h3>Due date:</h3> ${clickedElement['duedate']}</span>
-        <span class="flex-row task-popup-margin"><h3>Priority:</h3> ${clickedElement['priority']}</span>
-        <span class="flex-row task-popup-margin"><h3>Assigned To:</h3></span>
+        <h1 class="task-popup-headline-main task-popup-margin">${clickedElement['title']}</h1>
+        <span class="task-popup-text task-popup-margin"></span>
+        <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Due date:</h3> ${clickedElement['duedate']}</span>
+        <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Priority:</h3> ${clickedElement['priority']}</span>
+        <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Assigned To:</h3></span>
         <div class="flex-column task-popup-margin" id="task-popup-contacts">
         
         </div>
