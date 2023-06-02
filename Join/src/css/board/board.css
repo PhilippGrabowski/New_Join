@@ -114,6 +114,7 @@
     font-size: 16px;
     font-weight: 700;
     line-height: 19.2px;
+    padding: 12px 0px 8px 0px;
 }
 
 .board-task-box p {
@@ -121,11 +122,30 @@
     line-height: 19.2px;
 }
 
-.assigned-contacts {
+.contacts-urgency-box {
     display: flex;
     align-items: center;
     padding: 0;
     gap: 83px;
+}
+
+.assigned-contacts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+.small-contact-bubble {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 8px;
+    gap: 10px;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
 }
 
 .dragbox-shadow {
@@ -148,10 +168,6 @@
     font-size: 20px;
 }
 
-.board-task-box h3 {
-    font-size: 15px;
-    padding: 12px 0px 8px 0px;
-}
 
 .board-task-box p {
     color: #A8A8A8;

@@ -6,8 +6,8 @@ function generateTaskCard(element){
                 <span class="category-tag">${element['category']}</span>
                 <h3>${element['title']}</h3>
                 <p>${element['description']}</p>
-                <div>
-                    <div class="assigned-contacts" id="assigned-contacts">
+                <div class="contacts-urgency-box">
+                    <div class="assigned-contacts" id="assigned-contacts${element['id']}">
 
                     </div>
                     <img src="./src/img/${element['priority'][0]['priority']}.svg">
@@ -46,5 +46,13 @@ function generateTaskPopupContacts(contact){
             </div>
             <p class="task-popup-text">${contact['name']}</p>
         </div>
+    `;
+}
+
+function generateSmallContactBubbles(contact){
+    return /*html*/`
+    <div class="small-contact-bubble" style="background-color: ${contact['color']};">
+        ${contact['initials']}
+    </div>
     `;
 }

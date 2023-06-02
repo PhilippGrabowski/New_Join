@@ -23,7 +23,7 @@ function updateHTML(){
         for (let j = 0; j < task.length; j++) {
             const element = task[j];
             box.innerHTML += generateTaskCard(element);
-
+            renderContactInitials(element);
         }
         box.innerHTML += `<div class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
     }
@@ -130,11 +130,15 @@ function renderAssignedContacts(id){
     }
 }
 
-function renderContactInitials(contact){
-    let name = contact['name'];
-    let firstInitial = getFirstChar(name);
-    let secondInitial = getFirstCharofLastname(name);
-    return `${firstInitial}${secondInitial}`;
+function renderContactInitials(element){
+    let contactBox = document.getElementById(`assigned-contacts${element['id']}`)
+    let assignedContacts = element['assigned'];
+    contactBox.innerHTML = '';
+
+    for (let i = 0; i < assignedContacts.length; i++) {
+        const contact = assignedContacts[i];
+        contactBox.innerHTML += generateSmallContactBubbles(contact);
+    }
 }
 
 /**
