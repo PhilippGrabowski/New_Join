@@ -46,6 +46,8 @@ let categoryColors = [
     }
 ]
 
+let category = []
+
 let assignedContacts = []
 
 
@@ -55,8 +57,15 @@ async function createTask() {
 
     let title = document.getElementById('title');
     let description = document.getElementById('description');
-    let category = document.getElementById('selectedCategory');
     let dueDate = document.getElementById('dueDate');
+    let categoryName = document.getElementById('selectedCategory');
+    let colorArrayLength = selectedColor.length;
+    category.push(
+        {
+            color: selectedColor[colorArrayLength - 1],
+            category: `${categoryName.textContent}`
+        }
+    )
   
     let dragId = getId();
     if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
@@ -90,7 +99,7 @@ function pushTask(title, description, duedate, prio, category, subtasks, assigne
         'description': description.value,
         'duedate': duedate.value,
         'priority': prio,
-        'category': category.textContent,
+        'category': category,
         'subtask': subtasks,
         'assigned': assignedContacts,
         'status': 'to-do',
@@ -211,6 +220,7 @@ function displayNewCategory() {
                 category: `${input}`
             }
         )
+        
         displayNewCategoryHTML();
     }
 }
@@ -358,8 +368,8 @@ async function saveTask() {
 
 /* This is just for a Console test to see if the Tasks get deleted permanently */
 
-function deleteTask() {
-    tasks.splice(0, 1);
+function deleteTask(i) {
+    tasks.splice(i, 1);
     saveTask();
 }
 
