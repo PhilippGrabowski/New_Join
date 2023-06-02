@@ -23,6 +23,7 @@ function updateHTML(){
         for (let j = 0; j < task.length; j++) {
             const element = task[j];
             box.innerHTML += generateTaskCard(element);
+
         }
         box.innerHTML += `<div class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
     }
@@ -90,8 +91,9 @@ function getIndexOfTask(id) {
 
 //<--------------------------------------------- Open and Close PopUps ------------------------------------------->
 
-function openAddTask(){
+function openAddTask(status){
     document.getElementById('add-task-overlay').style.transform = 'translateX(0)';
+    
 }
 
 function closeAddTask(){
@@ -125,12 +127,7 @@ function renderAssignedContacts(id){
     for (let i = 0; i < contactsToDisplay.length; i++) {
         const contact = contactsToDisplay[i];
         assignedContactsBox.innerHTML += generateTaskPopupContacts(contact);
-
-        let initialsBox = document.getElementById('contact-first-chars');
-        initialsBox.innerHTML = '';
-        initialsBox.innerHTML += renderContactInitials(contact);
     }
-
 }
 
 function renderContactInitials(contact){

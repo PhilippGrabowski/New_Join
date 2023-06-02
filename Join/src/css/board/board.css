@@ -103,10 +103,29 @@
 .board-task-box {
     width: 100%;
     background-color: #fff;
-    padding: 16px;
-    border-radius: 15px;
+    padding: 18px 19px;
+    border-radius: 30px;
     margin-top: 32px;
+    gap: 10px;
     cursor: grab;
+}
+
+.board-task-box h3 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+}
+
+.board-task-box p {
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
+.assigned-contacts {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    gap: 83px;
 }
 
 .dragbox-shadow {
@@ -234,10 +253,30 @@
     font-weight: 400;
     font-size: 21px;
     line-height: 25.2px;
+    gap: 25px;
 }
 
 .task-popup-margin{
     margin-top: 25px;
+}
+
+.assigned-contact-box {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    height: 45px;
+    margin-top: 35px;
+}
+
+.contact-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    gap: 10px;
+    padding: 10px 8px;
 }
 
 /* Board */

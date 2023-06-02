@@ -57,6 +57,7 @@ async function createTask() {
     let description = document.getElementById('description');
     let category = document.getElementById('selectedCategory');
     let dueDate = document.getElementById('dueDate');
+  
     let dragId = getId();
     if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, dragId));
@@ -263,7 +264,8 @@ function assignTask(i) {
             {
                 'name': contacts[i].name,
                 'initials': contacts[i].initials,
-                'id': contacts[i].id
+                'id': contacts[i].id,
+                'color': contacts[i].color
             }
         );
         renderContactBubbles();
