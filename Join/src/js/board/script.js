@@ -22,7 +22,8 @@ function updateHTML(){
         box.innerHTML = '';
         for (let j = 0; j < task.length; j++) {
             const element = task[j];
-            box.innerHTML += generateTaskCard(element);
+            let category = element['category'][0];
+            box.innerHTML += generateTaskCard(element, category);
             renderContactInitials(element);
         }
         box.innerHTML += `<div class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
@@ -115,7 +116,7 @@ function renderPopUpDetails(id){
     let taskPopUp = document.getElementById('popup-content');
     let index = getIndexOfTask(id);
     taskPopUp.innerHTML = '';
-    taskPopUp.innerHTML += generatePopUpHTML(tasks[index]);
+    taskPopUp.innerHTML += generatePopUpHTML(tasks[index], index);
 }
 
 function renderAssignedContacts(id){

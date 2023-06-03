@@ -368,9 +368,10 @@ async function saveTask() {
 
 /* This is just for a Console test to see if the Tasks get deleted permanently */
 
-function deleteTask(i) {
+async function deleteTask(i) {
     tasks.splice(i, 1);
-    saveTask();
+    await saveTask();
+    document.location = "board.html";
 }
 
 /* Pushes the Subtask that the User creates himself into an array and displays it */

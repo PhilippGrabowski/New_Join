@@ -1,9 +1,9 @@
 //<----------------------------------------------- generate HTML functions ---------------------------------------------------------------->
-function generateTaskCard(element){
+function generateTaskCard(element, category){
     return /*html*/`
         <div draggable="true" onclick="openTaskPopUp(${element['id']})" ondragstart="startDragging(${element['id']})" class="board-task-box flex-column">
             <div>
-                <span class="category-tag">${element['category']}</span>
+                <span class="category-tag" style="background-color:${category['color']};">${category['category']}</span>
                 <h3>${element['title']}</h3>
                 <p>${element['description']}</p>
                 <div class="contacts-urgency-box">
@@ -24,9 +24,9 @@ function generateBoxShadow(container){
     `;
 }
 
-function generatePopUpHTML(clickedElement){
+function generatePopUpHTML(clickedElement, index){
     return /*html*/`
-        <span class="category-tag task-popup-margin">${clickedElement['category']}</span>
+        <span class="category-tag task-popup-margin" style="background-color:${clickedElement['category'][0]['color']};">${clickedElement['category'][0]['category']}</span>
         <h1 class="task-popup-headline-main task-popup-margin">${clickedElement['title']}</h1>
         <span class="task-popup-text task-popup-margin"></span>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Due date:</h3> ${clickedElement['duedate']}</span>
@@ -34,6 +34,12 @@ function generatePopUpHTML(clickedElement){
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Assigned To:</h3></span>
         <div class="flex-column" id="task-popup-contacts">
         
+        </div>
+        <div class="flex-row delete-and-edit-task">
+                <img onclick="deleteTask(${index})" class="hover-white-button" src="src/img/deletebutton-task-popup.svg">
+                <div class="edit-task button-hover">
+                    <img src="src/img/edit-task-popup.svg">
+                </div>
         </div>
     `;
 }
