@@ -1,5 +1,7 @@
 let firstRender = true;
 
+let isColorPicked = false;
+
 let subtaskName = [];
 
 let bool = [];
@@ -70,11 +72,11 @@ async function createTask() {
     )
   
     let dragId = getId();
-    if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
+    if (checkValidationOnInputs() == true) {
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, dragId));
         await saveTask();
+        document.location.href = 'board.html';
     }
-    document.location.href = 'board.html';
 }
 
 function checkSubtask(i) {
@@ -156,13 +158,17 @@ function displayCategories() {
         show.innerHTML += `
             <div class="category-container" onclick="selectCategory(${i})">
                 <div class="cat" id="${i}">${categoryColors[i].category}<span class="circle"style="background-color: ${categoryColors[i].color};"></span></div>
-                <img class="add-task-trash-pic" src="src/img/trash.png" onclick="deleteCategory(${i})">
+                <img class="add-task-trash-pic" src="src/img/trash.png" onclick="event.stopPropagation(),deleteCategory(${i})">
             </div>
             `
     }
 }
 
 function deleteCategory(i) {
+    let selectedCategory = document.getElementById('selectedCategory');
+    if(selectedCategory.textContent == categoryColors[i].category){
+        selectedCategory.textContent = 'Select a Category';
+    }
     categoryColors.splice(i, 1);
     saveCat();
     displayCategories();
@@ -199,6 +205,7 @@ function displayCategoryColors() {
 }
 
 function selectColor(i) {
+    isColorPicked = true;
     let selected = document.getElementById(`colorCode${i}`);
     selected.classList.add('highlighted-color');
     selectedColor.push(colorType[i].color);
@@ -216,7 +223,7 @@ function removeOtherSelected(i) {
 function displayNewCategory() {
     let input = document.getElementById('newCatText').value;
     let colorArrayLength = selectedColor.length;
-    if (input != 0 && colorArrayLength != 0) {
+    if (input != 0 && isColorPicked) {
 
         categoryColors.push(
             {
@@ -226,9 +233,35 @@ function displayNewCategory() {
         )
         
         displayNewCategoryHTML();
+        isColorPicked = false;
     }
 }
 
+function checkValidationOnInputs(){
+    let checkTitle, checkDesc, checkCat, checkAssigned, checkDate, checkPrio = false;
+    let title = document.getElementById('title');
+    let desc = document.getElementById('description');
+    let cat = document.getElementById('selectedCategory');
+    let date = document.getElementById('dueDate');
+    return returnCheckedInputs(checkTitle, checkDesc, checkCat, checkAssigned, checkDate, checkPrio, title, desc, cat, date);
+}
+
+function returnCheckedInputs(checkTitle, checkDesc, checkCat, checkAssigned, checkDate, checkPrio, title, desc, cat, date){
+    if(title.value == 0){document.getElementById('titleValidationText').classList.remove('d-none');}
+    else{checkTitle = true;document.getElementById('titleValidationText').classList.add('d-none');}
+    if(desc.value == 0){document.getElementById('descValidationText').classList.remove('d-none');}
+    else{checkDesc = true;document.getElementById('descValidationText').classList.add('d-none');}
+    if(cat.textContent == 'Select a Category'){document.getElementById('catValidationText').classList.remove('d-none');}
+    else{checkCat = true;document.getElementById('catValidationText').classList.add('d-none');}
+    if(assignedContacts.length == 0){document.getElementById('assignedValidationText').classList.remove('d-none');}
+    else{checkAssigned = true;document.getElementById('assignedValidationText').classList.add('d-none');}
+    if(date.value == 0){document.getElementById('dateValidationText').classList.remove('d-none');}
+    else{checkDate = true;document.getElementById('dateValidationText').classList.add('d-none');}
+    if(prio == null){document.getElementById('prioValidationText').classList.remove('d-none');}
+    else{checkPrio = true;document.getElementById('prioValidationText').classList.add('d-none');}
+    if(checkTitle && checkDesc && checkCat && checkAssigned && checkDate && checkPrio){return true;}
+    else return false;
+}
 
 function openAssignedTo() {
     let showAssigned = document.getElementById('showAssigned');

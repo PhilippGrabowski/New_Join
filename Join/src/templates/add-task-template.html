@@ -4,19 +4,22 @@
             <div class="form-div">
                 <span>Title</span>
                 <input required id="title" class="title-input" type="text" placeholder="Enter a title">
+                <div id="titleValidationText" class="d-none validation-text">Bitte füllen sie das Textfeld aus</div>
             </div>
             <div class="form-div">
                 <span>Description</span>
                 <textarea required id="description" class="desc-input" type="text"
-                    placeholder="Enter a Description"></textarea>
+                placeholder="Enter a Description"></textarea>
+                <div id="descValidationText"  class="d-none validation-text">Bitte füllen sie das Textfeld aus</div>
             </div>
-
+            
             <div class="form-div">
                 <span>Category</span>
                 <div id="category" class="category-dropdown-div">
                     <div id="selectedCategory">Select a Category</div>
                     <img onclick="openCategories(),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
+                <div id="catValidationText"  class="d-none validation-text">Bitte wählen sie eine Kategorie aus</div>
                 <div class="d-none" id="showCat">
                     <div class="cat">New Category</div>
                 </div>
@@ -27,28 +30,30 @@
                     <div id="assignedPeople">Assigned to</div>
                     <img onclick="openAssignedTo(), renderContacts()" class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
+                <div id="assignedValidationText"  class="d-none validation-text">Bitte fügen sie den Task jemandem zu</div>
                 <div class="d-none" id="showAssigned">
-
+                    
                 </div>
                 <div id="renderContactBubbles">
-
+                    
                 </div>
             </div>
 
         </div>
         <div>
-
+            
         </div>
         <div>
-
+            
         </div>
     </div>
     <div class="line"></div>
-
+    
     <div class="right-fill-out-form">
         <div class="form-div">
             <span>Due Date</span>
             <input id="dueDate" class="title-input" type="date" required min="">
+            <div id="dateValidationText"  class="d-none validation-text">Bitte ein Datum angeben</div>
         </div>
         <div class="form-div">
             <span>Prio</span>
@@ -62,8 +67,9 @@
                 <button onclick="selectedPrio(2)" class="prio-input" id="low">Low
                     <img id="img-low" src="src/img/low.svg" alt="">
                 </button>
-
+                
             </div>
+            <div id="prioValidationText"  class="d-none validation-text">Bitte wählen sie eine Priorität aus</div>
         </div>
         <div class="form-div">
             <span>Subtasks</span>
