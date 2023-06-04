@@ -50,6 +50,8 @@ let category = []
 
 let assignedContacts = []
 
+loadCat();
+
 
 /* Creates a Json out of the Information that has been set in the Add-Task Section */
 
@@ -153,7 +155,8 @@ function displayCategories() {
     for (let i = 0; i < categoryColors.length; i++) {
         show.innerHTML += `
             <div class="category-container" onclick="selectCategory(${i})">
-            <div class="cat" id="${i}">${categoryColors[i].category}<span class="circle"style="background-color: ${categoryColors[i].color};"></span></div>
+                <div class="cat" id="${i}">${categoryColors[i].category}<span class="circle"style="background-color: ${categoryColors[i].color};"></span></div>
+                <img class="add-task-trash-pic" src="src/img/trash.png" onclick="deleteCategory(${i})">
             </div>
             `
     }
@@ -161,6 +164,7 @@ function displayCategories() {
 
 function deleteCategory(i) {
     categoryColors.splice(i, 1);
+    saveCat();
     displayCategories();
 }
 
@@ -174,7 +178,7 @@ function createNewCategory() {
     categoryContainer.innerHTML = `
         <div>
             <input id="newCatText" class="title-input" type="text" placeholder="New Category name">
-            <img onclick="displayNewCategory()" class="tick-icon" src="src/img/tick.png">
+            <img onclick="displayNewCategory(), saveCat()" class="tick-icon" src="src/img/tick.png">
             <img onclick="displayCategories(), displayCategoryHTML()" class="x-icon" src="src/img/x.png">
         </div>
         <div id="categoryColors">
@@ -365,13 +369,16 @@ async function saveTask() {
 
     await setItem('task', JSON.stringify(tasks));
 }
+async function saveCat() {
+
+    await setItem('cat', JSON.stringify(categoryColors));
+}
 
 /* This is just for a Console test to see if the Tasks get deleted permanently */
 
-async function deleteTask(i) {
+function deleteTask(i) {
     tasks.splice(i, 1);
-    await saveTask();
-    document.location = "board.html";
+    saveTask();
 }
 
 /* Pushes the Subtask that the User creates himself into an array and displays it */
