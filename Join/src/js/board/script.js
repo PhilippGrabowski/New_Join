@@ -137,14 +137,17 @@ function renderContactInitials(element){
     contactBox.innerHTML = '';
 
     for (let i = 0; i < assignedContacts.length; i++) {
-        if(i < 2){
-            const contact = assignedContacts[i];
-            contactBox.innerHTML += generateSmallContactBubbles(contact);
-        } else {
+        if(assignedContacts.length >= 4){
+            const contact1 = assignedContacts[0];
+            const contact2 = assignedContacts[1];
+            contactBox.innerHTML += generateSmallContactBubbles(contact1);   
+            contactBox.innerHTML += generateSmallContactBubbles(contact2);   
             contactBox.innerHTML += generateSmallNumberBubble(assignedContacts);
             break;
-        }
-        
+        } else {
+            const contact = assignedContacts[i];
+            contactBox.innerHTML += generateSmallContactBubbles(contact);
+        }     
     }
     
 }
