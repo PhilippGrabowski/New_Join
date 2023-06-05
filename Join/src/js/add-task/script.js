@@ -116,18 +116,17 @@ function pushTask(title, description, duedate, prio, category, subtasks, assigne
 
 function openCategories() {
     let showCat = document.getElementById('showCat');
+    document.getElementById('selectedCategory').textContent = 'Select a Category';
     showCat.classList.toggle('d-none');
     let checkBottomBorder = !showCat.classList.contains('d-none');
     if (checkBottomBorder) {
         document.getElementById('category').style.borderBottomLeftRadius = "0px";
         document.getElementById('category').style.borderBottomRightRadius = "0px";
         document.getElementById('category').style.borderBottom = "none";
-    }
-    else {
+    }else {
         document.getElementById('category').style.borderBottomLeftRadius = "8px";
         document.getElementById('category').style.borderBottomRightRadius = "8px";
-        document.getElementById('category').style.borderBottom = "1px solid lightgray";
-    }
+        document.getElementById('category').style.borderBottom = "1px solid lightgray";}
 }
 
 function displayCategoryHTML() {
@@ -412,8 +411,6 @@ async function saveCat() {
 function deleteTask(i) {
     tasks.splice(i, 1);
     saveTask();
-    updateHTML();
-    closeTaskPopUp();
 }
 
 /* Pushes the Subtask that the User creates himself into an array and displays it */

@@ -86,6 +86,7 @@ body{
 }
 
 .add-task-trash-pic{
+    margin-right: 10px;
     cursor: pointer;
     width: 16px;
 }
