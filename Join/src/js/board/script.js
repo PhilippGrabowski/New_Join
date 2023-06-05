@@ -137,9 +137,16 @@ function renderContactInitials(element){
     contactBox.innerHTML = '';
 
     for (let i = 0; i < assignedContacts.length; i++) {
-        const contact = assignedContacts[i];
-        contactBox.innerHTML += generateSmallContactBubbles(contact);
+        if(i < 2){
+            const contact = assignedContacts[i];
+            contactBox.innerHTML += generateSmallContactBubbles(contact);
+        } else {
+            contactBox.innerHTML += generateSmallNumberBubble(assignedContacts);
+            break;
+        }
+        
     }
+    
 }
 
 /**

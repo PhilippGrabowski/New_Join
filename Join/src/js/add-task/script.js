@@ -412,6 +412,8 @@ async function saveCat() {
 function deleteTask(i) {
     tasks.splice(i, 1);
     saveTask();
+    updateHTML();
+    closeTaskPopUp();
 }
 
 /* Pushes the Subtask that the User creates himself into an array and displays it */

@@ -5,7 +5,7 @@ function generateTaskCard(element, category){
             <div>
                 <span class="category-tag" style="background-color:${category['color']};">${category['category']}</span>
                 <h3>${element['title']}</h3>
-                <p>${element['description']}</p>
+                <div class="board-task-box-description">${element['description']}</div>
                 <div class="contacts-urgency-box">
                     <div class="assigned-contacts" id="assigned-contacts${element['id']}">
 
@@ -59,6 +59,14 @@ function generateSmallContactBubbles(contact){
     return /*html*/`
     <div class="small-contact-bubble" style="background-color: ${contact['color']};">
         ${contact['initials']}
+    </div>
+    `;
+}
+
+function generateSmallNumberBubble(assignedContacts){
+    return /*html*/`
+    <div class="small-number-bubble">
+        +${(assignedContacts.length - 2)}
     </div>
     `;
 }
