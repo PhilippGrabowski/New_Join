@@ -2,6 +2,7 @@
 let container = ['board-to-do', 'board-in-progress', 'board-awaiting-feedback', 'board-task-done'];
 let stat = ['to-do', 'in-progress', 'awaiting-feedback', 'done'];
 let currentDraggedElement;
+let boxCount = 0;
 
 async function init(){
     await loadTasks();
@@ -25,9 +26,10 @@ function updateHTML(){
         for (let j = 0; j < task.length; j++) {
             const element = task[j];
             let category = element['category'][0];
-            box.innerHTML += generateTaskCard(element, category);
+            box.innerHTML += generateTaskCard(element, category, boxCount);
             getCategoryColor(element['category'][0]['category']);
             renderContactInitials(element);
+            boxCount++;
         }
         box.innerHTML += `<div class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
     }
@@ -98,6 +100,39 @@ function getIndexOfTask(id) {
         }
     }
 }
+
+function searchForTask(){
+    let currentSearchWord = document.getElementById('search-task').value;
+    let currentTasksDisplayed = tasks.filter(t => t['title'] === currentSearchWord);
+
+    if(currentSearchWord == ""){
+        updateHTML();
+    }
+    else{
+        if(!currentTasksDisplayed.length){
+            hideAllTaskBoxes()
+        }else {
+            for (let j = 0; j < currentTasksDisplayed.length; j++) {
+                const element = currentTasksDisplayed[j];
+                let category = element['category'][0];
+                box.innerHTML += generateTaskCard(element, category);
+                getCategoryColor(element['category'][0]['category']);
+                renderContactInitials(element);
+            }
+        }
+    
+    }
+    
+    
+}
+
+function hideAllTaskBoxes(){
+    for (let i = 0; i < tasks.length; i++) {
+        document.getElementById(`taskBox${i}`).classList.add('d-none');
+        
+    }
+}
+
 
 //<--------------------------------------------- Open and Close PopUps ------------------------------------------->
 

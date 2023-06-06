@@ -54,7 +54,7 @@
             <div class="flex-row" id="board-header">
                 <h1>Board</h1>
                 <div id="search-and-add" class="flex-row">
-                    <input onchange="searchForTask()" class="search-icon" id="search-task" placeholder="Find Task" type="text">
+                    <input onkeyup="searchForTask()" class="search-icon" id="search-task" placeholder="Find Task" type="text">
                     <button onclick="openAddTask()" id="add-task-button" class="button flex-row button-hover">Add task
                         <img class="filter-white" src="./src/img/plus.svg"></button>
                 </div>
