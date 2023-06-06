@@ -5,6 +5,8 @@ let currentDraggedElement;
 
 async function init(){
     await loadTasks();
+    await loadContacts();
+    await loadCat();
     updateHTML();
 }
 
@@ -24,10 +26,17 @@ function updateHTML(){
             const element = task[j];
             let category = element['category'][0];
             box.innerHTML += generateTaskCard(element, category);
+            getCategoryColor(element['category'][0]['category']);
             renderContactInitials(element);
         }
         box.innerHTML += `<div class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
     }
+}
+
+function getCategoryColor(element){
+    let categoryToSearch = categoryColors.filter(t => t['category'] === element)
+    let color = categoryToSearch[0]['color'];
+    document.getElementById('category-tag').style = `background-color: ${color};`
 }
 
 /**
@@ -151,6 +160,16 @@ function renderContactInitials(element){
     }
     
 }
+
+async function deletePopupTask(i) {
+    tasks.splice(i, 1);
+    await saveTask();
+    updateHTML();
+    closeTaskPopUp();
+}
+
+
+
 
 /**
  * Returns first letter of the name as a uppercase letter

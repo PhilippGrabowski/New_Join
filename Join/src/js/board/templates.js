@@ -3,7 +3,7 @@ function generateTaskCard(element, category){
     return /*html*/`
         <div draggable="true" onclick="openTaskPopUp(${element['id']})" ondragstart="startDragging(${element['id']})" class="board-task-box flex-column">
             <div>
-                <span class="category-tag" style="background-color:${category['color']};">${category['category']}</span>
+                <span id="category-tag" class="category-tag" style="background-color:${category['color']};">${category['category']}</span>
                 <h3>${element['title']}</h3>
                 <div class="board-task-box-description">${element['description']}</div>
                 <div class="contacts-urgency-box">
@@ -36,7 +36,7 @@ function generatePopUpHTML(clickedElement, index){
         
         </div>
         <div class="flex-row delete-and-edit-task">
-                <img onclick="deleteTask(${index})" class="hover-white-button" src="src/img/deletebutton-task-popup.svg">
+                <img onclick="deletePopupTask(${index})" class="hover-white-button" src="src/img/deletebutton-task-popup.svg">
                 <div class="edit-task button-hover">
                     <img src="src/img/edit-task-popup.svg">
                 </div>
