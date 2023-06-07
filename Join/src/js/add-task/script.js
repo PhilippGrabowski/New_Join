@@ -65,16 +65,16 @@ async function createTask(status) {
     let categoryName = document.getElementById('selectedCategory');
     let colorArrayLength = selectedColor.length;
     let taskStatus = checkStatus(status);
-    category.push(
-        {
-            color: selectedColor[colorArrayLength - 1],
-            category: `${categoryName.textContent}`
-        }
-    )
     
     
     let dragId = getId();
     if (checkValidationOnInputs() == true) {
+        category.push(
+            {
+                color: selectedColor[colorArrayLength - 1],
+                category: `${categoryName.textContent}`
+            }
+        )
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, taskStatus, dragId));
         await saveTask();
         document.location.href = 'board.html';
