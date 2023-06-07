@@ -57,23 +57,25 @@ loadCat();
 
 /* Creates a Json out of the Information that has been set in the Add-Task Section */
 
-async function createTask() {
+async function createTask(status) {
 
     let title = document.getElementById('title');
     let description = document.getElementById('description');
     let dueDate = document.getElementById('dueDate');
     let categoryName = document.getElementById('selectedCategory');
     let colorArrayLength = selectedColor.length;
+    let taskStatus = checkStatus(status);
     category.push(
         {
             color: selectedColor[colorArrayLength - 1],
             category: `${categoryName.textContent}`
         }
     )
-  
+    
+    
     let dragId = getId();
     if (checkValidationOnInputs() == true) {
-        tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, dragId));
+        tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, taskStatus, dragId));
         await saveTask();
         document.location.href = 'board.html';
     }
@@ -89,6 +91,14 @@ function checkSubtask(i) {
     }
 }
 
+function checkStatus(status){
+    if(status){
+        return status;
+    } else {
+        return 'to-do';
+    }
+}
+
 /* Pushes the Task with all the neccessary Information into the Tasks Array
  * @param {*} title - the title of the Task that the user calls the Task
  * @param {*} description - the description that the user types into the Task Description
@@ -97,7 +107,7 @@ function checkSubtask(i) {
  * @param {*} category - the category that the task falls under
  */
 
-function pushTask(title, description, duedate, prio, category, subtasks, assignedContacts, DragId) {
+function pushTask(title, description, duedate, prio, category, subtasks, assignedContacts, taskStatus, DragId) {
     let task = {
         'title': title.value,
         'description': description.value,
@@ -106,7 +116,7 @@ function pushTask(title, description, duedate, prio, category, subtasks, assigne
         'category': category,
         'subtask': subtasks,
         'assigned': assignedContacts,
-        'status': 'to-do',
+        'status': taskStatus,
         'id': DragId
     }
     return task;

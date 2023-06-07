@@ -138,7 +138,9 @@ function hideAllTaskBoxes(){
 
 function openAddTask(status){
     document.getElementById('add-task-overlay').style.transform = 'translateX(0)';
-    
+    if(status){
+        document.getElementById('create-task-button').setAttribute("onClick", `createTask('${status}')`)
+    }
 }
 
 function closeAddTask(){
