@@ -65,38 +65,25 @@ async function createTask(status) {
     let categoryName = document.getElementById('selectedCategory');
     let colorArrayLength = selectedColor.length;
     let taskStatus = checkStatus(status);
-    
-    
     let dragId = getId();
+    
+    
     if (checkValidationOnInputs() == true) {
-        category.push(
-            {
-                color: selectedColor[colorArrayLength - 1],
-                category: `${categoryName.textContent}`
-            }
-        )
+        console.log("Pushed");
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, taskStatus, dragId));
         await saveTask();
-        document.location.href = 'board.html';
     }
 }
 
 function checkSubtask(i) {
     let checkbox = document.getElementById(`subtask${i}`);
-    if (checkbox.checked) {
-        bool[i] = "true";
-    }
-    else if (!checkbox.checked) {
-        bool[i] = "false";
-    }
+    if (checkbox.checked) {bool[i] = "true";}
+    else if (!checkbox.checked) {bool[i] = "false";}
 }
 
 function checkStatus(status){
-    if(status){
-        return status;
-    } else {
-        return 'to-do';
-    }
+    if(status){return status;}
+    else {return 'to-do';}
 }
 
 /* Pushes the Task with all the neccessary Information into the Tasks Array
@@ -366,13 +353,20 @@ function selectedPrio(selected) {
 /* Sets the chosen Category by the User and will be seen on The Add Task Site */
 
 function selectCategory(cat) {
-    let category = document.getElementById(`${cat}`).textContent;
-    document.getElementById('selectedCategory').innerHTML = `<div class="selected-category"><span>${category}</span><span class="circle" style="background-color:${categoryColors[cat].color}"></span></div>`
+    category.splice(0,1);
+    let categoryText = document.getElementById(`${cat}`).textContent;
+    document.getElementById('selectedCategory').innerHTML = `<div class="selected-category"><span>${categoryText}</span><span class="circle" style="background-color:${categoryColors[cat].color}"></span></div>`
     document.getElementById('showCat').classList.add('d-none');
     document.getElementById('category').style.borderBottom = "1px solid lightgray";
     document.getElementById('category').style.borderBottomLeftRadius = "8px";
     document.getElementById('category').style.borderBottomRightRadius = "8px";
-    console.log(category);
+    console.log(categoryText);
+    category.push(
+        {
+            color: categoryColors[cat].color,
+            category: `${categoryColors[cat].category}`
+        }
+    )
 }
 
 /* Sets the Color of the Priorities for a Visual Feedback effect */
