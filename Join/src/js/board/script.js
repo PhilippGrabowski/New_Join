@@ -27,7 +27,8 @@ function updateHTML(){
             const element = task[j];
             let category = element['category'][0];
             box.innerHTML += generateTaskCard(element, category, boxCount);
-            getCategoryColor(element['category'][0]['category']);
+            getCategoryColor(element['category'][0]['category'], boxCount);
+            checkForSubtask(element, boxCount);
             renderContactInitials(element);
             boxCount++;
         }
@@ -35,10 +36,30 @@ function updateHTML(){
     }
 }
 
-function getCategoryColor(element){
-    let categoryToSearch = categoryColors.filter(t => t['category'] === element)
+function getCategoryColor(element, boxCount){
+    let categoryToSearch = categoryColors.filter(t => t['category'] === element);
     let color = categoryToSearch[0]['color'];
-    document.getElementById('category-tag').style = `background-color: ${color};`
+    document.getElementById(`category-tag${boxCount}`).style = `background-color: ${color};`
+}
+
+function checkForSubtask(element, boxCount){
+    let subtask = element['subtask'][0]['subtask_Name'];
+    if(subtask.length > 0){
+        document.getElementById(`progress${boxCount}`).classList.remove('d-none');
+        setProgress(element);
+    }
+}
+
+function setProgress(element){
+    let numberToDivide = 100;
+    let arrayToSearch = element['subtask'];
+    let divideBy = arrayToSearch.filter(t => t['checked'] === ['true']);
+    let currentProgress = numberToDivide/divideBy.length;
+    setNewProgress(currentProgress);
+}
+
+function setNewProgress(percentage){
+
 }
 
 /**
@@ -101,30 +122,7 @@ function getIndexOfTask(id) {
     }
 }
 
-function searchForTask(){
-    let currentSearchWord = document.getElementById('search-task').value;
-    let currentTasksDisplayed = tasks.filter(t => t['title'] === currentSearchWord);
 
-    if(currentSearchWord == ""){
-        updateHTML();
-    }
-    else{
-        if(!currentTasksDisplayed.length){
-            hideAllTaskBoxes()
-        }else {
-            for (let j = 0; j < currentTasksDisplayed.length; j++) {
-                const element = currentTasksDisplayed[j];
-                let category = element['category'][0];
-                box.innerHTML += generateTaskCard(element, category);
-                getCategoryColor(element['category'][0]['category']);
-                renderContactInitials(element);
-            }
-        }
-    
-    }
-    
-    
-}
 
 function hideAllTaskBoxes(){
     for (let i = 0; i < tasks.length; i++) {

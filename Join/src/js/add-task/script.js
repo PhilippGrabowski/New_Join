@@ -73,6 +73,10 @@ async function createTask(status) {
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, taskStatus, dragId));
         await saveTask();
     }
+    if(status){
+        closeAddTask();
+        updateHTML();
+    }
 }
 
 function checkSubtask(i) {

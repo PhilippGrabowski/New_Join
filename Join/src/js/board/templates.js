@@ -1,11 +1,15 @@
 //<----------------------------------------------- generate HTML functions ---------------------------------------------------------------->
 function generateTaskCard(element, category, boxCount){
     return /*html*/`
-        <div id="taskBox${boxCount}" draggable="true" onclick="openTaskPopUp(${element['id']})" ondragstart="startDragging(${element['id']})" class="board-task-box flex-column">
+        <div id="taskBox" draggable="true" onclick="openTaskPopUp(${element['id']})" ondragstart="startDragging(${element['id']})" class="board-task-box flex-column">
             <div>
-                <span id="category-tag" class="category-tag" style="background-color:${category['color']};">${category['category']}</span>
+                <span id="category-tag${boxCount}" class="category-tag" style="background-color:${category['color']};">${category['category']}</span>
                 <h3>${element['title']}</h3>
                 <div class="board-task-box-description">${element['description']}</div>
+                <div id="progress${boxCount}" class="progress d-none" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar w-75">x/x</div>
+                </div>
+                <div class="progress-box flex-row"></div>
                 <div class="contacts-urgency-box">
                     <div class="assigned-contacts" id="assigned-contacts${element['id']}">
 
