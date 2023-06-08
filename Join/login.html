@@ -33,12 +33,11 @@
             <span class="headline">Log in</span>
             <div class="horizontal_line"></div>
         </div>
-        <form id="login_form" class="form flex-column">
+        <form id="login_form" class="form flex-column" onsubmit="login(); return false;">
             <div class="input_container flex-column">
                 <div class="flex-column">
                     <div class="input flex-row curser">
                         <input required id="login_email_input" type="email" placeholder="Email" minlength="8"
-                            pattern="^[a-zA-Z0-9äÄüÜöÖß_.+-]{3,30}@[a-zA-Z0-9-ß]{3,9}\.[a-z]{2,3}$"
                             onblur="checkInputOnblur2(0)">
                         <i class='bx bx-envelope'></i>
                     </div>
@@ -66,8 +65,7 @@
             </div>
             <div id="login_button_container" class="flex-row">
                 <div class="flex-end flex-row">
-                    <button id="login_button" class="buttonOption2 curser" type="button" onclick="login()">Log
-                        in</button>
+                    <button id="login_button" class="buttonOption2 curser" type="submit">Log in</button>
                 </div>
                 <div class="flex-start flex-row">
                     <a href="summary.html" id="guest_login_button" class="buttonOption1 curser" type="button">Guest Log
@@ -84,19 +82,36 @@
             <span class="headline">Sign up</span>
             <div class="horizontal_line"></div>
         </div>
-        <form id="sign_up" class="form flex-column" onsubmit="">
+        <form id="sign_up" class="form flex-column" onsubmit="signup(); return false;">
             <div class="input_container flex-column">
-                <div class="input-includer" w3-include-html="src/templates/input-template.html"></div>
                 <div class="flex-column">
-                    <div class="input flex-row curser"><input required id="password_signup_input" type="password"
-                            placeholder="Password"><i class='bx bx-lock'></i>
+                    <div class="input flex-row curser">
+                        <input required id="signup_name_input" type="text" placeholder="Name" minlength="3"
+                            pattern="^(?!.* {2})[a-zA-Z][a-zA-Z]*([ ]+[a-zA-Z][a-zA-Z]*)+$"
+                            onkeyup="checkInputOnkeyUp2(0)" onblur="checkInputOnblur3(0)">
+                        <i class='bx bx-user'></i>
                     </div>
-                    <span id="phoneError" class="error">valid phone number</span>
+                    <span id="signup_name_error" class="error">valid firstname (secondname) lastname</span>
+                </div>
+                <div class="flex-column">
+                    <div class="input flex-row curser">
+                        <input required id="signup_email_input" type="email" placeholder="Email" minlength="8"
+                            onblur="checkInputOnblur3(1)">
+                        <i class='bx bx-envelope'></i>
+                    </div>
+                    <span id="signup_email_error" class="error">valid email</span>
+                </div>
+                <div class="flex-column">
+                    <div class="input flex-row curser">
+                        <input required id="signup_password_input" type="password" placeholder="Password"
+                            onblur="checkInputOnblur3(2)">
+                        <i class='bx bx-lock'></i>
+                    </div>
+                    <span id="signup_password_error" class="error">valid password</span>
                 </div>
             </div>
             <div id="signup_button_container" class="flex-row">
-                <button id="signup_button" class="buttonOption2 curser" onclick="signup()" type="button">Sign
-                    up</button>
+                <button id="signup_button" class="buttonOption2 curser" type="submit">Sign up</button>
             </div>
         </form>
     </div>

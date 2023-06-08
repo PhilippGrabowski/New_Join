@@ -41,7 +41,7 @@ let inputs = [
     }
 ];
 
-loginInputs = [
+let loginInputs = [
     {
         'inputID' : 'login_email_input',
         'inputlenght' : 7,
@@ -60,10 +60,39 @@ loginInputs = [
     }
 ]
 
+let signupInputs = [
+    {
+        'inputID' : 'signup_name_input',
+        'inputlenght' : 2,
+        'regex' : [regName1, regName2, regName3, regName4],
+        'errorReportID' : 'signup_name_error',
+        'errorReportText' : ['error: name is not valid', 'error: first char must be a letter', 'error: only letters excepted', 'error: spaces in row are not excepted'],
+        'validReportText' : 'valid firstname (secondname) lastname'
+    },
+    {
+        'inputID' : 'signup_email_input',
+        'inputlenght' : 7,
+        'regex' : [regEmail, regEmail, regEmail, regEmail],
+        'errorReportID' : 'signup_email_error',
+        'errorReportText' : ['error: email is not valid'],
+        'validReportText' : 'valid email'
+    },
+    {
+        'inputID' : 'signup_password_input',
+        'inputlenght' : 6,
+        'regex' : [regPassword, regPassword, regPassword, regPassword],
+        'errorReportID' : 'signup_password_error',
+        'errorReportText' : ['error: note password length (7)'],
+        'validReportText' : 'valid password'
+    }
+]
+
 
 /*___________________________________Error Report Array__________________________________*/
 
-let errorReports = ['nameError', 'emailError', 'phoneError'];
+let contactErrorReports = ['nameError', 'emailError', 'phoneError'];
+let loginErrorReports = ['login_email_error', 'login_password_error'];
+let signupErrorReports = ['signup_name_error', 'signup_email_error', 'signup_password_error'];
 
 
 /*_______________________________Input Validation Functions_______________________________*/
@@ -163,9 +192,9 @@ function twoSpacesInRow(reg, input) {
 /**
  * Closes all error reports
  */
-function closeErrorReports() {
-    for (let i = 0; i < errorReports.length; i++) {
-        document.getElementById(errorReports[i]).style.color = 'var(--white-color)';
+function closeErrorReports(array) {
+    for (let i = 0; i < array.length; i++) {
+        document.getElementById(array[i]).style.color = 'var(--white-color)';
     }
 }
 

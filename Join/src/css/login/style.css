@@ -172,7 +172,7 @@ body {
     text-decoration: none;
 }
 
-.flex-start a:hover {
+.checkbox_container .flex-start a:hover {
     text-decoration: underline;
 }
 
