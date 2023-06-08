@@ -36,6 +36,7 @@ function generatePopUpHTML(clickedElement, index){
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Due date:</h3> ${clickedElement['duedate']}</span>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Priority:</h3> ${clickedElement['priority'][0]['priority']}</span>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Assigned To:</h3></span>
+        <div id="subtask-container${index}" class="subtask-container"></div>
         <div class="flex-column" id="task-popup-contacts">
         
         </div>
@@ -72,5 +73,11 @@ function generateSmallNumberBubble(assignedContacts){
     <div class="small-number-bubble">
         +${(assignedContacts.length - 2)}
     </div>
+    `;
+}
+
+function generateSubtaskSection(subtask){
+    return /*html*/`
+    <div class="flex-row"><input type="checkbox">${subtask}</div>
     `;
 }

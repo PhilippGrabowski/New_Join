@@ -166,6 +166,7 @@ function closeAddTask(){
 
 function openTaskPopUp(id){
     renderPopUpDetails(id);
+    renderSubtasks(id);
     renderAssignedContacts(id);
     document.getElementById('task-popup-background').classList.remove('d-none');
 }
@@ -190,6 +191,18 @@ function renderAssignedContacts(id){
     for (let i = 0; i < contactsToDisplay.length; i++) {
         const contact = contactsToDisplay[i];
         assignedContactsBox.innerHTML += generateTaskPopupContacts(contact);
+    }
+}
+
+function renderSubtasks(id){
+    let index = getIndexOfTask(id);
+    let subtaskContainer = document.getElementById(`subtask-container${index}`);
+    let temporaryArray = tasks.filter(t => t['id'] === id);
+    let subtaskArray = temporaryArray[0]['subtask'][0]['subtask_Name'];
+    console.log(subtaskArray);
+    for (let i = 0; i < subtaskArray.length; i++) {
+        const subtask = subtaskArray[i];
+        subtaskContainer.innerHTML += generateSubtaskSection(subtask);
     }
 }
 
