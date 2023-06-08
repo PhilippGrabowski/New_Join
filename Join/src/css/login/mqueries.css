@@ -1,0 +1,11 @@
+@media (max-width: 1280px) {
+    #login_container {
+        padding: 35px 85px;
+    }
+}
+
+@media (max-width: 748px) {
+    #login_container {
+        padding: 35px 55px;
+    }
+}

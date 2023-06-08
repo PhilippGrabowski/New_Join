@@ -420,3 +420,48 @@ function getId() {
         return maxId;
     }
 }
+
+
+
+
+
+
+// let count = 0;
+
+// function openCalender() {
+//     document.querySelector('.date_input_container input').setAttribute('type', 'date');
+//     document.querySelector('.date_input_container img').classList.add('d-none');
+//     document.querySelector('.date_input_container input').showPicker();
+//     count++;
+// }
+
+// function closeCalender(element) {
+//     let dateInput = document.querySelector('.date_input_container input');
+//     dateInput.setAttribute('type', 'text');
+//     dateInput.value= formatDate(dateInput.value);
+//     document.querySelector('.date_input_container img').classList.remove('d-none');
+//     if (count == 1) {
+//         element.blur();
+//     }
+// }
+
+// function formatDate(date) {
+//     let dateArray = [];
+//     let substringStart = 0;
+//     for (let i = 0; i < date.length; i++) {
+//         if(date.charAt(i) === '-') {
+//             let substring = date.slice(substringStart, i);
+//             dateArray.unshift(substring);
+//             substringStart = i + 1;
+//         }
+//     }
+//     let substring = date.slice(substringStart, date.length);
+//     dateArray.unshift(substring);
+//     let newDate = dateArray.toString();
+//     newDate = newDate.replaceAll(',', '/');
+//     return newDate;
+// }
+
+// function setCount() {
+//     count = 0;
+// }

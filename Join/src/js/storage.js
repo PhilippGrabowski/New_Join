@@ -8,6 +8,13 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 let tasks = [];
 let contacts = [];
+let accounts = [
+    {
+        'name' : 'Sofia Müller',
+        'email' : 'sofia@gmail.com',
+        'password' : 'sofia69'
+    }
+];
 
 /*______________________________Storage Functions_______________________________*/
 

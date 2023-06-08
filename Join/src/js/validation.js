@@ -9,6 +9,7 @@ const regPhone2 = new RegExp('^[0-9+][0-9\\s]*$');
 const regPhone3 = new RegExp('^(?!.* {2})[0-9+][0-9\\s]*$');
 const regPhone4 = new RegExp('^(?!.* {2})[0-9+][0-9\\s]{8,}$');
 const regEmail= new RegExp(`^[a-zA-Z0-9äÄüÜöÖß_.+-]{3,30}@[a-zA-Z0-9-ß]{3,9}\.[a-z]{2,3}$`);
+const regPassword = new RegExp(`^.{7,}$`)
 
 
 /*__________________________________Input JSON Array____________________________________*/
@@ -39,6 +40,25 @@ let inputs = [
         'validReportText' : 'valid phone number'
     }
 ];
+
+loginInputs = [
+    {
+        'inputID' : 'login_email_input',
+        'inputlenght' : 7,
+        'regex' : [regEmail, regEmail, regEmail, regEmail],
+        'errorReportID' : 'login_email_error',
+        'errorReportText' : ['error: email is not valid'],
+        'validReportText' : 'valid email'
+    },
+    {
+        'inputID' : 'login_password_input',
+        'inputlenght' : 6,
+        'regex' : [regPassword, regPassword, regPassword, regPassword],
+        'errorReportID' : 'login_password_error',
+        'errorReportText' : ['error: note password length (7)'],
+        'validReportText' : 'valid password'
+    }
+]
 
 
 /*___________________________________Error Report Array__________________________________*/
