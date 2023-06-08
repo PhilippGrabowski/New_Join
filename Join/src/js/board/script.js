@@ -2,7 +2,7 @@
 let container = ['board-to-do', 'board-in-progress', 'board-awaiting-feedback', 'board-task-done'];
 let stat = ['to-do', 'in-progress', 'awaiting-feedback', 'done'];
 let currentDraggedElement;
-let boxCount = 0;
+
 
 async function init(){
     await loadTasks();
@@ -19,6 +19,7 @@ async function init(){
  * This function is updating the current HTML ensure every content inside an array is displayed
  */
 function updateHTML(){
+    let boxCount = 0;
     for (let i = 0; i < container.length; i++) {
         let box = document.getElementById(container[i]);
         let task = tasks.filter(t => t['status'] === stat[i]);
@@ -45,21 +46,38 @@ function getCategoryColor(element, boxCount){
 function checkForSubtask(element, boxCount){
     let subtask = element['subtask'][0]['subtask_Name'];
     if(subtask.length > 0){
-        document.getElementById(`progress${boxCount}`).classList.remove('d-none');
-        setProgress(element);
+        document.getElementById(`progressContainer${boxCount}`).classList.remove('d-none');
+        setProgress(element, boxCount);
     }
 }
 
-function setProgress(element){
+function setProgress(element, boxCount){
+    const counts = {};
     let numberToDivide = 100;
-    let arrayToSearch = element['subtask'];
-    let divideBy = arrayToSearch.filter(t => t['checked'] === ['true']);
-    let currentProgress = numberToDivide/divideBy.length;
-    setNewProgress(currentProgress);
+    let arrayToSearch = element['subtask'][0]['checked'];
+    for (let i = 0; i < arrayToSearch.length; i++) {
+        counts[arrayToSearch[i]] = (counts[arrayToSearch[i]] + 1) || 1;   
+    }
+    console.log(counts);
+    
+    let currentProgress = 100 / (arrayToSearch.length/counts['true']);
+    if(!currentProgress){
+        currentProgress = 0;
+    }
+    
+    console.log(currentProgress)
+    setNewProgress(currentProgress, boxCount, arrayToSearch, counts, currentProgress);
 }
 
-function setNewProgress(percentage){
-
+function setNewProgress(percentage, boxCount, arrayToSearch, counts, currentProgress){
+    let progressBar = document.getElementById(`progress${boxCount}`);
+    if (currentProgress > 0) {
+        progressBar.innerHTML = `${counts['true']}/${arrayToSearch.length}`; 
+    }else {
+        progressBar.innerHTML = `0/${arrayToSearch.length}`;
+    }
+    
+    progressBar.classList.add(`w-${percentage}`);
 }
 
 /**
