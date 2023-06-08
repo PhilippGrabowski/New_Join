@@ -58,7 +58,6 @@ loadCat();
 /* Creates a Json out of the Information that has been set in the Add-Task Section */
 
 async function createTask(status) {
-
     let title = document.getElementById('title');
     let description = document.getElementById('description');
     let dueDate = document.getElementById('dueDate');
@@ -66,8 +65,6 @@ async function createTask(status) {
     let colorArrayLength = selectedColor.length;
     let taskStatus = checkStatus(status);
     let dragId = getId();
-    
-    
     if (checkValidationOnInputs() == true) {
         console.log("Pushed");
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, taskStatus, dragId));
@@ -150,6 +147,7 @@ function displayCategories() {
     let show = document.getElementById('showCat');
     show.innerHTML = '';
     show.innerHTML = `<div onclick="createNewCategory(), displayCategoryColors()" class="cat">New Category</div>`;
+    categoryColors.sort((a,b) => a.category.localeCompare(b.category));
     for (let i = 0; i < categoryColors.length; i++) {
         show.innerHTML += `
             <div class="category-container" onclick="selectCategory(${i})">
