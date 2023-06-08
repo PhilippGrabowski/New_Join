@@ -86,12 +86,19 @@ body{
 }
 
 .add-task-trash-pic{
+    margin-right: 10px;
     cursor: pointer;
     width: 16px;
 }
 
 .left-fill-out-form {
     width: 100%;
+}
+
+.validation-text{
+    padding-left: 10px;
+    color: red;
+    font-size: 14px;
 }
 
 .right-fill-out-form {
@@ -244,7 +251,7 @@ body{
 }
 
 .submit-btn-container {
-    margin-top: 15px;
+    margin-top: 85px;
     display: flex;
     justify-content: right;
     gap: 10px;

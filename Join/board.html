@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="src/css/fonts.css">
     <link rel="stylesheet" href="src/css/settings.css">
     <link rel="stylesheet" href="src/css/global.css">
@@ -37,12 +38,7 @@
         <div class="task-popup" id="task-popup">
             <img onclick="closeTaskPopUp()" class="close-task-popup" src="src/img/close-window.png">
             <div id="popup-content"></div>
-            <div class="flex-row delete-and-edit-task">
-                <img class="hover-white-button" src="src/img/deletebutton-task-popup.svg">
-                <div class="edit-task button-hover">
-                    <img src="src/img/edit-task-popup.svg">
-                </div>
-            </div>
+            
         </div>
     </div>
 
@@ -59,7 +55,7 @@
             <div class="flex-row" id="board-header">
                 <h1>Board</h1>
                 <div id="search-and-add" class="flex-row">
-                    <input class="search-icon" id="search-task" placeholder="Find Task" type="text">
+                    <input onkeyup="searchForTask()" class="search-icon" id="search-task" placeholder="Find Task" type="text">
                     <button onclick="openAddTask()" id="add-task-button" class="button flex-row button-hover">Add task
                         <img class="filter-white" src="./src/img/plus.svg"></button>
                 </div>
@@ -73,7 +69,7 @@
                     <div class="task-column-header">
                         <div class="flex-row align-task-column-header">
                             <h2>To do</h2>
-                            <img class="hover-white-button" src="src/img/plus-button.svg" alt="">
+                            <img class="hover-white-button" src="src/img/plus-button.svg" onclick="openAddTask('to-do')">
                         </div>
                     </div>
                     <div class="task-container flex-column" id="board-to-do">
@@ -87,7 +83,7 @@
                     <div class="task-column-header flex-row">
                         <div class="flex-row align-task-column-header">
                             <h2> In progress</h2>
-                            <img class="hover-white-button" src="src/img/plus-button.svg" alt="">
+                            <img class="hover-white-button" src="src/img/plus-button.svg" onclick="openAddTask('in-progress')">
                         </div>
                     </div>
                     <div class="task-container flex-column" id="board-in-progress">
@@ -101,7 +97,7 @@
                     <div class="task-column-header flex-row">
                         <div class="flex-row align-task-column-header">
                             <h2>Awaiting feedback</h2>
-                            <img class="hover-white-button" src="src/img/plus-button.svg" alt="">
+                            <img class="hover-white-button" src="src/img/plus-button.svg" onclick="openAddTask('awaiting-feedback')">
                         </div>
                     </div>
                     <div class="task-container flex-column" id="board-awaiting-feedback">
@@ -115,7 +111,7 @@
                     <div class="task-column-header flex-row">
                         <div class="flex-row align-task-column-header">
                             <h2>Done</h2>
-                            <img class="hover-white-button" src="src/img/plus-button.svg" alt="">
+                            <img class="hover-white-button" src="src/img/plus-button.svg" onclick="openAddTask('done')">
                         </div>
                     </div>
                     <div class="task-container flex-column" id="board-task-done">

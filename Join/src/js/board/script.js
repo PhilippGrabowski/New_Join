@@ -3,8 +3,11 @@ let container = ['board-to-do', 'board-in-progress', 'board-awaiting-feedback', 
 let stat = ['to-do', 'in-progress', 'awaiting-feedback', 'done'];
 let currentDraggedElement;
 
+
 async function init(){
     await loadTasks();
+    await loadContacts();
+    await loadCat();
     updateHTML();
 }
 
@@ -16,16 +19,65 @@ async function init(){
  * This function is updating the current HTML ensure every content inside an array is displayed
  */
 function updateHTML(){
+    let boxCount = 0;
     for (let i = 0; i < container.length; i++) {
         let box = document.getElementById(container[i]);
         let task = tasks.filter(t => t['status'] === stat[i]);
         box.innerHTML = '';
         for (let j = 0; j < task.length; j++) {
             const element = task[j];
-            box.innerHTML += generateTaskCard(element);
+            let category = element['category'][0];
+            box.innerHTML += generateTaskCard(element, category, boxCount);
+            getCategoryColor(element['category'][0]['category'], boxCount);
+            checkForSubtask(element, boxCount);
+            renderContactInitials(element);
+            boxCount++;
         }
         box.innerHTML += `<div class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
     }
+}
+
+function getCategoryColor(element, boxCount){
+    let categoryToSearch = categoryColors.filter(t => t['category'] === element);
+    let color = categoryToSearch[0]['color'];
+    document.getElementById(`category-tag${boxCount}`).style = `background-color: ${color};`
+}
+
+function checkForSubtask(element, boxCount){
+    let subtask = element['subtask'][0]['subtask_Name'];
+    if(subtask.length > 0){
+        document.getElementById(`progressContainer${boxCount}`).classList.remove('d-none');
+        setProgress(element, boxCount);
+    }
+}
+
+function setProgress(element, boxCount){
+    const counts = {};
+    let numberToDivide = 100;
+    let arrayToSearch = element['subtask'][0]['checked'];
+    for (let i = 0; i < arrayToSearch.length; i++) {
+        counts[arrayToSearch[i]] = (counts[arrayToSearch[i]] + 1) || 1;   
+    }
+    console.log(counts);
+    
+    let currentProgress = 100 / (arrayToSearch.length/counts['true']);
+    if(!currentProgress){
+        currentProgress = 0;
+    }
+    
+    console.log(currentProgress)
+    setNewProgress(currentProgress, boxCount, arrayToSearch, counts, currentProgress);
+}
+
+function setNewProgress(percentage, boxCount, arrayToSearch, counts, currentProgress){
+    let progressBar = document.getElementById(`progress${boxCount}`);
+    if (currentProgress > 0) {
+        progressBar.innerHTML = `${counts['true']}/${arrayToSearch.length}`; 
+    }else {
+        progressBar.innerHTML = `0/${arrayToSearch.length}`;
+    }
+    
+    progressBar.classList.add(`w-${percentage}`);
 }
 
 /**
@@ -88,10 +140,23 @@ function getIndexOfTask(id) {
     }
 }
 
+
+
+function hideAllTaskBoxes(){
+    for (let i = 0; i < tasks.length; i++) {
+        document.getElementById(`taskBox${i}`).classList.add('d-none');
+        
+    }
+}
+
+
 //<--------------------------------------------- Open and Close PopUps ------------------------------------------->
 
-function openAddTask(){
+function openAddTask(status){
     document.getElementById('add-task-overlay').style.transform = 'translateX(0)';
+    if(status){
+        document.getElementById('create-task-button').setAttribute("onClick", `createTask('${status}')`)
+    }
 }
 
 function closeAddTask(){
@@ -101,6 +166,7 @@ function closeAddTask(){
 
 function openTaskPopUp(id){
     renderPopUpDetails(id);
+    renderSubtasks(id);
     renderAssignedContacts(id);
     document.getElementById('task-popup-background').classList.remove('d-none');
 }
@@ -113,7 +179,7 @@ function renderPopUpDetails(id){
     let taskPopUp = document.getElementById('popup-content');
     let index = getIndexOfTask(id);
     taskPopUp.innerHTML = '';
-    taskPopUp.innerHTML += generatePopUpHTML(tasks[index]);
+    taskPopUp.innerHTML += generatePopUpHTML(tasks[index], index);
 }
 
 function renderAssignedContacts(id){
@@ -125,20 +191,51 @@ function renderAssignedContacts(id){
     for (let i = 0; i < contactsToDisplay.length; i++) {
         const contact = contactsToDisplay[i];
         assignedContactsBox.innerHTML += generateTaskPopupContacts(contact);
-
-        let initialsBox = document.getElementById('contact-first-chars');
-        initialsBox.innerHTML = '';
-        initialsBox.innerHTML += renderContactInitials(contact);
     }
-
 }
 
-function renderContactInitials(contact){
-    let name = contact['name'];
-    let firstInitial = getFirstChar(name);
-    let secondInitial = getFirstCharofLastname(name);
-    return `${firstInitial}${secondInitial}`;
+function renderSubtasks(id){
+    let index = getIndexOfTask(id);
+    let subtaskContainer = document.getElementById(`subtask-container${index}`);
+    let temporaryArray = tasks.filter(t => t['id'] === id);
+    let subtaskArray = temporaryArray[0]['subtask'][0]['subtask_Name'];
+    console.log(subtaskArray);
+    for (let i = 0; i < subtaskArray.length; i++) {
+        const subtask = subtaskArray[i];
+        subtaskContainer.innerHTML += generateSubtaskSection(subtask);
+    }
 }
+
+function renderContactInitials(element){
+    let contactBox = document.getElementById(`assigned-contacts${element['id']}`)
+    let assignedContacts = element['assigned'];
+    contactBox.innerHTML = '';
+
+    for (let i = 0; i < assignedContacts.length; i++) {
+        if(assignedContacts.length >= 4){
+            const contact1 = assignedContacts[0];
+            const contact2 = assignedContacts[1];
+            contactBox.innerHTML += generateSmallContactBubbles(contact1);   
+            contactBox.innerHTML += generateSmallContactBubbles(contact2);   
+            contactBox.innerHTML += generateSmallNumberBubble(assignedContacts);
+            break;
+        } else {
+            const contact = assignedContacts[i];
+            contactBox.innerHTML += generateSmallContactBubbles(contact);
+        }     
+    }
+    
+}
+
+async function deletePopupTask(i) {
+    tasks.splice(i, 1);
+    await saveTask();
+    updateHTML();
+    closeTaskPopUp();
+}
+
+
+
 
 /**
  * Returns first letter of the name as a uppercase letter

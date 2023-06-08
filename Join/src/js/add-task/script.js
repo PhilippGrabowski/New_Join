@@ -1,5 +1,7 @@
 let firstRender = true;
 
+let isColorPicked = false;
+
 let subtaskName = [];
 
 let bool = [];
@@ -46,33 +48,46 @@ let categoryColors = [
     }
 ]
 
+let category = []
+
 let assignedContacts = []
+
+loadCat();
 
 
 /* Creates a Json out of the Information that has been set in the Add-Task Section */
 
-async function createTask() {
+async function createTask(status) {
 
     let title = document.getElementById('title');
     let description = document.getElementById('description');
-    let category = document.getElementById('selectedCategory');
     let dueDate = document.getElementById('dueDate');
+    let categoryName = document.getElementById('selectedCategory');
+    let colorArrayLength = selectedColor.length;
+    let taskStatus = checkStatus(status);
     let dragId = getId();
-    if (title.value != 0 && description.value != 0 && category.textContent != 0 && dueDate.value != 0) {
-        tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, dragId));
+    
+    
+    if (checkValidationOnInputs() == true) {
+        console.log("Pushed");
+        tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, taskStatus, dragId));
         await saveTask();
     }
-    document.location.href = 'board.html';
+    if(status){
+        closeAddTask();
+        updateHTML();
+    }
 }
 
 function checkSubtask(i) {
     let checkbox = document.getElementById(`subtask${i}`);
-    if (checkbox.checked) {
-        bool[i] = "true";
-    }
-    else if (!checkbox.checked) {
-        bool[i] = "false";
-    }
+    if (checkbox.checked) {bool[i] = "true";}
+    else if (!checkbox.checked) {bool[i] = "false";}
+}
+
+function checkStatus(status){
+    if(status){return status;}
+    else {return 'to-do';}
 }
 
 /* Pushes the Task with all the neccessary Information into the Tasks Array
@@ -83,16 +98,16 @@ function checkSubtask(i) {
  * @param {*} category - the category that the task falls under
  */
 
-function pushTask(title, description, duedate, prio, category, subtasks, assignedContacts, DragId) {
+function pushTask(title, description, duedate, prio, category, subtasks, assignedContacts, taskStatus, DragId) {
     let task = {
         'title': title.value,
         'description': description.value,
         'duedate': duedate.value,
         'priority': prio,
-        'category': category.textContent,
+        'category': category,
         'subtask': subtasks,
         'assigned': assignedContacts,
-        'status': 'to-do',
+        'status': taskStatus,
         'id': DragId
     }
     return task;
@@ -102,18 +117,17 @@ function pushTask(title, description, duedate, prio, category, subtasks, assigne
 
 function openCategories() {
     let showCat = document.getElementById('showCat');
+    document.getElementById('selectedCategory').textContent = 'Select a Category';
     showCat.classList.toggle('d-none');
     let checkBottomBorder = !showCat.classList.contains('d-none');
     if (checkBottomBorder) {
         document.getElementById('category').style.borderBottomLeftRadius = "0px";
         document.getElementById('category').style.borderBottomRightRadius = "0px";
         document.getElementById('category').style.borderBottom = "none";
-    }
-    else {
+    }else {
         document.getElementById('category').style.borderBottomLeftRadius = "8px";
         document.getElementById('category').style.borderBottomRightRadius = "8px";
-        document.getElementById('category').style.borderBottom = "1px solid lightgray";
-    }
+        document.getElementById('category').style.borderBottom = "1px solid lightgray";}
 }
 
 function displayCategoryHTML() {
@@ -143,14 +157,20 @@ function displayCategories() {
     for (let i = 0; i < categoryColors.length; i++) {
         show.innerHTML += `
             <div class="category-container" onclick="selectCategory(${i})">
-            <div class="cat" id="${i}">${categoryColors[i].category}<span class="circle"style="background-color: ${categoryColors[i].color};"></span></div>
+                <div class="cat" id="${i}">${categoryColors[i].category}<span class="circle"style="background-color: ${categoryColors[i].color};"></span></div>
+                <img class="add-task-trash-pic" src="src/img/trash.png" onclick="event.stopPropagation(),deleteCategory(${i})">
             </div>
             `
     }
 }
 
 function deleteCategory(i) {
+    let selectedCategory = document.getElementById('selectedCategory');
+    if(selectedCategory.textContent == categoryColors[i].category){
+        selectedCategory.textContent = 'Select a Category';
+    }
     categoryColors.splice(i, 1);
+    saveCat();
     displayCategories();
 }
 
@@ -164,7 +184,7 @@ function createNewCategory() {
     categoryContainer.innerHTML = `
         <div>
             <input id="newCatText" class="title-input" type="text" placeholder="New Category name">
-            <img onclick="displayNewCategory()" class="tick-icon" src="src/img/tick.png">
+            <img onclick="displayNewCategory(), saveCat()" class="tick-icon" src="src/img/tick.png">
             <img onclick="displayCategories(), displayCategoryHTML()" class="x-icon" src="src/img/x.png">
         </div>
         <div id="categoryColors">
@@ -185,6 +205,7 @@ function displayCategoryColors() {
 }
 
 function selectColor(i) {
+    isColorPicked = true;
     let selected = document.getElementById(`colorCode${i}`);
     selected.classList.add('highlighted-color');
     selectedColor.push(colorType[i].color);
@@ -202,7 +223,7 @@ function removeOtherSelected(i) {
 function displayNewCategory() {
     let input = document.getElementById('newCatText').value;
     let colorArrayLength = selectedColor.length;
-    if (input != 0 && colorArrayLength != 0) {
+    if (input != 0 && isColorPicked) {
 
         categoryColors.push(
             {
@@ -210,10 +231,37 @@ function displayNewCategory() {
                 category: `${input}`
             }
         )
+        
         displayNewCategoryHTML();
+        isColorPicked = false;
     }
 }
 
+function checkValidationOnInputs(){
+    let checkTitle, checkDesc, checkCat, checkAssigned, checkDate, checkPrio = false;
+    let title = document.getElementById('title');
+    let desc = document.getElementById('description');
+    let cat = document.getElementById('selectedCategory');
+    let date = document.getElementById('dueDate');
+    return returnCheckedInputs(checkTitle, checkDesc, checkCat, checkAssigned, checkDate, checkPrio, title, desc, cat, date);
+}
+
+function returnCheckedInputs(checkTitle, checkDesc, checkCat, checkAssigned, checkDate, checkPrio, title, desc, cat, date){
+    if(title.value == 0){document.getElementById('titleValidationText').classList.remove('d-none');}
+    else{checkTitle = true;document.getElementById('titleValidationText').classList.add('d-none');}
+    if(desc.value == 0){document.getElementById('descValidationText').classList.remove('d-none');}
+    else{checkDesc = true;document.getElementById('descValidationText').classList.add('d-none');}
+    if(cat.textContent == 'Select a Category'){document.getElementById('catValidationText').classList.remove('d-none');}
+    else{checkCat = true;document.getElementById('catValidationText').classList.add('d-none');}
+    if(assignedContacts.length == 0){document.getElementById('assignedValidationText').classList.remove('d-none');}
+    else{checkAssigned = true;document.getElementById('assignedValidationText').classList.add('d-none');}
+    if(date.value == 0){document.getElementById('dateValidationText').classList.remove('d-none');}
+    else{checkDate = true;document.getElementById('dateValidationText').classList.add('d-none');}
+    if(prio == null){document.getElementById('prioValidationText').classList.remove('d-none');}
+    else{checkPrio = true;document.getElementById('prioValidationText').classList.add('d-none');}
+    if(checkTitle && checkDesc && checkCat && checkAssigned && checkDate && checkPrio){return true;}
+    else return false;
+}
 
 function openAssignedTo() {
     let showAssigned = document.getElementById('showAssigned');
@@ -263,7 +311,8 @@ function assignTask(i) {
             {
                 'name': contacts[i].name,
                 'initials': contacts[i].initials,
-                'id': contacts[i].id
+                'id': contacts[i].id,
+                'color': contacts[i].color
             }
         );
         renderContactBubbles();
@@ -308,13 +357,20 @@ function selectedPrio(selected) {
 /* Sets the chosen Category by the User and will be seen on The Add Task Site */
 
 function selectCategory(cat) {
-    let category = document.getElementById(`${cat}`).textContent;
-    document.getElementById('selectedCategory').innerHTML = `<div class="selected-category"><span>${category}</span><span class="circle" style="background-color:${categoryColors[cat].color}"></span></div>`
+    category.splice(0,1);
+    let categoryText = document.getElementById(`${cat}`).textContent;
+    document.getElementById('selectedCategory').innerHTML = `<div class="selected-category"><span>${categoryText}</span><span class="circle" style="background-color:${categoryColors[cat].color}"></span></div>`
     document.getElementById('showCat').classList.add('d-none');
     document.getElementById('category').style.borderBottom = "1px solid lightgray";
     document.getElementById('category').style.borderBottomLeftRadius = "8px";
     document.getElementById('category').style.borderBottomRightRadius = "8px";
-    console.log(category);
+    console.log(categoryText);
+    category.push(
+        {
+            color: categoryColors[cat].color,
+            category: `${categoryColors[cat].category}`
+        }
+    )
 }
 
 /* Sets the Color of the Priorities for a Visual Feedback effect */
@@ -353,11 +409,15 @@ async function saveTask() {
 
     await setItem('task', JSON.stringify(tasks));
 }
+async function saveCat() {
+
+    await setItem('cat', JSON.stringify(categoryColors));
+}
 
 /* This is just for a Console test to see if the Tasks get deleted permanently */
 
-function deleteTask() {
-    tasks.splice(0, 1);
+function deleteTask(i) {
+    tasks.splice(i, 1);
     saveTask();
 }
 
