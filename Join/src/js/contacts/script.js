@@ -275,7 +275,7 @@ function addOnclickFunctions(index) {
 function closeContactMenu() {
     document.getElementById('contactOptionMenu').style.transform = 'translateX(150%)';
     document.getElementById('partitionWindow').classList.add('d-none');
-    closeErrorReports();
+    closeErrorReports(contactErrorReports);
 }
 
 

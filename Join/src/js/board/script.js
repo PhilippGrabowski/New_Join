@@ -2,7 +2,7 @@
 let container = ['board-to-do', 'board-in-progress', 'board-awaiting-feedback', 'board-task-done'];
 let stat = ['to-do', 'in-progress', 'awaiting-feedback', 'done'];
 let currentDraggedElement;
-let boxCount = 0;
+
 
 async function init(){
     await loadTasks();
@@ -19,6 +19,7 @@ async function init(){
  * This function is updating the current HTML ensure every content inside an array is displayed
  */
 function updateHTML(){
+    let boxCount = 0;
     for (let i = 0; i < container.length; i++) {
         let box = document.getElementById(container[i]);
         let task = tasks.filter(t => t['status'] === stat[i]);
@@ -27,7 +28,8 @@ function updateHTML(){
             const element = task[j];
             let category = element['category'][0];
             box.innerHTML += generateTaskCard(element, category, boxCount);
-            getCategoryColor(element['category'][0]['category']);
+            getCategoryColor(element['category'][0]['category'], boxCount);
+            checkForSubtask(element, boxCount);
             renderContactInitials(element);
             boxCount++;
         }
@@ -35,10 +37,47 @@ function updateHTML(){
     }
 }
 
-function getCategoryColor(element){
-    let categoryToSearch = categoryColors.filter(t => t['category'] === element)
+function getCategoryColor(element, boxCount){
+    let categoryToSearch = categoryColors.filter(t => t['category'] === element);
     let color = categoryToSearch[0]['color'];
-    document.getElementById('category-tag').style = `background-color: ${color};`
+    document.getElementById(`category-tag${boxCount}`).style = `background-color: ${color};`
+}
+
+function checkForSubtask(element, boxCount){
+    let subtask = element['subtask'][0]['subtask_Name'];
+    if(subtask.length > 0){
+        document.getElementById(`progressContainer${boxCount}`).classList.remove('d-none');
+        setProgress(element, boxCount);
+    }
+}
+
+function setProgress(element, boxCount){
+    const counts = {};
+    let numberToDivide = 100;
+    let arrayToSearch = element['subtask'][0]['checked'];
+    for (let i = 0; i < arrayToSearch.length; i++) {
+        counts[arrayToSearch[i]] = (counts[arrayToSearch[i]] + 1) || 1;   
+    }
+    console.log(counts);
+    
+    let currentProgress = 100 / (arrayToSearch.length/counts['true']);
+    if(!currentProgress){
+        currentProgress = 0;
+    }
+    
+    console.log(currentProgress)
+    setNewProgress(currentProgress, boxCount, arrayToSearch, counts, currentProgress);
+}
+
+function setNewProgress(percentage, boxCount, arrayToSearch, counts, currentProgress){
+    let progressBar = document.getElementById(`progress${boxCount}`);
+    if (currentProgress > 0) {
+        progressBar.innerHTML = `${counts['true']}/${arrayToSearch.length}`; 
+    }else {
+        progressBar.innerHTML = `0/${arrayToSearch.length}`;
+    }
+    
+    progressBar.classList.add(`w-${percentage}`);
 }
 
 /**
@@ -101,30 +140,7 @@ function getIndexOfTask(id) {
     }
 }
 
-function searchForTask(){
-    let currentSearchWord = document.getElementById('search-task').value;
-    let currentTasksDisplayed = tasks.filter(t => t['title'] === currentSearchWord);
 
-    if(currentSearchWord == ""){
-        updateHTML();
-    }
-    else{
-        if(!currentTasksDisplayed.length){
-            hideAllTaskBoxes()
-        }else {
-            for (let j = 0; j < currentTasksDisplayed.length; j++) {
-                const element = currentTasksDisplayed[j];
-                let category = element['category'][0];
-                box.innerHTML += generateTaskCard(element, category);
-                getCategoryColor(element['category'][0]['category']);
-                renderContactInitials(element);
-            }
-        }
-    
-    }
-    
-    
-}
 
 function hideAllTaskBoxes(){
     for (let i = 0; i < tasks.length; i++) {
@@ -150,6 +166,7 @@ function closeAddTask(){
 
 function openTaskPopUp(id){
     renderPopUpDetails(id);
+    renderSubtasks(id);
     renderAssignedContacts(id);
     document.getElementById('task-popup-background').classList.remove('d-none');
 }
@@ -174,6 +191,18 @@ function renderAssignedContacts(id){
     for (let i = 0; i < contactsToDisplay.length; i++) {
         const contact = contactsToDisplay[i];
         assignedContactsBox.innerHTML += generateTaskPopupContacts(contact);
+    }
+}
+
+function renderSubtasks(id){
+    let index = getIndexOfTask(id);
+    let subtaskContainer = document.getElementById(`subtask-container${index}`);
+    let temporaryArray = tasks.filter(t => t['id'] === id);
+    let subtaskArray = temporaryArray[0]['subtask'][0]['subtask_Name'];
+    console.log(subtaskArray);
+    for (let i = 0; i < subtaskArray.length; i++) {
+        const subtask = subtaskArray[i];
+        subtaskContainer.innerHTML += generateSubtaskSection(subtask);
     }
 }
 

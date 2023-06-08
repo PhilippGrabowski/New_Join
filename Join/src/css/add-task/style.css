@@ -357,3 +357,25 @@ body{
         width: calc(100vw - 90px);
     }
 }
+
+
+
+
+.date_input_container {
+    height: 30px;
+    padding: 5px;
+    gap: 10px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    background-color: var(--white-color);
+}
+
+.date_input_container input {
+    border: none;
+    outline: none;
+}
+
+.date_input_container img {
+    width: 20px;
+    height: 20px;
+}
