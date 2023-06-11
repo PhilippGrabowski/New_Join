@@ -216,7 +216,7 @@ body {
 }
 
 .subheader {
-    font-size: var(--font-size-18);
+    font-size: var(--font-size-21);
     text-align: center;
 }
 
@@ -239,6 +239,10 @@ body {
     border-radius: 8px;
 }
 
+#forgot_password_button {
+    margin-top: 35px;
+}
+
 /* === Reset Password Container === */
 
 #reset_password_container {
@@ -247,13 +251,42 @@ body {
 
 .reset_password_input_container {
     width: 65%;
+    align-items: center;
     gap: 35px;
+}
+
+.reset_password_input {
+    width: 100%;
 }
 
 .includedInputs {
     gap: 20px;
 }
 
+.confirmation_container {
+    height: 75px;
+    position: absolute;
+    font-size: 23px;
+    color: var(--white-color);
+    background-color: var(--darkBlue-color);
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(60vh);
+    transition: all 0.5s ease-in-out;
+}
+
+#email_used_confirm,
+#reset_password_confirm,
+#create_account_confirm {
+    padding: 0px 30px;
+}
+
+#send_email_confirm {
+    align-items: center;
+    gap: 13px;
+    padding: 0px 20px;
+}
 
 /* === Global === */
 

@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="src/css/template-styles/sidebar.css">
     <link rel="stylesheet" href="src/css/template-styles/help.css">
     <link rel="stylesheet" href="src/css/legal-notice/style.css">
+    <link rel="stylesheet" href="src/css/legal-notice/mqueries.css">
     <script src="src/js/global.js"></script>
+    <script src="src/js/legal-notice/script.js"></script>
     <title>Join - Legal Notice</title>
 </head>
 
@@ -27,8 +29,16 @@
 
     <div id="help_includer" w3-include-html="src/templates/help.html" class="d-none"></div>
 
-    <section class="legal_notice_content">
-        <div class="legal_notice_content_container"></div>
+    <section class="content">
+        <div class="content_container">
+            <div class="content_header_container flex-column">
+                <span class="mobile_join_headline">Kanban Project Management
+                    Tool</span>
+                <span class="content_header_headline">Legal Notice</span>
+            </div>
+            <div id="impressum_includer" w3-include-html="src/templates/impressum.html"></div>
+            <div id="privacy_policy_includer" w3-include-html="src/templates/private-policy.html" class="d-none"></div>
+        </div>
     </section>
 
 </body>

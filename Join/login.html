@@ -18,14 +18,14 @@
     <title>Join - Login</title>
 </head>
 
-<body onload="includeHTML(); loginAnimation()">
+<body onload="includeHTML(); loginAnimation(); loadAccounts(); loadInputs()">
 
     <img Id="login_logo" src="src/img/capa2.svg" alt="">
 
     <div Id="signup_head_container" class="flex-row d-none">
         <span>Not a Join user?</span>
         <button class="buttonOption2 flex-row curser"
-            onclick="toggleMenu('login_container', 'signup_container', 'signup_head_container')">Sign up</button>
+            onclick="toggleLoginMenu('signup', signupInputs, signupErrorReports)">Sign up</button>
     </div>
 
     <div id="login_container" class="flex-column box-shadow d-none">
@@ -38,7 +38,7 @@
                 <div class="flex-column">
                     <div class="input flex-row curser">
                         <input required id="login_email_input" type="email" placeholder="Email" minlength="8"
-                            onblur="checkInputOnblur2(0)">
+                            onblur="checkInputOnblur(loginInputs, 0)">
                         <i class='bx bx-envelope'></i>
                     </div>
                     <span id="login_email_error" class="error">valid</span>
@@ -46,7 +46,7 @@
                 <div class="flex-column">
                     <div class="input flex-row curser">
                         <input required id="login_password_input" type="password" placeholder="Password"
-                            pattern="^.{7,}$" onblur="checkInputOnblur2(1)">
+                            pattern="^.{7,}$" onblur="checkInputOnblur(loginInputs, 1)">
                         <i class='bx bx-lock'></i>
                     </div>
                     <span id="login_password_error" class="error">valid</span>
@@ -54,13 +54,13 @@
             </div>
             <div class="checkbox_container flex-row">
                 <div class="checkbox-row flex-end flex-row">
-                    <input type="checkbox" class="curser">
+                    <input id="remember" type="checkbox" class="curser">
                     <span>Remember me</span>
                 </div>
                 <div class="flex-start flex-row">
                     <a class="curser"
-                        onclick="toggleMenu('login_container', 'forgot_password_container', 'signup_head_container')">Forgot
-                        my password</a>
+                        onclick="toggleLoginMenu('forgotPassword', forgotPasswordInput, forgotPasswordErrorReport)">
+                        Forgot my password</a>
                 </div>
             </div>
             <div id="login_button_container" class="flex-row">
@@ -77,18 +77,18 @@
 
     <div id="signup_container" class="flex-column box-shadow d-none">
         <i class='bx bx-left-arrow-alt arrow_left curser'
-            onclick="toggleMenu('login_container', 'signup_container', 'signup_head_container')"></i>
+            onclick="toggleLoginMenu('signup', loginInputs, loginErrorReports); loadInputs()"></i>
         <div class="headline_container flex-column">
             <span class="headline">Sign up</span>
             <div class="horizontal_line"></div>
         </div>
-        <form id="sign_up" class="form flex-column" onsubmit="signup(); return false;">
+        <form id="signup_form" class="form flex-column" onsubmit="signup(); return false;">
             <div class="input_container flex-column">
                 <div class="flex-column">
                     <div class="input flex-row curser">
                         <input required id="signup_name_input" type="text" placeholder="Name" minlength="3"
                             pattern="^(?!.* {2})[a-zA-Z][a-zA-Z]*([ ]+[a-zA-Z][a-zA-Z]*)+$"
-                            onkeyup="checkInputOnkeyUp2(0)" onblur="checkInputOnblur3(0)">
+                            onkeyup="checkInputOnkeyUp(signupInputs, 0)" onblur="checkInputOnblur(signupInputs, 0)">
                         <i class='bx bx-user'></i>
                     </div>
                     <span id="signup_name_error" class="error">valid firstname (secondname) lastname</span>
@@ -96,7 +96,7 @@
                 <div class="flex-column">
                     <div class="input flex-row curser">
                         <input required id="signup_email_input" type="email" placeholder="Email" minlength="8"
-                            onblur="checkInputOnblur3(1)">
+                            onblur="checkInputOnblur(signupInputs, 1)">
                         <i class='bx bx-envelope'></i>
                     </div>
                     <span id="signup_email_error" class="error">valid email</span>
@@ -104,7 +104,7 @@
                 <div class="flex-column">
                     <div class="input flex-row curser">
                         <input required id="signup_password_input" type="password" placeholder="Password"
-                            onblur="checkInputOnblur3(2)">
+                            onblur="checkInputOnblur(signupInputs, 2)">
                         <i class='bx bx-lock'></i>
                     </div>
                     <span id="signup_password_error" class="error">valid password</span>
@@ -118,49 +118,60 @@
 
     <div id="forgot_password_container" class="flex-column box-shadow d-none">
         <i class='bx bx-left-arrow-alt arrow_left arrow_left2 curser'
-            onclick="toggleMenu('login_container', 'forgot_password_container', 'signup_head_container')"></i>
+            onclick="toggleLoginMenu('forgotPassword', loginInputs, loginErrorReports); loadInputs()"></i>
         <div class="headline_container flex-column">
             <span class="headline">I forgot my password</span>
             <div class="horizontal_line"></div>
         </div>
         <span class="subheader">Don't worry! We will send you an email with the instructions to reset your
             password.</span>
-        <div class="forgot_password_input_container flex-column">
+        <form id="forgot_password_form" class="forgot_password_input_container flex-column"
+            onsubmit="sendPassword(); return false;">
             <div id="forgot_password_email_input_container" class="input flex-row curser">
                 <input required id="forgot_password_email_input" type="email" placeholder="Email" minlength="8"
-                    pattern="^[a-zA-Z0-9äÄüÜöÖß_.+-]{3,30}@[a-zA-Z0-9-ß]{3,9}\.[a-z]{2,3}$">
+                    onblur="checkInputOnblur(forgotPasswordInput, 0)">
                 <i class='bx bx-envelope'></i>
             </div>
-            <span id="phoneError" class="error">valid phone number</span>
-        </div>
-        <button id="forgot_password_button" class="buttonOption2 flex-row curser" onclick="sendPassword()"
-            type="button">Send
-            me the email</button>
+            <span id="forgot_password_email_error" class="error">valid email</span>
+            <button id="forgot_password_button" class="buttonOption2 flex-row curser" type="submit">Send me the
+                email</button>
+        </form>
     </div>
 
     <div id="reset_password_container" class="flex-column box-shadow d-none">
-        <i class='bx bx-left-arrow-alt arrow_left arrow_left2 curser' onclick="toggleResetMenu()"></i>
+        <i class='bx bx-left-arrow-alt arrow_left arrow_left2 curser'
+            onclick="toggleResetMenu(forgotPasswordInput, forgotPasswordErrorReport)"></i>
         <div class="headline_container flex-column">
             <span class="headline">Reset your password</span>
             <div class="horizontal_line"></div>
         </div>
         <span class="subheader">Change your account password</span>
-        <div class="reset_password_input_container flex-column">
-            <div class="flex-column">
+        <form id="reset_password_form" class="reset_password_input_container flex-column" onsubmit="">
+            <div class="reset_password_input flex-column">
                 <div class="input flex-row curser"><input required id="new_password_input" type="password"
-                        placeholder="New password">
+                        placeholder="New password" pattern="^.{7,}$" onblur="checkInputOnblur(resetPasswordInputs, 0)">
                 </div>
-                <span id="phoneError" class="error">valid phone number</span>
+                <span id="new_password_error" class="error">valid password</span>
             </div>
-            <div class="flex-column">
+            <div class="reset_password_input flex-column">
                 <div class="input flex-row curser"><input required id="confirm_password_input" type="password"
-                        placeholder="Confirm password">
+                        placeholder="Confirm password" pattern="^.{7,}$"
+                        onblur="checkInputOnblur(resetPasswordInputs, 1)">
                 </div>
-                <span id="phoneError" class="error">valid phone number</span>
+                <span id="confirm_password_error" class="error">valid password</span>
             </div>
+            <button id="reset_password_button" class="buttonOption2 flex-row curser" type="submit">Continue</button>
+        </form>
+    </div>
+
+    <div class="confirmation_container flex-row d-none">
+        <span id="email_used_confirm" class="d-none">Email already used by another account</span>
+        <span id="create_account_confirm" class="d-none">Account has been created</span>
+        <span id="reset_password_confirm" class="d-none">You reset your password</span>
+        <div id="send_email_confirm" class="flex-row d-none">
+            <img src="./src/img/sendCheck.png" alt="">
+            <span>An E-Mail has been sent to you</span>
         </div>
-        <button id="reset_password_button" class="buttonOption2 flex-row curser" onclick="changeToResetPasswordMenu()"
-            type="button">Continue</button>
     </div>
 
 </body>

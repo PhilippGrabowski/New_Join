@@ -14,7 +14,7 @@ const regPassword = new RegExp(`^.{7,}$`)
 
 /*__________________________________Input JSON Array____________________________________*/
 
-let inputs = [
+let contactInputs = [
     {
         'inputID' : 'inputName',
         'inputlenght' : 2,
@@ -55,10 +55,10 @@ let loginInputs = [
         'inputlenght' : 6,
         'regex' : [regPassword, regPassword, regPassword, regPassword],
         'errorReportID' : 'login_password_error',
-        'errorReportText' : ['error: note password length (7)'],
+        'errorReportText' : ['error: note password length (>6)'],
         'validReportText' : 'valid password'
     }
-]
+];
 
 let signupInputs = [
     {
@@ -82,10 +82,40 @@ let signupInputs = [
         'inputlenght' : 6,
         'regex' : [regPassword, regPassword, regPassword, regPassword],
         'errorReportID' : 'signup_password_error',
-        'errorReportText' : ['error: note password length (7)'],
+        'errorReportText' : ['error: note password length (>6)'],
         'validReportText' : 'valid password'
     }
-]
+];
+
+let forgotPasswordInput = [
+    {
+        'inputID' : 'forgot_password_email_input',
+        'inputlenght' : 7,
+        'regex' : [regEmail, regEmail, regEmail, regEmail],
+        'errorReportID' : 'forgot_password_email_error',
+        'errorReportText' : ['error: email is not valid'],
+        'validReportText' : 'valid email'
+    }
+];
+
+let resetPasswordInputs = [
+    {
+        'inputID' : 'new_password_input',
+        'inputlenght' : 6,
+        'regex' : [regPassword, regPassword, regPassword, regPassword],
+        'errorReportID' : 'new_password_error',
+        'errorReportText' : ['error: note password length (>6)'],
+        'validReportText' : 'valid password'
+    },
+    {
+        'inputID' : 'confirm_password_input',
+        'inputlenght' : 6,
+        'regex' : [regPassword, regPassword, regPassword, regPassword],
+        'errorReportID' : 'confirm_password_error',
+        'errorReportText' : ['error: note password length (>6)'],
+        'validReportText' : 'valid password'
+    }
+];
 
 
 /*___________________________________Error Report Array__________________________________*/
@@ -93,6 +123,8 @@ let signupInputs = [
 let contactErrorReports = ['nameError', 'emailError', 'phoneError'];
 let loginErrorReports = ['login_email_error', 'login_password_error'];
 let signupErrorReports = ['signup_name_error', 'signup_email_error', 'signup_password_error'];
+let forgotPasswordErrorReport = ['forgot_password_email_error'];
+let resetPasswordErrorReport = ['new_password_error', 'confirm_password_error'];
 
 
 /*_______________________________Input Validation Functions_______________________________*/
@@ -103,16 +135,16 @@ let signupErrorReports = ['signup_name_error', 'signup_email_error', 'signup_pas
  * 
  * @param {number} index - index of inputfield
  */
-function checkInputOnkeyUp(index) {
-    let input = document.getElementById(inputs[index].inputID).value;
-    if (firstCharisNotValid(inputs[index].regex[0], input)) {
-        displayError(inputs[index].errorReportID, inputs[index].errorReportText[1]);
-    } else if (charIsNotValid(inputs[index].regex[1], input)) {
-        displayError(inputs[index].errorReportID, inputs[index].errorReportText[2]);
-    } else if (twoSpacesInRow(inputs[index].regex[2], input)) {
-        displayError(inputs[index].errorReportID, inputs[index].errorReportText[3]);
+function checkInputOnkeyUp(inputArray, index) {
+    let input = document.getElementById(inputArray[index].inputID).value;
+    if (firstCharisNotValid(inputArray[index].regex[0], input)) {
+        displayError(inputArray[index].errorReportID, inputArray[index].errorReportText[1]);
+    } else if (charIsNotValid(inputArray[index].regex[1], input)) {
+        displayError(inputArray[index].errorReportID, inputArray[index].errorReportText[2]);
+    } else if (twoSpacesInRow(inputArray[index].regex[2], input)) {
+        displayError(inputArray[index].errorReportID, inputArray[index].errorReportText[3]);
     } else {
-        document.getElementById(inputs[index].errorReportID).style.color = 'var(--white-color)';
+        document.getElementById(inputArray[index].errorReportID).style.color = 'var(--white-color)';
     }
 }
 
@@ -122,28 +154,46 @@ function checkInputOnkeyUp(index) {
  * 
  * @param {number} index - index of inputfield
  */
-function checkInputOnblur(index) {
-    let input = document.getElementById(inputs[index].inputID).value;
-    if (charIsNotValid(inputs[index].regex[3], input)) {
-        displayError(inputs[index].errorReportID, inputs[index].errorReportText[0]);
+function checkInputOnblur(inputArray, index) {
+    let input = document.getElementById(inputArray[index].inputID).value;
+    if (charIsNotValid(inputArray[index].regex[3], input)) {
+        displayError(inputArray[index].errorReportID, inputArray[index].errorReportText[0]);
     } else if (input == '') {
-        document.getElementById(inputs[index].errorReportID).style.color = 'var(--white-color)';
+        document.getElementById(inputArray[index].errorReportID).style.color = 'var(--white-color)';
     }
-    displayValidInputs();
+    displayValidInputs(inputArray);
 }
 
 /**
  * checks after leaving inputfield if every input is valid
  *  if input is valid, a report will be displayed
  */
-function displayValidInputs() {
-    for (let i = 0; i < inputs.length; i++) {
-        let input = document.getElementById(inputs[i].inputID).value;
-        if (charIsNotValid(inputs[i].regex[3], input) == false && input.length >= inputs[i].inputlenght) {
-            document.getElementById(inputs[i].errorReportID).innerHTML = inputs[i].validReportText;
-            document.getElementById(inputs[i].errorReportID).style.color = 'var(--darkGreen-color)';
+function displayValidInputs(inputArray) {
+    for (let i = 0; i < inputArray.length; i++) {
+        let input = document.getElementById(inputArray[i].inputID).value;
+        if (charIsNotValid(inputArray[i].regex[3], input) == false && input.length >= inputArray[i].inputlenght) {
+            document.getElementById(inputArray[i].errorReportID).innerHTML = inputArray[i].validReportText;
+            document.getElementById(inputArray[i].errorReportID).style.color = 'var(--darkGreen-color)';
         }
     }
+}
+
+/**
+ * Returns the number of the valid inputs
+ * 
+ * @param {Array.<String>} errorReportArray - Array of error report ids
+ * @returns {Number}
+ */
+function checkValidInputs(errorReportArray) {
+    let count = 0;
+    for (let i = 0; i < errorReportArray.length; i++) {
+        let errorReport = document.getElementById(errorReportArray[i]);
+        let color = window.getComputedStyle(errorReport, null).getPropertyValue('color');
+        if (color == 'rgb(0, 127, 28)') {
+            count++;
+        }
+    }
+    return count;
 }
 
 /**
@@ -192,17 +242,17 @@ function twoSpacesInRow(reg, input) {
 /**
  * Closes all error reports
  */
-function closeErrorReports(array) {
-    for (let i = 0; i < array.length; i++) {
-        document.getElementById(array[i]).style.color = 'var(--white-color)';
+function closeErrorReports(errorReportArray) {
+    for (let i = 0; i < errorReportArray.length; i++) {
+        document.getElementById(errorReportArray[i]).style.color = 'var(--white-color)';
     }
 }
 
 /**
- * Clears the Inputfields of the Contact Menu
+ * Clears the inputfields of the array
  */
-function clearInputs() {
-    document.getElementById('inputName').value = '';
-    document.getElementById('inputEmail').value = '';
-    document.getElementById('inputPhone').value = '';
+function clearInputs(inputsArray) {
+    for (let i = 0; i < inputsArray.length; i++) {
+        document.getElementById(inputsArray[i].inputID).value = '';
+    }
 }

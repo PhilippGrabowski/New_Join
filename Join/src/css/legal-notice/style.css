@@ -1,45 +1,126 @@
-.legal_notice_content {
+.content {
     padding: 89px 0 0 230px;
     width: 100vw;
     height: 100vh;
     height: 100svh;
 }
 
-.legal_notice_content_container {
+.content_container {
     width: 100%;
     height: calc(100vh - 89px);
     height: calc(100svh - 89px);
     padding: 82px 8.3vw 0 8.3vw;
     overflow-y: auto;
+    position: relative;
 }
 
-@media (max-height: 768px) {
-    .legal_notice_content_container {
-        padding: 65px 8.3vw 0px 8.3vw;
-    }
+.mobile_join_headline {
+    display: none;
+    font-size: var(--font-size-16);
 }
 
-@media (max-width: 1096px) {
-    .legal_notice_content {
-        padding: 89px 0 0 180px;
-    }
+.content_header_headline {
+    font-weight: 700;
+    font-size: var(--font-size-61);
 }
 
-@media (max-width: 670px) {
-    .legal_notice_content {
-        padding: 89px 0 0 90px;
-    }
-    .legal_notice_content_container {
-        width: calc(100vw - 90px);
-    }
+.leg_notice_container {
+    margin-top: 85px;
+    margin-bottom: 21vh;
+    position: relative;
 }
 
-@media (max-width: 468px) {
-    .legal_notice_content {
-        padding: 79px 0px 80px 0px;
-    }
-    .legal_notice_content_container {
-        width: 100vw;
-        padding: 0px 5.8vw 0px 5.8vw;
-    }
+h1 {
+    font-size: var(--font-size-27);
+    margin-bottom: 30px;
+}
+
+.impressum h1 {
+    margin-bottom: 50px;
+}
+
+h2 {
+    font-size: var(--font-size-24);
+    margin-bottom: 30px;
+}
+
+.impressum h2 {
+    margin-bottom: 40px;
+}
+
+/* === Impressum === */
+
+.contact_row {
+    font-size: var(--font-size-21);
+    row-gap: 30px;
+}
+
+.contact {
+    width: 33%;
+    min-width: 320px;
+    gap: 20px;
+}
+
+.contact i {
+    margin-right: 5px;
+}
+
+.info_row {
+    align-items: center;
+}
+
+.source {
+    font-size: var(--font-size-21);
+    margin-top: 50px;
+}
+
+.source a,
+.privacy_policy a {
+    color: var(--darkBlue-color);
+    text-decoration: none;
+}
+
+.source a:hover,
+.privacy_policy a:hover {
+    color: var(--blue-color);
+    text-decoration: underline;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 7vh;
+    right: 2.3vw;
+}
+
+/* === privacy policy === */
+
+.privacy_policy h2 {
+    margin-top: 30px;
+}
+
+h3, h4, p, li {
+    font-size: var(--font-size-21);
+    margin-bottom: 15px;
+}
+
+button {
+    right: 0;
+    bottom: -14vh;
+}
+
+/* === Global === */
+
+.buttonOption2 {
+    font-weight: 700;
+    font-size: var(--font-size-21);
+    background-color: var(--darkBlue-color);
+    color: var(--white-color);
+    border: none;
+}
+
+.buttonOption2:hover {
+    background-color: var(--blue-color);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
 }

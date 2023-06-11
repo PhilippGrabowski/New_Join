@@ -8,14 +8,8 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 let tasks = [];
 let contacts = [];
-let accounts = [
-    {
-        'name' : 'Sofia Müller',
-        'email' : 'sofia@gmail.com',
-        'password' : 'sofia69'
-    }
-];
-
+let accounts = [];
+let loginData = [];
 /*______________________________Storage Functions_______________________________*/
 
 /**
@@ -31,6 +25,7 @@ async function loadTasks() {
         tasks.push(loadedTask);  
     }
 }
+
 async function loadCat() {
     categoryColors = [];
     let cat = await getItem('cat');
@@ -52,6 +47,34 @@ async function loadContacts() {
     for (let i = 0; i < contact.length; i++) {
         let loadedContact = contact[i];
         contacts.push(loadedContact);  
+    }
+}
+
+/**
+ * Loads and converts the JSON string, of the key account, into a object from the remote storage
+ * than pushs the loaded data into the accounts array
+ */
+async function loadAccounts() {
+    accounts = [];
+    let account = await getItem('account');
+    account = JSON.parse(account['data']['value']);
+    for (let i = 0; i < account.length; i++) {
+        let loadedAccount = account[i];
+        accounts.push(loadedAccount);  
+    }
+}
+
+/**
+ * Loads and converts the JSON string, of the key login, into a object from the remote storage
+ * than pushs the loaded data into the loginData array
+ */
+async function loadLoginData() {
+    loginData = [];
+    let login = await getItem('login');
+    login = JSON.parse(login['data']['value']);
+    for (let i = 0; i < login.length; i++) {
+        let loadedLoginData = login[i];
+        loginData.push(loadedLoginData);  
     }
 }
 
@@ -78,7 +101,6 @@ async function setItem(key, value) {
     return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload)})
     .then(res => res.json());
 }
-
 
 /**
  * Searches for an existing task if a task has been saved by a key
