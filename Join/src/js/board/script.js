@@ -53,7 +53,6 @@ function checkForSubtask(element, boxCount){
 
 function setProgress(element, boxCount){
     const counts = {};
-    let numberToDivide = 100;
     let arrayToSearch = element['subtask'][0]['checked'];
     for (let i = 0; i < arrayToSearch.length; i++) {
         counts[arrayToSearch[i]] = (counts[arrayToSearch[i]] + 1) || 1;   
@@ -66,18 +65,35 @@ function setProgress(element, boxCount){
     }
     
     console.log(currentProgress)
-    setNewProgress(currentProgress, boxCount, arrayToSearch, counts, currentProgress);
-}
 
-function setNewProgress(percentage, boxCount, arrayToSearch, counts, currentProgress){
     let progressBar = document.getElementById(`progress${boxCount}`);
     if (currentProgress > 0) {
         progressBar.innerHTML = `${counts['true']}/${arrayToSearch.length}`; 
     }else {
         progressBar.innerHTML = `0/${arrayToSearch.length}`;
-    }
-    
-    progressBar.classList.add(`w-${percentage}`);
+    };
+    progressBar.classList.add(`w-${currentProgress}`);
+    //setNewProgress(currentProgress, boxCount, arrayToSearch, counts, currentProgress);
+}
+
+function setNewProgress(count){
+    let progressBar = document.getElementById(`progressContainer${count +1000}`);
+    let newProgress = calculateNewProgress();
+}
+
+function checkBoxStatus(count){
+    let checkbox = document.getElementById(`subtaskCheckbox${count}`);
+    let currentTask = getIndexOfCurrentTask();
+    //if(checkbox.checked){
+    //    setProgress(tasks[]);
+    //};
+}
+
+function getIndexOfCurrentTask(){
+   let currentPopUpHeadline = document.getElementsByClassName('task-popup-headline-main task-popup-margin');
+   let currentHeadlineText = currentPopUpHeadline[0]['innerText'];
+   let currentElement = tasks.filter(t => t['title'] === currentHeadlineText);
+   return currentElement[0]['id'];
 }
 
 /**
@@ -180,6 +196,7 @@ function renderPopUpDetails(id){
     let index = getIndexOfTask(id);
     taskPopUp.innerHTML = '';
     taskPopUp.innerHTML += generatePopUpHTML(tasks[index], index);
+    
 }
 
 function renderAssignedContacts(id){
@@ -202,8 +219,10 @@ function renderSubtasks(id){
     console.log(subtaskArray);
     for (let i = 0; i < subtaskArray.length; i++) {
         const subtask = subtaskArray[i];
-        subtaskContainer.innerHTML += generateSubtaskSection(subtask);
+        subtaskContainer.innerHTML += generateSubtaskSection(subtask, i);
     }
+    subtaskContainer.innerHTML += generatePopUpProgressBar(index);
+    checkForSubtask(tasks[index], index +1000);
 }
 
 function renderContactInitials(element){
@@ -262,4 +281,9 @@ function getFirstCharofLastname(contactName) {
     let char = name.charAt(index + 1);
     char = char.toUpperCase();
     return char;
+}
+
+function calculateNewProgress(){
+    let percentage;
+
 }

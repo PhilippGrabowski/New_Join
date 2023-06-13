@@ -31,7 +31,7 @@ function generateBoxShadow(container){
 function generatePopUpHTML(clickedElement, index){
     return /*html*/`
         <span class="category-tag task-popup-margin" style="background-color:${clickedElement['category'][0]['color']};">${clickedElement['category'][0]['category']}</span>
-        <h1 class="task-popup-headline-main task-popup-margin">${clickedElement['title']}</h1>
+        <h1 id="popUpHeadline${clickedElement['id']}" class="task-popup-headline-main task-popup-margin">${clickedElement['title']}</h1>
         <span class="task-popup-text task-popup-margin"></span>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Due date:</h3> ${clickedElement['duedate']}</span>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Priority:</h3> ${clickedElement['priority'][0]['priority']}</span>
@@ -76,8 +76,17 @@ function generateSmallNumberBubble(assignedContacts){
     `;
 }
 
-function generateSubtaskSection(subtask){
+function generateSubtaskSection(subtask, count){
     return /*html*/`
-    <div class="flex-row"><input type="checkbox">${subtask}</div>
+    <div class="flex-row"><input id="subtaskCheckbox${count}" onchange="checkBoxStatus(${count})" type="checkbox">${subtask}</div>
+    
+    `;
+}
+
+function generatePopUpProgressBar(count){
+    return /*html*/`
+    <div id="progressContainer${count +1000}" class="progress d-none" role="progressbar" aria-label="Basic example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+        <div id="progress${count +1000}"  class="progress-bar"></div>
+    </div>
     `;
 }
