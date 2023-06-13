@@ -85,6 +85,11 @@ body{
     display: flex;
 }
 
+#selectedCategory{
+    display: flex;
+    align-items: center;
+}
+
 .add-task-trash-pic{
     margin-right: 10px;
     cursor: pointer;

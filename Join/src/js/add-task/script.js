@@ -137,11 +137,19 @@ function displayCategoryHTML() {
     `
 }
 function displayNewCategoryHTML() {
+    category.splice(0,1);
+    let categoryColorsLength = categoryColors.length - 1;
+    category.push(
+        {
+            color: categoryColors[categoryColorsLength].color,
+            category: `${categoryColors[categoryColorsLength].category}`
+        }
+    )
     let cat = document.getElementById('category');
     cat.style = '';
     cat.classList.add('category-dropdown-div');
     cat.innerHTML = `
-        <div id="selectedCategory">Select a Category</div>
+        <div id="selectedCategory">${categoryColors[categoryColorsLength].category}<span class="circle"style="background-color: ${categoryColors[categoryColorsLength].color};"></span></div>
         <img onclick="openCategories(),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
     `
 }
