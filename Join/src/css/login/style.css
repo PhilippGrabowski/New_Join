@@ -6,7 +6,7 @@ body {
     position: relative;
 }
 
-#login_logo {
+.logo {
     position: absolute;
     top: calc(50vh - 70px);
     left: calc(50vw - 30px);
@@ -130,6 +130,7 @@ body {
     width: 0px;
     height: 0px;
     opacity: 0;
+    order: 1;
 }
 
 .checkmark {
@@ -146,7 +147,7 @@ body {
     position: absolute;
     display: none;
     top: -1px;
-    right: 122px;
+    right: 132px;
     width: 6px;
     height: 12px;
     border: solid black;

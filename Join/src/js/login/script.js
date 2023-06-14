@@ -1,5 +1,6 @@
 /*___________________________________________Settings____________________________________________*/
 
+let logos = ['login_logo', 'login_logo_mobile'];
 let confirmations = ['create_account_confirm', 'reset_password_confirm', 'send_email_confirm', 'email_used_confirm'];
 
 
@@ -9,6 +10,11 @@ let confirmations = ['create_account_confirm', 'reset_password_confirm', 'send_e
  * Starts the animation of the logo and login menu
  */
 function loginAnimation() {
+    if (window.innerWidth <= 560) {
+        mobileAnimation('var(--darkBlue-color)', '0', '1');
+    } else {
+        document.getElementById('login_logo_mobile').style.opacity = '0';
+    }
     setTimeout(() => {
         animateLogo();
     }, 1000)
@@ -21,9 +27,28 @@ function loginAnimation() {
  * Moves the logo to the upper left corner of the screen 
  */
 function animateLogo() {
-    document.getElementById('login_logo').style.top = '5.5rem';
-    document.getElementById('login_logo').style.left = '5.3vw';
-    document.getElementById('login_logo').style.scale = '1.0';
+    for (let i = 0; i < logos.length; i++) {
+        if (window.innerWidth <= 560) {
+            mobileAnimation('var(--white2-color)', '1', '0');
+        }
+        document.getElementById(logos[i]).style.top = '5.5rem';
+        document.getElementById(logos[i]).style.left = '5.3vw';
+        document.getElementById(logos[i]).style.scale = '1.0';
+    };
+   
+}
+
+/**
+ * Changes style of Elements in mobile version
+ * 
+ * @param {String} color - Background-color of body
+ * @param {String} opacity1 - Opacity of login_logo
+ * @param {String} opacity2 - Opacity of login_logo_mobile
+ */
+function mobileAnimation(color, opacity1, opacity2) {
+    document.querySelector('body').style.backgroundColor = color;
+            document.getElementById('login_logo').style.opacity = opacity1;
+            document.getElementById('login_logo_mobile').style.opacity = opacity2;
 }
 
 /**
@@ -47,10 +72,56 @@ function toggleLoginMenu(menu, inputArray, errorReportArray) {
     if (menu == 'signup') {
         toggleMenu('login_container', 'signup_container', 'signup_head_container');
     } else {
-        toggleMenu('login_container', 'forgot_password_container', 'signup_head_container');
+        toggleForgotPasswordContainer();
     }
     clearInputs(inputArray);
     closeErrorReports(errorReportArray);
+}
+
+/**
+ * Opens or closes the forgot password container
+ */
+function toggleForgotPasswordContainer() {
+    let container = document.getElementById('forgot_password_container');
+    if (window.innerWidth > 560) {
+        setPositionContainer(0);
+        toggleMenu('login_container', 'forgot_password_container', 'signup_head_container');
+    } else if (window.innerWidth <= 560 && container.classList.contains('d-none')) {
+        openMobileForgotPasswordContainer();
+    } else {
+        closeMobileForgotPasswordContainer();
+    }
+}
+
+/**
+ * Opens Forgot password container in mobile version
+ */
+function openMobileForgotPasswordContainer() {
+    setPositionContainer(90);
+    toggleMenu('login_container', 'forgot_password_container', 'signup_head_container');
+    setTimeout(() => {
+        setPositionContainer(0);
+    }, 10);
+}
+
+/**
+ * Closes Forgot password container in mobile version
+ */
+function closeMobileForgotPasswordContainer() {
+    setPositionContainer(90);
+    setTimeout(() => {
+        toggleMenu('login_container', 'forgot_password_container', 'signup_head_container');
+    }, 510);
+}
+
+/**
+ * Sets the position of the forgot password container and reset password container
+ * 
+ * @param {Number} y - TranslationY of forgot password container
+ */
+function setPositionContainer(y) {
+    document.getElementById('forgot_password_container').style.transform = `translateY(${y}vh)`;
+    document.getElementById('reset_password_container').style.transform = `translateY(${y}vh)`;
 }
 
 /**
@@ -274,7 +345,11 @@ function confirmAnimation(index) {
  */
 function showConfirmation(index) {
     document.getElementById(confirmations[index]).classList.remove('d-none');
-    document.querySelector('.confirmation_container').style.transform = 'translateY(0vh)';
+    if (window.innerWidth <= 560) {
+        document.querySelector('.confirmation_container').style.transform = 'translateY(40vh)';
+    } else {
+        document.querySelector('.confirmation_container').style.transform = 'translateY(0vh)';
+    }
 }
 
 /**
