@@ -4,6 +4,16 @@
     }
 }
 
+@media (max-width: 1427px) {
+    .impressum button {
+        bottom: -9vh;
+        right: 0px;
+    }
+    .impressum {
+        margin-bottom: 16vh;
+    }
+}
+
 @media (max-width: 1096px) {
     .content {
         padding: 89px 0 0 180px;
@@ -57,6 +67,9 @@
     .privacy_policy h2 {
         margin-top: 20px;
     }
+    .privacy_policy button {
+        bottom: -7vh;
+    }
     h2 {
         margin-bottom: 20px;
     }
@@ -77,5 +90,13 @@
     }
     h3, h4, p, li {
         font-size: var(--font-size-14);
+    }
+    .contact_row {
+        font-size: var(--font-size-14);
+        row-gap: 20px;
+    }
+    .source {
+        font-size: var(--font-size-14);
+        margin-top: 40px;
     }
 }

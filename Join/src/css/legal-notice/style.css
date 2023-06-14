@@ -48,6 +48,12 @@ h2 {
     margin-bottom: 40px;
 }
 
+button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    position: absolute;
+}
+
 /* === Impressum === */
 
 .contact_row {
@@ -85,12 +91,9 @@ h2 {
     text-decoration: underline;
 }
 
-button {
-    padding: 10px 20px;
-    border-radius: 10px;
-    position: absolute;
-    bottom: 7vh;
-    right: 2.3vw;
+.impressum button {
+    bottom: -24vh;
+    right: 0px;
 }
 
 /* === privacy policy === */
@@ -104,7 +107,7 @@ h3, h4, p, li {
     margin-bottom: 15px;
 }
 
-button {
+.privacy_policy button {
     right: 0;
     bottom: -14vh;
 }

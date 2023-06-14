@@ -198,7 +198,7 @@ function openAddContactMenu() {
     document.getElementById('contactForm').setAttribute('onsubmit', 'addContact(); return false;');
     switchContactElements('contactOptionEditContactButtons', 'contactOptionAddContactButtons');
     switchContactElements('editContactInitials', 'addContactUserImg');
-    clearInputs(contactErrorReports);
+    clearInputs(contactInputs);
 }
 
 /**

@@ -53,10 +53,11 @@
                 </div>
             </div>
             <div class="checkbox_container flex-row">
-                <div class="checkbox-row flex-end flex-row">
+                <label class="checkbox-row flex-end flex-row">
                     <input id="remember" type="checkbox" class="curser">
+                    <span id="checkmark" class="checkmark"></span>
                     <span>Remember me</span>
-                </div>
+                </label>
                 <div class="flex-start flex-row">
                     <a class="curser"
                         onclick="toggleLoginMenu('forgotPassword', forgotPasswordInput, forgotPasswordErrorReport)">
@@ -126,7 +127,7 @@
         <span class="subheader">Don't worry! We will send you an email with the instructions to reset your
             password.</span>
         <form id="forgot_password_form" class="forgot_password_input_container flex-column"
-            onsubmit="sendPassword(); return false;">
+            onsubmit="sendEmail(); return false;">
             <div id="forgot_password_email_input_container" class="input flex-row curser">
                 <input required id="forgot_password_email_input" type="email" placeholder="Email" minlength="8"
                     onblur="checkInputOnblur(forgotPasswordInput, 0)">
@@ -155,8 +156,7 @@
             </div>
             <div class="reset_password_input flex-column">
                 <div class="input flex-row curser"><input required id="confirm_password_input" type="password"
-                        placeholder="Confirm password" pattern="^.{7,}$"
-                        onblur="checkInputOnblur(resetPasswordInputs, 1)">
+                        placeholder="Confirm password" pattern="^.{7,}$" onblur="checkConfirmPassword()">
                 </div>
                 <span id="confirm_password_error" class="error">valid password</span>
             </div>

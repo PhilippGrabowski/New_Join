@@ -199,6 +199,9 @@
     .help_info {
         padding-bottom: 35px;
     }
+    .help_mobile_join_headline span {
+        margin-right: 30px;
+    }
 }
 
 @media (max-width: 360px) {

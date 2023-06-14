@@ -93,7 +93,7 @@ let forgotPasswordInput = [
         'inputlenght' : 7,
         'regex' : [regEmail, regEmail, regEmail, regEmail],
         'errorReportID' : 'forgot_password_email_error',
-        'errorReportText' : ['error: email is not valid'],
+        'errorReportText' : ['error: email is not valid', 'error: unknown email'],
         'validReportText' : 'valid email'
     }
 ];
@@ -162,6 +162,25 @@ function checkInputOnblur(inputArray, index) {
         document.getElementById(inputArray[index].errorReportID).style.color = 'var(--white-color)';
     }
     displayValidInputs(inputArray);
+}
+
+/**
+ * Checks confirm Password input
+ * if inputs length < 7 or the input is not matching the new password input, it displays an error message
+ */
+function checkConfirmPassword() {
+    let newPassword = document.getElementById('new_password_input').value;
+    let confirmPassword = document.getElementById('confirm_password_input').value;
+    if (confirmPassword.length >= 7 && confirmPassword.length!= 0) {
+        if (confirmPassword === newPassword) {
+            displayValidInputs(resetPasswordInputs);
+        }
+        else {
+            displayError(resetPasswordErrorReport[1], 'password inputs do not match');
+        }
+    } else {
+        displayError(resetPasswordErrorReport[1], 'error: note password length (>6)');
+    }
 }
 
 /**

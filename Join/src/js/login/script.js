@@ -88,29 +88,14 @@ function toggleResetMenu(inputArray, errorReportArray) {
 function signup() {
     let count = checkValidInputs(signupErrorReports);
     let email = document.getElementById('signup_email_input').value;
+    email = email.toLowerCase();
     if (count == 3 && checkExistingAccount(email)) {
-        createAccount(count);
+        createAccount(email);
         confirmAnimation(0);
         setTimeout(() => {
             toggleMenu('login_container', 'signup_container', 'signup_head_container');
         }, 2500);
     }
-}
-
-/**
- * Creates a new account, pushs and saves it into the accounts array
- */
-function createAccount() {
-    let name = document.getElementById('signup_name_input').value;
-    let email = document.getElementById('signup_email_input').value;
-    let password = document.getElementById('signup_password_input').value;
-    let account = {
-        'name' : name,
-        'email' : email,
-        'password' : password
-    }
-    accounts.push(account);
-    saveAccount();
 }
 
 /**
@@ -129,6 +114,21 @@ function checkExistingAccount(email) {
             return true;
         }
     }
+}
+
+/**
+ * Creates a new account, pushs and saves it into the accounts array
+ */
+function createAccount(email) {
+    let name =  firstLettersToUpperCase();
+    let password = document.getElementById('signup_password_input').value;
+    let account = {
+        'name' : name,
+        'email' : email,
+        'password' : password
+    }
+    accounts.push(account);
+    saveAccount();
 }
 
 /**
@@ -206,10 +206,10 @@ async function loadInputs() {
 /**
  * After checking valid input, this function sends an email for change password
  */
-function sendPassword() {
+function sendEmail() {
     let count = checkValidInputs(forgotPasswordErrorReport);
-    //check existing email
-    if (count == 1) {
+    let existingEmail = checkExistingEmail();
+    if (count == 1 && existingEmail) {
         // Send mail
         confirmAnimation(2);
         setTimeout(() => {
@@ -218,9 +218,42 @@ function sendPassword() {
     }
 }
 
-function changePassword() {
-
+/**
+ * Returns true, if email exists, if not it displays an error message
+ * 
+ * @returns {boolean}
+ */
+function checkExistingEmail() {
+    let email = document.getElementById('forgot_password_email_input').value;
+    for (let i = 0; i < accounts.length; i++) {
+        if (email === accounts[i].email) {
+            document.getElementById('reset_password_form').setAttribute('onsubmit', `resetPassword(${i}); return false;`);
+            return true;
+        }
+    }
+    displayError(forgotPasswordErrorReport[0], 'error: unknown email');
 }
+
+/**
+ * Resets the password of the account with the corresponding index from the accounts array
+ * 
+ * @param {Number} index - Index of accounts array
+ */
+async function resetPassword(index) {
+    let newPassword = document.getElementById('new_password_input').value;
+    let count = checkValidInputs(resetPasswordErrorReport);
+    if (count == 2) {
+        accounts[index].password = newPassword;
+        await saveAccount()
+        confirmAnimation(1);
+        setTimeout(() => {
+            toggleMenu('login_container', 'reset_password_container', 'signup_head_container');
+        }, 2500);
+    }
+}
+
+
+/*__________________________________________Confirm Functions___________________________________________*/
 
 /**
  * Shows the confirmation and hide it after 2 seconds
@@ -240,6 +273,9 @@ function confirmAnimation(index) {
  * @param {Number} index - Index of confirmations array
  */
 function showConfirmation(index) {
+    for (let i = 0; i < confirmations.length; i++) {
+        document.getElementById(confirmations[i]).classList.add('d-none');
+    }
     document.querySelector('.confirmation_container').classList.remove('d-none');
     document.getElementById(confirmations[index]).classList.remove('d-none');
     document.querySelector('.confirmation_container').style.transform = 'translateY(0vh)';
@@ -254,4 +290,29 @@ function hideConfirmation(index) {
     document.querySelector('.confirmation_container').style.transform = 'translateY(60vh)';
     document.getElementById(confirmations[index]).classList.remove('d-none');
     document.querySelector('.confirmation_container').classList.remove('d-none');
+}
+
+
+/*__________________________________________Global Functions___________________________________________*/
+
+/**
+ * Returns the firstname (if exist secondname) and lastname where the first letter is an uppercase letter
+ * name is converted to an array of all characters
+ * while looping through the array, after each blank character the following character is converted to an uppercase letter
+ * then the array is converted back to a string
+ * 
+ * @returns {string} - Name of contact
+ */
+function firstLettersToUpperCase() {
+    let name = document.getElementById('signup_name_input').value;
+    name = name.toLowerCase();
+    let chars = Array.from(name);
+    chars[0] = chars[0].toUpperCase();
+    for (let i = 0; i < chars.length; i++) {
+        if (chars[i] === ' ') {
+            chars[i + 1] = chars[i + 1].toUpperCase();
+        }
+    }
+    name = chars.join('');
+    return name;
 }
