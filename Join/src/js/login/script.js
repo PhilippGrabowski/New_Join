@@ -273,10 +273,6 @@ function confirmAnimation(index) {
  * @param {Number} index - Index of confirmations array
  */
 function showConfirmation(index) {
-    for (let i = 0; i < confirmations.length; i++) {
-        document.getElementById(confirmations[i]).classList.add('d-none');
-    }
-    document.querySelector('.confirmation_container').classList.remove('d-none');
     document.getElementById(confirmations[index]).classList.remove('d-none');
     document.querySelector('.confirmation_container').style.transform = 'translateY(0vh)';
 }
@@ -288,8 +284,9 @@ function showConfirmation(index) {
  */
 function hideConfirmation(index) {
     document.querySelector('.confirmation_container').style.transform = 'translateY(60vh)';
-    document.getElementById(confirmations[index]).classList.remove('d-none');
-    document.querySelector('.confirmation_container').classList.remove('d-none');
+    setTimeout(() => {
+        document.getElementById(confirmations[index]).classList.add('d-none');
+    }, 1000);
 }
 
 
