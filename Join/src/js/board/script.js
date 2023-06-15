@@ -40,6 +40,7 @@ function updateHTML(){
 
 function getCategoryColor(element, boxCount){
     let categoryToSearch = categoryColors.filter(t => t['category'] === element);
+    console.log(categoryToSearch);
     let color = categoryToSearch[0]['color'];
     document.getElementById(`category-tag${boxCount}`).style = `background-color: ${color};`
 }
@@ -116,9 +117,13 @@ function checkBoxStatus(count){
     let checkbox = document.getElementById(`subtaskCheckbox${count}`);
     let currentTask = getCurrentTask();
     if(checkbox.checked){
+        checkbox.checked = true;
         currentTask['subtask'][0]['checked'][count] = 'true';
+        saveRemote();
     } else{
+        checkbox.checked = false;
         currentTask['subtask'][0]['checked'][count] = 'false';
+        saveRemote();
     }
     
       setPopUpProgress(currentTask, count +1000);
@@ -221,10 +226,27 @@ function openTaskPopUp(id){
     renderPopUpDetails(id);
     renderSubtasks(id);
     renderAssignedContacts(id);
+    getCheckBoxStatus(id);
     document.getElementById('task-popup-background').classList.remove('d-none');
 }
 
+function getCheckBoxStatus(id){
+    let index = getIndexOfTask(id)
+    let currentTask = tasks[index];
+    let checkedStatus = currentTask['subtask'][0]['checked'];
+
+    for (let i = 0; i < checkedStatus.length; i++) {
+        const element = checkedStatus[i];
+        if (element == 'true') {
+            document.getElementById(`subtaskCheckbox${i}`).checked = true;
+        } else {
+            document.getElementById(`subtaskCheckbox${i}`).checked = false;
+        }
+    }
+}
+
 function closeTaskPopUp(){
+    updateHTML();
     document.getElementById('task-popup-background').classList.add('d-none');
 }
 
@@ -320,7 +342,31 @@ function getFirstCharofLastname(contactName) {
     return char;
 }
 
-function calculateNewProgress(){
-    let percentage;
+function searchForTask(){
+    let boxCount = 0;
+    let searchWord = document.getElementById('search-task').value;
+    let temporarySearchArray = runSearch(searchWord);
+    console.log(temporarySearchArray);
+    for (let i = 0; i < container.length; i++) {
+        const element = container[i];
+        let section = document.getElementById(`${element}`)
+        section.innerHTML = '';
+        for (let j = 0; j < temporarySearchArray.length; j++) {
+            const element = temporarySearchArray[j];
+            let category = element['category'][0];
+            section.innerHTML += generateTaskCard(element, category);
+            getCategoryColor(element['category'][0]['category'], boxCount);
+            checkForSubtask(element, boxCount);
+            renderContactInitials(element);
+            boxCount++;
+        }
+        box.innerHTML += `<div class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
+    }
+     
+}
 
+function runSearch(searchWord){
+    let filteredElements = tasks.filter(t => t['title'].includes(searchWord));
+    console.log(filteredElements);
+    return filteredElements;
 }

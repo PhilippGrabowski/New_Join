@@ -1,7 +1,7 @@
 //<----------------------------------------------- generate HTML functions ---------------------------------------------------------------->
 function generateTaskCard(element, category, boxCount){
     return /*html*/`
-        <div id="taskBox" draggable="true" onclick="openTaskPopUp(${element['id']})" ondragstart="startDragging(${element['id']})" class="board-task-box flex-column">
+        <div id="taskBox${element['id']}" draggable="true" onclick="openTaskPopUp(${element['id']})" ondragstart="startDragging(${element['id']})" class="board-task-box flex-column">
             <div>
                 <span id="category-tag${boxCount}" class="category-tag" style="background-color:${category['color']};">${category['category']}</span>
                 <h3>${element['title']}</h3>
