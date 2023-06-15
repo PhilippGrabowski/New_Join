@@ -31,7 +31,7 @@ function animateLogo() {
         if (window.innerWidth <= 560) {
             mobileAnimation('var(--white2-color)', '1', '0');
         }
-        document.getElementById(logos[i]).style.top = '5.5rem';
+        document.getElementById(logos[i]).style.top = '5.3vh';
         document.getElementById(logos[i]).style.left = '5.3vw';
         document.getElementById(logos[i]).style.scale = '1.0';
     };

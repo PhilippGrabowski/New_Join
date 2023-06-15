@@ -51,7 +51,7 @@
         width: 90vw;
         max-width: 500px;
         height: 575px;
-        padding: 35px 22px;
+        padding: 35px 10vw;
     }
     .headline {
         font-size: var(--font-size-47);
@@ -97,7 +97,7 @@
     #signup_head_container {
         position: absolute;
         top: unset;
-        bottom: 100px;
+        bottom: 5vh;
         right: calc(50vw - 132px);
         align-items: center;
         gap: 35px;
@@ -111,6 +111,9 @@
     #reset_password_container .headline, 
     #forgot_password_container .headline {
         margin-top: 30px;
+    }
+    .confirmation_container {
+        font-size: var(--font-size-16);
     }
 }
 
@@ -137,6 +140,7 @@
         font-size: var(--font-size-18);
     }
     #login_button,
+    #signup_button,
     #guest_login_button {
         width: 60vw;
         font-size: var(--font-size-18);
@@ -145,5 +149,85 @@
     #forgot_password_button {
         font-size: var(--font-size-18);
         width: 200px;
+    }
+}
+
+@media (max-height: 900px) and (min-width: 560px) {
+    .logo {
+        width: 75px;
+    }
+    #login_container, #signup_container {
+        min-height: 450px;
+        height: 49.8vh;
+        max-height: 510px;
+        padding: 25px 100px;
+        gap: 25px;
+        margin-top: 5vh;
+    }
+    #signup_button {
+        margin-top: 0;
+    }
+    .input_container {
+        gap: 20px;
+    }
+    .headline {
+        font-size: var(--font-size-47);
+    }
+    .form {
+        gap: 15px;
+    }
+    .input {
+        height: 40px;
+    }
+}
+
+@media (max-height: 900px) and (max-width: 560px) {
+    .logo {
+        width: 50px;
+    }
+    #login_container, #signup_container {
+        height: 530px;
+        padding: 25px 10vw;
+        gap: 25px;
+    }
+    .headline {
+        font-size: var(--font-size-36);
+    }
+    .input_container {
+        gap: 20px;
+    }
+    #login_button,
+    #signup_button,
+    #guest_login_button {
+        font-size: var(--font-size-18);
+    }
+}
+
+@media (max-height: 900px) and (max-width: 360px) {
+    .checkmark:after {
+        left: calc(50vw - 102px);
+    }
+}
+
+@media (max-height: 768px) and (min-width: 560px) {
+    .checkmark:after {
+       right: 120px;
+    }
+    #login_container, #signup_container {
+        min-height: 410px;
+        margin-top: 10vh;
+    }
+}
+
+@media (max-height: 768px) and (max-width: 560px) {
+    #login_container, #signup_container {
+        height: 500px;
+        margin-top: 0;
+    }
+}
+
+@media (max-height: 768px) and (max-width: 360px) {
+    .checkmark:after {
+        left: calc(50vw - 96px);
     }
 }
