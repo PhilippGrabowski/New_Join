@@ -80,3 +80,16 @@ function toggleHelp() {
 function stopPropagation(event) {
     event.stopPropagation();
 }
+
+function logout() {
+    resetLoginStatus();
+    document.location.href = 'login.html';
+}
+
+function resetLoginStatus() {
+    for (let i = 0; i < accounts.length; i++) {
+        accounts[i].online = false;
+        accounts[i].greeting = 0;
+    }
+    saveAccount();
+}

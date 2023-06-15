@@ -12,27 +12,89 @@ let priorities = ['urgent', 'medium', 'low'];
  * a greeting is generated depending on the time
  * depending on the screen size, the greeting of the mobile version is additionally generated
  */
-function renderGreeting() {
+async function renderGreeting() {
+    await loadAccounts();
+    let onlineAccountIndex = getOnlineAccountIndex();
     let greeting = document.getElementById('greeting');
     let mobileGreeting = document.getElementById('mobile_greeting');
     let hour = getHour();
-    if ((window.innerWidth <= 1096 && window.innerHeight <= 768) || (window.innerWidth <= 1300 && window.innerHeight > 768)) {
-        renderGreetingText(hour, mobileGreeting);
-        renderGreetingText(hour, greeting);
-        setTimeout(() => {
-            document.getElementById('mobile_greeting_container').classList.add('d-none');
-        }, 2000);
+    if (secondMobileGreeting(onlineAccountIndex)) {
+        document.getElementById('mobile_greeting_container').classList.add('d-none');
+        renderGreetingText(hour, greeting, onlineAccountIndex);
+    } else if (firstMobileGreeting(onlineAccountIndex)) {
+        renderMobileGreetingText(hour, greeting, mobileGreeting, onlineAccountIndex);
     } else {
-        renderGreetingText(hour, greeting);
+        renderGreetingText(hour, greeting, onlineAccountIndex);
     }
 }
 
 /**
- * Generated greeting
+ * Returns the Index of the online account or -1 for guest login
+ * 
+ * @returns {Number}
+ */
+function getOnlineAccountIndex() {
+    for (let i = 0; i < accounts.length; i++) {
+        if (accounts[i].online === true) {
+            return i;
+        } else if (i === accounts.length - 1) {
+            return -1;
+        }
+    }
+}
+
+/**
+ * Returns true if the if request matches or false if not
+ * 
+ * @param {Number} index - Index of accounts array
+ * @returns {Boolean}
+ */
+function firstMobileGreeting(index) {
+    if (index >= 0) {
+        return ((window.innerWidth <= 1096 && window.innerHeight <= 768) || (window.innerWidth <= 1300 && window.innerHeight > 768))
+            && accounts[index].greeting == 0;
+    } else {
+        return ((window.innerWidth <= 1096 && window.innerHeight <= 768) || (window.innerWidth <= 1300 && window.innerHeight > 768))
+            && index == -1;
+    }
+}
+
+/**
+ * Returns true if the if request matches or false if not
+ * 
+ * @param {Number} index - Index of accounts array
+ * @returns {Boolean}
+ */
+function secondMobileGreeting(index) {
+    if ((index >= 0 && accounts[index].greeting == 1) || index == -1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Generates greeting and the name of online account for mobile version
+ * 
+ * @param {Number} hour - Hour of the current time
+ * @param {*} greeting - Greeting container
+ * @param {*} mobileGreeting - Mobile greeting container
+ * @param {Number} index - Index of accounts array
+ */
+function renderMobileGreetingText(hour, greeting, mobileGreeting, index) {
+    renderGreetingText(hour, mobileGreeting, index);
+    renderGreetingText(hour, greeting, index);
+    setTimeout(() => {
+        document.getElementById('mobile_greeting_container').classList.add('d-none');
+    }, 2000);
+}
+
+/**
+ * Generates greeting and the name of online account
  * 
  * @param {number} hour - Hour of the current time
  */
-function renderGreetingText(hour, greeting) {
+function renderGreetingText(hour, greeting, index) {
     if (hour >= 6 && hour <= 11) {
         greeting.innerHTML = 'Good morning,';
     } else if (hour >= 12 && hour <= 18) {
@@ -42,10 +104,40 @@ function renderGreetingText(hour, greeting) {
     } else {
         greeting.innerHTML = 'Good night,';
     }
+    renderAccountName(index);
+}
+
+/**
+ * Generates the name of the online account or Guest
+ * 
+ * @param {Number} index - Index of accounts array
+ */
+function renderAccountName(index) {
+    if (index >= 0) {
+        fillAccountName(accounts[index].name);
+        accounts[index].greeting = 1;
+        saveAccount();
+    } else {
+        fillAccountName('Guest');
+    }
+}
+
+/**
+ * Generates the name of the online account for all account_name containers
+ * 
+ * @param {String} accountName - Name of the account
+ */
+function fillAccountName(accountName) {
+    let nameContainer = document.querySelectorAll('.account_name');
+    nameContainer.forEach(name => {
+        name.innerHTML = accountName;
+    });
 }
 
 /**
  * Returns the hour of the current time
+ *
+ * @returns {Number}
  */
 function getHour() {
     let date = new Date();
@@ -57,7 +149,7 @@ function getHour() {
  * Hides mobile greeting while resizing window 
  */
 window.addEventListener('resize', function() {
-    if (window.innerWidth <= 1096) {
+    if ((window.innerWidth <= 1096 && window.innerHeight <= 768) || (window.innerWidth <= 1300 && window.innerHeight > 768)) {
         document.getElementById('mobile_greeting_container').classList.add('d-none');
     }
 })

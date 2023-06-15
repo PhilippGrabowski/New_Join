@@ -6,7 +6,7 @@
 
 @media (max-width: 1427px) {
     .impressum button {
-        bottom: -9vh;
+        bottom: -45px;
         right: 0px;
     }
     .impressum {
@@ -46,6 +46,9 @@
     }
     .leg_notice_container {
         margin-top: 55px;
+    }
+    .impressum button {
+        bottom: -95px;
     }
 }
 
@@ -98,5 +101,14 @@
     .source {
         font-size: var(--font-size-14);
         margin-top: 40px;
+    }
+}
+
+@media (max-height: 960px) {
+   .impressum {
+        margin-top: 55px;
+    }
+   .content_header_headline {
+        font-size: var(--font-size-47);
     }
 }

@@ -22,7 +22,7 @@
     <title>Join - Summary</title>
 </head>
 
-<body onload="includeHTML(); renderGreeting(); fillSummaryContent()" onclick="closeHeaderMenu()">
+<body onload="includeHTML(); renderGreeting(); fillSummaryContent();" onclick="">
 
     <div id="header_includer" w3-include-html="src/templates/header.html"></div>
     <div id="sidebar_includer" w3-include-html="src/templates/sidebar.html"></div>
@@ -93,18 +93,17 @@
                         </a>
                     </div>
                 </div>
-                <div class="space"></div>
                 <div class="greeting_container flex-column">
                     <span id="greeting"></span>
-                    <span>Sofia Müller</span>
+                    <span class="account_name"></span>
                 </div>
             </div>
         </div>
     </section>
     <div id="mobile_greeting_container" class="grid">
         <div class="mobile_greeting_container flex-column">
-            <span id="mobile_greeting">Good morning,</span>
-            <span>Sofia Müller</span>
+            <span id="mobile_greeting"></span>
+            <span class="account_name"></span>
         </div>
     </div>
 

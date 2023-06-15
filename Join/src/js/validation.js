@@ -3,7 +3,7 @@
 const regName1 = new RegExp('^[a-zA-ZäöüßÄÖÜ]+$');
 const regName2 = new RegExp('^[A-Za-zÄäÜüÖöß\\s]+$');
 const regName3 = new RegExp('^(?!.* {2})[A-Za-zÄäÜüÖöß\\s]+$');
-const regName4 = new RegExp('^(?!.* {2})[a-zA-Z][a-zA-Z]*([ ]+[a-zA-Z][a-zA-Z]*)+$');
+const regName4 = new RegExp('^(?!.* {2})[a-zA-ZÄäÜüÖö][a-zA-ZÄäÜüÖöß]*([ ]+[a-zA-ZÄäÜüÖö][a-zA-ZÄäÜüÖöß]*)+$');
 const regPhone1 = new RegExp('^[0-9+]+$');
 const regPhone2 = new RegExp('^[0-9+][0-9\\s]*$');
 const regPhone3 = new RegExp('^(?!.* {2})[0-9+][0-9\\s]*$');

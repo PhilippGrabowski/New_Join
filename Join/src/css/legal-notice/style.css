@@ -55,6 +55,9 @@ button {
 }
 
 /* === Impressum === */
+.impressum {
+    position: relative;
+}
 
 .contact_row {
     font-size: var(--font-size-21);

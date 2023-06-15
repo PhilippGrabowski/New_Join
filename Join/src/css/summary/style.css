@@ -47,10 +47,11 @@
     border-radius: 3px;
 }
 
-
 #summary_container {
-    margin-top: 85px;
+    justify-content: center;
     align-items: center;
+    margin-top: 85px;
+    gap: 35px;
 }
 
 #summary_container a {
@@ -92,8 +93,10 @@
 }
 
 .greeting_container {
+    width: 100%;
     height: 100%;
     justify-content: center;
+    align-items: center;
     gap: 3px;
 }
 
@@ -105,6 +108,7 @@
 
 .greeting_container span ~ span,
 .mobile_greeting_container span ~ span {
+    text-align: center;
     font-weight: 700;
     font-size: var(--font-size-64);
     color: var(--blue-color);
@@ -227,10 +231,6 @@
 
 .personal_task_container:hover .edit_task_img path {
     fill: var(--darkBlue2-color);
-}
-
-.space {
-    width: clamp(54px, 5vw, 140px);
 }
 
 #mobile_greeting_container {

@@ -177,13 +177,17 @@ function signup() {
  * @returns {boolean}
  */
 function checkExistingAccount(email) {
-    for (let i = 0; i < accounts.length; i++) {
-        if (accounts[i].email === email) {
-            confirmAnimation(3);
-            break;
-        } else {
-            return true;
+    if (accounts.length > 0) {
+        for (let i = 0; i < accounts.length; i++) {
+            if (accounts[i].email === email) {
+                confirmAnimation(3);
+                break;
+            } else {
+                return true;
+            }
         }
+    } else {
+        return true;
     }
 }
 
@@ -196,30 +200,26 @@ function createAccount(email) {
     let account = {
         'name' : name,
         'email' : email,
-        'password' : password
+        'password' : password,
+        'online' : false,
+        'greeting' : 0
     }
     accounts.push(account);
     saveAccount();
 }
 
 /**
- * changes the array accounts from json array to string and saves it in the remote storage
- */
-async function saveAccount() {
-    await setItem('account', JSON.stringify(accounts));
-}
-
-/**
  * Checks email and password to enter the join
  */
 function login() {
+    resetLoginStatus();
     let email = document.getElementById('login_email_input').value;
     let password = document.getElementById('login_password_input').value;
     for (let i = 0; i < accounts.length; i++) {
         if (accounts[i].email === email) {
             checkPassword(password, i);
             break
-        } else {
+        } else if (i === accounts.length - 1) {
             displayError('login_email_error', 'error: email is not known');
         }
     }
@@ -234,6 +234,8 @@ function login() {
 async function checkPassword(password, index) {
     if (accounts[index].password === password) {
         await rememberLoginData(index);
+        accounts[index].online = true;
+        saveAccount();
         document.location.href = 'summary.html';
     } else {
         displayError('login_password_error', 'error: wrong password');
@@ -251,7 +253,7 @@ async function rememberLoginData(index) {
         loginData = [];
         loginData.push({
             email: accounts[index].email,
-            password: accounts[index].password
+            password: accounts[index].password 
         });
         await setItem('login', JSON.stringify(loginData));
     } else {

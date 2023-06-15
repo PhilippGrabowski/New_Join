@@ -10,6 +10,8 @@ let tasks = [];
 let contacts = [];
 let accounts = [];
 let loginData = [];
+
+
 /*______________________________Storage Functions_______________________________*/
 
 /**
@@ -62,6 +64,13 @@ async function loadAccounts() {
         let loadedAccount = account[i];
         accounts.push(loadedAccount);  
     }
+}
+
+/**
+ * changes the array accounts from json array to string and saves it in the remote storage
+ */
+async function saveAccount() {
+    await setItem('account', JSON.stringify(accounts));
 }
 
 /**
