@@ -1,6 +1,7 @@
 
 let container = ['board-to-do', 'board-in-progress', 'board-awaiting-feedback', 'board-task-done'];
 let stat = ['to-do', 'in-progress', 'awaiting-feedback', 'done'];
+let previousProgress;
 let currentDraggedElement;
 
 
@@ -51,6 +52,14 @@ function checkForSubtask(element, boxCount){
     }
 }
 
+function checkForSubtaskPopUp(element, boxCount){
+    let subtask = element['subtask'][0]['subtask_Name'];
+    if(subtask.length > 0){
+        document.getElementById(`progressContainer${boxCount}`).classList.remove('d-none');
+        setPopUpProgress(element, boxCount);
+    }
+}
+
 function setProgress(element, boxCount){
     const counts = {};
     let arrayToSearch = element['subtask'][0]['checked'];
@@ -73,27 +82,55 @@ function setProgress(element, boxCount){
         progressBar.innerHTML = `0/${arrayToSearch.length}`;
     };
     progressBar.classList.add(`w-${currentProgress}`);
-    //setNewProgress(currentProgress, boxCount, arrayToSearch, counts, currentProgress);
+
 }
 
-function setNewProgress(count){
-    let progressBar = document.getElementById(`progressContainer${count +1000}`);
-    let newProgress = calculateNewProgress();
+function setPopUpProgress(element, boxCount){
+    const counts = {};
+    let arrayToSearch = element['subtask'][0]['checked'];
+    for (let i = 0; i < arrayToSearch.length; i++) {
+        counts[arrayToSearch[i]] = (counts[arrayToSearch[i]] + 1) || 1;   
+    }
+    console.log(counts);
+    
+    let currentProgress = 100 / (arrayToSearch.length/counts['true']);
+    if(!currentProgress){
+        currentProgress = 0;
+    }
+    
+    console.log(currentProgress)
+
+    let progressBar = document.getElementById(`progress`);
+    if (currentProgress > 0) {
+        progressBar.innerHTML = `${counts['true']}/${arrayToSearch.length}`; 
+    }else {
+        progressBar.innerHTML = `0/${arrayToSearch.length}`;
+    };
+    progressBar.classList.remove(`w-${previousProgress}`);
+    progressBar.classList.add(`w-${currentProgress}`);
+    previousProgress = currentProgress;
+
 }
 
 function checkBoxStatus(count){
     let checkbox = document.getElementById(`subtaskCheckbox${count}`);
-    let currentTask = getIndexOfCurrentTask();
-    //if(checkbox.checked){
-    //    setProgress(tasks[]);
-    //};
+    let currentTask = getCurrentTask();
+    if(checkbox.checked){
+        currentTask['subtask'][0]['checked'][count] = 'true';
+    } else{
+        currentTask['subtask'][0]['checked'][count] = 'false';
+    }
+    
+      setPopUpProgress(currentTask, count +1000);
+    
 }
 
-function getIndexOfCurrentTask(){
+function getCurrentTask(){
    let currentPopUpHeadline = document.getElementsByClassName('task-popup-headline-main task-popup-margin');
    let currentHeadlineText = currentPopUpHeadline[0]['innerText'];
    let currentElement = tasks.filter(t => t['title'] === currentHeadlineText);
-   return currentElement[0]['id'];
+   console.log(currentElement);
+   return currentElement[0];
 }
 
 /**
@@ -222,7 +259,7 @@ function renderSubtasks(id){
         subtaskContainer.innerHTML += generateSubtaskSection(subtask, i);
     }
     subtaskContainer.innerHTML += generatePopUpProgressBar(index);
-    checkForSubtask(tasks[index], index +1000);
+    checkForSubtaskPopUp(tasks[index], index +1000);
 }
 
 function renderContactInitials(element){
