@@ -343,30 +343,14 @@ function getFirstCharofLastname(contactName) {
 }
 
 function searchForTask(){
-    let boxCount = 0;
     let searchWord = document.getElementById('search-task').value;
-    let temporarySearchArray = runSearch(searchWord);
-    console.log(temporarySearchArray);
-    for (let i = 0; i < container.length; i++) {
-        const element = container[i];
-        let section = document.getElementById(`${element}`)
-        section.innerHTML = '';
-        for (let j = 0; j < temporarySearchArray.length; j++) {
-            const element = temporarySearchArray[j];
-            let category = element['category'][0];
-            section.innerHTML += generateTaskCard(element, category);
-            getCategoryColor(element['category'][0]['category'], boxCount);
-            checkForSubtask(element, boxCount);
-            renderContactInitials(element);
-            boxCount++;
+    for (let i = 0; i < tasks.length; i++) {
+        const element = tasks[i];
+        if (!element['title'].includes(searchWord)) {
+            document.getElementById(`taskBox${i +1}`).classList.add('d-none');
+        } else {
+            document.getElementById(`taskBox${i +1}`).classList.remove('d-none');
         }
-        box.innerHTML += `<div class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
     }
-     
-}
-
-function runSearch(searchWord){
-    let filteredElements = tasks.filter(t => t['title'].includes(searchWord));
-    console.log(filteredElements);
-    return filteredElements;
+        
 }
