@@ -15,9 +15,9 @@
             
             <div class="form-div">
                 <span>Category</span>
-                <div id="category" class="category-dropdown-div">
+                <div onclick="openCategories(),displayCategories()" id="category" class="category-dropdown-div cursor">
                     <div id="selectedCategory">Select a Category</div>
-                    <img onclick="openCategories(),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
+                    <img  class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
                 <div class="d-none" id="showCat">
                     <div class="cat">New Category</div>
@@ -26,9 +26,9 @@
             </div>
             <div class="form-div">
                 <span>Assigned to</span>
-                <div id="assigned" class="assigned-dropdown-div">
+                <div onclick="openAssignedTo(), renderContacts()" id="assigned" class="assigned-dropdown-div cursor">
                     <div id="assignedPeople">Assigned to</div>
-                    <img onclick="openAssignedTo(), renderContacts()" class="cursor" src="src/img/dropdown-arrow.svg">
+                    <img  class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
                 <div class="d-none" id="showAssigned">
                     

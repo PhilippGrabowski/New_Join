@@ -225,9 +225,9 @@ function initial() {
     let descriptionNote = document.getElementById('descValidationText');
     let dueDate = document.getElementById('dueDate');
     let dateNote = document.getElementById('dateValidationText');
-    if (title.value != 0) {titleNote.classList.add('d-none'); }
-    if (description.value != 0) {descriptionNote.classList.add('d-none');}
-    if (dueDate.value != 0) {dateNote.classList.add('d-none');}
+    if (title.value != 0) { titleNote.classList.add('d-none'); }
+    if (description.value != 0) { descriptionNote.classList.add('d-none'); }
+    if (dueDate.value != 0) { dateNote.classList.add('d-none'); }
     title.onclick = ''; description.onclick = ''; dueDate.onclick = '';
     setTimeout(initial, 100);
 }
@@ -312,11 +312,15 @@ function renderContacts() {
         list.innerHTML = '';
         for (let i = 0; i < contacts.length; i++) {
             list.innerHTML += `
-            <div class="contact-container">
+            <div onclick="assignTask(${i})" class="contact-container cursor">
             ${contacts[i].name}
-            <input onclick="assignTask(${i})" class="cursor" type="checkbox" id="contact${contacts[i].id}">
+            <input class="cursor" type="checkbox" id="contact${contacts[i].id}">
             </div>`
         }
+        list.innerHTML += `
+        <div class="contact-container cursor">
+            Invite New Contact
+        </div>` ;
         firstRender = false;
     }
 }
@@ -335,23 +339,17 @@ function assignTask(i) {
     let checkbox = document.getElementById(`contact${contacts[i].id}`);
     let assignedTask = document.getElementById('assignedPeople');
     let assignedTaskNote = document.getElementById('assignedValidationText');
-    if (checkbox.checked) {
-        assignedContacts.push(
-            {
+    if (!checkbox.checked) { assignedContacts.push({
                 'name': contacts[i].name,
                 'initials': contacts[i].initials,
                 'id': contacts[i].id,
                 'color': contacts[i].color
-            }
-        );
-        renderContactBubbles();
-        checkAssigned = true;
-    }
-    else if (!checkbox.checked) {
-        removeObjectWithId(assignedContacts, contacts[i].id);
-        renderContactBubbles();
-    }
-    if(assignedTask.textContent != 0){checkAssigned = true; assignedTaskNote.classList.add('d-none');}
+            });
+        checkbox.checked = true;
+    } else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; }
+    renderContactBubbles();
+    checkAssigned = true;
+    if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
 }
 
 
@@ -384,7 +382,7 @@ function selectedPrio(selected) {
     setSelectedColor(selected);
     resetSelectedColor(selected);
     let chosenPrioNote = document.getElementById('prioValidationText').classList.add('d-none');
-    
+
 }
 
 /* Sets the chosen Category by the User and will be seen on The Add Task Site */
@@ -405,7 +403,7 @@ function selectCategory(cat) {
             category: `${categoryColors[cat].category}`
         }
     )
-    if(chosenCat.textContent != 0){checkCat = true; chosenCatNote.classList.add('d-none');}
+    if (chosenCat.textContent != 0) { checkCat = true; chosenCatNote.classList.add('d-none'); }
 }
 
 /* Sets the Color of the Priorities for a Visual Feedback effect */
