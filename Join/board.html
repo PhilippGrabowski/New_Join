@@ -23,7 +23,7 @@
     <title>Join - Board</title>
 </head>
 
-<body onload="includeHTML(); init()" onclick="closeHeaderMenu()">
+<body onload="includeHTML(); init(); loadAccounts();" onclick="closeHeaderMenu()">
 
     <div id="add-task-overlay" class="add-task-overlay" style="transform: translateX(3500px);">
         <div id="add-task-container-board" class="add-task-container-board">
@@ -38,7 +38,7 @@
         <div class="task-popup" id="task-popup">
             <img onclick="closeTaskPopUp()" class="close-task-popup" src="src/img/close-window.png">
             <div id="popup-content"></div>
-            
+
         </div>
     </div>
 
@@ -46,7 +46,7 @@
     <div id="sidebar_includer" w3-include-html="src/templates/sidebar.html"></div>
 
     <div id="mobile_header_includer" w3-include-html="src/templates/header-mobile.html"></div>
-    
+
 
     <div id="help_includer" w3-include-html="src/templates/help.html" class="d-none"></div>
 
@@ -55,7 +55,8 @@
             <div class="flex-row" id="board-header">
                 <h1>Board</h1>
                 <div id="search-and-add" class="flex-row">
-                    <input onkeyup="searchForTask()" class="search-icon" id="search-task" placeholder="Find Task" type="text">
+                    <input onkeyup="searchForTask()" class="search-icon" id="search-task" placeholder="Find Task"
+                        type="text">
                     <button onclick="openAddTask()" id="add-task-button" class="button flex-row button-hover">Add task
                         <img class="filter-white" src="./src/img/plus.svg"></button>
                 </div>
@@ -69,7 +70,8 @@
                     <div class="task-column-header">
                         <div class="flex-row align-task-column-header">
                             <h2>To do</h2>
-                            <img class="hover-white-button" src="src/img/plus-button.svg" onclick="openAddTask('to-do')">
+                            <img class="hover-white-button" src="src/img/plus-button.svg"
+                                onclick="openAddTask('to-do')">
                         </div>
                     </div>
                     <div class="task-container flex-column" id="board-to-do">
@@ -83,7 +85,8 @@
                     <div class="task-column-header flex-row">
                         <div class="flex-row align-task-column-header">
                             <h2> In progress</h2>
-                            <img class="hover-white-button" src="src/img/plus-button.svg" onclick="openAddTask('in-progress')">
+                            <img class="hover-white-button" src="src/img/plus-button.svg"
+                                onclick="openAddTask('in-progress')">
                         </div>
                     </div>
                     <div class="task-container flex-column" id="board-in-progress">
@@ -97,7 +100,8 @@
                     <div class="task-column-header flex-row">
                         <div class="flex-row align-task-column-header">
                             <h2>Awaiting feedback</h2>
-                            <img class="hover-white-button" src="src/img/plus-button.svg" onclick="openAddTask('awaiting-feedback')">
+                            <img class="hover-white-button" src="src/img/plus-button.svg"
+                                onclick="openAddTask('awaiting-feedback')">
                         </div>
                     </div>
                     <div class="task-container flex-column" id="board-awaiting-feedback">

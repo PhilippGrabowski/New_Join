@@ -14,12 +14,14 @@
     <link rel="stylesheet" href="src/css/template-styles/help.css">
     <link rel="stylesheet" href="src/css/legal-notice/style.css">
     <link rel="stylesheet" href="src/css/legal-notice/mqueries.css">
-    <script src="src/js/global.js"></script>
+    <script src="src/js/storage.js"></script>
+    <script src="src/js/validation.js"></script>
     <script src="src/js/legal-notice/script.js"></script>
+    <script src="src/js/global.js"></script>
     <title>Join - Legal Notice</title>
 </head>
 
-<body onload="includeHTML()" onclick="closeHeaderMenu()">
+<body onload="includeHTML(); loadAccounts();" onclick="closeHeaderMenu()">
 
     <div id="header_includer" w3-include-html="src/templates/header.html"></div>
     <div id="sidebar_includer" w3-include-html="src/templates/sidebar.html"></div>

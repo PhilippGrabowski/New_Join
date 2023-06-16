@@ -112,11 +112,11 @@ function renderGreetingText(hour, greeting, index) {
  * 
  * @param {Number} index - Index of accounts array
  */
-function renderAccountName(index) {
+async function renderAccountName(index) {
     if (index >= 0) {
         fillAccountName(accounts[index].name);
         accounts[index].greeting = 1;
-        saveAccount();
+        await saveAccount();
     } else {
         fillAccountName('Guest');
     }

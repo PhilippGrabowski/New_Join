@@ -156,12 +156,12 @@ function toggleResetMenu(inputArray, errorReportArray) {
 /**
  * Creates a new account and animates the confirmation
  */
-function signup() {
+async function signup() {
     let count = checkValidInputs(signupErrorReports);
     let email = document.getElementById('signup_email_input').value;
     email = email.toLowerCase();
     if (count == 3 && checkExistingAccount(email)) {
-        createAccount(email);
+        await createAccount(email);
         confirmAnimation(0);
         setTimeout(() => {
             toggleMenu('login_container', 'signup_container', 'signup_head_container');
@@ -194,7 +194,7 @@ function checkExistingAccount(email) {
 /**
  * Creates a new account, pushs and saves it into the accounts array
  */
-function createAccount(email) {
+async function createAccount(email) {
     let name =  firstLettersToUpperCase();
     let password = document.getElementById('signup_password_input').value;
     let account = {
@@ -205,14 +205,14 @@ function createAccount(email) {
         'greeting' : 0
     }
     accounts.push(account);
-    saveAccount();
+    await saveAccount();
 }
 
 /**
  * Checks email and password to enter the join
  */
-function login() {
-    resetLoginStatus();
+async function login() {
+    await resetLoginStatus();
     let email = document.getElementById('login_email_input').value;
     let password = document.getElementById('login_password_input').value;
     for (let i = 0; i < accounts.length; i++) {
@@ -235,7 +235,7 @@ async function checkPassword(password, index) {
     if (accounts[index].password === password) {
         await rememberLoginData(index);
         accounts[index].online = true;
-        saveAccount();
+        await saveAccount();
         document.location.href = 'summary.html';
     } else {
         displayError('login_password_error', 'error: wrong password');

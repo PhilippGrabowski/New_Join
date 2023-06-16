@@ -81,15 +81,15 @@ function stopPropagation(event) {
     event.stopPropagation();
 }
 
-function logout() {
-    resetLoginStatus();
+async function logout() {
+    await resetLoginStatus();
     document.location.href = 'login.html';
 }
 
-function resetLoginStatus() {
+async function resetLoginStatus() {
     for (let i = 0; i < accounts.length; i++) {
         accounts[i].online = false;
         accounts[i].greeting = 0;
     }
-    saveAccount();
+    await saveAccount();
 }
