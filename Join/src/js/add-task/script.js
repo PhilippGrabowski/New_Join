@@ -229,7 +229,7 @@ function initial() {
     if (description.value != 0) {descriptionNote.classList.add('d-none');}
     if (dueDate.value != 0) {dateNote.classList.add('d-none');}
     title.onclick = ''; description.onclick = ''; dueDate.onclick = '';
-    setTimeout(initial, 200);
+    setTimeout(initial, 100);
 }
 
 function selectColor(i) {
@@ -333,6 +333,8 @@ function removeObjectWithId(arr, id) {
 
 function assignTask(i) {
     let checkbox = document.getElementById(`contact${contacts[i].id}`);
+    let assignedTask = document.getElementById('assignedPeople');
+    let assignedTaskNote = document.getElementById('assignedValidationText');
     if (checkbox.checked) {
         assignedContacts.push(
             {
@@ -344,12 +346,12 @@ function assignTask(i) {
         );
         renderContactBubbles();
         checkAssigned = true;
-        checkValidationOnInputs()
     }
     else if (!checkbox.checked) {
         removeObjectWithId(assignedContacts, contacts[i].id);
         renderContactBubbles();
     }
+    if(assignedTask.textContent != 0){checkAssigned = true; assignedTaskNote.classList.add('d-none');}
 }
 
 
@@ -381,8 +383,8 @@ function selectedPrio(selected) {
     ]
     setSelectedColor(selected);
     resetSelectedColor(selected);
-    checkPrio = true;
-    checkValidationOnInputs()
+    let chosenPrioNote = document.getElementById('prioValidationText').classList.add('d-none');
+    
 }
 
 /* Sets the chosen Category by the User and will be seen on The Add Task Site */
@@ -390,6 +392,8 @@ function selectedPrio(selected) {
 function selectCategory(cat) {
     category.splice(0, 1);
     let categoryText = document.getElementById(`${cat}`).textContent;
+    let chosenCat = document.getElementById('category');
+    let chosenCatNote = document.getElementById('catValidationText');
     document.getElementById('selectedCategory').innerHTML = `<div class="selected-category"><span>${categoryText}</span><span class="circle" style="background-color:${categoryColors[cat].color}"></span></div>`
     document.getElementById('showCat').classList.add('d-none');
     document.getElementById('category').style.borderBottom = "1px solid lightgray";
@@ -401,8 +405,7 @@ function selectCategory(cat) {
             category: `${categoryColors[cat].category}`
         }
     )
-    checkCat = true;
-    checkValidationOnInputs()
+    if(chosenCat.textContent != 0){checkCat = true; chosenCatNote.classList.add('d-none');}
 }
 
 /* Sets the Color of the Priorities for a Visual Feedback effect */
