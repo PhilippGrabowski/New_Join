@@ -29,7 +29,7 @@
 }
 
 #search-task {
-    background-color: #fff !important;
+ 
     border-radius: 15px;
     height: 50px;
     width: 300px;
@@ -37,12 +37,9 @@
     padding-right: 8px !important;
     margin: 8px;
     border: 1px solid #a8a8a8;
-    background: url('../../');
+    background: url('../../img/close-window.png') no-repeat;
 }
 
-.search-icon {
-    background: url('../../../img/capa2.svg') no-repeat;
-}
 
 #add-task-button {
     border-radius: 15px;
@@ -115,6 +112,7 @@
     font-weight: 700;
     line-height: 19.2px;
     padding: 12px 0px 8px 0px;
+    word-wrap: break-word;
 }
 
 .board-task-box p {
@@ -126,6 +124,7 @@
     font-size: 16px;
     color: #A8A8A8;
     margin-bottom: 10px;
+    word-wrap: break-word;
 }
 
 .contacts-urgency-box {
@@ -322,6 +321,16 @@
 
 .task-popup-margin{
     margin-top: 25px;
+}
+
+#bar-and-count-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progressPopUp {
+    width: 520px !important;
 }
 
 .assigned-contact-box {

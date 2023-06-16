@@ -56,7 +56,7 @@ function checkForSubtask(element, boxCount){
 function checkForSubtaskPopUp(element, boxCount){
     let subtask = element['subtask'][0]['subtask_Name'];
     if(subtask.length > 0){
-        document.getElementById(`progressContainer${boxCount}`).classList.remove('d-none');
+        document.getElementById(`progressContainer`).classList.remove('d-none');
         setPopUpProgress(element, boxCount);
     }
 }
@@ -102,10 +102,11 @@ function setPopUpProgress(element, boxCount){
     console.log(currentProgress)
 
     let progressBar = document.getElementById(`progress`);
+    let subtaskContainer = document.getElementById(`count-container`);
     if (currentProgress > 0) {
-        progressBar.innerHTML = `${counts['true']}/${arrayToSearch.length}`; 
+       subtaskContainer.innerHTML = `<div>${counts['true']}/${arrayToSearch.length}</div>`;
     }else {
-        progressBar.innerHTML = `0/${arrayToSearch.length}`;
+        subtaskContainer.innerHTML = `<div>0/${arrayToSearch.length}</div>`;
     };
     progressBar.classList.remove(`w-${previousProgress}`);
     progressBar.classList.add(`w-${currentProgress}`);
@@ -113,17 +114,17 @@ function setPopUpProgress(element, boxCount){
 
 }
 
-function checkBoxStatus(count){
+async function checkBoxStatus(count){
     let checkbox = document.getElementById(`subtaskCheckbox${count}`);
     let currentTask = getCurrentTask();
     if(checkbox.checked){
         checkbox.checked = true;
         currentTask['subtask'][0]['checked'][count] = 'true';
-        saveRemote();
+        await saveRemote();
     } else{
         checkbox.checked = false;
         currentTask['subtask'][0]['checked'][count] = 'false';
-        saveRemote();
+        await saveRemote();
     }
     
       setPopUpProgress(currentTask, count +1000);
@@ -272,7 +273,7 @@ function renderAssignedContacts(id){
 
 function renderSubtasks(id){
     let index = getIndexOfTask(id);
-    let subtaskContainer = document.getElementById(`subtask-container${index}`);
+    let subtaskContainer = document.getElementById(`subtask-container`);
     let temporaryArray = tasks.filter(t => t['id'] === id);
     let subtaskArray = temporaryArray[0]['subtask'][0]['subtask_Name'];
     console.log(subtaskArray);
@@ -346,7 +347,7 @@ function searchForTask(){
     let searchWord = document.getElementById('search-task').value;
     for (let i = 0; i < tasks.length; i++) {
         const element = tasks[i];
-        if (!element['title'].includes(searchWord)) {
+        if (!element['title'].toUpperCase().includes(searchWord.toUpperCase())) {
             document.getElementById(`taskBox${i +1}`).classList.add('d-none');
         } else {
             document.getElementById(`taskBox${i +1}`).classList.remove('d-none');

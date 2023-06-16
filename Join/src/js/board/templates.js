@@ -36,7 +36,7 @@ function generatePopUpHTML(clickedElement, index){
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Due date:</h3> ${clickedElement['duedate']}</span>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Priority:</h3> ${clickedElement['priority'][0]['priority']}</span>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Assigned To:</h3></span>
-        <div id="subtask-container${index}" class="subtask-container"></div>
+        <div id="subtask-container" class="subtask-container"></div>
         <div class="flex-column" id="task-popup-contacts">
         
         </div>
@@ -85,8 +85,11 @@ function generateSubtaskSection(subtask, count){
 
 function generatePopUpProgressBar(count){
     return /*html*/`
-    <div id="progressContainer${count +1000}" class="progress d-none" role="progressbar" aria-label="Basic example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+    <div id="bar-and-count-container">
+    <div id="progressContainer" class="progress progressPopUp d-none" role="progressbar" aria-label="Basic example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
         <div id="progress"  class="progress-bar"></div>
+    </div>
+    <div id="count-container"></div>
     </div>
     `;
 }
