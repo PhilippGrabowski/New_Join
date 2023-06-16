@@ -3,14 +3,14 @@
         <div>
             <div class="form-div">
                 <span>Title</span>
-                <input required id="title" class="title-input" type="text" placeholder="Enter a title">
-                <div id="titleValidationText" class="d-none validation-text">Bitte füllen sie das Textfeld aus</div>
+                <input onclick="initial()" required id="title" class="title-input" type="text" placeholder="Enter a title">
+                <div id="titleValidationText" class="d-none validation-text">Please fill in the text form</div>
             </div>
             <div class="form-div">
                 <span>Description</span>
-                <textarea required id="description" class="desc-input" type="text"
+                <textarea onclick="initial()" required id="description" class="desc-input" type="text"
                 placeholder="Enter a Description"></textarea>
-                <div id="descValidationText"  class="d-none validation-text">Bitte füllen sie das Textfeld aus</div>
+                <div id="descValidationText"  class="d-none validation-text">Please fill in the text form</div>
             </div>
             
             <div class="form-div">
@@ -22,7 +22,7 @@
                 <div class="d-none" id="showCat">
                     <div class="cat">New Category</div>
                 </div>
-                <div id="catValidationText"  class="d-none validation-text">Bitte wählen sie eine Kategorie aus</div>
+                <div id="catValidationText"  class="d-none validation-text">Please choose a category</div>
             </div>
             <div class="form-div">
                 <span>Assigned to</span>
@@ -36,7 +36,7 @@
                 <div id="renderContactBubbles">
                     
                 </div>
-                <div id="assignedValidationText"  class="d-none validation-text">Bitte fügen sie den Task jemandem zu</div>
+                <div id="assignedValidationText"  class="d-none validation-text">Please assign the Task</div>
             </div>
 
         </div>
@@ -52,8 +52,8 @@
     <div class="right-fill-out-form">
         <div class="form-div">
             <span>Due Date</span>
-            <input id="dueDate" class="title-input" type="date" required min="">
-            <div id="dateValidationText"  class="d-none validation-text">Bitte ein Datum angeben</div>
+            <input onclick="initial()" id="dueDate" class="title-input" type="date" required min="">
+            <div id="dateValidationText"  class="d-none validation-text">Please set a date</div>
         </div>
         <!-- <div class="form-div">
             <span>Due Date</span>
@@ -77,7 +77,7 @@
                 </button>
                 
             </div>
-            <div id="prioValidationText"  class="d-none validation-text">Bitte wählen sie eine Priorität aus</div>
+            <div id="prioValidationText"  class="d-none validation-text">Choose a priority</div>
         </div>
         <div class="form-div">
             <span>Subtasks</span>
