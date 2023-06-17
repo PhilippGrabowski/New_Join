@@ -206,18 +206,56 @@
 
 @media(max-width: 900px){
 
-    body{
-        max-height: 100vh;
-        overflow-y: hidden;
+    html {
+        overflow: hidden;
+    }
+
+    body {
+        overflow: hidden;
     }
 
     #board-section {
         height: calc(100vh - 80px);
+        width: 100vw;
+        padding: 0 !important;
+    }
+
+    #board-content {
+        width: 100vw;
+        padding: 0;
+        margin-right: 0 !important;
+        margin-top: 100px;
+        overflow-x: scroll;
+    }
+
+    #board-header {
+        flex-direction: column !important;
+        align-items: flex-start;
+    }
+
+    #board-header input {
+        width: 250px;
+        height: 40px;
+    }
+
+    #tasks-container {
+        flex-direction: column !important;
+        justify-content: space-between;
+    }
+
+    .task-status-container {
+        width: 100vw;
+    }    
+    .task-container{
+        flex-direction: row !important;
+        height: 250px !important;
         overflow-y: scroll;
+        width: fit-content;
     }
 
     .sidebar {
-        position: sticky !important;
+        position: absolute !important;
+        bottom: 0;
     }
 }
 
@@ -376,15 +414,3 @@
     gap: 10px;
     padding: 10px 8px;
 }
-
-/* Board */
-@media (max-width: 1096px) {
-    #board-section {
-        padding: 8.9rem 2.3vw 0 180px;
-    }
-    #board-content {
-        width: calc(100vw - 18rem);
-    }
-}
-
-/* Board-End*/
