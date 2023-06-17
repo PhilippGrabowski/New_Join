@@ -5,10 +5,10 @@
  * @returns {html.template}
  */
 function createContactGroup(letter) {
-    return `<div class="contactGroup flex-column">
+    return `<div class="contact_group flex-column">
     <div class="letter flex-row">${letter}</div>
-    <div class="line-container flex-row"><div class="horizontalLine"></div></div>
-    <div id="group${letter}" class="contactSubList flex-column"></div></div>`;
+    <div class="line_container flex-row"><div class="horizontalLine"></div></div>
+    <div id="group${letter}" class="contact_sublist flex-column"></div></div>`;
 }
 
 /**
@@ -24,11 +24,11 @@ function createContactGroup(letter) {
  * @returns {html.template}
  */
 function createContact(contact) {
-    return `<div id="${contact.id}" class="contact flex-row curser" onclick="openContactInfo(${contact.id})">
-    <div id="contactInitials${contact.id}" class="contactInitials grid">${contact.initials}</div>
-    <div class="contactName flex-column">
-        <span class="contactSubListName">${contact.name}</span>
-        <span class="contactSubListEmail">${contact.email}</span>
+    return `<div id="${contact.id}" class="contact list_contact flex-row curser" onclick="openContactInfo(${contact.id})">
+    <div id="contact_initials${contact.id}" class="contact_initials grid">${contact.initials}</div>
+    <div class="contact_name flex-column">
+        <span class="contact_sublist_name">${contact.name}</span>
+        <span class="contact_sublist_email">${contact.email}</span>
     </div></div>`;
 }
 
@@ -39,6 +39,6 @@ function createContact(contact) {
  * @returns {html.template}
  */
 function createContactInfoButtons(index) {
-    return `<i id="mobilContactTrash" class='bx bx-trash' onclick="deleteContact(${index})"></i>
-    <img id="mobilEditContactImg" class="editContactImg" src="src/img/frame100.svg" alt="" onclick="">`
+    return `<i id="mobile_contact_trash" class='bx bx-trash' onclick="deleteContact(${index})"></i>
+    <img id="mobile_edit_contact_img" class="edit_contact_img" src="src/img/frame100.svg" alt="" onclick="">`
 }

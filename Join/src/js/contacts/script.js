@@ -1,6 +1,11 @@
 /*____________________________________Alphabet Array____________________________________*/
 
 let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+let openInfo = false;
+const mediaQuery = '(min-width: 900px)';
+const queries = window.matchMedia(mediaQuery);
+const mobileMediaQuery = '(max-width: 900px)';
+const mobileQueries = window.matchMedia(mobileMediaQuery);
 
 
 /*___________________________Render Contact List Functions______________________________*/
@@ -17,7 +22,7 @@ async function LoadContactList() {
  * Generates the complete contact list by looping through the alphabet array and adding the contacts to the respective letters
  */
 function renderContactList() {
-    let contactList = document.getElementById('listContainer');
+    let contactList = document.getElementById('list_container');
     contactList.innerHTML = '';
     for (let i = 0; i < alphabet.length; i++) {
         let letter = alphabet[i];
@@ -73,7 +78,7 @@ function renderContacts(letter) {
 function createContacts(element, names) {
     for (let i = 0; i < names.length; i++) {
         element.innerHTML += createContact(names[i]);
-        document.getElementById(`contactInitials${names[i].id}`).style.backgroundColor = names[i].color;
+        document.getElementById(`contact_initials${names[i].id}`).style.backgroundColor = names[i].color;
     }
 }
 
@@ -117,14 +122,15 @@ function sortFilteredContacts(names) {
  * @param {number} id - ID of contact
  */
 function openContactInfo(id) {
-    if (window.innerWidth <= 670) {
-        document.getElementById('contactList').style.display = 'none';
-        document.getElementById('newContactButton').style.display = 'none';
-        document.getElementById('contactInfo').style.display = 'unset';
+    if (window.innerWidth <= 900) {
+        document.getElementById('contact_list').style.display = 'none';
+        document.getElementById('new_contact_button').style.display = 'none';
+        document.getElementById('contact_info').style.display = 'unset';
         displayContactInfoButtons(id);
     }
-    document.getElementById('contactInfoContainer').style.transform = 'translateX(0)';
+    displaySlideContainer('contact_info_container', 'translateX(0)');
     addContactInformation(id);
+    openInfo = true;
 }
 
 /**
@@ -134,8 +140,8 @@ function openContactInfo(id) {
  */
 function displayContactInfoButtons(id) {
     let contactIndex =  getIndexOfContact(id);
-    document.getElementById('mobilContactInfoButtonContainer').innerHTML = createContactInfoButtons(contactIndex);
-    document.getElementById('mobilContactInfoButtonContainer').style.display = 'flex';
+    document.getElementById('mobile_contact_info_button_container').innerHTML = createContactInfoButtons(contactIndex);
+    document.getElementById('mobile_contact_info_button_container').style.display = 'flex';
 }
 
 /**
@@ -145,14 +151,14 @@ function displayContactInfoButtons(id) {
  */
 function addContactInformation(id) {
     let index = getIndexOfContact(id);
-    document.getElementById('infoInitials').innerHTML = contacts[index].initials;
-    document.getElementById('infoInitials').style.backgroundColor = contacts[index].color;
-    document.getElementById('infoName').innerHTML = contacts[index].name;
-    document.getElementById('infoEmail').innerHTML = contacts[index].email;
-    document.getElementById('infoPhone').innerHTML = contacts[index].phone;
-    document.getElementById('editContactLink').setAttribute('onclick', `openContactMenu('edit',${id})`);
+    document.getElementById('info_initials').innerHTML = contacts[index].initials;
+    document.getElementById('info_initials').style.backgroundColor = contacts[index].color;
+    document.getElementById('info_name').innerHTML = contacts[index].name;
+    document.getElementById('info_email').innerHTML = contacts[index].email;
+    document.getElementById('info_phone').innerHTML = contacts[index].phone;
+    document.getElementById('edit_contact_link').setAttribute('onclick', `openContactMenu('edit',${id})`);
     if (window.innerWidth <= 600) {
-    document.getElementById('mobilEditContactImg').setAttribute('onclick', `openContactMenu('edit',${id})`);
+    document.getElementById('mobile_edit_contact_img').setAttribute('onclick', `openContactMenu('edit',${id})`);
     }
 }
 
@@ -160,11 +166,12 @@ function addContactInformation(id) {
  * Closes container for contact information and opens contact list for mobile Version
  */
 function closeContactInfo() {
-    document.getElementById('contactList').style.display = 'unset';
-    document.getElementById('newContactButton').style.display = 'flex';
-    document.getElementById('contactInfo').style.display = 'none';
-    document.getElementById('mobilContactInfoButtonContainer').style.display = 'none';
-    document.getElementById('contactInfoContainer').style.transform = 'translateX(150%)';
+    document.getElementById('contact_list').style.display = 'unset';
+    document.getElementById('new_contact_button').style.display = 'flex';
+    document.getElementById('contact_info').style.display = 'none';
+    document.getElementById('mobile_contact_info_button_container').style.display = 'none';
+    hideSlideContainer('contact_info_container', 'translateX(150%)');
+    openInfo = false;
 }
 
 
@@ -186,18 +193,19 @@ function openContactMenu(option, id) {
         break;
     }
     document.getElementById('partitionWindow').classList.remove('d-none');
-    document.getElementById('contactOptionMenu').style.transform = 'translateX(0)';
+    displaySlideContainer('contact_menu', 'translateX(0)');
 }
 
 /**
  * Opens the add-contact menu
  */
 function openAddContactMenu() {
-    document.getElementById('contactOption').innerHTML = 'Add contact';
-    document.getElementById('addContactHeadline').classList.remove('d-none');
-    document.getElementById('contactForm').setAttribute('onsubmit', 'addContact(); return false;');
-    switchContactElements('contactOptionEditContactButtons', 'contactOptionAddContactButtons');
-    switchContactElements('editContactInitials', 'addContactUserImg');
+    document.getElementById('contact_menu_header').innerHTML = 'Add contact';
+    document.getElementById('contact_menu_subheader').classList.remove('d-none');
+    document.getElementById('contact_form').setAttribute('onsubmit', 'addContact(); return false;');
+    switchContactElements('edit_contact_buttons', 'add_contact_buttons');
+    switchContactElements('edit_menu_initials', 'user_icon');
+    document.querySelector('.menu_circle').style.backgroundColor = '#D1D1D1';
     clearInputs(contactInputs);
 }
 
@@ -207,11 +215,11 @@ function openAddContactMenu() {
  * @param {number} id - Contact-ID for edit contact
  */
 function openEditContactMenu(id) {
-    document.getElementById('contactOption').innerHTML = 'Edit contact';
-    document.getElementById('addContactHeadline').classList.add('d-none');
-    document.getElementById('contactForm').setAttribute('onsubmit', 'saveContact(); return false;');
-    switchContactElements('contactOptionAddContactButtons', 'contactOptionEditContactButtons');
-    switchContactElements('addContactUserImg', 'editContactInitials');
+    document.getElementById('contact_menu_header').innerHTML = 'Edit contact';
+    document.getElementById('contact_menu_subheader').classList.add('d-none');
+    document.getElementById('contact_form').setAttribute('onsubmit', 'saveContact(); return false;');
+    switchContactElements('add_contact_buttons', 'edit_contact_buttons');
+    switchContactElements('user_icon', 'edit_menu_initials');
     fillEditContactMenuElements(id);
 }
 
@@ -255,8 +263,8 @@ function fillEditContactMenuInputs(index) {
  * @param {number} index - Index of contact
  */
 function fillEditContactMenuInitials(index) {
-    document.getElementById('editContactInitials').innerHTML = contacts[index].initials;
-    document.getElementById('editContactInitials').style.backgroundColor = contacts[index].color;
+    document.getElementById('edit_menu_initials').innerHTML = contacts[index].initials;
+    document.querySelector('.menu_circle').style.backgroundColor = contacts[index].color;
 }
 
 /**
@@ -265,15 +273,15 @@ function fillEditContactMenuInitials(index) {
  * @param {number} index - Index of contact
  */
 function addOnclickFunctions(index) {
-    document.getElementById('deleteContactButton').setAttribute('onclick', `deleteContact(${index})`);
-    document.getElementById('saveContactButton').setAttribute('onclick', `saveContact(${index})`);
+    document.getElementById('delete_button').setAttribute('onclick', `deleteContact(${index})`);
+    document.getElementById('save_button').setAttribute('onclick', `saveContact(${index})`);
 }
 
 /**
  * Close the Contact-Option-Menu
  */
 function closeContactMenu() {
-    document.getElementById('contactOptionMenu').style.transform = 'translateX(150%)';
+    hideSlideContainer('contact_menu', 'translateX(150%)');
     document.getElementById('partitionWindow').classList.add('d-none');
     closeErrorReports(contactErrorReports);
 }
@@ -286,13 +294,12 @@ function closeContactMenu() {
  * Displays and fills container for contact information
  * Displays confirmation when Contact successfully created
  */
-function addContact() {
+async function addContact() {
     let newContact = createNewContact();
     if (contactNotAdded(newContact)) {
         contacts.push(newContact);
-        saveContacts();
+        await saveContacts();
         closeContactMenu();
-        clearInputs(contactErrorReports);
         openContactInfo(newContact.id);
         renderContactList();
         document.getElementById(`${newContact.id}`).scrollIntoView();
@@ -392,8 +399,8 @@ function emailToLowerCase() {
  * 
  * @param {number} index - index of contact
  */
-function saveContact(index) {
-    changeContactData(index);
+async function saveContact(index) {
+    await changeContactData(index);
     addContactInformation(contacts[index].id);
     closeContactMenu();
     renderContactList();
@@ -406,12 +413,12 @@ function saveContact(index) {
  * 
  * @param {number} index - index of contact
  */
-function changeContactData(index) {
+async function changeContactData(index) {
     contacts[index].name = firstLettersToUpperCase();
     contacts[index].initials = createInitials();;
     contacts[index].email = emailToLowerCase();
     contacts[index].phone = document.getElementById('inputPhone').value;
-    saveContacts();
+    await saveContacts();
 }
 
 /**
@@ -419,10 +426,10 @@ function changeContactData(index) {
  * 
  * @param {number} index - index of contact
  */
-function deleteContact(index) {
+async function deleteContact(index) {
     contacts.splice(index, 1);
-    saveContacts();
-    document.getElementById('contactInfoContainer').style.transform = 'translateX(150%)';
+    await saveContacts();
+    hideSlideContainer('contact_info_container');
     if (window.innerWidth <= 600) {
         closeContactInfo();
     } else {
@@ -439,10 +446,10 @@ function deleteContact(index) {
  */
 function showContactConfirmation(id, confirmation) {
     document.getElementById('contactConfirmation').innerHTML = confirmation;
-    document.getElementById('contactConfirmation').style.transform = 'translateY(0%)';
+    displaySlideContainer('contactConfirmation', 'translateY(0%)');
     document.getElementById(`${id}`).style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
     setTimeout(() => {
-        document.getElementById('contactConfirmation').style.transform = 'translateY(400%)';
+        hideSlideContainer('contactConfirmation', 'translateY(400%)');
         document.getElementById(`${id}`).style.backgroundColor = 'var(--white-color)';
     }, 2000);
 }
@@ -452,9 +459,9 @@ function showContactConfirmation(id, confirmation) {
  */
 function showDeleteContactConfirmation() {
     document.getElementById('contactConfirmation').innerHTML = 'Contact successfully deleted';
-    document.getElementById('contactConfirmation').style.transform = 'translateY(0%)';
+    displaySlideContainer('contactConfirmation', 'translateY(0%)');
     setTimeout(() => {
-        document.getElementById('contactConfirmation').style.transform = 'translateY(1000%)';
+        hideSlideContainer('contactConfirmation', 'translateY(1000%)');
     }, 2000);
 }
 
@@ -491,9 +498,9 @@ function contactNotAdded(newContact) {
  * @param {string} contactdata - the matching input (email or phone number)
  */
 function openExistingContactInfo(index, contactdata) {
-    switchContactElements('contactForm', 'existingContactInfo');
-    document.getElementById('matchingInputsReport').innerHTML = `The contact with name and ${contactdata} already exist.`;
-    document.getElementById('showContactButton').setAttribute('onclick', `showExistingContact(${index})`);
+    switchContactElements('contact_form', 'existing_contact_info');
+    document.getElementById('matching_input_report').innerHTML = `The contact with name and ${contactdata} already exist.`;
+    document.getElementById('show_contact_button').setAttribute('onclick', `showExistingContact(${index})`);
 }
 
 /**
@@ -504,7 +511,7 @@ function openExistingContactInfo(index, contactdata) {
 function showExistingContact(index) {
     openContactInfo(contacts[index]['id']);
     closeContactMenu();
-    switchContactElements('existingContactInfo', 'contactForm');
+    switchContactElements('existing_contact_info', 'contact_form');
 }
 
 
@@ -587,6 +594,66 @@ async function saveContacts() {
  * Rewrite SVG files read by img tags to inline codes for changing attributes
  */
 window.addEventListener('load', function() {
-    deSVG('.editContactImg', true);
-    deSVG('.addTaskImg', true);
+    deSVG('.edit_contact_img', true);
+    deSVG('.add_task_img', true);
 });
+
+/**
+ * Displays contact_list and contact_info container if media query matches min-width 900
+ */
+queries.addEventListener('change', event => {
+	if (event.matches) {
+        document.getElementById('contact_list').style.display = 'unset';
+        document.getElementById('contact_info').style.display = 'unset';
+        document.getElementById('mobile_contact_info_button_container').style.display = 'none';
+	}
+});
+
+/**
+ * Displays or hides contact_list or contact_info container if media query matches max-width 900 
+ */
+mobileQueries.addEventListener('change', event => {
+	if (event.matches && openInfo == false) {
+        changeContent('none', 'unset');
+        document.getElementById('mobile_contact_info_button_container').style.display = 'none';
+	} else if (event.matches && openInfo == true) {
+        changeContent('unset', 'none');
+        document.getElementById('mobile_contact_info_button_container').style.display = 'flex';
+	}
+});
+
+/**
+ * Displays or hides contact_list or contact_info container
+ * 
+ * @param {String} displayStyle1 - Display-style of element
+ * @param {String} displayStyle2 - Display-style of element
+ */
+function changeContent(displayStyle1, displayStyle2) {
+    document.getElementById('contact_list').style.display = displayStyle2;
+    document.getElementById('new_contact_button').style.display = displayStyle2;
+    document.getElementById('contact_info').style.display = displayStyle1;
+}
+
+/**
+ * Displays the element before it slides into the window view
+ * 
+ * @param {String} element - Id of the sliding element
+ */
+function displaySlideContainer(element, translate) {
+    document.getElementById(element).classList.remove('d-none');
+    setTimeout (() => {
+        document.getElementById(element).style.transform = translate; 
+    }, 100);
+}
+
+/**
+ * Hides the element after it slides out the window view
+ * 
+ * @param {String} element - Id of the sliding element
+ */
+function hideSlideContainer(element, translate) {
+    document.getElementById(element).style.transform = translate;
+    setTimeout (() => {
+        document.getElementById(element).classList.add('d-none');
+    }, 400);
+}

@@ -327,8 +327,7 @@ body {
 /* === Global === */
 
 .error {
-    margin-top: 5px;
-    font-size: var(--font-size-12);
+    font-size: var(--font-size-16);
     color: var(--white-color);
 }
 
