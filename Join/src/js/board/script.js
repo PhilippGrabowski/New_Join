@@ -83,7 +83,7 @@ function setProgress(element, boxCount){
     }else {
         countContainer.innerHTML = `0/${arrayToSearch.length} Done`;
     };
-    progressBar.classList.add(`w-${currentProgress}`);
+    progressBar.style = `width: ${currentProgress}%`;
 
 }
 
@@ -348,9 +348,9 @@ function searchForTask(){
     for (let i = 0; i < tasks.length; i++) {
         const element = tasks[i];
         if (!element['title'].toUpperCase().includes(searchWord.toUpperCase())) {
-            document.getElementById(`taskBox${i +1}`).classList.add('d-none');
+            document.getElementById(`taskBox${element['id']}`).classList.add('d-none');
         } else {
-            document.getElementById(`taskBox${i +1}`).classList.remove('d-none');
+            document.getElementById(`taskBox${element['id']}`).classList.remove('d-none');
         }
     }
         
