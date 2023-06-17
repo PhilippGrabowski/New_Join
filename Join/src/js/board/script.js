@@ -77,10 +77,11 @@ function setProgress(element, boxCount){
     console.log(currentProgress)
 
     let progressBar = document.getElementById(`progress${boxCount}`);
+    let countContainer = document.getElementById(`countContainer${boxCount}`);
     if (currentProgress > 0) {
-        progressBar.innerHTML = `${counts['true']}/${arrayToSearch.length}`; 
+        countContainer.innerHTML = `${counts['true']}/${arrayToSearch.length} Done`; 
     }else {
-        progressBar.innerHTML = `0/${arrayToSearch.length}`;
+        countContainer.innerHTML = `0/${arrayToSearch.length} Done`;
     };
     progressBar.classList.add(`w-${currentProgress}`);
 
@@ -106,9 +107,9 @@ function setPopUpProgress(element, boxCount){
     let progressBar = document.getElementById(`progress`);
     let subtaskContainer = document.getElementById(`count-container`);
     if (currentProgress > 0) {
-       subtaskContainer.innerHTML = `<div>${counts['true']}/${arrayToSearch.length}</div>`;
+       subtaskContainer.innerHTML = `<div>${counts['true']}/${arrayToSearch.length} Done</div>`;
     }else {
-        subtaskContainer.innerHTML = `<div>0/${arrayToSearch.length}</div>`;
+        subtaskContainer.innerHTML = `<div>0/${arrayToSearch.length} Done</div>`;
     };
     progressBar.style = `width: ${currentProgress}%`;
 }
@@ -255,8 +256,8 @@ function renderPopUpDetails(id){
     let index = getIndexOfTask(id);
     taskPopUp.innerHTML = '';
     taskPopUp.innerHTML += generatePopUpHTML(tasks[index], index);
-    
 }
+
 
 function renderAssignedContacts(id){
     let assignedContactsBox = document.getElementById('task-popup-contacts');
