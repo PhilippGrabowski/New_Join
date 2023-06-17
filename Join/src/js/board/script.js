@@ -97,6 +97,8 @@ function setPopUpProgress(element, boxCount){
     let currentProgress = 100 / (arrayToSearch.length/counts['true']);
     if(!currentProgress){
         currentProgress = 0;
+    } else {
+        currentProgress = currentProgress.toFixed(0);
     }
     
     console.log(currentProgress)
@@ -108,10 +110,7 @@ function setPopUpProgress(element, boxCount){
     }else {
         subtaskContainer.innerHTML = `<div>0/${arrayToSearch.length}</div>`;
     };
-    progressBar.classList.remove(`w-${previousProgress}`);
-    progressBar.classList.add(`w-${currentProgress}`);
-    previousProgress = currentProgress;
-
+    progressBar.style = `width: ${currentProgress}%`;
 }
 
 async function checkBoxStatus(count){
