@@ -38,7 +38,7 @@ function createContact(contact) {
  * @param {number} index - index of contact
  * @returns {html.template}
  */
-function createContactInfoButtons(index) {
+function createContactInfoButtons(index, id) {
     return `<i id="mobile_contact_trash" class='bx bx-trash' onclick="deleteContact(${index})"></i>
-    <img id="mobile_edit_contact_img" class="edit_contact_img" src="src/img/frame100.svg" alt="" onclick="">`
+    <img id="mobile_edit_contact_img" class="edit_contact_img" src="src/img/frame100.svg" alt="" onclick="openContactMenu('edit', ${id})">`
 }

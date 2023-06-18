@@ -26,8 +26,8 @@
 #list_container {
     width: 100%;
     align-items: center;
-    padding: 1rem 12%;
-    gap: 1rem;
+    padding: 10px 12%;
+    gap: 10px;
 }
 
 .contact_group {
@@ -36,8 +36,8 @@
 
 .letter {
     width: 100%;
-    height: 4rem;
-    padding-left: 3rem;
+    height: 40px;
+    padding-left: 30px;
     font-size: var(--font-size-21);
     align-items: center;
 }
@@ -50,7 +50,7 @@
     width: 90%;
     border: 1px solid #D1D1D1;
     border-radius: 3px;
-    margin: 1.6rem 0 1rem;
+    margin: 16px 0 10px;
 }
 
 .contact_sublist {
@@ -60,9 +60,10 @@
 .contact {
     width: 100%;
     align-items: center;
-    padding: 1.5rem 0 1.5rem 1.5rem;
-    gap: 3.5rem;
+    padding: 15px 0 15px 15px;
     border-radius: 10px;
+    gap: 30px;
+    display: -webkit-box;
 }
 
 .contact:hover {
@@ -74,7 +75,8 @@
     height: 42px;
     font-size: var(--font-size-12);
     color: var(--white-color);
-    border-radius: 45px;
+    border: 1px solid var(--white-color);
+    border-radius: 50%;
 }
 
 .contact:hover .contact_initials {
@@ -87,17 +89,25 @@
 
 .contact_sublist_name {
     font-size: var(--font-size-21);
+    width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .contact_sublist_email {
     font-size: var(--font-size-16);
     color: var(--blue-color);
+    width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #contact_info {
     width: calc(100vw - 680px);
     height: calc(100vh - 89px);
-    padding: 8.2rem 0px 0px 5.8rem;
+    padding: 82px 0px 0px 58px;
 }
 #mobile_join_headline {
     display: none;
@@ -106,7 +116,7 @@
 
 .section_header {
     align-items: center;
-    gap: 3rem;
+    gap: 30px;
     position: relative;
 }
 
@@ -117,7 +127,7 @@
 
 #contact_info_arrow {
     font-weight: 500;
-    font-size: var(--font-size-36);
+    font-size: var(--font-size-47);
 }
 
 .section_header_menu {
@@ -156,6 +166,7 @@
     font-weight: 500;
     font-size: var(--font-size-47);
     border-radius: 50%;
+    margin-right: 15px;
 }
 
 #info_contact:hover #info_initials {
@@ -190,9 +201,9 @@
 }
 
 #contact_information {
-    height: 7.4rem;
+    height: 74px;
     align-items: center;
-    gap: 6rem;
+    gap: 60px;
 }
 
 #contact_information span {
@@ -225,11 +236,11 @@
 #contact_info_container {
     transform: translateX(150%);
     transition: all 0.5s ease-in-out;
-    gap: 2.1rem;
+    gap: 21px;
 }
 
 .information {
-    gap: 1.5rem;
+    gap: 15px;
 }
 
 .information span {
@@ -285,7 +296,7 @@
 /* === Contact Menu === */
 
 .contact_menu {
-    width: 1210px;
+    width: clamp(1000px, 84vw, 1210px);
     height: 595px;
     background: var(--white-color);
     border-radius: 30px;
@@ -300,14 +311,14 @@
 /* === Left Contact Menu === */
 
 .contact_menu_left {
-    width: 460px;
+    width: 38%;
     height: 100%;
     color: var(--white-color);
     background: var(--darkBlue-color);
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     padding-top: 155px;
-    padding-left: 45px;
+    padding-left: 3.719%;
     gap: 12px;
 }
 
@@ -316,12 +327,12 @@
 }
 
 #contact_menu_header {
-    font-size: var(--font-size-61);
+    font-size: 61px;
     font-weight: 700;
 }
 
 #contact_menu_subheader {
-    font-size: var(--font-size-27);
+    font-size: 27px;
 }
 
 .horizontal_line {
@@ -332,7 +343,7 @@
 /* === Right Contact Menu === */
 
 .contact_menu_right {
-    width: calc(100% - 460px);
+    width: calc(100% - 38%);
     height: 100%;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
@@ -341,7 +352,7 @@
 
 .contact_menu_right > i {
     position: absolute;
-    font-size: var(--font-size-36);
+    font-size: 36px;
     top: 25px;
     right: 55px;
     border-radius:50px;
@@ -352,7 +363,7 @@
 }
 
 .circle_container {
-    width: 260px;
+    width: 50%;
     height: 100%;
 }
 
@@ -363,12 +374,12 @@
 }
 
 .menu_circle i {
-    font-size: var(--font-size-64);
+    font-size: 64px;
     color: var(--white-color);
 }
 
 #edit_menu_initials {
-    font-size: var(--font-size-47);
+    font-size: 47px;
     font-weight: 500;
     color: var(--white-color);
 }
@@ -389,7 +400,7 @@
 
 input {
     width: 100%;
-    font-size: var(--font-size-21);
+    font-size: 21px;
     cursor: pointer;
     border: none;
     outline: none;
@@ -412,7 +423,7 @@ input::placeholder {
 
 .input i {
     color: #D1D1D1;
-    font-size: var(--font-size-27);
+    font-size: 27px;
 }
 
 .menu_buttons_container {
@@ -423,7 +434,7 @@ input::placeholder {
 
 .menu_buttons_container button {
     height: 55px;
-    font-size: var(--font-size-21);
+    font-size: 21px;
     border-radius: 10px;
     justify-content: center;
     align-items: center;
@@ -431,7 +442,7 @@ input::placeholder {
 }
 
 .menu_buttons_container button i {
-    font-size: var(--font-size-27);
+    font-size: 27px;
 }
 
 #cancel_button {
@@ -467,7 +478,7 @@ input::placeholder {
 
 #matching_input_report {
     font-weight: 600;
-    font-size: var(--font-size-27);
+    font-size: 27px;
 }
 
 #change_input_button {
@@ -482,8 +493,8 @@ input::placeholder {
 
 #contactConfirmation {
     position: absolute;
-    bottom: 7vh;
-    left: calc(100vw - 49.6vw);
+    bottom: 15vh;
+    left: 726px;
     transform: translateY(400%);
     transition: all 0.3s ease-in-out;
 }

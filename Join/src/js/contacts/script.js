@@ -140,7 +140,7 @@ function openContactInfo(id) {
  */
 function displayContactInfoButtons(id) {
     let contactIndex =  getIndexOfContact(id);
-    document.getElementById('mobile_contact_info_button_container').innerHTML = createContactInfoButtons(contactIndex);
+    document.getElementById('mobile_contact_info_button_container').innerHTML = createContactInfoButtons(contactIndex, id);
     document.getElementById('mobile_contact_info_button_container').style.display = 'flex';
 }
 
@@ -193,7 +193,11 @@ function openContactMenu(option, id) {
         break;
     }
     document.getElementById('partitionWindow').classList.remove('d-none');
-    displaySlideContainer('contact_menu', 'translateX(0)');
+    if (window.innerWidth <= 900) {
+        displaySlideContainer('contact_menu', 'translateY(0)');
+    } else {
+        displaySlideContainer('contact_menu', 'translateX(0)');
+    }
 }
 
 /**
@@ -281,7 +285,11 @@ function addOnclickFunctions(index) {
  * Close the Contact-Option-Menu
  */
 function closeContactMenu() {
-    hideSlideContainer('contact_menu', 'translateX(150%)');
+    if (window.innerWidth <= 900) {
+        hideSlideContainer('contact_menu', 'translateY(150%)');
+    } else {
+        hideSlideContainer('contact_menu', 'translateX(150%)');
+    }
     document.getElementById('partitionWindow').classList.add('d-none');
     closeErrorReports(contactErrorReports);
 }
@@ -430,7 +438,7 @@ async function deleteContact(index) {
     contacts.splice(index, 1);
     await saveContacts();
     hideSlideContainer('contact_info_container');
-    if (window.innerWidth <= 600) {
+    if (window.innerWidth <= 900) {
         closeContactInfo();
     } else {
         closeContactMenu();
@@ -447,10 +455,12 @@ async function deleteContact(index) {
 function showContactConfirmation(id, confirmation) {
     document.getElementById('contactConfirmation').innerHTML = confirmation;
     displaySlideContainer('contactConfirmation', 'translateY(0%)');
-    document.getElementById(`${id}`).style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    document.getElementById(`${id}`).style.backgroundColor = 'var(--darkBlue2-color)';
+    document.getElementById(`${id}`).style.color = 'var(--white-color)';
     setTimeout(() => {
         hideSlideContainer('contactConfirmation', 'translateY(400%)');
         document.getElementById(`${id}`).style.backgroundColor = 'var(--white-color)';
+        document.getElementById(`${id}`).style.color = 'var(--black-color)';
     }, 2000);
 }
 
@@ -605,6 +615,7 @@ queries.addEventListener('change', event => {
 	if (event.matches) {
         document.getElementById('contact_list').style.display = 'unset';
         document.getElementById('contact_info').style.display = 'unset';
+        document.getElementById('new_contact_button').style.display = 'unset';
         document.getElementById('mobile_contact_info_button_container').style.display = 'none';
 	}
 });
