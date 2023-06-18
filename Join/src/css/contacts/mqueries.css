@@ -146,6 +146,9 @@
     #contactConfirmation {
         left: 335px;
     }
+    .info_contact_name span {
+        width: 400px;
+    }
 }
 
 @media (max-width: 900px) {
@@ -231,6 +234,9 @@
         bottom: 20vh;
         left: 250px;
     }
+    .info_contact_name span {
+        width: 350px;
+    }
 }
 
 @media (max-width: 800px) and (max-height: 800px) {
@@ -245,6 +251,9 @@
     }
     #contactConfirmation {
         left: 200px;
+    }
+    .info_contact_name span {
+        width: 300px;
     }
 }
 
@@ -263,6 +272,9 @@
     }
     .contact_sublist_name,
     .contact_sublist_email {
+        width: 240px;
+    }
+    .info_contact_name span {
         width: 240px;
     }
 }
@@ -355,6 +367,12 @@
     .confirmation {
         height: 55px;
         font-size: var(--font-size-18);
+    }
+    .info_contact_name span {
+        width: 200px;
+    }
+    #info_initials {
+        margin-right: 0px;
     }
 }
 
