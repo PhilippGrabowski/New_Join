@@ -313,8 +313,11 @@ function renderContacts() {
         for (let i = 0; i < contacts.length; i++) {
             list.innerHTML += `
             <div onclick="assignTask(${i})" class="contact-container cursor">
-            ${contacts[i].name}
-            <input class="cursor" type="checkbox" id="contact${contacts[i].id}">
+                ${contacts[i].name}
+                <div>
+                    <img class="cursor checkbox-img" id="contact${contacts[i].id}" src="src/img/checkbox.png">
+                    <img src="src/img/tick.png" class="tick-img d-none" id="tickId${i}">
+                </div>
             </div>`
         }
         list.innerHTML += `
@@ -335,20 +338,38 @@ function removeObjectWithId(arr, id) {
     return arr;
 }
 
+//function test(i){
+//    let checkbox = document.getElementById(`contact${contacts[i].id}`);
+//    let assignedTask = document.getElementById('assignedPeople');
+//    let assignedTaskNote = document.getElementById('assignedValidationText');
+//    if (!checkbox.checked) { assignedContacts.push({
+//        'name': contacts[i].name,
+//        'initials': contacts[i].initials,
+//        'id': contacts[i].id,
+//        'color': contacts[i].color
+//    });
+//    console.log('clicked');
+//    checkbox.checked = true;} 
+//    else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; console.log('deleted');}
+//    renderContactBubbles();
+//    checkAssigned = true;
+//    if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
+//}
+
 function assignTask(i) {
     let checkbox = document.getElementById(`contact${contacts[i].id}`);
+    let tickId = document.getElementById(`tickId${i}`);
     let assignedTask = document.getElementById('assignedPeople');
     let assignedTaskNote = document.getElementById('assignedValidationText');
     if (!checkbox.checked) { assignedContacts.push({
-                'name': contacts[i].name,
-                'initials': contacts[i].initials,
-                'id': contacts[i].id,
-                'color': contacts[i].color
-            });
-        checkbox.checked = true;
-    } else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; }
-    renderContactBubbles();
-    checkAssigned = true;
+        'name': contacts[i].name,
+        'initials': contacts[i].initials,
+        'id': contacts[i].id,
+        'color': contacts[i].color
+    });
+    tickId.classList.remove('d-none'); checkbox.checked = true;} 
+    else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; tickId.classList.add('d-none');}
+    renderContactBubbles(); checkAssigned = true;
     if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
 }
 
@@ -363,8 +384,6 @@ function renderContactBubbles() {
         <div class="contact-display">
             ${firstLetter}
         </div>
-
-
         `
     }
 }
