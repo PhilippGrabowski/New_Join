@@ -330,6 +330,7 @@ body{
     color: gray;
     border: 1px solid lightgray;
     border-radius: 8px;
+    background-color: white;
 }
 
 .assigned-dropdown-div {
