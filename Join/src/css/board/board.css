@@ -1,14 +1,12 @@
 /*board styling*/
 #board-section {
     width: 100vw;
-    height: 100vh;
     height: 100svh;
     padding: 8.9rem 0 0 230px;
 }
 
 #board-content {
     width: calc(100vw - 230px);
-    height: 100%;
     height: -webkit-fill-available;
     padding: 8.2rem 4.7rem 0 5.8rem;
     background-color: #F6F7F8;
@@ -159,6 +157,8 @@
     height: 35px;
     border-radius: 100%;
     margin-right: -10px;
+    border: 1px solid #fff;
+    color: #fff;
 }
 
 .small-number-bubble {
@@ -312,6 +312,12 @@
     padding: 50px;
     gap: 25px;
     position: relative;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.task-popup::-webkit-scrollbar {
+    display: none;
 }
 
 .close-task-popup {
@@ -382,9 +388,15 @@
     filter: invert(100%) sepia(67%) saturate(15%) hue-rotate(217deg) brightness(150%) contrast(104%);
 }
 
+.subtask-container {
+    padding-top: 32px;
+}
+
 .subtask-checkbox-popup {
     width: 100%;
     justify-content: space-between;
+    height: 35px;
+    font-size: 15px;
 }
 
 .subtask-checkbox-popup input {

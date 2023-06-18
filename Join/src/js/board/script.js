@@ -29,12 +29,21 @@ function updateHTML(){
             const element = task[j];
             let category = element['category'][0];
             box.innerHTML += generateTaskCard(element, category, boxCount);
+            checkDescriptionLength(element['description'], boxCount);
             getCategoryColor(element['category'][0]['category'], boxCount);
             checkForSubtask(element, boxCount);
             renderContactInitials(element);
             boxCount++;
         }
         box.innerHTML += `<div class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
+    }
+}
+
+function checkDescriptionLength(element, boxCount){
+    let descriptionBox = document.getElementById(`board-task-box-description${boxCount}`);
+    if (element.length > 30) {
+        let shortenedText = element.slice(0, 35);
+        descriptionBox.innerHTML = `${shortenedText}...`;
     }
 }
 
@@ -128,7 +137,6 @@ async function checkBoxStatus(count){
     }
     
       setPopUpProgress(currentTask, count +1000);
-    
 }
 
 function getCurrentTask(){

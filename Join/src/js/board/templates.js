@@ -5,7 +5,7 @@ function generateTaskCard(element, category, boxCount){
             <div>
                 <span id="category-tag${boxCount}" class="category-tag" style="background-color:${category['color']};">${category['category']}</span>
                 <h3>${element['title']}</h3>
-                <div class="board-task-box-description">${element['description']}</div>
+                <div id="board-task-box-description${boxCount}" class="board-task-box-description">${element['description']}</div>
                 <div class="flex-row" style="justify-content: space-between;">
                 <div id="progressContainer${boxCount}" class="progress d-none" role="progressbar" aria-label="Basic example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
                 <div id="progress${boxCount}"  class="progress-bar"></div>
