@@ -44,10 +44,33 @@ function generatePopUpHTML(clickedElement, index){
         </div>
         <div class="flex-row delete-and-edit-task">
                 <img onclick="deletePopupTask(${index})" class="hover-white-button" src="src/img/deletebutton-task-popup.svg">
-                <div class="edit-task button-hover">
+                <div onclick="editTask(${index});" class="edit-task button-hover">
                     <img src="src/img/edit-task-popup.svg">
                 </div>
         </div>
+    `;
+}
+
+function generateEditPopUp(currentTask){
+    return /*html*/`
+    <div class="edit-title flex-column">
+        Title
+        <input id="edit-title" type="text" value="${currentTask['title']}">
+    </div>
+    <div class="edit-description flex-column">
+        Description
+        <input id="edit-description" type="text" value="${currentTask['description']}">
+    </div>
+    <div class="edit-duedate flex-column">
+        Due date
+        <input type="text">
+    </div>
+    <div class="edit-prio flex-column">
+        Prio
+    </div>
+    <div class="edit-assigned-contacts flex-column">
+        Assigned to:
+    </div>
     `;
 }
 

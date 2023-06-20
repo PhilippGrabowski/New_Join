@@ -321,6 +321,15 @@ async function deletePopupTask(i) {
     closeTaskPopUp();
 }
 
+function editTask(index){
+    let popUpWindow = document.getElementById('task-popup');
+    let currentTask = tasks[index];
+    popUpWindow.innerHTML = '';
+
+    popUpWindow.innerHTML = generateEditPopUp(currentTask);
+    fillEditTask(currentTask);
+}
+
 
 
 
