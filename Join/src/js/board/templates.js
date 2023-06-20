@@ -51,26 +51,56 @@ function generatePopUpHTML(clickedElement, index){
     `;
 }
 
-function generateEditPopUp(currentTask){
+function generateEditPopUp(currentTask, index){
     return /*html*/`
-    <div class="edit-title flex-column">
-        Title
-        <input id="edit-title" type="text" value="${currentTask['title']}">
-    </div>
-    <div class="edit-description flex-column">
-        Description
-        <input id="edit-description" type="text" value="${currentTask['description']}">
-    </div>
-    <div class="edit-duedate flex-column">
-        Due date
-        <input type="text">
-    </div>
-    <div class="edit-prio flex-column">
-        Prio
-    </div>
-    <div class="edit-assigned-contacts flex-column">
-        Assigned to:
-    </div>
+    <div class="form-div">
+                <span>Title</span>
+                <input id="newTitle" required id="title" class="title-input" type="text" value="${currentTask['title']}">
+                <div id="titleValidationText" class="d-none validation-text">Please fill in the text form</div>
+            </div>
+            <div class="form-div">
+                <span>Description</span>
+                <textarea id="newDescription" required id="description" class="desc-input" type="text">${currentTask['description']}</textarea>
+                <div id="descValidationText"  class="d-none validation-text">Please fill in the text form</div>
+            </div>
+            <div class="form-div">
+            <span>Due Date</span>
+            <input id="newDueDate" class="title-input" type="date" required min="" value="${currentTask['duedate']}">
+            <div id="dateValidationText"  class="d-none validation-text">Please set a date</div>
+        </div>
+        <div class="form-div">
+            <span>Prio</span>
+            <div class="prio-container">
+                <button onclick="selectedPrio(0)" class="prio-input" id="urgent">Urgent
+                    <img id="img-urgent" src="src/img/urgent.svg" alt="">
+                </button>
+                <button onclick="selectedPrio(1)" class="prio-input" id="medium">Medium
+                    <img id="img-medium" src="src/img/medium.svg" alt="">
+                </button>
+                <button onclick="selectedPrio(2)" class="prio-input" id="low">Low
+                    <img id="img-low" src="src/img/low.svg" alt="">
+                </button>
+                
+            </div>
+            <div id="prioValidationText"  class="d-none validation-text">Choose a priority</div>
+        </div>
+        <div class="form-div">
+                <span>Assigned to</span>
+                <div onclick="openAssignedTo(), renderContacts()" id="assigned" class="assigned-dropdown-div cursor">
+                    <div id="assignedPeople">Assigned to</div>
+                    <img  class="cursor" src="src/img/dropdown-arrow.svg">
+                </div>
+                <div class="d-none" id="showAssigned">
+                    
+                </div>
+                <div id="assigned-contacts${currentTask['id']}" class="flex-row">
+                    
+                </div>
+                <div id="assignedValidationText"  class="d-none validation-text">Please assign the Task</div>
+            </div>
+            <button onclick="saveChanges(${index});" class="button_option_2 flex-row curser button-hover">Ok
+                        <i class='bx bx-check'></i>
+                    </button>
     `;
 }
 

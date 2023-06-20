@@ -322,14 +322,32 @@ async function deletePopupTask(i) {
 }
 
 function editTask(index){
-    let popUpWindow = document.getElementById('task-popup');
+    let popUpWindow = document.getElementById('popup-content');
     let currentTask = tasks[index];
     popUpWindow.innerHTML = '';
 
-    popUpWindow.innerHTML = generateEditPopUp(currentTask);
-    fillEditTask(currentTask);
+    popUpWindow.innerHTML = generateEditPopUp(currentTask, index); 
+     
+    renderContactInitials(currentTask);
 }
 
+ async function saveChanges(index){
+    let currentTask = tasks[index];
+    let newTitle = document.getElementById('newTitle').value;
+    let newDescription = document.getElementById('newDescription').value;
+    let newDueDate = document.getElementById('newDueDate').value;
+    //let newPrio = document.getElementById('');
+    //let newAssignedContacts = document.getElementById('');
+    await pushChanges(currentTask, newTitle, newDescription, newDueDate);
+}
+
+async function pushChanges(currenTask, newTitle, newDescription, newDueDate){
+    currenTask['title'] = newTitle;
+    currenTask['description'] = newDescription;
+    currenTask['duedate'] = newDueDate;
+    await saveRemote();
+    openTaskPopUp(currenTask['id']);
+}
 
 
 
