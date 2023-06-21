@@ -24,7 +24,7 @@
                 </div>
                 <div id="catValidationText"  class="d-none validation-text">Please choose a category</div>
             </div>
-            <div class="form-div">
+            <div class="form-div" id="assingedContactForm">
                 <span>Assigned to</span>
                 <div onclick="openFillOutForm('showAssigned','assigned','assignedPeople','Assigned to'), renderContacts(), event.stopPropagation()" id="assigned" class="assigned-dropdown-div cursor">
                     <div id="assignedPeople">Assigned to</div>
@@ -81,8 +81,8 @@
         </div>
         <div class="form-div">
             <span>Subtasks</span>
-            <input onkeydown="deleteSubtaskInput()" id="subtask-content" class="title-input" type="text" placeholder="Add new subtask">
-            <img src="src/img/x.png" onclick="emptySubtaskText()" class="x-icon d-none" id="deleteSubTaskTextId">
+            <input onkeydown="deleteSubtaskInput()" onfocusout="onSubtaskFocusOut()" onfo id="subtask-content" class="title-input" type="text" placeholder="Add new subtask">
+            <img src="src/img/delete-icon.svg" onclick="emptySubtaskText()" class="delete-icon-x d-none" id="deleteSubTaskTextId">
             <img onclick="displaySubTask()" class="plus-icon cursor" src="src/img/plus.svg" alt="">
         </div>
         <div class="subtask-display-content" id="displaySub">
