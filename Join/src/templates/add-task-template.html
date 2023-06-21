@@ -15,9 +15,9 @@
             
             <div class="form-div">
                 <span>Category</span>
-                <div onclick="openCategories(),displayCategories()" id="category" class="category-dropdown-div cursor">
+                <div onclick="openFillOutForm('showCat','category','selectedCategory','Select a Category'),displayCategories(), event.stopPropagation()" id="category" class="category-dropdown-div cursor">
                     <div id="selectedCategory">Select a Category</div>
-                    <img  class="cursor" src="src/img/dropdown-arrow.svg">
+                    <img class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
                 <div class="d-none" id="showCat">
                     <div class="cat">New Category</div>
@@ -26,7 +26,7 @@
             </div>
             <div class="form-div">
                 <span>Assigned to</span>
-                <div onclick="openAssignedTo(), renderContacts()" id="assigned" class="assigned-dropdown-div cursor">
+                <div onclick="openFillOutForm('showAssigned','assigned','assignedPeople','Assigned to'), renderContacts(), event.stopPropagation()" id="assigned" class="assigned-dropdown-div cursor">
                     <div id="assignedPeople">Assigned to</div>
                     <img  class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
@@ -81,7 +81,8 @@
         </div>
         <div class="form-div">
             <span>Subtasks</span>
-            <input id="subtask-content" class="title-input" type="text" placeholder="Add new subtask">
+            <input onkeydown="deleteSubtaskInput()" id="subtask-content" class="title-input" type="text" placeholder="Add new subtask">
+            <img src="src/img/x.png" onclick="emptySubtaskText()" class="x-icon d-none" id="deleteSubTaskTextId">
             <img onclick="displaySubTask()" class="plus-icon cursor" src="src/img/plus.svg" alt="">
         </div>
         <div class="subtask-display-content" id="displaySub">

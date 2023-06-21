@@ -1,5 +1,6 @@
 body{
     user-select: none;
+    
 }
 /* Add Task*/
 #add-task-section {
@@ -43,6 +44,7 @@ body{
 }
 
 .contact-container{
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,10 +67,11 @@ body{
 .tick-img{
     position: absolute;
     margin-top: 4px;
-    right: 13px;
+    right: 12px;
     width: 8px;
     height: 8px;
 }
+
 
 #renderContactBubbles{
     display: flex;
@@ -89,12 +92,20 @@ body{
 }
 
 #showAssigned{
+    overflow-y: scroll;
     padding-bottom: 5px;
     border: 1px solid lightgray;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     border-top: none;
     margin-top: -5px;
+    height: 130px;
+    
+    
+}
+
+#showAssigned::-webkit-scrollbar{
+    display: none;
 }
 
 .subtask-left-side{
@@ -167,6 +178,9 @@ body{
     border-bottom-right-radius: 8px;
     border-top: none;
     margin-top: -5px;
+    background-color: white;
+    overflow-y: scroll;
+    height: 130px;
 }
 
 .cat {
@@ -227,6 +241,7 @@ body{
     padding-bottom: 8px;
     padding-left: 7px;
     padding-right: 7px;
+    background-color: white;
 }
 
 .create-btn {
@@ -343,6 +358,11 @@ body{
     color: gray;
     border: 1px solid lightgray;
     border-radius: 8px;
+    background-color: white;
+}
+
+#showAssigned{
+    background-color: white;
 }
 
 .desc-input {

@@ -33,7 +33,7 @@ let priorities = [
     { priority: 'medium', color: 'var(--lightOrange-color)' },
     { priority: 'low', color: 'var(--lightGreen-color)' },
 ]
-let prio;
+let prio = [];
 
 let categoryColors = [
     {
@@ -67,8 +67,6 @@ async function createTask(status) {
     let title = document.getElementById('title');
     let description = document.getElementById('description');
     let dueDate = document.getElementById('dueDate');
-    let categoryName = document.getElementById('selectedCategory');
-    let colorArrayLength = selectedColor.length;
     let taskStatus = checkStatus(status);
     let dragId = getId();
     if (checkValidationOnInputs() == true) {
@@ -76,10 +74,7 @@ async function createTask(status) {
         await saveTask();
         window.location = './board.html';
     }
-    if (status) {
-        closeAddTask();
-        updateHTML();
-    }
+    if (status) { closeAddTask(); updateHTML(); }
 }
 
 function checkSubtask(i) {
@@ -116,21 +111,19 @@ function pushTask(title, description, duedate, prio, category, subtasks, assigne
     return task;
 }
 
-/* Opens the Category Section and views choosable Categories */
-
-function openCategories() {
-    let showCat = document.getElementById('showCat');
-    document.getElementById('selectedCategory').textContent = 'Select a Category';
-    showCat.classList.toggle('d-none');
-    let checkBottomBorder = !showCat.classList.contains('d-none');
+function openFillOutForm(mainId, secondId, thirdId, text) {
+    let displayForm = document.getElementById(mainId);
+    document.getElementById(thirdId).textContent = text;
+    displayForm.classList.toggle('d-none');
+    let checkBottomBorder = !displayForm.classList.contains('d-none');
     if (checkBottomBorder) {
-        document.getElementById('category').style.borderBottomLeftRadius = "0px";
-        document.getElementById('category').style.borderBottomRightRadius = "0px";
-        document.getElementById('category').style.borderBottom = "none";
+        document.getElementById(secondId).style.borderBottomLeftRadius = "0px";
+        document.getElementById(secondId).style.borderBottomRightRadius = "0px";
+        document.getElementById(secondId).style.borderBottom = "none";
     } else {
-        document.getElementById('category').style.borderBottomLeftRadius = "8px";
-        document.getElementById('category').style.borderBottomRightRadius = "8px";
-        document.getElementById('category').style.borderBottom = "1px solid lightgray";
+        document.getElementById(secondId).style.borderBottomLeftRadius = "8px";
+        document.getElementById(secondId).style.borderBottomRightRadius = "8px";
+        document.getElementById(secondId).style.borderBottom = "1px solid lightgray";
     }
 }
 
@@ -140,7 +133,7 @@ function displayCategoryHTML() {
     cat.classList.add('category-dropdown-div');
     cat.innerHTML = `
         <div id="selectedCategory">Select a Category</div>
-        <img onclick="openCategories(),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
+        <img onclick="openFillOutForm('showCat','category','selectedCategory','Select a Category'),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
         `
 }
 function displayNewCategoryHTML() {
@@ -157,7 +150,7 @@ function displayNewCategoryHTML() {
     cat.classList.add('category-dropdown-div');
     cat.innerHTML = `
             <div id="selectedCategory">${categoryColors[categoryColorsLength].category}<span class="circle"style="background-color: ${categoryColors[categoryColorsLength].color};"></span></div>
-            <img onclick="openCategories(),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
+            <img onclick="openFillOutForm('showCat','category','selectedCategory','Select a Category'),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
             `
 }
 
@@ -165,7 +158,8 @@ function displayNewCategoryHTML() {
 function displayCategories() {
     let show = document.getElementById('showCat');
     show.innerHTML = '';
-    show.innerHTML = `<div onclick="createNewCategory(), displayCategoryColors()" class="cat">New Category</div>`;
+    show.innerHTML = `<div onclick="createNewCategory('showCat','category','selectedCategory','category-dropdown-div','Select a Category','New Category name','displayNewCategory()','displayCategories()',
+    'saveCat()','displayCategoryHTML()','newCatText','title-input'), displayCategoryColors()" class="cat">New Category</div>`;
     categoryColors.sort((a, b) => a.category.localeCompare(b.category));
     for (let i = 0; i < categoryColors.length; i++) {
         show.innerHTML += `
@@ -187,23 +181,50 @@ function deleteCategory(i) {
     displayCategories();
 }
 
-function createNewCategory() {
-    openCategories();
-    let show = document.getElementById('showCat');
-    let categoryContainer = document.getElementById('category');
-    categoryContainer.classList.remove('category-dropdown-div');
+function createNewCategory(mainId, secondId, thirdId, fourthId, text, placeholder, displayNewOnclick, displayExistingOnclick, saveOnclick, displayHTML, inputId, inputClass) {
+    openFillOutForm(mainId, secondId, thirdId, text);
+    let show = document.getElementById(mainId);
+    let categoryContainer = document.getElementById(secondId);
+    categoryContainer.classList.remove(fourthId);
     categoryContainer.style = '';
     show.classList.add('d-none');
     categoryContainer.innerHTML = `
     <div>
-    <input id="newCatText" class="title-input" type="text" placeholder="New Category name">
-    <img onclick="displayNewCategory(), saveCat()" class="tick-icon" src="src/img/tick.png">
-    <img onclick="displayCategories(), displayCategoryHTML()" class="x-icon" src="src/img/x.png">
+        <input id="${inputId}" class="${inputClass}" type="text" placeholder="${placeholder}">
+        <img onclick="${displayNewOnclick},${saveOnclick}" class="tick-icon" src="src/img/tick.png">
+        <img onclick="${displayExistingOnclick},${displayHTML}" class="x-icon" src="src/img/x.png">
     </div>
     <div id="categoryColors">
     
     </div>
     `;
+}
+
+
+function renderContacts() {
+    let list = document.getElementById('showAssigned');
+    if (firstRender) {
+        list.innerHTML = '';
+        for (let i = 0; i < contacts.length; i++) {
+            list.innerHTML += `
+            <div onclick="assignTask(${i})" class="contact-container cursor">
+                ${contacts[i].name}
+                <div class="checkbox-container">
+                    <img class="cursor checkbox-img" id="contact${contacts[i].id}" src="src/img/checkbox.png">
+                        <img src="src/img/tick.png" class="tick-img d-none" id="tickId${i}">
+                    </img>
+                </div>
+            </div>`
+        }
+        list.innerHTML += `
+        <div onclick="createNewCategory('showAssigned','assigned','assignedPeople','assigned-dropdown-div','','find contact','','','','','newCatText','title-input')" class="contact-container cursor">
+            Invite New Contact
+        </div>` ;
+        firstRender = false;
+    }
+}
+
+function AddNewContact() {
 
 }
 
@@ -252,14 +273,12 @@ function displayNewCategory() {
     let input = document.getElementById('newCatText').value;
     let colorArrayLength = selectedColor.length;
     if (input != 0 && isColorPicked) {
-
         categoryColors.push(
             {
                 color: `${selectedColor[colorArrayLength - 1]}`,
                 category: `${input}`
             }
         )
-
         displayNewCategoryHTML();
         isColorPicked = false;
     }
@@ -284,49 +303,15 @@ function returnCheckedInputs(checkTitle, checkDesc, checkCat, checkAssigned, che
     else { checkAssigned = true; document.getElementById('assignedValidationText').classList.add('d-none'); }
     if (date.value == 0) { document.getElementById('dateValidationText').classList.remove('d-none'); }
     else { checkDate = true; document.getElementById('dateValidationText').classList.add('d-none'); }
-    if (prio == null) { document.getElementById('prioValidationText').classList.remove('d-none'); }
+    if (prio.length == 0) { document.getElementById('prioValidationText').classList.remove('d-none'); }
     else { checkPrio = true; document.getElementById('prioValidationText').classList.add('d-none'); }
     if (checkTitle && checkDesc && checkCat && checkAssigned && checkDate && checkPrio) { return true; }
     else return false;
 }
 
-function openAssignedTo() {
-    let showAssigned = document.getElementById('showAssigned');
-    showAssigned.classList.toggle('d-none');
-    let checkBottomBorder = !showAssigned.classList.contains('d-none');
-    if (checkBottomBorder) {
-        document.getElementById('assigned').style.borderBottomLeftRadius = "0px";
-        document.getElementById('assigned').style.borderBottomRightRadius = "0px";
-        document.getElementById('assigned').style.borderBottom = "none";
-    }
-    else {
-        document.getElementById('assigned').style.borderBottomLeftRadius = "8px";
-        document.getElementById('assigned').style.borderBottomRightRadius = "8px";
-        document.getElementById('assigned').style.borderBottom = "1px solid lightgray";
-    }
-}
 
-function renderContacts() {
-    let list = document.getElementById('showAssigned');
-    if (firstRender) {
-        list.innerHTML = '';
-        for (let i = 0; i < contacts.length; i++) {
-            list.innerHTML += `
-            <div onclick="assignTask(${i})" class="contact-container cursor">
-                ${contacts[i].name}
-                <div>
-                    <img class="cursor checkbox-img" id="contact${contacts[i].id}" src="src/img/checkbox.png">
-                    <img src="src/img/tick.png" class="tick-img d-none" id="tickId${i}">
-                </div>
-            </div>`
-        }
-        list.innerHTML += `
-        <div class="contact-container cursor">
-            Invite New Contact
-        </div>` ;
-        firstRender = false;
-    }
-}
+
+
 
 function removeObjectWithId(arr, id) {
     const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
@@ -338,37 +323,21 @@ function removeObjectWithId(arr, id) {
     return arr;
 }
 
-//function test(i){
-//    let checkbox = document.getElementById(`contact${contacts[i].id}`);
-//    let assignedTask = document.getElementById('assignedPeople');
-//    let assignedTaskNote = document.getElementById('assignedValidationText');
-//    if (!checkbox.checked) { assignedContacts.push({
-//        'name': contacts[i].name,
-//        'initials': contacts[i].initials,
-//        'id': contacts[i].id,
-//        'color': contacts[i].color
-//    });
-//    console.log('clicked');
-//    checkbox.checked = true;} 
-//    else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; console.log('deleted');}
-//    renderContactBubbles();
-//    checkAssigned = true;
-//    if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
-//}
-
 function assignTask(i) {
     let checkbox = document.getElementById(`contact${contacts[i].id}`);
     let tickId = document.getElementById(`tickId${i}`);
     let assignedTask = document.getElementById('assignedPeople');
     let assignedTaskNote = document.getElementById('assignedValidationText');
-    if (!checkbox.checked) { assignedContacts.push({
-        'name': contacts[i].name,
-        'initials': contacts[i].initials,
-        'id': contacts[i].id,
-        'color': contacts[i].color
-    });
-    tickId.classList.remove('d-none'); checkbox.checked = true;} 
-    else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; tickId.classList.add('d-none');}
+    if (!checkbox.checked) {
+        assignedContacts.push({
+            'name': contacts[i].name,
+            'initials': contacts[i].initials,
+            'id': contacts[i].id,
+            'color': contacts[i].color
+        });
+        tickId.classList.remove('d-none'); checkbox.checked = true;
+    }
+    else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; tickId.classList.add('d-none'); }
     renderContactBubbles(); checkAssigned = true;
     if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
 }
@@ -400,7 +369,7 @@ function selectedPrio(selected) {
     ]
     setSelectedColor(selected);
     resetSelectedColor(selected);
-    let chosenPrioNote = document.getElementById('prioValidationText').classList.add('d-none');
+    document.getElementById('prioValidationText').classList.add('d-none');
 
 }
 
@@ -437,17 +406,31 @@ function setSelectedColor(index) {
 }
 
 /* Changes the Color or resets it on the previous Priority Button when the user decides to switch to a different Priority */
+let hasBeenClicked = 0;
+let low = 0;
+let medium = 0;
+let urgent = 0;
 
 function resetSelectedColor(index) {
+    if (prio[0].priority == 'low') { low++; medium = 0; urgent = 0; }
+    else if (prio[0].priority == 'medium') { medium++; low = 0; urgent = 0; }
+    else if (prio[0].priority == 'urgent') { urgent++; low = 0; medium = 0; }
     for (let i = 0; i < priorities.length; i++) {
         if (i != index) {
             document.getElementById(`${priorities[i].priority}`).style.backgroundColor = 'white';
             document.getElementById(`${priorities[i].priority}`).style.color = 'black';
             document.getElementById(`img-${priorities[i].priority}`).style = `filter: brightness(1) invert(0)`;
         }
-
+    }
+    if (low == 2 || medium == 2 || urgent == 2) {
+        document.getElementById(`${priorities[index].priority}`).style.backgroundColor = 'white';
+        document.getElementById(`${priorities[index].priority}`).style.color = 'black';
+        document.getElementById(`img-${priorities[index].priority}`).style = `filter: brightness(1) invert(0)`;
+        prio.splice(0, 1);
+        low = 0; medium = 0; urgent = 0;
     }
 }
+
 
 /* Moves to the Board.html Site */
 
@@ -486,6 +469,20 @@ function displaySubTask() {
 
     for (let i = 0; i < subtaskName.length; i++) { displayContainer.innerHTML += returnSubtaskHTML(i); bool[i] = "false"; }
     subInput.value = '';
+}
+
+function deleteSubtaskInput() {
+    let deleteSubtaskText = document.getElementById('deleteSubTaskTextId');
+    let subtaskInputId = document.getElementById('subtask-content');
+    deleteSubtaskText.classList.remove('d-none');
+}
+
+function emptySubtaskText() {
+    let deleteSubtaskText = document.getElementById('deleteSubTaskTextId');
+    let subtaskInputId = document.getElementById('subtask-content');
+    subtaskInputId.value = '';
+    deleteSubtaskText.classList.add('d-none');
+
 }
 
 
