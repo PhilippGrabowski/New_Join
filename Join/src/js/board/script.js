@@ -3,6 +3,7 @@ let container = ['board-to-do', 'board-in-progress', 'board-awaiting-feedback', 
 let stat = ['to-do', 'in-progress', 'awaiting-feedback', 'done'];
 let previousProgress;
 let currentDraggedElement;
+let changedPrio;
 
 
 async function init(){
@@ -221,6 +222,7 @@ function hideAllTaskBoxes(){
 
 function openAddTask(status){
     document.getElementById('add-task-overlay').style.transform = 'translateX(0)';
+    document.getElementById('tempID').id = 'assigned'
     if(status){
         document.getElementById('create-task-button').setAttribute("onClick", `createTask('${status}')`)
     }
@@ -228,6 +230,7 @@ function openAddTask(status){
 
 function closeAddTask(){
     document.getElementById('add-task-overlay').style.transform = 'translateX(3500px)';
+    document.getElementById('assigned').id = 'tempID'
 }
 
 
@@ -236,6 +239,7 @@ function openTaskPopUp(id){
     renderSubtasks(id);
     renderAssignedContacts(id);
     getCheckBoxStatus(id);
+    
     document.getElementById('task-popup-background').classList.remove('d-none');
 }
 
@@ -256,6 +260,7 @@ function getCheckBoxStatus(id){
 
 function closeTaskPopUp(){
     updateHTML();
+
     document.getElementById('task-popup-background').classList.add('d-none');
 }
 
@@ -324,9 +329,11 @@ async function deletePopupTask(i) {
 function editTask(index){
     let popUpWindow = document.getElementById('popup-content');
     let currentTask = tasks[index];
+    changedPrio = currentTask;
     popUpWindow.innerHTML = '';
 
-    popUpWindow.innerHTML = generateEditPopUp(currentTask, index); 
+    popUpWindow.innerHTML = generateEditPopUp(currentTask, index);
+    document.getElementById('tempIDPopUp').id = 'assigned' 
     getPrioColor(currentTask);
     renderContactInitials(currentTask);
 }
@@ -341,22 +348,53 @@ function getPrioColor(currentTask){
     currentButton.style.color = 'white';
 }
 
+function changePrio(i){
+    let newPrio = priorities[i]['priority'];
+    let newColor = priorities[i]['color'];
+    changedPrio['priority'][0]['priority'] = newPrio;
+    changedPrio['priority'][0]['color'] = newColor;
+    getPrioColor(changedPrio);
+    resetUnselectedColor(changedPrio['priority'][0]['priority']);
+}
+
+function resetUnselectedColor(newPrio){
+    if (newPrio == 'urgent') {
+        document.getElementById('mediumPopUp').style = '';
+        document.getElementById('img-medium-popUp').style = '';
+        document.getElementById('lowPopUp').style = '';
+        document.getElementById('img-low-popUp').style = '';
+    }
+    if (newPrio == 'medium') {
+        document.getElementById('urgentPopUp').style = '';
+        document.getElementById('img-urgent-popUp').style = '';
+        document.getElementById('lowPopUp').style = '';
+        document.getElementById('img-low-popUp').style = '';
+    }
+    if (newPrio == 'low') {
+        document.getElementById('mediumPopUp').style = '';
+        document.getElementById('img-medium-popUp').style = '';
+        document.getElementById('urgentPopUp').style = '';
+        document.getElementById('img-urgent-popUp').style = '';
+    }
+}
+
  async function saveChanges(index){
     let currentTask = tasks[index];
     let newTitle = document.getElementById('newTitle').value;
     let newDescription = document.getElementById('newDescription').value;
     let newDueDate = document.getElementById('newDueDate').value;
-    //let newPrio = document.getElementById('');
-    //let newAssignedContacts = document.getElementById('');
+    let newPrio = changedPrio['priority'][0]['priority'];
+    let newPrioColor = changedPrio['priority'][0]['color'];
     await pushChanges(currentTask, newTitle, newDescription, newDueDate);
+    updateHTML();
 }
 
-async function pushChanges(currenTask, newTitle, newDescription, newDueDate){
-    currenTask['title'] = newTitle;
-    currenTask['description'] = newDescription;
-    currenTask['duedate'] = newDueDate;
+async function pushChanges(currentTask, newTitle, newDescription, newDueDate){
+    currentTask['title'] = newTitle;
+    currentTask['description'] = newDescription;
+    currentTask['duedate'] = newDueDate;
     await saveRemote();
-    openTaskPopUp(currenTask['id']);
+    openTaskPopUp(currentTask['id']);
 }
 
 

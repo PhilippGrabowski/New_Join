@@ -71,13 +71,13 @@ function generateEditPopUp(currentTask, index){
         <div class="form-div">
             <span>Prio</span>
             <div class="prio-container">
-                <button onclick="selectedPrio(0)" class="prio-input" id="urgentPopUp">Urgent
+                <button onclick="changePrio(0)" class="prio-input" id="urgentPopUp">Urgent
                     <img id="img-urgent-popUp" src="src/img/urgent.svg" alt="">
                 </button>
-                <button onclick="selectedPrio(1)" class="prio-input" id="mediumPopUp">Medium
+                <button onclick="changePrio(1)" class="prio-input" id="mediumPopUp">Medium
                     <img id="img-medium-popUp" src="src/img/medium.svg" alt="">
                 </button>
-                <button onclick="selectedPrio(2)" class="prio-input" id="lowPopUp">Low
+                <button onclick="changePrio(2)" class="prio-input" id="lowPopUp">Low
                     <img id="img-low-popUp" src="src/img/low.svg" alt="">
                 </button>
                 
@@ -87,7 +87,7 @@ function generateEditPopUp(currentTask, index){
         <div class="form-div">
                 <span>Assigned to</span>
                 <div onclick="openFillOutForm('showAssigned','assigned','assignedPeople','Assigned to'), renderContacts(), event.stopPropagation()" id="assigned" class="assigned-dropdown-div cursor">
-                    <div id="assignedPeople">Assigned to</div>
+                    <div id="tempIDPopUp">Assigned to</div>
                     <img  class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
                 <div class="d-none" id="showAssigned">
