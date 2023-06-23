@@ -34,8 +34,8 @@
         </div>
     </div>
 
-    <div class="task-popup-background d-none" id="task-popup-background">
-        <div class="task-popup" id="task-popup">
+    <div onclick="closeTaskPopUp()" class="task-popup-background d-none" id="task-popup-background">
+        <div onclick="stopPropagation(event)" class="task-popup" id="task-popup">
             <img onclick="closeTaskPopUp()" class="close-task-popup" src="src/img/close-window.png">
             <div id="popup-content"></div>
 

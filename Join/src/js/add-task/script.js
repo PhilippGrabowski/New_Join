@@ -367,6 +367,7 @@ function selectedPrio(selected) {
             color: `${priorities[selected].color}`
         }
     ]
+    let color = `${priorities[selected]['color']}`;
     setSelectedColor(selected);
     resetSelectedColor(selected);
     document.getElementById('prioValidationText').classList.add('d-none');
@@ -398,7 +399,7 @@ function selectCategory(cat) {
 
 function setSelectedColor(index) {
     let selected = document.getElementById(`${priorities[index].priority}`);
-    selected.style.backgroundColor = `${priorities[index].color}`;
+    selected.style.backgroundColor = `${priorities[index]['color']}`;
     let selectedImg = document.getElementById(`img-${priorities[index].priority}`);
     selectedImg.style = `filter: brightness(0) invert(1)`;
     selected.style.color = `white`;

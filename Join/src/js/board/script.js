@@ -327,8 +327,18 @@ function editTask(index){
     popUpWindow.innerHTML = '';
 
     popUpWindow.innerHTML = generateEditPopUp(currentTask, index); 
-     
+    getPrioColor(currentTask);
     renderContactInitials(currentTask);
+}
+
+function getPrioColor(currentTask){
+    let currentPrio = currentTask['priority'][0]['priority'];
+    let currentColor = currentTask['priority'][0]['color'];
+    let prioImage = document.getElementById(`img-${currentPrio}-popUp`);
+    let currentButton = document.getElementById(`${currentPrio}PopUp`);
+    currentButton.style.backgroundColor = `${currentColor}`;
+    prioImage.style = `filter: brightness(0) invert(1)`;
+    currentButton.style.color = 'white';
 }
 
  async function saveChanges(index){

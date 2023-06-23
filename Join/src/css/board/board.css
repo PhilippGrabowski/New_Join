@@ -447,3 +447,7 @@
     align-items: center;
     justify-content: center;
 }
+
+.urgent-color {
+    background-color: var(--red-color);
+}
