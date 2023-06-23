@@ -58,9 +58,6 @@ let assignedContacts = []
 
 loadCat();
 
-
-
-
 /* Creates a Json out of the Information that has been set in the Add-Task Section */
 
 async function createTask(status) {
@@ -73,8 +70,7 @@ async function createTask(status) {
         tasks.push(pushTask(title, description, dueDate, prio, category, subtasks, assignedContacts, taskStatus, dragId));
         await saveTask();
         window.location = './board.html';
-    }
-    if (status) { closeAddTask(); updateHTML(); }
+    } if (status) { closeAddTask(); updateHTML(); }
 }
 
 function checkSubtask(i) {
@@ -133,8 +129,7 @@ function displayCategoryHTML() {
     cat.classList.add('category-dropdown-div');
     cat.innerHTML = `
         <div id="selectedCategory">Select a Category</div>
-        <img onclick="openFillOutForm('showCat','category','selectedCategory','Select a Category'),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
-        `
+        <img class="cursor" src="src/img/dropdown-arrow.svg">`
 }
 function displayNewCategoryHTML() {
     category.splice(0, 1);
@@ -150,38 +145,33 @@ function displayNewCategoryHTML() {
     cat.classList.add('category-dropdown-div');
     cat.innerHTML = `
             <div id="selectedCategory">${categoryColors[categoryColorsLength].category}<span class="circle"style="background-color: ${categoryColors[categoryColorsLength].color};"></span></div>
-            <img onclick="openFillOutForm('showCat','category','selectedCategory','Select a Category'),displayCategories()" class="cursor" src="src/img/dropdown-arrow.svg">
-            `
+            <img class="cursor" src="src/img/dropdown-arrow.svg">`
 }
-
 
 function displayCategories() {
     let show = document.getElementById('showCat');
     show.innerHTML = '';
     show.innerHTML = `<div onclick="createNewCategory('showCat','category','selectedCategory','category-dropdown-div','Select a Category','New Category name','displayNewCategory()','displayCategories()',
-    'saveCat()','displayCategoryHTML()','newCatText','title-input'), displayCategoryColors()" class="cat">New Category</div>`;
+    'saveCat()','displayCategoryHTML()','newCatText','title-input','text'), displayCategoryColors()" class="cat">New Category</div>`;
     categoryColors.sort((a, b) => a.category.localeCompare(b.category));
     for (let i = 0; i < categoryColors.length; i++) {
         show.innerHTML += `
                 <div class="category-container" onclick="selectCategory(${i})">
                 <div class="cat" id="${i}">${categoryColors[i].category}<span class="circle"style="background-color: ${categoryColors[i].color};"></span></div>
                 <img class="add-task-trash-pic" src="src/img/trash.png" onclick="event.stopPropagation(),deleteCategory(${i})">
-                </div>
-                `
+                </div>`
     }
 }
 
 function deleteCategory(i) {
     let selectedCategory = document.getElementById('selectedCategory');
-    if (selectedCategory.textContent == categoryColors[i].category) {
-        selectedCategory.textContent = 'Select a Category';
-    }
+    if (selectedCategory.textContent == categoryColors[i].category) { selectedCategory.textContent = 'Select a Category'; }
     categoryColors.splice(i, 1);
     saveCat();
     displayCategories();
 }
 
-function createNewCategory(mainId, secondId, thirdId, fourthId, text, placeholder, displayNewOnclick, displayExistingOnclick, saveOnclick, displayHTML, inputId, inputClass) {
+function createNewCategory(mainId, secondId, thirdId, fourthId, text, placeholder, displayNewOnclick, displayExistingOnclick, saveOnclick, displayHTML, inputId, inputClass, formType) {
     openFillOutForm(mainId, secondId, thirdId, text);
     let show = document.getElementById(mainId);
     let categoryContainer = document.getElementById(secondId);
@@ -190,19 +180,18 @@ function createNewCategory(mainId, secondId, thirdId, fourthId, text, placeholde
     show.classList.add('d-none');
     categoryContainer.innerHTML = `
     <div>
-        <input id="${inputId}" class="${inputClass}" type="text" placeholder="${placeholder}">
+        <input id="${inputId}" class="${inputClass}" type="${formType}" placeholder="${placeholder}">
         <img onclick="${displayNewOnclick},${saveOnclick}" class="tick-icon" src="src/img/tick.png">
         <img onclick="${displayExistingOnclick},${displayHTML}" class="x-icon" src="src/img/x.png">
     </div>
     <div id="categoryColors">
-    
     </div>
     `;
 }
 
-
 function renderContacts() {
     let list = document.getElementById('showAssigned');
+    console.log('sdsd');
     if (firstRender) {
         list.innerHTML = '';
         for (let i = 0; i < contacts.length; i++) {
@@ -217,7 +206,7 @@ function renderContacts() {
             </div>`
         }
         list.innerHTML += `
-        <div onclick="createNewCategory('showAssigned','assigned','assignedPeople','assigned-dropdown-div','','find contact','','','','','newCatText','title-input')" class="contact-container cursor">
+        <div onclick="AddNewContact()" class="contact-container cursor">
             Invite New Contact
         </div>` ;
         firstRender = false;
@@ -225,21 +214,65 @@ function renderContacts() {
 }
 
 function AddNewContact() {
+    console.log("yoyo");
+    firstRender = true;
+    let assignedForm = document.getElementById('assigned');
+    assignedForm.classList.remove('assigned-dropdown-div');
+    assignedForm.classList.remove('cursor');
+    assignedForm.onclick = '';
+    let contactsAs = document.getElementById('showAssigned');
+    contactsAs.classList.add('d-none');
+    assignedForm.innerHTML =
+        `
+    <div class="add-contact-container">
+        <input class="title-input" placeholder="Contact email" type="email" id="newContact">
+        <div>
+            <img src="src/img/delete-icon.svg" onclick="displayContacts()" class="delete-icon-x">
+            <img src="src/img/tick.png" onclick="createContact()" class="tick-icon">
+        </div>
+    </div>
+    `
+}
 
+function createContact(){
+    let newContact = document.getElementById('newContact');
+    if(newContact.value.includes('@')){
+        contacts.push({
+            name: `${newContact.value}`,
+            initials: '<img src="src/img/contacts-icon.svg" class="missing-img">'
+        });
+        console.log('added');
+        displayContacts();
+    }
+}
+
+function displayContacts() {
+        let contactsAs = document.getElementById('assingedContactForm');
+        contactsAs.innerHTML = '';
+        contactsAs.innerHTML = `
+        <span>Assigned to</span>
+            <div onclick="openFillOutForm('showAssigned','assigned','assignedPeople','Assigned to'), renderContacts(), event.stopPropagation()" id="assigned" class="assigned-dropdown-div cursor">
+                <div id="assignedPeople">Assigned to</div>
+                <img  class="cursor" src="src/img/dropdown-arrow.svg">
+            </div>
+            <div class="d-none" id="showAssigned">
+        
+            </div>
+            <div id="renderContactBubbles">
+        
+            </div>
+            <div id="assignedValidationText"  class="d-none validation-text">Please assign the Task</div>
+        `
+        assignedContacts = [];
 }
 
 function displayCategoryColors() {
     let color = document.getElementById('categoryColors');
     color.innerHTML = '';
-    for (let i = 0; i < colorType.length; i++) {
-        color.innerHTML += `
-        <div class="colortype" id="colorCode${i}" onclick="selectColor(${i})" style="background-color: ${colorType[i].color}">
-        `
-    }
+    for (let i = 0; i < colorType.length; i++) { color.innerHTML += `<div class="colortype" id="colorCode${i}" onclick="selectColor(${i})" style="background-color: ${colorType[i].color}">` }
 }
 
 function initial() {
-
     let title = document.getElementById('title');
     let titleNote = document.getElementById('titleValidationText');
     let description = document.getElementById('description');
@@ -262,11 +295,7 @@ function selectColor(i) {
 }
 
 function removeOtherSelected(i) {
-    for (let k = 0; k < colorType.length; k++) {
-        if (i != k) {
-            document.getElementById(`colorCode${k}`).classList.remove('highlighted-color');
-        }
-    }
+    for (let k = 0; k < colorType.length; k++) { if (i != k) { document.getElementById(`colorCode${k}`).classList.remove('highlighted-color'); } }
 }
 
 function displayNewCategory() {
@@ -309,17 +338,9 @@ function returnCheckedInputs(checkTitle, checkDesc, checkCat, checkAssigned, che
     else return false;
 }
 
-
-
-
-
 function removeObjectWithId(arr, id) {
     const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
-
-    if (objWithIdIndex > -1) {
-        arr.splice(objWithIdIndex, 1);
-    }
-
+    if (objWithIdIndex > -1) { arr.splice(objWithIdIndex, 1); }
     return arr;
 }
 
@@ -342,7 +363,6 @@ function assignTask(i) {
     if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
 }
 
-
 function renderContactBubbles() {
     let render = document.getElementById('renderContactBubbles');
     render.innerHTML = '';
@@ -357,7 +377,6 @@ function renderContactBubbles() {
     }
 }
 
-
 /* Sets the Priority that the User gives the Task */
 
 function selectedPrio(selected) {
@@ -371,7 +390,6 @@ function selectedPrio(selected) {
     setSelectedColor(selected);
     resetSelectedColor(selected);
     document.getElementById('prioValidationText').classList.add('d-none');
-
 }
 
 /* Sets the chosen Category by the User and will be seen on The Add Task Site */
@@ -403,7 +421,6 @@ function setSelectedColor(index) {
     let selectedImg = document.getElementById(`img-${priorities[index].priority}`);
     selectedImg.style = `filter: brightness(0) invert(1)`;
     selected.style.color = `white`;
-
 }
 
 /* Changes the Color or resets it on the previous Priority Button when the user decides to switch to a different Priority */
@@ -442,11 +459,9 @@ function closeAddTask() {
 /* The Task gets changed into a string */
 
 async function saveTask() {
-
     await setItem('task', JSON.stringify(tasks));
 }
 async function saveCat() {
-
     await setItem('cat', JSON.stringify(categoryColors));
 }
 
@@ -467,15 +482,17 @@ function displaySubTask() {
         subtaskName.push(subInput.value);
         bool.push('false');
     }
-
     for (let i = 0; i < subtaskName.length; i++) { displayContainer.innerHTML += returnSubtaskHTML(i); bool[i] = "false"; }
     subInput.value = '';
 }
-
+let allow;
 function deleteSubtaskInput() {
-    let deleteSubtaskText = document.getElementById('deleteSubTaskTextId');
+    document.getElementById('deleteSubTaskTextId').classList.remove('d-none');
+}
+
+function onSubtaskFocusOut() {
     let subtaskInputId = document.getElementById('subtask-content');
-    deleteSubtaskText.classList.remove('d-none');
+    if (subtaskInputId.value == 0) { let deleteSubtaskText = document.getElementById('deleteSubTaskTextId'); deleteSubtaskText.classList.add('d-none'); }
 }
 
 function emptySubtaskText() {
@@ -483,9 +500,7 @@ function emptySubtaskText() {
     let subtaskInputId = document.getElementById('subtask-content');
     subtaskInputId.value = '';
     deleteSubtaskText.classList.add('d-none');
-
 }
-
 
 /** Returns the HTML for the Subtask 
  * @param {string} i - The number of the for Loop that is used in the displaySubTask Function
