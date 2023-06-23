@@ -333,8 +333,8 @@ function editTask(index){
     popUpWindow.innerHTML = '';
 
     popUpWindow.innerHTML = generateEditPopUp(currentTask, index);
-    document.getElementById('tempIDPopUp').id = 'assigned' 
     getPrioColor(currentTask);
+    fillContacts(currentTask);
     renderContactInitials(currentTask);
 }
 
@@ -378,6 +378,59 @@ function resetUnselectedColor(newPrio){
     }
 }
 
+function fillContacts(currentTask){
+    let contactsContainer = document.getElementById('showAssignedPopUp');
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+        contactsContainer.innerHTML += generateContactCheckbox(contact, i);
+        checkForAssignedStatus(currentTask, contact, i);
+    }
+}
+
+function checkForAssignedStatus(currentTask, contact, i){
+    let currentCheckbox = document.getElementById('tickIdPopUp'+i);
+    let nameToCheck = contact['name'];
+    let currentAssigned = currentTask['assigned']
+    let assignedContactsNames = [];
+    for (let i = 0; i < currentAssigned.length; i++) {
+        const name = currentAssigned[i]['name'];
+        assignedContactsNames.push(name);
+    }
+    for (let i = 0; i < assignedContactsNames.length; i++) {
+        const currentName = assignedContactsNames[i];
+        if (currentName == nameToCheck) {
+            currentCheckbox.classList.remove('d-none');
+        }
+    }
+}
+
+let changedAssignedContacts = [];
+
+function assignTaskPopUp(i) {
+    let checkbox = document.getElementById(`contactName`+i);
+    let tickId = document.getElementById(`tickIdPopUp`+i);
+    let assignedTask = document.getElementById('assignedPeoplePopUp');
+    let assignedTaskNote = document.getElementById('assignedValidationTextPopUp');
+    
+    if (!checkbox.checked) {
+        changedAssignedContacts.push({
+            'name': contacts[i].name,
+            'initials': contacts[i].initials,
+            'id': contacts[i].id,
+            'color': contacts[i].color
+        });
+        tickId.classList.remove('d-none'); checkbox.checked = true;
+    }
+    else if (checkbox.checked) { removeContactAssignation(i); checkbox.checked = false; tickId.classList.add('d-none'); }
+    renderContactBubbles(); checkAssigned = true;
+    if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
+}
+
+function removeContactAssignation(i){
+    let contactToRemove = contacts[i];
+    
+}
+
  async function saveChanges(index){
     let currentTask = tasks[index];
     let newTitle = document.getElementById('newTitle').value;
@@ -390,11 +443,21 @@ function resetUnselectedColor(newPrio){
 }
 
 async function pushChanges(currentTask, newTitle, newDescription, newDueDate){
+    let assignedContacts = currentTask['assigned']
     currentTask['title'] = newTitle;
     currentTask['description'] = newDescription;
     currentTask['duedate'] = newDueDate;
+    pushContacts(assignedContacts)
     await saveRemote();
     openTaskPopUp(currentTask['id']);
+    changedAssignedContacts.splice(0, changedAssignedContacts.length);
+}
+
+function pushContacts(assignedContacts){
+    for (let i = 0; i < changedAssignedContacts.length; i++) {
+        const contact = changedAssignedContacts[i];
+        assignedContacts.push(contact);
+    }
 }
 
 

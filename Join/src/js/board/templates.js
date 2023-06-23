@@ -86,21 +86,33 @@ function generateEditPopUp(currentTask, index){
         </div>
         <div class="form-div">
                 <span>Assigned to</span>
-                <div onclick="openFillOutForm('showAssigned','assigned','assignedPeople','Assigned to'), renderContacts(), event.stopPropagation()" id="assigned" class="assigned-dropdown-div cursor">
-                    <div id="tempIDPopUp">Assigned to</div>
+                <div onclick="openFillOutForm('showAssignedPopUp','assignedPopUp','assignedPeoplePopUp','Assigned to'), renderContacts(), event.stopPropagation()" id="assignedPopUp" class="assigned-dropdown-div cursor">
+                    <div id="assignedPeoplePopUp">Assigned to</div>
                     <img  class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
-                <div class="d-none" id="showAssigned">
+                <div class="d-none" id="showAssignedPopUp">
                     
                 </div>
                 <div id="assigned-contacts${currentTask['id']}" class="flex-row">
                     
                 </div>
-                <div id="assignedValidationText"  class="d-none validation-text">Please assign the Task</div>
+                <div id="assignedValidationTextPopUp"  class="d-none validation-text">Please assign the Task</div>
             </div>
             <button onclick="saveChanges(${index});" class="button_option_2 flex-row curser button-hover">Ok
                         <i class='bx bx-check'></i>
                     </button>
+    `;
+}
+
+function generateContactCheckbox(contact, i){
+    return /*html*/`
+    <div onclick="assignTaskPopUp(${i})" class="contact-container cursor" id="contactName${i}">
+                ${contact.name}
+                <div class="checkbox-container">
+                    <img class="cursor checkbox-img" id="contact${contact.id}" src="src/img/checkbox.png">
+                        <img src="src/img/tick.png" class="tick-img d-none" id="tickIdPopUp${i}">
+                </div>
+            </div>
     `;
 }
 
