@@ -10,6 +10,14 @@ let subtaskName = [];
 
 let bool = [];
 
+let hasBeenClicked = 0;
+
+let low = 0;
+
+let medium = 0;
+
+let urgent = 0;
+
 let subtasks = [
     {
         "checked": bool,
@@ -109,58 +117,63 @@ function pushTask(title, description, duedate, prio, category, subtasks, assigne
 
 function openFillOutForm(mainId, secondId, thirdId, text) {
     let displayForm = document.getElementById(mainId);
-    document.getElementById(thirdId).textContent = text;
+    let formText = document.getElementById(thirdId);
+    formText.textContent = text;
     displayForm.classList.toggle('d-none');
     let checkBottomBorder = !displayForm.classList.contains('d-none');
-    if (checkBottomBorder) {
-        document.getElementById(secondId).style.borderBottomLeftRadius = "0px";
-        document.getElementById(secondId).style.borderBottomRightRadius = "0px";
-        document.getElementById(secondId).style.borderBottom = "none";
-    } else {
-        document.getElementById(secondId).style.borderBottomLeftRadius = "8px";
-        document.getElementById(secondId).style.borderBottomRightRadius = "8px";
-        document.getElementById(secondId).style.borderBottom = "1px solid lightgray";
-    }
+    let borderStyle = checkBottomBorder ? "none" : "1px solid lightgray";
+    let borderRadius = checkBottomBorder ? "0px" : "8px";
+    let secondElement = document.getElementById(secondId);
+    secondElement.style.borderBottomLeftRadius = borderRadius;
+    secondElement.style.borderBottomRightRadius = borderRadius;
+    secondElement.style.borderBottom = borderStyle;
 }
 
 function displayCategoryHTML() {
     let cat = document.getElementById('category');
-    cat.style = '';
     cat.classList.add('category-dropdown-div');
-    cat.innerHTML = `
-        <div id="selectedCategory">Select a Category</div>
-        <img class="cursor" src="src/img/dropdown-arrow.svg">`
+    cat.innerHTML = ` <div id="selectedCategory">Select a Category</div> <img class="cursor" src="src/img/dropdown-arrow.svg">`
 }
+
 function displayNewCategoryHTML() {
     category.splice(0, 1);
     let categoryColorsLength = categoryColors.length - 1;
-    category.push(
-        {
-            color: categoryColors[categoryColorsLength].color,
-            category: `${categoryColors[categoryColorsLength].category}`
-        }
-    )
+    category.push({
+        color: categoryColors[categoryColorsLength].color,
+        category: categoryColors[categoryColorsLength].category
+    });
     let cat = document.getElementById('category');
-    cat.style = '';
     cat.classList.add('category-dropdown-div');
-    cat.innerHTML = `
-            <div id="selectedCategory">${categoryColors[categoryColorsLength].category}<span class="circle"style="background-color: ${categoryColors[categoryColorsLength].color};"></span></div>
-            <img class="cursor" src="src/img/dropdown-arrow.svg">`
+    cat.innerHTML = returnDisplayNewCategoryHTML(categoryColorsLength);
+}
+
+function returnDisplayNewCategoryHTML(categoryColorsLength) {
+    return `
+    <div id="selectedCategory">
+        ${categoryColors[categoryColorsLength].category}
+        <span class="circle" style="background-color: ${categoryColors[categoryColorsLength].color};"></span>
+    </div>
+    <img class="cursor" src="src/img/dropdown-arrow.svg">`;
 }
 
 function displayCategories() {
     let show = document.getElementById('showCat');
     show.innerHTML = '';
-    show.innerHTML = `<div onclick="createNewCategory('showCat','category','selectedCategory','category-dropdown-div','Select a Category','New Category name','displayNewCategory()','displayCategories()',
-    'saveCat()','displayCategoryHTML()','newCatText','title-input','text'), displayCategoryColors()" class="cat">New Category</div>`;
+    show.innerHTML = `<div onclick="createNewCategory('showCat','category','selectedCategory','category-dropdown-div','Select a Category','New Category name','displayNewCategory()','displayCategories()','saveCat()','displayCategoryHTML()','newCatText','title-input','text'), displayCategoryColors()" class="cat">New Category</div>`;
     categoryColors.sort((a, b) => a.category.localeCompare(b.category));
     for (let i = 0; i < categoryColors.length; i++) {
-        show.innerHTML += `
-                <div class="category-container" onclick="selectCategory(${i})">
-                <div class="cat" id="${i}">${categoryColors[i].category}<span class="circle"style="background-color: ${categoryColors[i].color};"></span></div>
-                <img class="add-task-trash-pic" src="src/img/trash.png" onclick="event.stopPropagation(),deleteCategory(${i})">
-                </div>`
+        show.innerHTML += returnDisplayCategoriesHTML(i);
     }
+}
+
+function returnDisplayCategoriesHTML(i) {
+    return `
+    <div class="category-container" onclick="selectCategory(${i})">
+        <div class="cat" id="${i}">
+            ${categoryColors[i].category}<span class="circle" style="background-color: ${categoryColors[i].color};"></span>
+        </div>
+        <img class="add-task-trash-pic" src="src/img/trash.png" onclick="event.stopPropagation(), deleteCategory(${i})">
+    </div>`;
 }
 
 function deleteCategory(i) {
@@ -176,17 +189,18 @@ function createNewCategory(mainId, secondId, thirdId, fourthId, text, placeholde
     let show = document.getElementById(mainId);
     let categoryContainer = document.getElementById(secondId);
     categoryContainer.classList.remove(fourthId);
-    categoryContainer.style = '';
     show.classList.add('d-none');
-    categoryContainer.innerHTML = `
+    categoryContainer.innerHTML = returnCreateNewCategoryHTML(inputId, inputClass, formType, placeholder, displayNewOnclick, saveOnclick, displayExistingOnclick, displayHTML);
+}
+
+function returnCreateNewCategoryHTML(inputId, inputClass, formType, placeholder, displayNewOnclick, saveOnclick, displayExistingOnclick, displayHTML) {
+    return `
     <div>
         <input id="${inputId}" class="${inputClass}" type="${formType}" placeholder="${placeholder}">
-        <img onclick="${displayNewOnclick},${saveOnclick}" class="tick-icon" src="src/img/tick.png">
-        <img onclick="${displayExistingOnclick},${displayHTML}" class="x-icon" src="src/img/x.png">
+        <img onclick="${displayNewOnclick};${saveOnclick}" class="tick-icon" src="src/img/tick.png">
+        <img onclick="${displayExistingOnclick};${displayHTML}" class="x-icon" src="src/img/x.png">
     </div>
-    <div id="categoryColors">
-    </div>
-    `;
+    <div id="categoryColors"></div>`;
 }
 
 function renderContacts() {
@@ -194,27 +208,24 @@ function renderContacts() {
     console.log('sdsd');
     if (firstRender) {
         list.innerHTML = '';
-        for (let i = 0; i < contacts.length; i++) {
-            list.innerHTML += `
-            <div onclick="assignTask(${i})" class="contact-container cursor">
-                ${contacts[i].name}
-                <div class="checkbox-container">
-                    <img class="cursor checkbox-img" id="contact${contacts[i].id}" src="src/img/checkbox.png">
-                        <img src="src/img/tick.png" class="tick-img d-none" id="tickId${i}">
-                    </img>
-                </div>
-            </div>`
-        }
-        list.innerHTML += `
-        <div onclick="AddNewContact()" class="contact-container cursor">
-            Invite New Contact
-        </div>` ;
+        for (let i = 0; i < contacts.length; i++) { list.innerHTML += returnRenderContactsHTML(i); }
+        list.innerHTML += ` <div onclick="AddNewContact()" class="contact-container cursor"> Invite New Contact </div>`;
         firstRender = false;
     }
 }
 
+function returnRenderContactsHTML(i) {
+    return `
+    <div onclick="assignTask(${i})" class="contact-container cursor">
+        ${contacts[i].name}
+        <div class="checkbox-container">
+            <img class="cursor checkbox-img" id="contact${contacts[i].id}" src="src/img/checkbox.png">
+            <img src="src/img/tick.png" class="tick-img d-none" id="tickId${i}">
+        </div>
+    </div>`;
+}
+
 function AddNewContact() {
-    console.log("yoyo");
     firstRender = true;
     let assignedForm = document.getElementById('assigned');
     assignedForm.classList.remove('assigned-dropdown-div');
@@ -222,8 +233,11 @@ function AddNewContact() {
     assignedForm.onclick = '';
     let contactsAs = document.getElementById('showAssigned');
     contactsAs.classList.add('d-none');
-    assignedForm.innerHTML =
-        `
+    assignedForm.innerHTML = returnAddNewContactHTML();
+}
+
+function returnAddNewContactHTML() {
+    return `
     <div class="add-contact-container">
         <input class="title-input" placeholder="Contact email" type="email" id="newContact">
         <div>
@@ -234,36 +248,37 @@ function AddNewContact() {
     `
 }
 
-function createContact(){
+function createContact() {
     let newContact = document.getElementById('newContact');
-    if(newContact.value.includes('@')){
+    if (newContact.value.includes('@')) {
         contacts.push({
             name: `${newContact.value}`,
             initials: '<img src="src/img/contacts-icon.svg" class="missing-img">'
         });
-        console.log('added');
         displayContacts();
     }
 }
 
 function displayContacts() {
-        let contactsAs = document.getElementById('assingedContactForm');
-        contactsAs.innerHTML = '';
-        contactsAs.innerHTML = `
-        <span>Assigned to</span>
-            <div onclick="openFillOutForm('showAssigned','assigned','assignedPeople','Assigned to'), renderContacts(), event.stopPropagation()" id="assigned" class="assigned-dropdown-div cursor">
-                <div id="assignedPeople">Assigned to</div>
-                <img  class="cursor" src="src/img/dropdown-arrow.svg">
-            </div>
-            <div class="d-none" id="showAssigned">
-        
-            </div>
-            <div id="renderContactBubbles">
-        
-            </div>
-            <div id="assignedValidationText"  class="d-none validation-text">Please assign the Task</div>
-        `
-        assignedContacts = [];
+    let contactsAs = document.getElementById('assingedContactForm');
+    contactsAs.innerHTML = '';
+    contactsAs.innerHTML = returnDisplayContactsHTML();
+    assignedContacts = [];
+}
+
+function returnDisplayContactsHTML() {
+    return `
+    <span>Assigned to</span>
+        <div onclick="openFillOutForm('showAssigned','assigned','assignedPeople','Assigned to'), renderContacts(), event.stopPropagation()" id="assigned" class="assigned-dropdown-div cursor">
+            <div id="assignedPeople">Assigned to</div>
+            <img  class="cursor" src="src/img/dropdown-arrow.svg">
+        </div>
+        <div class="d-none" id="showAssigned">
+        </div>
+        <div id="renderContactBubbles">
+        </div>
+        <div id="assignedValidationText"  class="d-none validation-text">Please assign the Task</div>
+    `
 }
 
 function displayCategoryColors() {
@@ -301,17 +316,16 @@ function removeOtherSelected(i) {
 function displayNewCategory() {
     let input = document.getElementById('newCatText').value;
     let colorArrayLength = selectedColor.length;
-    if (input != 0 && isColorPicked) {
-        categoryColors.push(
-            {
-                color: `${selectedColor[colorArrayLength - 1]}`,
-                category: `${input}`
-            }
-        )
+    if (input !== '' && isColorPicked) {
+        categoryColors.push({
+            color: selectedColor[colorArrayLength - 1],
+            category: input
+        });
         displayNewCategoryHTML();
         isColorPicked = false;
     }
 }
+
 
 function checkValidationOnInputs() {
     let title = document.getElementById('title');
@@ -338,6 +352,7 @@ function returnCheckedInputs(checkTitle, checkDesc, checkCat, checkAssigned, che
     else return false;
 }
 
+
 function removeObjectWithId(arr, id) {
     const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
     if (objWithIdIndex > -1) { arr.splice(objWithIdIndex, 1); }
@@ -349,16 +364,13 @@ function assignTask(i) {
     let tickId = document.getElementById(`tickId${i}`);
     let assignedTask = document.getElementById('assignedPeople');
     let assignedTaskNote = document.getElementById('assignedValidationText');
-    if (!checkbox.checked) {
-        assignedContacts.push({
+    if (!checkbox.checked) { assignedContacts.push({
             'name': contacts[i].name,
             'initials': contacts[i].initials,
             'id': contacts[i].id,
             'color': contacts[i].color
-        });
-        tickId.classList.remove('d-none'); checkbox.checked = true;
-    }
-    else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; tickId.classList.add('d-none'); }
+        }); tickId.classList.remove('d-none'); checkbox.checked = true;
+    }else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; tickId.classList.add('d-none'); }
     renderContactBubbles(); checkAssigned = true;
     if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
 }
@@ -370,10 +382,7 @@ function renderContactBubbles() {
     for (let i = 0; i < assignedContacts.length; i++) {
         firstLetter = assignedContacts[i].initials;
         render.innerHTML += `
-        <div class="contact-display">
-            ${firstLetter}
-        </div>
-        `
+        <div class="contact-display">${firstLetter}</div>`
     }
 }
 
@@ -386,7 +395,6 @@ function selectedPrio(selected) {
             color: `${priorities[selected].color}`
         }
     ]
-    let color = `${priorities[selected]['color']}`;
     setSelectedColor(selected);
     resetSelectedColor(selected);
     document.getElementById('prioValidationText').classList.add('d-none');
@@ -405,12 +413,9 @@ function selectCategory(cat) {
     document.getElementById('category').style.borderBottomLeftRadius = "8px";
     document.getElementById('category').style.borderBottomRightRadius = "8px";
     category.push(
-        {
-            color: categoryColors[cat].color,
-            category: `${categoryColors[cat].category}`
-        }
-    )
-    if (chosenCat.textContent != 0) { checkCat = true; chosenCatNote.classList.add('d-none'); }
+        {color: categoryColors[cat].color,
+        category: `${categoryColors[cat].category}`}
+    ); if (chosenCat.textContent != 0) { checkCat = true; chosenCatNote.classList.add('d-none'); }
 }
 
 /* Sets the Color of the Priorities for a Visual Feedback effect */
@@ -424,10 +429,7 @@ function setSelectedColor(index) {
 }
 
 /* Changes the Color or resets it on the previous Priority Button when the user decides to switch to a different Priority */
-let hasBeenClicked = 0;
-let low = 0;
-let medium = 0;
-let urgent = 0;
+
 
 function resetSelectedColor(index) {
     if (prio[0].priority == 'low') { low++; medium = 0; urgent = 0; }
@@ -437,16 +439,13 @@ function resetSelectedColor(index) {
         if (i != index) {
             document.getElementById(`${priorities[i].priority}`).style.backgroundColor = 'white';
             document.getElementById(`${priorities[i].priority}`).style.color = 'black';
-            document.getElementById(`img-${priorities[i].priority}`).style = `filter: brightness(1) invert(0)`;
-        }
-    }
-    if (low == 2 || medium == 2 || urgent == 2) {
+            document.getElementById(`img-${priorities[i].priority}`).style = `filter: brightness(1) invert(0)`;}
+} if (low == 2 || medium == 2 || urgent == 2) {
         document.getElementById(`${priorities[index].priority}`).style.backgroundColor = 'white';
         document.getElementById(`${priorities[index].priority}`).style.color = 'black';
         document.getElementById(`img-${priorities[index].priority}`).style = `filter: brightness(1) invert(0)`;
         prio.splice(0, 1);
-        low = 0; medium = 0; urgent = 0;
-    }
+        low = 0; medium = 0; urgent = 0;}
 }
 
 
@@ -481,8 +480,7 @@ function displaySubTask() {
     if (subInput.value != 0) {
         subtaskName.push(subInput.value);
         bool.push('false');
-    }
-    for (let i = 0; i < subtaskName.length; i++) { displayContainer.innerHTML += returnSubtaskHTML(i); bool[i] = "false"; }
+    } for (let i = 0; i < subtaskName.length; i++) { displayContainer.innerHTML += returnSubtaskHTML(i); bool[i] = "false"; }
     subInput.value = '';
 }
 let allow;
