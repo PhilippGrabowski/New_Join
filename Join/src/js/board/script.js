@@ -153,6 +153,7 @@ function getCurrentTask(){
  * @param {*} id - To differ between the task-divs
  */
 function startDragging(id){
+    document.getElementById(`taskBox${id}`).style = 'transform: rotate(5deg)';
     currentDraggedElement = id;
 }
 
@@ -222,9 +223,8 @@ function hideAllTaskBoxes(){
 
 function openAddTask(status){
     document.getElementById('add-task-overlay').style.transform = 'translateX(0)';
-    document.getElementById('tempID').id = 'assigned'
     if(status){
-        document.getElementById('create-task-button').setAttribute("onClick", `createTask('${status}')`)
+        document.getElementById('create-task-button').setAttribute("onclick", `createTask('${status}')`)
     }
 }
 
@@ -421,15 +421,11 @@ function assignTaskPopUp(i) {
         });
         tickId.classList.remove('d-none'); checkbox.checked = true;
     }
-    else if (checkbox.checked) { removeContactAssignation(i); checkbox.checked = false; tickId.classList.add('d-none'); }
+    else if (checkbox.checked) {checkbox.checked = false; tickId.classList.add('d-none'); }
     renderContactBubbles(); checkAssigned = true;
     if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
 }
 
-function removeContactAssignation(i){
-    let contactToRemove = contacts[i];
-    
-}
 
  async function saveChanges(index){
     let currentTask = tasks[index];
@@ -447,19 +443,44 @@ async function pushChanges(currentTask, newTitle, newDescription, newDueDate){
     currentTask['title'] = newTitle;
     currentTask['description'] = newDescription;
     currentTask['duedate'] = newDueDate;
-    pushContacts(assignedContacts)
+    await pushContacts(assignedContacts)
     await saveRemote();
     openTaskPopUp(currentTask['id']);
     changedAssignedContacts.splice(0, changedAssignedContacts.length);
 }
 
-function pushContacts(assignedContacts){
+async function pushContacts(assignedContacts){
     for (let i = 0; i < changedAssignedContacts.length; i++) {
         const contact = changedAssignedContacts[i];
+        const contactName = contact['name'];
         assignedContacts.push(contact);
     }
+    let cleanedArray = removeDuplicateObjects(assignedContacts);
+    assignedContacts.splice(0, assignedContacts.length);
+    for (let i = 0; i < cleanedArray.length; i++) {
+        const element = cleanedArray[i];
+        assignedContacts.push(element);
+    }
+
 }
 
+function removeDuplicateObjects(arr) {
+    const uniqueObjects = [];
+    const keys = new Set();
+  
+    for (const obj of arr) {
+      // Convert the object to a string to use as a unique key
+      const key = JSON.stringify(obj);
+  
+      // If the key is not already present, add the object to the result array
+      if (!keys.has(key)) {
+        keys.add(key);
+        uniqueObjects.push(obj);
+      }
+    }
+    console.log(uniqueObjects);
+    return uniqueObjects;
+  }
 
 
 /**

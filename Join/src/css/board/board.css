@@ -73,6 +73,10 @@
     position: relative;
 }
 
+.task-container {
+    padding: 16px;
+}
+
 .task-column-header {
     position: sticky;
     top: 0;
@@ -103,6 +107,7 @@
     margin-top: 32px;
     gap: 10px;
     cursor: grab;
+    transition: 125ms ease-in-out;
 }
 
 .board-task-box h3 {
@@ -450,4 +455,19 @@
 
 .urgent-color {
     background-color: var(--red-color);
+}
+
+#showAssignedPopUp{
+    overflow-y: scroll;
+    padding-bottom: 5px;
+    border: 1px solid lightgray;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top: none;
+    margin-top: -5px;
+    height: 130px;
+}
+
+#showAssignedPopUp::-webkit-scrollbar{
+    display: none;
 }
