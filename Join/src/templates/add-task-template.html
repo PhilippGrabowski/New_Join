@@ -15,7 +15,7 @@
             
             <div class="form-div">
                 <span>Category</span>
-                <div onclick="openFillOutForm('showCat','category','selectedCategory','Select a Category'),displayCategories(), event.stopPropagation()" id="category" class="category-dropdown-div cursor">
+                <div onclick="openCategories(),resetCategoryText(), event.stopPropagation()" id="category" class="category-dropdown-div cursor">
                     <div id="selectedCategory">Select a Category</div>
                     <img class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
@@ -26,7 +26,7 @@
             </div>
             <div class="form-div" id="assingedContactForm">
                 <span>Assigned to</span>
-                <div onclick="openFillOutForm('showAssigned','assigned','assignedPeople','Assigned to'), renderContacts(), event.stopPropagation()" id="assigned" class="assigned-dropdown-div cursor">
+                <div onclick="openAssignedTo(), event.stopPropagation()" id="assigned" class="assigned-dropdown-div cursor">
                     <div id="assignedPeople">Assigned to</div>
                     <img  class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
