@@ -4,6 +4,7 @@ let stat = ['to-do', 'in-progress', 'awaiting-feedback', 'done'];
 let previousProgress;
 let currentDraggedElement;
 let changedPrio;
+let currentOpenedTask;
 
 
 async function init(){
@@ -259,6 +260,7 @@ function getCheckBoxStatus(id){
 }
 
 function closeTaskPopUp(){
+    currentOpenedTask = '';
     updateHTML();
 
     document.getElementById('task-popup-background').classList.add('d-none');
@@ -332,6 +334,7 @@ function editTask(index){
     changedPrio = currentTask;
     popUpWindow.innerHTML = '';
 
+    currentOpenedTask = currentTask;
     popUpWindow.innerHTML = generateEditPopUp(currentTask, index);
     getPrioColor(currentTask);
     fillContacts(currentTask);
@@ -406,14 +409,14 @@ function checkForAssignedStatus(currentTask, contact, i){
 
 let changedAssignedContacts = [];
 
-function assignTaskPopUp(i) {
+function assignTaskPopUp(i, contact) {
     let checkbox = document.getElementById(`contactName`+i);
     let tickId = document.getElementById(`tickIdPopUp`+i);
     let assignedTask = document.getElementById('assignedPeoplePopUp');
     let assignedTaskNote = document.getElementById('assignedValidationTextPopUp');
     
     if (!checkbox.checked) {
-        changedAssignedContacts.push({
+        currentOpenedTask['assigned'].splice(i, 0,{
             'name': contacts[i].name,
             'initials': contacts[i].initials,
             'id': contacts[i].id,
@@ -421,9 +424,13 @@ function assignTaskPopUp(i) {
         });
         tickId.classList.remove('d-none'); checkbox.checked = true;
     }
-    else if (checkbox.checked) {checkbox.checked = false; tickId.classList.add('d-none'); }
-    renderContactBubbles(); checkAssigned = true;
-    if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
+    else {
+        let index = getIndexOfContact(contact);
+        if (checkbox.checked) {checkbox.checked = false; tickId.classList.add('d-none'); currentOpenedTask['assigned'].splice(i, 1);}
+    checkAssigned = true;
+    if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }}
+    currentOpenedTask['assigned'] = removeDuplicateObjects(currentOpenedTask['assigned']);
+    renderContactInitials(currentOpenedTask);
 }
 
 
@@ -439,7 +446,7 @@ function assignTaskPopUp(i) {
 }
 
 async function pushChanges(currentTask, newTitle, newDescription, newDueDate){
-    let assignedContacts = currentTask['assigned']
+    let assignedContacts = currentOpenedTask['assigned']
     currentTask['title'] = newTitle;
     currentTask['description'] = newDescription;
     currentTask['duedate'] = newDueDate;
@@ -478,10 +485,14 @@ function removeDuplicateObjects(arr) {
         uniqueObjects.push(obj);
       }
     }
-    console.log(uniqueObjects);
     return uniqueObjects;
   }
 
+  function getIndexOfContact(contact){
+    let contacts = currentOpenedTask['assigned'];
+    let index = contacts.indexOf(contact);
+    console.log(index);
+  }
 
 /**
  * Returns first letter of the name as a uppercase letter
