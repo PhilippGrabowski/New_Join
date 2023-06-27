@@ -103,7 +103,6 @@ body{
     width: 35px;
     height: 35px;
     border-radius: 100%;
-    background-color: rgb(148, 148, 235);
     margin-right: -5px;
     border: 1px solid white;
     color: white;
@@ -120,6 +119,13 @@ body{
     height: 130px;
     
     
+}
+.main-add-task::-webkit-scrollbar{
+    display: none;
+}
+
+#showCat::-webkit-scrollbar{
+    display: none;
 }
 
 #showAssigned::-webkit-scrollbar{

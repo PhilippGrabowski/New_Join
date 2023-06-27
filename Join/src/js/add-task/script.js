@@ -25,6 +25,8 @@ let subtasks = [
     }
 ];
 
+let today = new Date().toISOString().split("T")[0];
+
 let colorType = [
     { color: 'lightblue' },
     { color: 'red' },
@@ -82,7 +84,6 @@ let assignedContacts = []
 // Loads the Categories that have been created and saved when the site gets refreshed 
 loadCat();
 
-
 /**
  * The function creates a task with user input and saves it to a list of tasks, then redirects to a
  * board page.
@@ -102,6 +103,15 @@ async function createTask(status) {
     } if (status) { closeAddTask(); updateHTML(); }
 }
 
+function renderDate() {
+    let currentDate = document.getElementById('dueDate');
+    currentDate.value = today;
+    currentDate.setAttribute('min', today);
+}
+
+async function delayDate() {
+       setTimeout(renderDate, 300);
+    }
 
 /**
  * The function checks if a checkbox is checked and updates a boolean array accordingly.
@@ -389,10 +399,11 @@ function returnAddNewContactHTML() {
  * This function creates a new contact and adds it to an array if the input value contains an "@"
  * symbol, and then displays the updated list of contacts.
  */
-function createContact() {
+function createContact(i) {
     let newContact = document.getElementById('newContact');
     if (newContact.value.includes('@')) {
         contacts.push({
+            id: contacts.length + 5,
             name: `${newContact.value}`,
             initials: '<img src="src/img/contacts-icon.svg" class="missing-img">'
         });
@@ -607,7 +618,7 @@ function renderContactBubbles() {
     for (let i = 0; i < assignedContacts.length; i++) {
         firstLetter = assignedContacts[i].initials;
         render.innerHTML += `
-        <div class="contact-display">${firstLetter}</div>`
+        <div class="contact-display" style="background-color:${contacts[i].color} ;">${firstLetter}</div>`
     }
 }
 
