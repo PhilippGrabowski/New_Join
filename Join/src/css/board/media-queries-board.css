@@ -1,0 +1,41 @@
+/*Media queries for board*/
+
+@media(max-width: 900px){
+
+    #board-section {
+        padding: 0 16px;
+        overflow-y: scroll;
+    }
+
+    #board-content {
+        width: auto;
+        height: calc(100vh - 159px);
+        padding: 0;
+        margin-top: 100px;
+        
+    }
+
+    #board-header {
+        flex-direction: column !important;
+        align-items: flex-start;
+    }
+
+    #board-header input {
+        width: 250px;
+        height: 40px;
+    }
+
+    #tasks-container {
+        flex-direction: column !important;
+        overflow: hidden;
+    }
+
+    .task-status-container {
+        width: 100%;
+        min-height: 200px;
+    }
+
+    .task-container{
+        flex-direction: row !important;
+    }
+}

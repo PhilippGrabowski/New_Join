@@ -222,6 +222,7 @@ function hideAllTaskBoxes(){
 //<--------------------------------------------- Open and Close PopUps ------------------------------------------->
 
 function openAddTask(status){
+    document.getElementById('add-task-overlay').classList.remove('d-none');
     document.getElementById('add-task-overlay').style.transform = 'translateX(0)';
     if(status){
         document.getElementById('create-task-button').setAttribute("onclick", `createTask('${status}')`)
@@ -230,6 +231,7 @@ function openAddTask(status){
 
 function closeAddTask(){
     document.getElementById('add-task-overlay').style.transform = 'translateX(3500px)';
+    document.getElementById('add-task-overlay').classList.add('d-none');
     document.getElementById('assigned').id = 'tempID'
 }
 

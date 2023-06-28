@@ -109,7 +109,7 @@ function generateContactCheckbox(contact, i){
     <div onclick="assignTaskPopUp(${i})" class="contact-container cursor" id="contactName${i}">
                 ${contact.name}
                 <div class="checkbox-container">
-                    <img class="cursor checkbox-img" id="contact${contact.id}" src="src/img/checkbox.png">
+                    <img class="cursor checkbox-img" id="contactPopUp${contact.id}" src="src/img/checkbox.png">
                         <img src="src/img/tick.png" class="tick-img d-none" id="tickIdPopUp${i}">
                 </div>
             </div>
