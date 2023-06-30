@@ -13,7 +13,7 @@ body{
 .main-add-task-container {
     width: calc(100vw - 230px);
     height: 100%;
-    padding: 3.2rem 4.7rem 0 5.8rem;
+    padding: 30px;
     gap: 40px;
 }
 
@@ -31,6 +31,8 @@ body{
 .add-task-container {
     display: flex;
     gap: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .delete-icon-x{
@@ -88,6 +90,10 @@ body{
 .add-contact-container{
     display: flex;
     justify-content: space-between;
+}
+
+.contact-bubble-container{
+    display: flex;
 }
 
 
@@ -163,7 +169,6 @@ body{
 
 .right-fill-out-form {
     width: 100%;
-    margin-right: 20px;
 }
 
 .line {
@@ -418,6 +423,35 @@ body{
     .main-add-task-container {
         width: calc(100vw - 180px);
     }
+   
+}
+@media (max-width: 900px) {
+    
+    .main-add-task-container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+@media (max-width: 800px) {
+    
+    .add-task-container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .line{
+        display: none;
+    }
+
+    .submit-btn-container{
+        margin-top: 20px;
+    }
+    .main-add-task{
+    }
+    .main-add-task-container{
+        padding-top: 20px;
+        gap: 10px;
+    }
 }
 
 @media (max-width: 670px) {
@@ -428,9 +462,50 @@ body{
         width: calc(100vw - 90px);
     }
 }
+@media (max-width: 468px) {
+    #add-task-section{
+        display: flex;
+        justify-content: center;
+        padding-left: 0px;
+    }
 
+    .main-add-task{
+        padding-bottom: 80px;
+    }
+    .main-add-task-container{
+        padding-top: 10px;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        width: unset;
+        gap: 0px;
+    }
+    .prio-input{
+        padding-left: 7px;
+        padding-right: 7px;
+        gap: 5px;
+    }
+    .add-task-container{
+        margin-left: 0px;
+        margin-right: 0px;
+        gap: 0px;
+    }
+    .submit-btn-container{
+        position: absolute;
+        z-index: 100000;
+        right: 20px;
+        top: 20px;
+        margin: 0;
+    }
 
+    .profil_img{
+        display: none;
+    }
 
+    .cancel-btn{
+        display: none;
+    }
+}
 
 .date_input_container {
     height: 30px;

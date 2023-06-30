@@ -37,6 +37,15 @@ async function loadCat() {
         categoryColors.push(loadedCat);  
     }
 }
+async function loadAssigned() {
+    assignedContacts = [];
+    let assigned = await getItem('assigned');
+    assigned = JSON.parse(assigned['data']['value']);
+    for (let i = 0; i < assigned.length; i++) {
+        let loadedAssigned = assigned[i];
+        assignedContacts.push(loadedAssigned);  
+    }
+}
 
 /**
  * Loads and converts the JSON string, of the key contact, into a object from the remote storage
