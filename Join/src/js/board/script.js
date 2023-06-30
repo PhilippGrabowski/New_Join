@@ -3,6 +3,7 @@ let container = ['board-to-do', 'board-in-progress', 'board-awaiting-feedback', 
 let stat = ['to-do', 'in-progress', 'awaiting-feedback', 'done'];
 let previousProgress;
 let currentDraggedElement;
+let currentOpenedTask;
 let changedPrio;
 
 
@@ -36,7 +37,7 @@ function updateHTML(){
             renderContactInitials(element);
             boxCount++;
         }
-        box.innerHTML += `<div class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
+        box.innerHTML += `<div ondrop="moveTo(${stat[i]})" class="dragbox-shadow d-none" id="${stat[i]}-shadow"></div>`;
     }
 }
 
@@ -153,7 +154,6 @@ function getCurrentTask(){
  * @param {*} id - To differ between the task-divs
  */
 function startDragging(id){
-    document.getElementById(`taskBox${id}`).style = 'transform: rotate(5deg)';
     currentDraggedElement = id;
 }
 
@@ -261,6 +261,7 @@ function getCheckBoxStatus(id){
 }
 
 function closeTaskPopUp(){
+    currentOpenedTask = '';
     updateHTML();
 
     document.getElementById('task-popup-background').classList.add('d-none');
@@ -335,8 +336,10 @@ function editTask(index){
     popUpWindow.innerHTML = '';
 
     popUpWindow.innerHTML = generateEditPopUp(currentTask, index);
+    currentOpenedTask = currentTask;
     getPrioColor(currentTask);
     fillContacts(currentTask);
+    checkForAssignedStatus(currentTask);
     renderContactInitials(currentTask);
 }
 
@@ -385,48 +388,54 @@ function fillContacts(currentTask){
     for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
         contactsContainer.innerHTML += generateContactCheckbox(contact, i);
-        checkForAssignedStatus(currentTask, contact, i);
     }
+    
 }
 
-function checkForAssignedStatus(currentTask, contact, i){
-    let currentCheckbox = document.getElementById('tickIdPopUp'+i);
-    let nameToCheck = contact['name'];
-    let currentAssigned = currentTask['assigned']
-    let assignedContactsNames = [];
-    for (let i = 0; i < currentAssigned.length; i++) {
-        const name = currentAssigned[i]['name'];
-        assignedContactsNames.push(name);
+function checkForAssignedStatus(currentTask){
+    let assignedPeople = currentTask['assigned'];
+    let namesToCheck = [];
+    for (let i = 0; i < assignedPeople.length; i++) {
+        const contactName = assignedPeople[i]['name'];
+        namesToCheck.push(contactName);
     }
-    for (let i = 0; i < assignedContactsNames.length; i++) {
-        const currentName = assignedContactsNames[i];
-        if (currentName == nameToCheck) {
-            currentCheckbox.classList.remove('d-none');
+    for (let i = 0; i < contacts.length; i++) {
+        const contactName = contacts[i]['name'];
+        let currentNameToCheck = document.getElementById(`contactName${i}`).innerText;
+        let currentCheckbox = document.getElementById(`tickIdPopUp${i}`);
+        let indexOfName = getIndexOfName(currentNameToCheck, namesToCheck);
+        if (indexOfName > -1) {
+            currentCheckbox.checked = true;
         }
     }
 }
 
+function changeCheckedStatus(i){
+    console.log(i)
+}
+
+function getIndexOfName(name, arr){
+    let index = arr.indexOf(name);
+    return index;
+}
+
 let changedAssignedContacts = [];
 
-function assignTaskPopUp(i) {
-    let checkbox = document.getElementById(`contactName`+i);
-    let tickId = document.getElementById(`tickIdPopUp`+i);
-    let assignedTask = document.getElementById('assignedPeoplePopUp');
-    let assignedTaskNote = document.getElementById('assignedValidationTextPopUp');
-    
+function assignTaskPopUp(i){
+    let checkbox = document.getElementById(`tickIdPopUp${i}`);
+    let alreadyAssignedContacts = currentOpenedTask['assigned'];
+    let contactToAssign = contacts[i];
+    console.log(checkbox);
     if (!checkbox.checked) {
-        changedAssignedContacts.push({
-            'name': contacts[i].name,
-            'initials': contacts[i].initials,
-            'id': contacts[i].id,
-            'color': contacts[i].color
-        });
-        tickId.classList.remove('d-none'); checkbox.checked = true;
+        alreadyAssignedContacts.push(contactToAssign);
+        checkbox.checked = true;
+    } else {
+        removeObjectWithId(alreadyAssignedContacts, contacts[i].id);
+        checkbox.checked = false;
     }
-    else if (checkbox.checked) {removeObjectWithId(changedAssignedContacts, contacts[i].id); checkbox.checked = false; tickId.classList.add('d-none'); }
-    renderContactBubbles(); checkAssigned = true;
-    if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
+    renderContactInitials(currentOpenedTask);
 }
+
 
 
  async function saveChanges(index){

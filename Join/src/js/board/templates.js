@@ -86,7 +86,7 @@ function generateEditPopUp(currentTask, index){
         </div>
         <div class="form-div">
                 <span>Assigned to</span>
-                <div onclick="openFillOutForm('showAssignedPopUp','assignedPopUp','assignedPeoplePopUp','Assigned to'), renderContacts(), event.stopPropagation()" id="assignedPopUp" class="assigned-dropdown-div cursor">
+                <div onclick="openAssignedTo('showAssignedPopUp', 'assignedPopUp'), event.stopPropagation()" id="assignedPopUp" class="assigned-dropdown-div cursor">
                     <div id="assignedPeoplePopUp">Assigned to</div>
                     <img  class="cursor" src="src/img/dropdown-arrow.svg">
                 </div>
@@ -106,11 +106,10 @@ function generateEditPopUp(currentTask, index){
 
 function generateContactCheckbox(contact, i){
     return /*html*/`
-    <div onclick="assignTaskPopUp(${i})" class="contact-container cursor" id="contactName${i}">
-                ${contact.name}
+    <div onclick="assignTaskPopUp(${i})" class="contact-container cursor">
+                <span id="contactName${i}">${contact.name}</span>
                 <div class="checkbox-container">
-                    <img class="cursor checkbox-img" id="contactPopUp${contact.id}" src="src/img/checkbox.png">
-                        <img src="src/img/tick.png" class="tick-img d-none" id="tickIdPopUp${i}">
+                        <input type="checkbox" id="tickIdPopUp${i}">
                 </div>
             </div>
     `;
