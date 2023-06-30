@@ -12,7 +12,6 @@
         height: calc(100vh - 159px);
         padding: 0;
         margin-top: 100px;
-        
     }
 
     #board-header {
@@ -27,15 +26,25 @@
 
     #tasks-container {
         flex-direction: column !important;
-        overflow: hidden;
     }
 
     .task-status-container {
         width: 100%;
-        min-height: 200px;
     }
 
     .task-container{
         flex-direction: row !important;
+        margin-bottom: 8px;
+        padding: 0;
+        overflow-x: scroll;
+    }
+
+    .task-column-header {
+        position: static;
+    }
+
+    .board-task-box {
+        margin-top: 0;
+        margin-right: 8px;
     }
 }

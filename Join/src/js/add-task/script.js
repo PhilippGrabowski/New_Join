@@ -317,20 +317,24 @@ function openCategories() {
  * The function toggles the visibility of a contact list and adjusts the border radius of an element
  * accordingly.
  */
+<<<<<<< HEAD
 function openAssignedTo() {
+=======
+function openAssignedTo(id1, id2){
+>>>>>>> c9ef8d7d76a3ca129d7ff7c4e07073542f5ec814
     renderContacts();
-    let showAssigned = document.getElementById('showAssigned');
+    let showAssigned = document.getElementById(id1);
     showAssigned.classList.toggle('d-none');
     let checkBottomBorder = !showAssigned.classList.contains('d-none');
     if (checkBottomBorder) {
-        document.getElementById('assigned').style.borderBottomLeftRadius = "0px";
-        document.getElementById('assigned').style.borderBottomRightRadius = "0px";
-        document.getElementById('assigned').style.borderBottom = "none";
+        document.getElementById(id2).style.borderBottomLeftRadius = "0px";
+        document.getElementById(id2).style.borderBottomRightRadius = "0px";
+        document.getElementById(id2).style.borderBottom = "none";
     }
     else {
-        document.getElementById('assigned').style.borderBottomLeftRadius = "8px";
-        document.getElementById('assigned').style.borderBottomRightRadius = "8px";
-        document.getElementById('assigned').style.borderBottom = "1px solid lightgray";
+        document.getElementById(id2).style.borderBottomLeftRadius = "8px";
+        document.getElementById(id2).style.borderBottomRightRadius = "8px";
+        document.getElementById(id2).style.borderBottom = "1px solid lightgray";
     }
 }
 
