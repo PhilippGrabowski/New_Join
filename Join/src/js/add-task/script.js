@@ -20,6 +20,8 @@ let urgent = 0;
 
 let isCategoryOpened = false;
 
+let firstRender = true;
+
 let today = new Date().toISOString().split("T")[0];
 
 let subtasks = [
@@ -399,24 +401,13 @@ function checkValidationOnInputs() {
     return returnCheckedInputs(checkTitle, checkDesc, checkCat, checkAssigned, checkDate, checkPrio, title, desc, cat, date);
 }
 
-/**
- * The function toggles the visibility of a contact list and adjusts the border radius of an element
- * accordingly.
- */
-function openAssignedTo(id1, id2) {
-    renderContacts();
-    let showAssigned = document.getElementById(id1);
-    showAssigned.classList.toggle('d-none');
-    let checkBottomBorder = !showAssigned.classList.contains('d-none');
-    if (checkBottomBorder) {
-        document.getElementById(id2).style.borderBottomLeftRadius = "0px";
-        document.getElementById(id2).style.borderBottomRightRadius = "0px";
-        document.getElementById(id2).style.borderBottom = "none";
-    }
-    else {
-        document.getElementById(id2).style.borderBottomLeftRadius = "8px";
-        document.getElementById(id2).style.borderBottomRightRadius = "8px";
-        document.getElementById(id2).style.borderBottom = "1px solid lightgray";
+
+
+function showAssignedContacts(){
+    renderContactBubbles();
+    for (let i = 0; i < assignedContacts.length; i++) {
+        let ticked = document.getElementById(assignedContacts[i].tickId);
+        ticked.classList.remove('d-none');
     }
 }
 
@@ -473,6 +464,30 @@ function removeObjectWithId(arr, id) {
     return arr;
 }
 
+/**
+ * The function toggles the visibility of a contact list and adjusts the border radius of an element
+ * accordingly.
+ */
+function openAssignedTo(id1, id2) {
+    if(firstRender){
+        renderContacts();
+        firstRender = false;
+    }
+    let showAssigned = document.getElementById(id1);
+    showAssigned.classList.toggle('d-none');
+    let checkBottomBorder = !showAssigned.classList.contains('d-none');
+    if (checkBottomBorder) {
+        //showAssignedContacts();
+        document.getElementById(id2).style.borderBottomLeftRadius = "0px";
+        document.getElementById(id2).style.borderBottomRightRadius = "0px";
+        document.getElementById(id2).style.borderBottom = "none";
+    }
+    else {
+        document.getElementById(id2).style.borderBottomLeftRadius = "8px";
+        document.getElementById(id2).style.borderBottomRightRadius = "8px";
+        document.getElementById(id2).style.borderBottom = "1px solid lightgray";
+    }
+}
 
 /**
  * The function assigns a task to a contact and updates the UI accordingly.
@@ -485,6 +500,7 @@ function assignTask(i) {
     let assignedTaskNote = document.getElementById('assignedValidationText');
     if (!checkbox.checked) { assignedContacts.push({
             'checkedId': checkbox.id,
+            'tickId': tickId.id,
             'name': contacts[i].name,
             'initials': contacts[i].initials,
             'id': contacts[i].id,
@@ -593,8 +609,9 @@ function resetSelectedColor(index) {
     }
 }
 
+
 /**
- * The function redirects the user to the "board.html" page when called.
+ * The function "closeAddTask" resets various elements and variables related to adding a task.
  */
 function closeAddTask() {
     document.getElementById('catValidationText').classList.add('d-none');
@@ -603,6 +620,7 @@ function closeAddTask() {
     document.getElementById('prioValidationText').classList.add('d-none');
     document.getElementById('title').value = '';
     document.getElementById('description').value = '';
+    firstRender = true;
     subtasks = [];
     subtaskName = [];
     if(isCategoryOpened){openCategories();}
