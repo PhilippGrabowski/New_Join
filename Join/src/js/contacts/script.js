@@ -531,6 +531,7 @@ function showExistingContact(index) {
  * Displays the add task menu window
  */
 function openAddTaskMenu() {
+    closeAddTask();
     document.getElementById('partitionWindow').classList.remove('d-none');
     if (window.innerWidth <= 469) {
         document.getElementById('partitionWindow').style.display = 'none';
