@@ -18,6 +18,8 @@ let medium = 0;
 
 let urgent = 0;
 
+let isCategoryOpened = false;
+
 let today = new Date().toISOString().split("T")[0];
 
 let subtasks = [
@@ -247,10 +249,12 @@ function openCategories() {
     showCat.classList.toggle('d-none');
     let checkBottomBorder = !showCat.classList.contains('d-none');
     if (checkBottomBorder) {
+        isCategoryOpened = true;
         document.getElementById('category').style.borderBottomLeftRadius = "0px";
         document.getElementById('category').style.borderBottomRightRadius = "0px";
         document.getElementById('category').style.borderBottom = "none";
     } else {
+        isCategoryOpened = false;
         document.getElementById('category').style.borderBottomLeftRadius = "8px";
         document.getElementById('category').style.borderBottomRightRadius = "8px";
         document.getElementById('category').style.borderBottom = "1px solid lightgray";
@@ -601,6 +605,7 @@ function closeAddTask() {
     document.getElementById('description').value = '';
     subtasks = [];
     subtaskName = [];
+    if(isCategoryOpened){openCategories();}
     displaySubTask();
     displayContacts();
     resetCategoryText();
