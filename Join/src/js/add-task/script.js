@@ -557,6 +557,7 @@ function selectedPrio(selected) {
  */
 function selectCategory(cat) {
     category.splice(0, 1);
+    isCategoryOpened = false;
     let categoryText = document.getElementById(`cat${cat}`).textContent;
     let chosenCat = document.getElementById('category');
     let chosenCatNote = document.getElementById('catValidationText');
