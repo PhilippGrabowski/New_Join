@@ -541,7 +541,7 @@ function selectedPrio(selected) {
  */
 function selectCategory(cat) {
     category.splice(0, 1);
-    let categoryText = document.getElementById(`${cat}`).textContent;
+    let categoryText = document.getElementById(`cat${cat}`).textContent;
     let chosenCat = document.getElementById('category');
     let chosenCatNote = document.getElementById('catValidationText');
     document.getElementById('selectedCategory').innerHTML = `<div class="selected-category"><span>${categoryText}</span><span class="circle" style="background-color:${categoryColors[cat].color}"></span></div>`
