@@ -599,6 +599,9 @@ function closeAddTask() {
     document.getElementById('prioValidationText').classList.add('d-none');
     document.getElementById('title').value = '';
     document.getElementById('description').value = '';
+    subtasks = [];
+    subtaskName = [];
+    displaySubTask();
     displayContacts();
     resetCategoryText();
     category = [];
@@ -616,6 +619,7 @@ async function saveTask() {await setItem('task', JSON.stringify(tasks));}
  * asynchronous function setItem().
  */
 async function saveCat() {await setItem('cat', JSON.stringify(categoryColors));}
+
 async function saveAssigned() {await setItem('assigned', JSON.stringify(assignedContacts));}
 
 /**
