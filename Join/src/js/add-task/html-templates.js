@@ -28,7 +28,7 @@ function returnDisplayNewCategoryHTML(categoryColorsLength) {
 function returnDisplayCategoriesHTML(i) {
     return `
     <div class="category-container" onclick="selectCategory(${i})">
-        <div class="cat" id="${i}">
+        <div class="cat" id="cat${i}">
             ${categoryColors[i].category}<span class="circle" style="background-color: ${categoryColors[i].color};"></span>
         </div>
         <img class="add-task-trash-pic" src="src/img/trash.png" onclick="event.stopPropagation(), deleteCategory(${i})">

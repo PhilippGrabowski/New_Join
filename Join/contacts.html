@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="src/css/add-task/style.css">
     <script src="//cdn.jsdelivr.net/npm/desvg@1.0.2/desvg.min.js"></script>
     <script src="src/js/storage.js"></script>
+    <script src="src/js/add-task/html-templates.js"></script>
     <script src="src/js/add-task/script.js"></script>
     <script src="src/js/contacts/templates.js"></script>
     <script src="src/js/contacts/script.js"></script>
@@ -136,9 +137,10 @@
     <div id="contactConfirmation" class="confirmation grid box-shadow d-none"></div>
     <div id="mobile_contact_info_button_container" class="flex-column"></div>
     <div id="add_task_menu_window" class="d-none">
-        <div id="add_task_menu_container">
+        <div id="add_task_menu_container" class="flex-column">
+            <h2>Add Task</h2>
             <div id="add_task_menu" w3-include-html="src/templates/add-task-template.html"></div>
-            <i class='bx bx-x' onclick="closeAddTaskMenu()"></i>
+            <i class='bx bx-x curser' onclick="closeAddTaskMenu()"></i>
         </div>
     </div>
 

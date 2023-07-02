@@ -532,6 +532,9 @@ function showExistingContact(index) {
  */
 function openAddTaskMenu() {
     document.getElementById('partitionWindow').classList.remove('d-none');
+    if (window.innerWidth <= 469) {
+        document.getElementById('partitionWindow').style.display = 'none';
+    }
     displaySlideContainer('add_task_menu_window', 'translateX(0)');
 }
 
@@ -648,6 +651,14 @@ mobileQueries.addEventListener('change', event => {
         document.getElementById('mobile_contact_info_button_container').style.display = 'flex';
 	}
 });
+
+window.addEventListener('resize', event => {
+    if (window.innerWidth <= 469) {
+        document.getElementById('partitionWindow').style.display = 'none';
+    } else {
+        document.getElementById('partitionWindow').style.display = 'unset';
+    }
+})
 
 /**
  * Displays or hides contact_list or contact_info container
