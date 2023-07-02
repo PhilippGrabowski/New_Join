@@ -621,7 +621,8 @@ function closeAddTask() {
     document.getElementById('title').value = '';
     document.getElementById('description').value = '';
     firstRender = true;
-    subtasks = [];
+    subtasks.checked = [];
+    subtasks.subtask_Name = [];
     subtaskName = [];
     if(isCategoryOpened){openCategories();}
     displaySubTask();

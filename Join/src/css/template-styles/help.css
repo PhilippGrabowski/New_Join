@@ -14,7 +14,7 @@
     width: 100%;
     height: calc(100vh - 17px);
     height: calc(100svh - 17px);
-    padding: 82px 8.3vw 7vh 8.3vw;
+    padding: 82px 8.3vw 7vh 120px;
     overflow-y: auto;
 }
 
@@ -133,6 +133,9 @@
 @media (max-width: 1096px) {
     #help_includer {
         padding: 89px 0 0 180px;
+    }
+    #help_container {
+        padding: 82px 8.3vw 7vh 70px;
     }
 }
 

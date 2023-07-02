@@ -652,6 +652,9 @@ mobileQueries.addEventListener('change', event => {
 	}
 });
 
+/**
+ * Sets the display property of the partitionWindow to 'none' if the inner width is lower or equal than 469 pixels
+ */
 window.addEventListener('resize', event => {
     if (window.innerWidth <= 469) {
         document.getElementById('partitionWindow').style.display = 'none';

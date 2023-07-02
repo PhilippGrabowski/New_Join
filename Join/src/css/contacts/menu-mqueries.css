@@ -157,9 +157,8 @@
     #add_task_menu_window {
         width: 100vw;
         height: calc(100vh - 83px);
-        padding: 25px 50px;
+        padding: 25px 10vw;
         background: var(--white2-color);
-        position: absolute;
         top: 83px;
         left: 0px;
         z-index: 5;

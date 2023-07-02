@@ -9,7 +9,7 @@
     width: 100%;
     height: calc(100vh - 89px);
     height: calc(100svh - 89px);
-    padding: 82px 8.3vw 0 8.3vw;
+    padding: 82px 8.3vw 0 120px;
     overflow-y: auto;
     position: relative;
 }
