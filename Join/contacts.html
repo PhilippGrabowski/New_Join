@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="src/css/contacts/style.css">
     <link rel="stylesheet" href="src/css/contacts/mqueries.css">
     <link rel="stylesheet" href="src/css/contacts/menu-mqueries.css">
+    <link rel="stylesheet" href="src/css/add-task/style.css">
     <script src="//cdn.jsdelivr.net/npm/desvg@1.0.2/desvg.min.js"></script>
     <script src="src/js/storage.js"></script>
     <script src="src/js/add-task/script.js"></script>
@@ -56,7 +57,7 @@
                     <div id="info_initials" class="contact_initials grid"></div>
                     <div class="info_contact_name flex-column">
                         <span id="info_name"></span>
-                        <a class="flex-row curser" onlclick="">
+                        <a class="flex-row curser" onclick="openAddTaskMenu()">
                             <img class="add_task_img" src="src/img/group11.svg" alt="">
                             <span class="blueFont">Add Task</span>
                         </a>
@@ -134,6 +135,13 @@
     <div id="partitionWindow" class="d-none" onclick="closeContactMenu()"></div>
     <div id="contactConfirmation" class="confirmation grid box-shadow d-none"></div>
     <div id="mobile_contact_info_button_container" class="flex-column"></div>
+    <div id="add_task_menu_window" class="d-none">
+        <div id="add_task_menu_container">
+            <div id="add_task_menu" w3-include-html="src/templates/add-task-template.html"></div>
+            <i class='bx bx-x' onclick="closeAddTaskMenu()"></i>
+        </div>
+    </div>
+
 </body>
 
 </html>

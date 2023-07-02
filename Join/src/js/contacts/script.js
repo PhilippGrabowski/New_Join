@@ -527,6 +527,16 @@ function showExistingContact(index) {
 
 /*_____________________________General Functions________________________________*/
 
+function openAddTaskMenu() {
+    document.getElementById('partitionWindow').classList.remove('d-none');
+    displaySlideContainer('add_task_menu_window', 'translateX(0)');
+}
+
+function closeAddTaskMenu() {
+    document.getElementById('partitionWindow').classList.add('d-none');
+    hideSlideContainer('add_task_menu_window', 'translateX(150%)');
+}
+
 /**
  * Returns first letter of the name as a uppercase letter
  * 

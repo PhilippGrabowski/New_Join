@@ -515,6 +515,36 @@ input::placeholder {
     z-index: 3;
 }
 
+/* === Add Task === */
+
+#add_task_menu_window {
+    width: 1116px;
+    height: 916px;
+    background: var(--white-color);
+    border-radius: 30px;
+    position: absolute;
+    top: calc(50vh - 458px);
+    left: calc(50vw - 558px);
+    z-index: 5;
+    transform: translateX(150%);
+    transition: all 0.5s ease-in-out;
+    
+}
+
+#add_task_menu_container {
+    width: 100%;
+    height: 100%;
+    padding: 70px;
+    position: relative;
+}
+
+#add_task_menu_container i {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: var(--font-size-27);
+}
+
 /* === Global === */
 
 .button_option_1 {
