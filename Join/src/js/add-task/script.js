@@ -1,5 +1,3 @@
-let firstRender = true;
-
 let checkTitle, checkDesc, checkCat, checkAssigned, checkDate, checkPrio = false;
 
 let isColorPicked = false;
@@ -12,11 +10,15 @@ let bool = [];
 
 let hasBeenClicked = 0;
 
+let numberOfSelectedPeople = 0;
+
 let low = 0;
 
 let medium = 0;
 
 let urgent = 0;
+
+let today = new Date().toISOString().split("T")[0];
 
 let subtasks = [
     {
@@ -25,7 +27,6 @@ let subtasks = [
     }
 ];
 
-let today = new Date().toISOString().split("T")[0];
 
 let colorType = [
     { color: 'lightblue' },
@@ -37,7 +38,6 @@ let colorType = [
 ]
 
 let selectedColor = [];
-
 
 /* The above code is declaring an array of objects called "priorities". Each object has two properties:
 "priority" and "color". The "priority" property is a string that represents the level of priority
@@ -80,7 +80,6 @@ let category = []
 // The Contacts Array where all the Members that have been chosen to take care of the Task 
 let assignedContacts = []
 
-
 // Loads the Categories that have been created and saved when the site gets refreshed 
 loadCat();
 
@@ -116,9 +115,7 @@ function renderDate() {
 /**
  * The function delays the execution of the renderDate function by 300 milliseconds.
  */
-async function delayDate() {
-    setTimeout(renderDate, 300);
-}
+async function delayDate() {setTimeout(renderDate, 300);}
 
 /**
  * The function checks if a checkbox is checked and updates a boolean array accordingly.
@@ -139,12 +136,7 @@ function checkSubtask(i) {
  * @returns If the `status` parameter is truthy, it will be returned. Otherwise, the string `'to-do'`
  * will be returned.
  */
-function checkStatus(status) {
-    if (status) { return status; }
-    else { return 'to-do'; }
-}
-
-
+function checkStatus(status) {if (status) { return status; }else { return 'to-do'; }}
 
 /**
  * The function creates a task object with various properties and returns it.
@@ -207,26 +199,6 @@ function displayNewCategoryHTML() {
     cat.innerHTML = returnDisplayNewCategoryHTML(categoryColorsLength);
 }
 
-
-/**
- * The function returns HTML code for displaying a selected category with a colored circle and a
- * dropdown arrow.
- * @param categoryColorsLength - The parameter `categoryColorsLength` is likely an integer representing
- * the index of the current category color being used in an array called `categoryColors`.
- * @returns a string of HTML code that includes a div element with an id of "selectedCategory" and a
- * span element with a class of "circle". The text content of the div element is the category name from
- * the categoryColors array at the specified index, and the background color of the span element is
- * also from the categoryColors array at the specified index. Additionally, an image element with
- */
-function returnDisplayNewCategoryHTML(categoryColorsLength) {
-    return `
-    <div id="selectedCategory">
-        ${categoryColors[categoryColorsLength].category}
-        <span class="circle" style="background-color: ${categoryColors[categoryColorsLength].color};"></span>
-    </div>
-    <img class="cursor" src="src/img/dropdown-arrow.svg">`;
-}
-
 /**
  * This function displays categories and allows the user to create a new category with a dropdown menu
  * and color options.
@@ -236,27 +208,7 @@ function displayCategories() {
     show.innerHTML = '';
     show.innerHTML = `<div onclick="createNewCategory(), displayCategoryColors()" class="cat">New Category</div>`;
     categoryColors.sort((a, b) => a.category.localeCompare(b.category));
-    for (let i = 0; i < categoryColors.length; i++) {
-        show.innerHTML += returnDisplayCategoriesHTML(i);
-    }
-}
-
-/**
- * The function returns HTML code for displaying a category container with a category name and color
- * circle, as well as a delete button.
- * @param i - The index of the category in the `categoryColors` array.
- * @returns a string of HTML code that creates a container for a category. The container includes the
- * category name, a colored circle, and a trash icon for deleting the category. The onclick attribute
- * is also included to call the selectCategory() function when the container is clicked.
- */
-function returnDisplayCategoriesHTML(i) {
-    return `
-    <div class="category-container" onclick="selectCategory(${i})">
-        <div class="cat" id="${i}">
-            ${categoryColors[i].category}<span class="circle" style="background-color: ${categoryColors[i].color};"></span>
-        </div>
-        <img class="add-task-trash-pic" src="src/img/trash.png" onclick="event.stopPropagation(), deleteCategory(${i})">
-    </div>`;
+    for (let i = 0; i < categoryColors.length; i++) {show.innerHTML += returnDisplayCategoriesHTML(i);}
 }
 
 /**
@@ -272,7 +224,6 @@ function deleteCategory(i) {
     displayCategories();
 }
 
-
 /**
  * The function creates a new category input field with options to add a new category name and choose a
  * color.
@@ -283,14 +234,7 @@ function createNewCategory() {
     categoryContainer.classList.remove('category-dropdown-div');
     categoryContainer.style = '';
     show.classList.add('d-none');
-    categoryContainer.innerHTML = `
-    <input id="newCatText" class="title-input" type="text" placeholder="New Category name" onclick="event.stopPropagation()">
-        <img onclick="displayNewCategory(),event.stopPropagation() " class="tick-icon" src="src/img/tick.png">
-        <img onclick="displayCategories(),event.stopPropagation(), displayCategoryHTML()" class="x-icon" src="src/img/x.png">
-    <div id="categoryColors" onclick="event.stopPropagation()">
-    
-    </div>
-    `;
+    categoryContainer.innerHTML = returnCreateNewCategoryHTML();
 }
 
 /**
@@ -314,67 +258,20 @@ function openCategories() {
 }
 
 /**
- * The function toggles the visibility of a contact list and adjusts the border radius of an element
- * accordingly.
- */
-function openAssignedTo(id1, id2){
-    renderContacts();
-    let showAssigned = document.getElementById(id1);
-    showAssigned.classList.toggle('d-none');
-    let checkBottomBorder = !showAssigned.classList.contains('d-none');
-    if (checkBottomBorder) {
-        document.getElementById(id2).style.borderBottomLeftRadius = "0px";
-        document.getElementById(id2).style.borderBottomRightRadius = "0px";
-        document.getElementById(id2).style.borderBottom = "none";
-    }
-    else {
-        document.getElementById(id2).style.borderBottomLeftRadius = "8px";
-        document.getElementById(id2).style.borderBottomRightRadius = "8px";
-        document.getElementById(id2).style.borderBottom = "1px solid lightgray";
-    }
-}
-
-
-/**
  * This function renders a list of contacts and adds an option to invite a new contact.
  */
 function renderContacts() {
     let list = document.getElementById('showAssigned');
-    if (firstRender) {
         list.innerHTML = '';
         for (let i = 0; i < contacts.length; i++) { list.innerHTML += returnRenderContactsHTML(i); }
         list.innerHTML += ` <div onclick="AddNewContact()" class="contact-container cursor"> Invite New Contact </div>`;
-        firstRender = false;
-    }
-}
-
-/**
- * The function returns an HTML string for rendering a contact with a checkbox and tick image.
- * @param i - The parameter "i" is an index representing the position of a contact in an array called
- * "contacts". It is used to access the properties of the contact object at that index and generate
- * HTML code for displaying the contact's name and a checkbox image.
- * @returns a string of HTML code that creates a container for a contact with a checkbox and tick
- * image. The container has an onclick event that calls the `assignTask()` function with the index `i`
- * as an argument. The name of the contact is displayed within the container using the `contacts`
- * array.
- */
-function returnRenderContactsHTML(i) {
-    return `
-    <div onclick="assignTask(${i})" class="contact-container cursor">
-        ${contacts[i].name}
-        <div class="checkbox-container">
-            <img class="cursor checkbox-img" id="contact${contacts[i].id}" src="src/img/checkbox.png">
-            <img src="src/img/tick.png" class="tick-img d-none" id="tickId${i}">
-        </div>
-    </div>`;
 }
 
 /**
  * The function adds a new contact by removing a dropdown div, hiding a contact list, and replacing the
  * div's HTML with a new contact form.
- */
+*/
 function AddNewContact() {
-    firstRender = true;
     let assignedForm = document.getElementById('assigned');
     assignedForm.classList.remove('assigned-dropdown-div');
     assignedForm.classList.remove('cursor');
@@ -385,27 +282,9 @@ function AddNewContact() {
 }
 
 /**
- * The function returns HTML code for adding a new contact with input fields for email and buttons for
- * deleting and creating the contact.
- * @returns a string of HTML code that creates a container for adding a new contact. The container
- * includes an input field for the contact email, a delete icon, and a tick icon.
- */
-function returnAddNewContactHTML() {
-    return `
-    <div class="add-contact-container">
-        <input class="title-input" placeholder="Contact email" type="email" id="newContact">
-        <div>
-            <img src="src/img/delete-icon.svg" onclick="displayContacts()" class="delete-icon-x">
-            <img src="src/img/tick.png" onclick="createContact()" class="tick-icon">
-        </div>
-    </div>
-    `
-}
-
-/**
  * This function creates a new contact and adds it to an array if the input value contains an "@"
  * symbol, and then displays the updated list of contacts.
- */
+*/
 function createContact(i) {
     let newContact = document.getElementById('newContact');
     if (newContact.value.includes('@')) {
@@ -421,7 +300,7 @@ function createContact(i) {
 /**
  * The function displays contacts by setting the innerHTML of an element to the HTML returned by
  * another function and clears an array.
- */
+*/
 function displayContacts() {
     let contactsAs = document.getElementById('assingedContactForm');
     contactsAs.innerHTML = '';
@@ -431,34 +310,9 @@ function displayContacts() {
 }
 
 /**
- * The function returns HTML code for displaying assigned contacts and a dropdown menu for selecting
- * them.
- * @returns a string of HTML code that includes a dropdown menu for assigning a task to a person, a
- * container for displaying contact bubbles, and a validation text for when the task is not assigned.
- */
-function returnDisplayContactsHTML() {
-    return `
-    <span>Assigned to</span>
-        <div onclick="openAssignedTo(), event.stopPropagation()" id="assigned" class="assigned-dropdown-div cursor">
-            <div id="assignedPeople">Assigned to</div>
-            <img  class="cursor" src="src/img/dropdown-arrow.svg">
-        </div>
-        <div class="d-none" id="showAssigned">
-        </div>
-        <div class="contact-bubble-container">
-            <div id="renderContactBubbles">
-            </div>
-            <div id="renderContinousContactBubbles">
-            </div>
-            </div>
-        <div id="assignedValidationText"  class="d-none validation-text">Please assign the Task</div>
-    `
-}
-
-/**
  * The function displays a set of color categories on a webpage and allows the user to select a color
  * from the categories.
- */
+*/
 function displayCategoryColors() {
     let color = document.getElementById('categoryColors');
     color.innerHTML = '';
@@ -468,7 +322,7 @@ function displayCategoryColors() {
 /**
  * The function initializes form validation by hiding validation messages if the input fields have
  * values and removing onclick events from the input fields.
- */
+*/
 function initial() {
     let title = document.getElementById('title');
     let titleNote = document.getElementById('titleValidationText');
@@ -488,7 +342,7 @@ function initial() {
  * @param i - The parameter "i" is an integer representing the index of the color being selected from
  * an array called "colorType". The function "selectColor" is called when a user clicks on a color, and
  * it adds the selected color to an array called "selectedColor" and highlights the selected color on
- */
+*/
 function selectColor(i) {
     isColorPicked = true;
     let selected = document.getElementById(`colorCode${i}`);
@@ -502,14 +356,12 @@ function selectColor(i) {
  * specified index.
  * @param i - The parameter `i` is an integer variable that is used as an index to compare with the
  * loop variable `k`. It is used to determine which element should not be highlighted in the loop.
- */
-function removeOtherSelected(i) {
-    for (let k = 0; k < colorType.length; k++) { if (i != k) { document.getElementById(`colorCode${k}`).classList.remove('highlighted-color'); } }
-}
+*/
+function removeOtherSelected(i) {for (let k = 0; k < colorType.length; k++) { if (i != k) { document.getElementById(`colorCode${k}`).classList.remove('highlighted-color'); } }}
 
 /**
  * The function adds a new category with a selected color to an array and displays it on the HTML page.
- */
+*/
 function displayNewCategory() {
     let input = document.getElementById('newCatText').value;
     let colorArrayLength = selectedColor.length;
@@ -520,30 +372,48 @@ function displayNewCategory() {
         });
         displayNewCategoryHTML();
         isColorPicked = false;
-    }
-    saveCat();
+    } saveCat();
 }
 
 /**
  * The function resets the text of an HTML element with the ID 'selectedCategory' to 'Select a
  * Category'.
- */
-function resetCategoryText() {
-    document.getElementById('selectedCategory').textContent = 'Select a Category';
-}
+*/
+function resetCategoryText() {document.getElementById('selectedCategory').textContent = 'Select a Category';}
 
 /**
  * The function checks the validation of input fields and returns the result.
  * @returns The function `checkValidationOnInputs` is returning the result of calling the function
  * `returnCheckedInputs` with several arguments. The specific value being returned depends on the
  * implementation of `returnCheckedInputs`.
- */
+*/
 function checkValidationOnInputs() {
     let title = document.getElementById('title');
     let desc = document.getElementById('description');
     let cat = document.getElementById('selectedCategory');
     let date = document.getElementById('dueDate');
     return returnCheckedInputs(checkTitle, checkDesc, checkCat, checkAssigned, checkDate, checkPrio, title, desc, cat, date);
+}
+
+/**
+ * The function toggles the visibility of a contact list and adjusts the border radius of an element
+ * accordingly.
+ */
+function openAssignedTo(id1, id2) {
+    renderContacts();
+    let showAssigned = document.getElementById(id1);
+    showAssigned.classList.toggle('d-none');
+    let checkBottomBorder = !showAssigned.classList.contains('d-none');
+    if (checkBottomBorder) {
+        document.getElementById(id2).style.borderBottomLeftRadius = "0px";
+        document.getElementById(id2).style.borderBottomRightRadius = "0px";
+        document.getElementById(id2).style.borderBottom = "none";
+    }
+    else {
+        document.getElementById(id2).style.borderBottomLeftRadius = "8px";
+        document.getElementById(id2).style.borderBottomRightRadius = "8px";
+        document.getElementById(id2).style.borderBottom = "1px solid lightgray";
+    }
 }
 
 /**
@@ -585,7 +455,6 @@ function returnCheckedInputs(checkTitle, checkDesc, checkCat, checkAssigned, che
     else return false;
 }
 
-
 /**
  * The function removes an object from an array based on its ID property.
  * @param arr - an array of objects that have an "id" property
@@ -599,7 +468,7 @@ function removeObjectWithId(arr, id) {
     if (objWithIdIndex > -1) { arr.splice(objWithIdIndex, 1); }
     return arr;
 }
-let numberOfSelectedPeople = 0;
+
 
 /**
  * The function assigns a task to a contact and updates the UI accordingly.
@@ -610,17 +479,14 @@ function assignTask(i) {
     let tickId = document.getElementById(`tickId${i}`);
     let assignedTask = document.getElementById('assignedPeople');
     let assignedTaskNote = document.getElementById('assignedValidationText');
-    if (!checkbox.checked) {
-        assignedContacts.push({
+    if (!checkbox.checked) { assignedContacts.push({
             'checkedId': checkbox.id,
             'name': contacts[i].name,
             'initials': contacts[i].initials,
             'id': contacts[i].id,
             'color': contacts[i].color
-        }); tickId.classList.remove('d-none'); checkbox.checked = true;
-        saveAssigned();
-        numberOfSelectedPeople++;
-    } else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; tickId.classList.add('d-none'); saveAssigned(); numberOfSelectedPeople--; }
+        }); tickId.classList.remove('d-none'); checkbox.checked = true; numberOfSelectedPeople++;
+    } else if (checkbox.checked) { removeObjectWithId(assignedContacts, contacts[i].id); checkbox.checked = false; tickId.classList.add('d-none'); numberOfSelectedPeople--; }
     renderContactBubbles(); checkAssigned = true;
     if (assignedTask.textContent != 0) { assignedTaskNote.classList.add('d-none'); }
 }
@@ -636,19 +502,13 @@ function renderContactBubbles() {
         render.innerHTML = '';
         for (let i = 0; i < assignedContacts.length; i++) {
             const firstLetter = assignedContacts[i].initials;
-            render.innerHTML += `
-            <div class="contact-display" style="background-color:${contacts[i].color} ;">${firstLetter}</div>`
+            render.innerHTML += ` <div class="contact-display" style="background-color:${contacts[i].color} ;">${firstLetter}</div>`
         }
     }
-    else {
-        renderMoreContacts.classList.remove('d-none');
-        for (let i = 0; i < 1; i++) {
-            renderMoreContacts.innerHTML = ` <div class="contact-display" style="background-color:${contacts[6].color} ;">+${numberOfSelectedPeople - 2}</div>`
-        }
+    else {renderMoreContacts.classList.remove('d-none');
+        for (let i = 0; i < 1; i++) { renderMoreContacts.innerHTML = ` <div class="contact-display" style="background-color:${contacts[6].color} ;">+${numberOfSelectedPeople - 2}</div>`}
     }
-
 }
-
 
 /**
  * The function sets the selected priority and color, resets previously selected colors, and hides a
@@ -670,7 +530,6 @@ function selectedPrio(selected) {
     document.getElementById('prioValidationText').classList.add('d-none');
 }
 
-
 /**
  * The function selects a category and updates the chosen category display.
  * @param cat - The parameter `cat` is a variable that represents the category selected by the user. It
@@ -690,10 +549,8 @@ function selectCategory(cat) {
         {
             color: categoryColors[cat].color,
             category: `${categoryColors[cat].category}`
-        }
-    ); if (chosenCat.textContent != 0) { checkCat = true; chosenCatNote.classList.add('d-none'); }
+        } ); if (chosenCat.textContent != 0) { checkCat = true; chosenCatNote.classList.add('d-none'); }
 }
-
 
 /**
  * The function sets the background color and image filter of a selected element based on its index in
@@ -709,7 +566,6 @@ function setSelectedColor(index) {
     selected.style.color = `white`;
 }
 
-
 /**
  * The function resets the selected color of a priority and updates the count of low, medium, and
  * urgent priorities.
@@ -720,13 +576,11 @@ function resetSelectedColor(index) {
     if (prio[0].priority == 'low') { low++; medium = 0; urgent = 0; }
     else if (prio[0].priority == 'medium') { medium++; low = 0; urgent = 0; }
     else if (prio[0].priority == 'urgent') { urgent++; low = 0; medium = 0; }
-    for (let i = 0; i < priorities.length; i++) {
-        if (i != index) {
+    for (let i = 0; i < priorities.length; i++) { if (i != index) {
             document.getElementById(`${priorities[i].priority}`).style.backgroundColor = 'white';
             document.getElementById(`${priorities[i].priority}`).style.color = 'black';
             document.getElementById(`img-${priorities[i].priority}`).style = `filter: brightness(1) invert(0)`;
-        }
-    } if (low == 2 || medium == 2 || urgent == 2) {
+        }} if (low == 2 || medium == 2 || urgent == 2) {
         document.getElementById(`${priorities[index].priority}`).style.backgroundColor = 'white';
         document.getElementById(`${priorities[index].priority}`).style.color = 'black';
         document.getElementById(`img-${priorities[index].priority}`).style = `filter: brightness(1) invert(0)`;
@@ -735,36 +589,34 @@ function resetSelectedColor(index) {
     }
 }
 
-
-
 /**
  * The function redirects the user to the "board.html" page when called.
  */
 function closeAddTask() {
-    document.location = "board.html";
+    document.getElementById('catValidationText').classList.add('d-none');
+    document.getElementById('descValidationText').classList.add('d-none');
+    document.getElementById('titleValidationText').classList.add('d-none');
+    document.getElementById('prioValidationText').classList.add('d-none');
+    document.getElementById('title').value = '';
+    document.getElementById('description').value = '';
+    displayContacts();
+    resetCategoryText();
+    category = [];
+    if(prio != 0){resetSelectedColor(0);}
 }
-
 
 /**
  * This function saves a task by converting it to a JSON string and storing it using the setItem
  * method.
  */
-async function saveTask() {
-    await setItem('task', JSON.stringify(tasks));
-}
-
+async function saveTask() {await setItem('task', JSON.stringify(tasks));}
 
 /**
  * The function saves a JSON string representation of category colors under the key 'cat' using the
  * asynchronous function setItem().
  */
-async function saveCat() {
-    await setItem('cat', JSON.stringify(categoryColors));
-}
-async function saveAssigned() {
-    await setItem('assigned', JSON.stringify(assignedContacts));
-}
-
+async function saveCat() {await setItem('cat', JSON.stringify(categoryColors));}
+async function saveAssigned() {await setItem('assigned', JSON.stringify(assignedContacts));}
 
 /**
  * The function deletes a task from an array and saves the updated array.
@@ -774,7 +626,6 @@ function deleteTask(i) {
     tasks.splice(i, 1);
     saveTask();
 }
-
 
 /**
  * The function adds a subtask to a list and displays all subtasks in an HTML container.
@@ -790,14 +641,10 @@ function displaySubTask() {
     subInput.value = '';
 }
 
-
 /**
  * The function removes the "d-none" class from an element with the ID "deleteSubTaskTextId".
  */
-function deleteSubtaskInput() {
-    document.getElementById('deleteSubTaskTextId').classList.remove('d-none');
-}
-
+function deleteSubtaskInput() {document.getElementById('deleteSubTaskTextId').classList.remove('d-none');}
 
 /**
  * The function hides the delete subtask text if the subtask input value is zero.
@@ -817,28 +664,6 @@ function emptySubtaskText() {
     deleteSubtaskText.classList.add('d-none');
 }
 
-
-/**
- * The function returns HTML code for a subtask with a checkbox, subtask name, and delete button.
- * @param i - The index of the subtask in the `subtaskName` array.
- * @returns a string of HTML code that represents a subtask container with a checkbox, subtask name,
- * and a delete button. The HTML code is generated dynamically using the value of the parameter `i` and
- * the values of the `subtaskName` array.
- */
-function returnSubtaskHTML(i) {
-    return `
-    <div class="subtask-div-container">
-        <div class="subtask-left-side">
-            <input onclick="checkSubtask(${i})" type="checkbox" name="subtask" id="subtask${i}">
-            ${subtaskName[i]}
-        </div>
-        <div class="subtask-right-side">
-            <img onclick="deleteSubTask(${i})" class="add-task-trash-pic" src="src/img/trash.png">
-        </div>
-    </div>`
-}
-
-
 /**
  * The function deletes a subtask from an array and updates the display of the remaining subtasks.
  * @param i - The index of the subtask to be deleted from the arrays `subtaskName` and `bool`.
@@ -848,7 +673,6 @@ function deleteSubTask(i) {
     bool.splice(i, 1);
     displaySubTask();
 }
-
 
 /**
  * This function generates a unique ID for a new task based on the existing tasks' IDs.
@@ -868,48 +692,3 @@ function getId() {
         return maxId;
     }
 }
-
-
-
-
-
-
-// let count = 0;
-
-// function openCalender() {
-//     document.querySelector('.date_input_container input').setAttribute('type', 'date');
-//     document.querySelector('.date_input_container img').classList.add('d-none');
-//     document.querySelector('.date_input_container input').showPicker();
-//     count++;
-// }
-
-// function closeCalender(element) {
-//     let dateInput = document.querySelector('.date_input_container input');
-//     dateInput.setAttribute('type', 'text');
-//     dateInput.value= formatDate(dateInput.value);
-//     document.querySelector('.date_input_container img').classList.remove('d-none');
-//     if (count == 1) {
-//         element.blur();
-//     }
-// }
-
-// function formatDate(date) {
-//     let dateArray = [];
-//     let substringStart = 0;
-//     for (let i = 0; i < date.length; i++) {
-//         if(date.charAt(i) === '-') {
-//             let substring = date.slice(substringStart, i);
-//             dateArray.unshift(substring);
-//             substringStart = i + 1;
-//         }
-//     }
-//     let substring = date.slice(substringStart, date.length);
-//     dateArray.unshift(substring);
-//     let newDate = dateArray.toString();
-//     newDate = newDate.replaceAll(',', '/');
-//     return newDate;
-// }
-
-// function setCount() {
-//     count = 0;
-// }

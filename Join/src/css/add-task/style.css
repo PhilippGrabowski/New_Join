@@ -446,8 +446,7 @@ body{
     .submit-btn-container{
         margin-top: 20px;
     }
-    .main-add-task{
-    }
+    
     .main-add-task-container{
         padding-top: 20px;
         gap: 10px;
@@ -486,8 +485,8 @@ body{
         gap: 5px;
     }
     .add-task-container{
-        margin-left: 0px;
-        margin-right: 0px;
+        margin-left: 10px;
+        margin-right: 10px;
         gap: 0px;
     }
     .submit-btn-container{
