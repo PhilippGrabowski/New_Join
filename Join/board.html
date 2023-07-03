@@ -26,7 +26,7 @@
 
 <body onload="includeHTML(); init(); loadAccounts();" onclick="closeHeaderMenu()">
 
-    <div id="add-task-overlay" class="add-task-overlay d-none" style="transform: translateX(3500px);">
+    <div id="add-task-overlay" class="add-task-overlay hide-mobile" style="transform: translateX(3000px);">
         <div id="add-task-container-board" class="add-task-container-board">
             <img onclick="closeAddTask()" class="close-window" src="src/img/close-window.png">
             <div w3-include-html="src/templates/add-task-template.html">
@@ -54,11 +54,12 @@
     <section id="board-section">
         <div class="flex-column" id="board-content">
             <div class="flex-row" id="board-header">
+                <h2 class="mobile-kanban-project d-none">Kanban Project Management Tool</h2>
                 <h1>Board</h1>
                 <div id="search-and-add" class="flex-row">
                     <input onkeyup="searchForTask()" class="search-icon" id="search-task" placeholder="Find Task"
-                        type="text">
-                    <button onclick="openAddTask()" id="add-task-button" class="button flex-row button-hover d-none">Add task
+                        type="text" style="background: #fff url(src/img/line-and-magnifier.svg) center right no-repeat;">
+                    <button onclick="openAddTask()" id="add-task-button" class="button flex-row button-hover"><span class="hide-mobile">Add task</span>
                         <img class="filter-white" src="./src/img/plus.svg"></button>
                 </div>
 
@@ -112,7 +113,7 @@
 
                 <div ondrop="moveTo('done'); endHighlight('done-shadow')"
                     ondragover="allowDrop(event); dragHighlight('done-shadow')"
-                    ondragleave="endHighlight('done-shadow')" class="task-status-container flex-column">
+                    ondragleave="endHighlight('done-shadow')" class="task-status-container flex-column mobile-margin-btm">
                     <div class="task-column-header flex-row">
                         <div class="flex-row align-task-column-header">
                             <h2>Done</h2>

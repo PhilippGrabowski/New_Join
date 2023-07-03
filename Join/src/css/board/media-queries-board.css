@@ -7,6 +7,14 @@
         overflow-y: scroll;
     }
 
+    #board-section {
+        overflow-x: scroll;
+    }
+
+    #board-section::-webkit-scrollbar{
+        display: none;
+    }
+
     #board-content {
         width: auto;
         height: calc(100vh - 159px);
@@ -14,9 +22,14 @@
         margin-top: 100px;
     }
 
+    .mobile-kanban-project {
+        display: block !important;
+    }
+
     #board-header {
         flex-direction: column !important;
         align-items: flex-start;
+        position: relative;
     }
 
     #board-header input {
@@ -24,8 +37,23 @@
         height: 40px;
     }
 
+    #add-task-button {
+        height: 40px;
+        width: 40px;
+        position: absolute;
+        top: 40px;
+        right: 0px;
+        margin: 0;
+    }
+
+    #search-task {
+        margin: 0;
+    }
+
     #tasks-container {
         flex-direction: column !important;
+        margin-top: 32px;
+        overflow-y: visible;
     }
 
     .task-status-container {
@@ -36,15 +64,45 @@
         flex-direction: row !important;
         margin-bottom: 8px;
         padding: 0;
-        overflow-x: scroll;
+    
     }
 
     .task-column-header {
         position: static;
     }
 
+
     .board-task-box {
         margin-top: 0;
         margin-right: 8px;
+    }
+
+    /*Add Task overlay */
+
+    #add-task-overlay {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    #add-task-container-board {
+        background-color: #F6F7F8;
+        padding: 0;
+        margin: 0;
+        border-radius: 0;
+        height: calc(100vh - 85px);
+        width: 100vw;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .add-task-container {
+        flex-direction: column;
+    }
+
+    .line {
+        display: none;
+    }
+
+    .hide-mobile {
+       display: none;
     }
 }
