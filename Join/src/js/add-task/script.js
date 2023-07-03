@@ -299,6 +299,7 @@ function createContact(i) {
             name: `${newContact.value}`,
             initials: '<img src="src/img/contacts-icon.svg" class="missing-img">'
         });
+        firstRender = true;
         displayContacts();
     }
 }
@@ -571,6 +572,9 @@ function selectCategory(cat) {
             color: categoryColors[cat].color,
             category: `${categoryColors[cat].category}`
         } ); if (chosenCat.textContent != 0) { checkCat = true; chosenCatNote.classList.add('d-none'); }
+}
+function resetFirstRender(){
+    firstRender = true;
 }
 
 /**

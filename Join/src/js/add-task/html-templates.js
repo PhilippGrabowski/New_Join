@@ -82,7 +82,7 @@ function returnAddNewContactHTML() {
     <div class="add-contact-container">
     <input class="title-input" placeholder="Contact email" type="email" id="newContact">
     <div>
-    <img src="src/img/delete-icon.svg" onclick="displayContacts()" class="delete-icon-x">
+    <img src="src/img/delete-icon.svg" onclick="displayContacts(), resetFirstRender()" class="delete-icon-x">
     <img src="src/img/tick.png" onclick="createContact()" class="tick-icon">
     </div>
     </div>
