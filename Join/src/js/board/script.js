@@ -223,8 +223,12 @@ function hideAllTaskBoxes(){
 
 async function openAddTask(status){
     let addTaskOverlay = document.getElementById('add-task-overlay');
+    let profilePic = document.getElementById('profile_img');
+    let createTaskButton = document.getElementById('create-task-button');
     if (window.innerWidth < 901) {
         addTaskOverlay.classList.remove('hide-mobile');
+        profilePic.classList.add('d-none');
+        createTaskButton.classList.add('reposition-create-task-button');
     }
     document.getElementById('add-task-overlay').style.transform = 'translateX(0)';
     if(status){
@@ -234,8 +238,12 @@ async function openAddTask(status){
 
 function closeAddTask(){
     let addTaskOverlay = document.getElementById('add-task-overlay');
+    let profilePic = document.getElementById('profile_img');
+    let createTaskButton = document.getElementById('create-task-button');
     if (window.innerWidth < 901) {
-        addTaskOverlay.classList.add('hide-mobile')    
+        addTaskOverlay.classList.add('hide-mobile');
+        profilePic.classList.remove('d-none');
+        createTaskButton.classList.remove('reposition-create-task-button');    
     }
     document.getElementById('add-task-overlay').style.transform = 'translateX(3000px)';
     

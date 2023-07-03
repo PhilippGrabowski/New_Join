@@ -98,6 +98,12 @@
         flex-direction: column;
     }
 
+    .reposition-create-task-button {
+        position: absolute;
+        top: -85px;
+        width: 125px;
+    }
+
     .line {
         display: none;
     }
