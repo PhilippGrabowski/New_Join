@@ -532,6 +532,9 @@ function showExistingContact(index) {
  */
 function openAddTaskMenu() {
     closeAddTask();
+    renderDate();
+    document.querySelector('.submit-btn-container > button').innerHTML = 'Cancel';
+    document.querySelector('.submit-btn-container > button').setAttribute('onclick', 'closeAddTaskMenu()');
     document.getElementById('partitionWindow').classList.remove('d-none');
     if (window.innerWidth <= 469) {
         document.getElementById('partitionWindow').style.display = 'none';
