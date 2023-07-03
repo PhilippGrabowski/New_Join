@@ -157,12 +157,25 @@
     #add_task_menu_window {
         width: 100vw;
         height: calc(100vh - 83px);
-        padding: 25px 10vw;
+        padding: 25px 10vw 0px 10vw;
         background: var(--white2-color);
         top: 83px;
         left: 0px;
         z-index: 5;
         border-radius: 0px;
+    }
+    .add-task-container {
+        margin: 0px !important;
+    }
+    #add_task_menu {
+        padding-bottom: 25px;
+        overflow-y: scroll;
+    }
+    #add_task_menu::-webkit-scrollbar {
+        display: none;
+    }
+    #add_task_menu_container {
+        overflow-y: unset;
     }
     #add_task_menu_container h2 {
         margin-left: 0px;

@@ -519,12 +519,13 @@ input::placeholder {
 
 #add_task_menu_window {
     width: clamp(468px, 77.5vw, 1116px);
-    height: 916px;
+    height: 89.5vh;
+    max-height: 916px;
     padding: 70px 50px;
     background: var(--white-color);
     border-radius: 30px;
     position: absolute;
-    top: calc(50vh - 458px);
+    top: calc(50vh - 44.75vh);
     left: calc(50vw - 558px);
     z-index: 5;
     transform: translateX(150%);
@@ -536,6 +537,7 @@ input::placeholder {
     width: 100%;
     height: 100%;
     position: relative;
+    overflow-y: scroll;
 }
 
 #add_task_menu_container h2 {
