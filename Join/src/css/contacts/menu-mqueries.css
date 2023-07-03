@@ -1,3 +1,8 @@
+@media (max-width: 1440px) {
+    #add_task_menu_window {
+        left: calc(50vw - 38.75vw);
+    }
+}
 
 @media (min-width: 1400px) {
     .contact_menu {
@@ -6,7 +11,8 @@
 }
 
 @media (max-width: 1400px) {
-    #contact_menu_header {
+    #contact_menu_header,
+    #add_task_menu_container h2 {
         font-size: 47px;
     }
     #contact_menu_subheader {
@@ -117,11 +123,21 @@
     .contact_menu {
         transform: translateY(150%);
     }
+    #add_task_menu_container h2 {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
 }
 
 @media (max-width: 764px) {
     .contact_menu {
         left: calc(50vw - 191px);
+    }
+}
+
+@media (max-width: 602px) {
+    #add_task_menu_window {
+        left: calc(50vw - 234px);
     }
 }
 
@@ -137,6 +153,28 @@
     }
     .error {
         font-size: 12px;
+    }
+    #add_task_menu_window {
+        width: 100vw;
+        height: calc(100vh - 83px);
+        padding: 25px 10vw;
+        background: var(--white2-color);
+        top: 83px;
+        left: 0px;
+        z-index: 5;
+        border-radius: 0px;
+    }
+    #add_task_menu_container h2 {
+        margin-left: 0px;
+        margin-bottom: 5px;
+    }
+    #add_task_menu_container i {
+        top: 0px;
+        right: 0px;
+    }
+    .submit-btn-container {
+        right: -27px !important;
+        top: -89px !important;
     }
 }
 

@@ -34,8 +34,12 @@
                 <div class="d-none" id="showAssigned">
                     
                 </div>
-                <div id="renderContactBubbles">
-                    
+                <div class="contact-bubble-container">
+                    <div id="renderContactBubbles">
+                    </div>
+                    <div id="renderContinousContactBubbles">
+
+                    </div>
                 </div>
                 <div id="assignedValidationText"  class="d-none validation-text">Please assign the Task</div>
             </div>
@@ -53,17 +57,9 @@
     <div class="right-fill-out-form">
         <div class="form-div">
             <span>Due Date</span>
-            <input onclick="initial()" id="dueDate" class="title-input" type="date" required min="">
+            <input onclick="initial()" id="dueDate" class="title-input" type="date" required min="" >
             <div id="dateValidationText"  class="d-none validation-text">Please set a date</div>
         </div>
-        <!-- <div class="form-div">
-            <span>Due Date</span>
-            <div class="date_input_container flex-row">
-                <input required id="dueDate" class="title-input" type="text" placeholder="dd/mm/yyyy"
-                    onclick="openCalender()" oninput="closeCalender(this)" onblur="setCount(); closeCalender(this)">
-                <img src="./src/img/calendar.png" alt="">
-            </div>
-        </div> -->
         <div class="form-div">
             <span>Prio</span>
             <div class="prio-container">
@@ -90,7 +86,7 @@
 
         </div>
         <div class="submit-btn-container">
-            <button onclick="closeAddTask()" class="cancel-btn">Cancel</button>
+            <button onclick="closeAddTask()" class="cancel-btn">Clear</button>
             <button onclick="createTask()" class="create-btn" id="create-task-button">Create Task</button>
         </div>
     </div>

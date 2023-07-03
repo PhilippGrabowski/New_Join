@@ -18,6 +18,9 @@
     .content {
         padding: 89px 0 0 180px;
     }
+    .content_container {
+        padding: 82px 8.3vw 0 70px;
+    }
 }
 
 @media (max-width: 768px) {

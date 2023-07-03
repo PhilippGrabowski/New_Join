@@ -23,7 +23,7 @@ function createContactGroup(letter) {
  * @param {string} contact.color - Assigned color of the contact object
  * @returns {html.template}
  */
-function createContact(contact) {
+function createListContact(contact) {
     return `<div id="${contact.id}" class="contact list_contact flex-row curser" onclick="openContactInfo(${contact.id})">
     <div id="contact_initials${contact.id}" class="contact_initials grid">${contact.initials}</div>
     <div class="contact_name flex-column">

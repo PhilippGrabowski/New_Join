@@ -27,7 +27,7 @@ function renderContactList() {
     for (let i = 0; i < alphabet.length; i++) {
         let letter = alphabet[i];
         renderLetterGroups(contactList, letter);
-        renderContacts(letter);
+        renderListContacts(letter);
     }
 }
 
@@ -58,7 +58,7 @@ function renderLetterGroups(element, letter) {
  * 
  * @param {string} letter - Current letter from the loop through the alphabet as a uppercase letter
  */
-function renderContacts(letter) {
+function renderListContacts(letter) {
     let contactSubList = document.getElementById(`group${letter}`);
     if (contactSubList) {
         contactSubList.innerHTML = '';
@@ -77,7 +77,7 @@ function renderContacts(letter) {
  */
 function createContacts(element, names) {
     for (let i = 0; i < names.length; i++) {
-        element.innerHTML += createContact(names[i]);
+        element.innerHTML += createListContact(names[i]);
         document.getElementById(`contact_initials${names[i].id}`).style.backgroundColor = names[i].color;
     }
 }
@@ -528,6 +528,29 @@ function showExistingContact(index) {
 /*_____________________________General Functions________________________________*/
 
 /**
+ * Displays the add task menu window
+ */
+function openAddTaskMenu() {
+    closeAddTask();
+    renderDate();
+    document.querySelector('.submit-btn-container > button').innerHTML = 'Cancel';
+    document.querySelector('.submit-btn-container > button').setAttribute('onclick', 'closeAddTaskMenu()');
+    document.getElementById('partitionWindow').classList.remove('d-none');
+    if (window.innerWidth <= 469) {
+        document.getElementById('partitionWindow').style.display = 'none';
+    }
+    displaySlideContainer('add_task_menu_window', 'translateX(0)');
+}
+
+/**
+ * Closes the add task menu window
+ */
+function closeAddTaskMenu() {
+    document.getElementById('partitionWindow').classList.add('d-none');
+    hideSlideContainer('add_task_menu_window', 'translateX(150%)');
+}
+
+/**
  * Returns first letter of the name as a uppercase letter
  * 
  * @param {string} contactName - Name of contact
@@ -632,6 +655,17 @@ mobileQueries.addEventListener('change', event => {
         document.getElementById('mobile_contact_info_button_container').style.display = 'flex';
 	}
 });
+
+/**
+ * Sets the display property of the partitionWindow to 'none' if the inner width is lower or equal than 469 pixels
+ */
+window.addEventListener('resize', event => {
+    if (window.innerWidth <= 469) {
+        document.getElementById('partitionWindow').style.display = 'none';
+    } else {
+        document.getElementById('partitionWindow').style.display = 'unset';
+    }
+})
 
 /**
  * Displays or hides contact_list or contact_info container

@@ -1,0 +1,5 @@
+@media (max-width: 468px) {
+    .profil_img{
+        display: none;
+    }
+}
