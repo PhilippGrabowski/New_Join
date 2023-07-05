@@ -41,7 +41,7 @@ function returnDisplayCategoriesHTML(i) {
  */
 function returnCreateNewCategoryHTML(){
     return `
-    <input id="newCatText" class="title-input" type="text" placeholder="New Category name" onclick="event.stopPropagation()">
+    <input id="newCatText" class="title-input" type="text" maxlength="30" placeholder="New Category name" onclick="event.stopPropagation()">
         <img onclick="displayNewCategory(),event.stopPropagation() " class="tick-icon" src="src/img/tick.png">
         <img onclick="displayCategories(),event.stopPropagation(), displayCategoryHTML()" class="x-icon" src="src/img/x.png">
     <div id="categoryColors" onclick="event.stopPropagation()">
@@ -80,9 +80,9 @@ function returnRenderContactsHTML(i) {
 function returnAddNewContactHTML() {
     return `
     <div class="add-contact-container">
-    <input class="title-input" placeholder="Contact email" type="email" id="newContact">
+    <input class="title-input" placeholder="Contact email" type="email" maxlength="31" id="newContact">
     <div>
-    <img src="src/img/delete-icon.svg" onclick="displayContacts(), resetFirstRender()" class="delete-icon-x">
+    <img src="src/img/x.png" onclick="displayContacts(), resetFirstRender()" class="x-icon">
     <img src="src/img/tick.png" onclick="createContact()" class="tick-icon">
     </div>
     </div>

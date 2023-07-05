@@ -20,6 +20,8 @@ let urgent = 0;
 
 let isCategoryOpened = false;
 
+let isAssignedOpened = false;
+
 let firstRender = true;
 
 let today = new Date().toISOString().split("T")[0];
@@ -234,6 +236,7 @@ function deleteCategory(i) {
  */
 function createNewCategory() {
     let show = document.getElementById('showCat');
+    isCategoryOpened = false;
     let categoryContainer = document.getElementById('category');
     categoryContainer.classList.remove('category-dropdown-div');
     categoryContainer.style = '';
@@ -247,6 +250,7 @@ function createNewCategory() {
  */
 function openCategories() {
     displayCategories();
+    if(isAssignedOpened){openAssignedTo('showAssigned', 'assigned'); isAssignedOpened = false;}
     let showCat = document.getElementById('showCat');
     showCat.classList.toggle('d-none');
     let checkBottomBorder = !showCat.classList.contains('d-none');
@@ -279,6 +283,7 @@ function renderContacts() {
 */
 function AddNewContact() {
     let assignedForm = document.getElementById('assigned');
+    isAssignedOpened = false;
     assignedForm.classList.remove('assigned-dropdown-div');
     assignedForm.classList.remove('cursor');
     assignedForm.onclick = '';
@@ -470,24 +475,21 @@ function removeObjectWithId(arr, id) {
  * accordingly.
  */
 function openAssignedTo(id1, id2) {
-    if(firstRender){
-        renderContacts();
-        firstRender = false;
-    }
+    if(firstRender){renderContacts();firstRender = false;}
+    if(isCategoryOpened){openCategories(); isCategoryOpened = false;}
     let showAssigned = document.getElementById(id1);
     showAssigned.classList.toggle('d-none');
     let checkBottomBorder = !showAssigned.classList.contains('d-none');
     if (checkBottomBorder) {
-        //showAssignedContacts();
+        isAssignedOpened = true;
         document.getElementById(id2).style.borderBottomLeftRadius = "0px";
         document.getElementById(id2).style.borderBottomRightRadius = "0px";
         document.getElementById(id2).style.borderBottom = "none";
-    }
-    else {
+    }else {
+        isAssignedOpened = false;
         document.getElementById(id2).style.borderBottomLeftRadius = "8px";
         document.getElementById(id2).style.borderBottomRightRadius = "8px";
-        document.getElementById(id2).style.borderBottom = "1px solid lightgray";
-    }
+        document.getElementById(id2).style.borderBottom = "1px solid lightgray";}
 }
 
 /**
@@ -619,21 +621,24 @@ function resetSelectedColor(index) {
  * The function "closeAddTask" resets various elements and variables related to adding a task.
  */
 function closeAddTask() {
+    firstRender = true; 
     document.getElementById('catValidationText').classList.add('d-none');
     document.getElementById('descValidationText').classList.add('d-none');
     document.getElementById('titleValidationText').classList.add('d-none');
     document.getElementById('prioValidationText').classList.add('d-none');
+    document.getElementById('deleteSubTaskTextId').classList.add('d-none');
     document.getElementById('title').value = '';
+    document.getElementById('subtask-content').value = '';
     document.getElementById('description').value = '';
-    firstRender = true;
-    subtasks.checked = [];
-    subtasks.subtask_Name = [];
-    subtaskName = [];
+    subtaskName = []; bool = []; category = [];
+    subtasks = [
+        {
+            "checked": bool,
+            "subtask_Name": subtaskName
+        }
+    ];
+    displaySubTask(); displayCategories(); displayCategoryHTML(); displayContacts(); resetCategoryText();
     if(isCategoryOpened){openCategories();}
-    displaySubTask();
-    displayContacts();
-    resetCategoryText();
-    category = [];
     if(prio != 0){resetSelectedColor(0);}
 }
 

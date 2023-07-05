@@ -4,12 +4,12 @@
         <div>
             <div class="form-div">
                 <span>Title</span>
-                <input onclick="initial()" required id="title" class="title-input" type="text" placeholder="Enter a title">
+                <input onclick="initial()" required id="title" maxlength="30" class="title-input" type="text" placeholder="Enter a title">
                 <div id="titleValidationText" class="d-none validation-text">Please fill in the text form</div>
             </div>
             <div class="form-div">
                 <span>Description</span>
-                <textarea onclick="initial()" required id="description" class="desc-input" type="text"
+                <textarea onclick="initial()" required id="description" maxlength="115" class="desc-input" type="text"
                 placeholder="Enter a Description"></textarea>
                 <div id="descValidationText"  class="d-none validation-text">Please fill in the text form</div>
             </div>
@@ -78,7 +78,7 @@
         </div>
         <div class="form-div">
             <span>Subtasks</span>
-            <input onkeydown="deleteSubtaskInput()" onfocusout="onSubtaskFocusOut()" onfo id="subtask-content" class="title-input" type="text" placeholder="Add new subtask">
+            <input onkeydown="deleteSubtaskInput()" maxlength="30" onfocusout="onSubtaskFocusOut()" onfo id="subtask-content" class="title-input" type="text" placeholder="Add new subtask">
             <img src="src/img/delete-icon.svg" onclick="emptySubtaskText()" class="delete-icon-x d-none" id="deleteSubTaskTextId">
             <img onclick="displaySubTask()" class="plus-icon cursor" src="src/img/plus.svg" alt="">
         </div>

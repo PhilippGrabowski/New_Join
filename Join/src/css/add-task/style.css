@@ -1,7 +1,8 @@
-body{
+body {
     user-select: none;
-    
+
 }
+
 /* Add Task*/
 #add-task-section {
     padding: 8.9rem 0 0 230px;
@@ -14,6 +15,7 @@ body{
     width: calc(100vw - 230px);
     height: 100%;
     padding: 30px;
+    padding-top: 70px !important;
     gap: 40px;
 }
 
@@ -23,8 +25,9 @@ body{
     overflow-y: scroll;
 }
 
-.sectionHeaderMenu{
-    font-size: 32px;
+.sectionHeaderMenu {
+    padding-left: 18px;
+    font-size: 48px;
     font-weight: bold;
 }
 
@@ -35,16 +38,16 @@ body{
     margin-right: 20px;
 }
 
-.delete-icon-x{
+.delete-icon-x {
     cursor: pointer;
     width: 32px;
     height: 32px;
     position: absolute;
-    top: 25px;
+    top: 44px;
     right: 30px;
 }
 
-.subtask-div-container{
+.subtask-div-container {
     padding-top: 2px;
     padding-bottom: 2px;
     padding-left: 10px;
@@ -54,7 +57,7 @@ body{
     align-items: center;
 }
 
-.contact-container{
+.contact-container {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -66,16 +69,16 @@ body{
     font-size: 14px;
 }
 
-.checkbox-img{
+.checkbox-img {
     width: 12px;
     height: 12px;
 }
 
-.contact-container:hover{
+.contact-container:hover {
     background-color: lightgray;
 }
 
-.tick-img{
+.tick-img {
     position: absolute;
     margin-top: 4px;
     right: 12px;
@@ -83,26 +86,26 @@ body{
     height: 8px;
 }
 
-.missing-img{
+.missing-img {
     filter: invert(100%);
 }
 
-.add-contact-container{
+.add-contact-container {
     display: flex;
     justify-content: space-between;
 }
 
-.contact-bubble-container{
+.contact-bubble-container {
     display: flex;
 }
 
 
-#renderContactBubbles{
+#renderContactBubbles {
     display: flex;
 
 }
 
-.contact-display{
+.contact-display {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,44 +117,46 @@ body{
     color: white;
 }
 
-#showAssigned{
+#showAssigned {
     overflow-y: scroll;
     padding-bottom: 5px;
     border: 1px solid lightgray;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     border-top: none;
-    margin-top: -5px;
+    margin-top: -15px;
     height: 130px;
-    
-    
+
+
 }
-.main-add-task::-webkit-scrollbar{
+
+.main-add-task::-webkit-scrollbar {
     display: none;
 }
 
-#showCat::-webkit-scrollbar{
+#showCat::-webkit-scrollbar {
     display: none;
 }
 
-#showAssigned::-webkit-scrollbar{
+#showAssigned::-webkit-scrollbar {
     display: none;
 }
 
-.subtask-left-side{
+.subtask-left-side {
     display: flex;
     gap: 6px;
 }
-.subtask-right-side{
+
+.subtask-right-side {
     display: flex;
 }
 
-#selectedCategory{
+#selectedCategory {
     display: flex;
     align-items: center;
 }
 
-.add-task-trash-pic{
+.add-task-trash-pic {
     margin-right: 10px;
     cursor: pointer;
     width: 16px;
@@ -161,7 +166,7 @@ body{
     width: 100%;
 }
 
-.validation-text{
+.validation-text {
     padding-left: 10px;
     color: red;
     font-size: 14px;
@@ -172,7 +177,7 @@ body{
 }
 
 .line {
-    height: 450px;
+    height: 500px;
     width: 1px;
     background-color: gray;
 }
@@ -182,8 +187,13 @@ body{
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
     font-size: 16px;
+}
+
+#assignedPeople {
+    display: flex;
+    align-items: center;
 }
 
 .circle {
@@ -206,7 +216,7 @@ body{
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     border-top: none;
-    margin-top: -5px;
+    margin-top: -15px;
     background-color: white;
     overflow-y: scroll;
     height: 130px;
@@ -226,28 +236,30 @@ body{
     background-color: lightgray;
     border-radius: 4px;
 }
+
 .cat:hover {
     background-color: lightgray;
     border-radius: 4px;
 }
 
-#categoryColors{
+#categoryColors {
     margin-top: 5px;
     display: flex;
 }
 
-.tick-icon{
+.tick-icon {
     cursor: pointer;
     width: 16px;
     position: absolute;
-    top: 32px;
+    top: 50px;
     right: 5px;
 }
-.x-icon{
+
+.x-icon {
     cursor: pointer;
     width: 16px;
     position: absolute;
-    top: 32px;
+    top: 50px;
     right: 35px;
 }
 
@@ -261,6 +273,7 @@ body{
     padding-bottom: 5px;
     border-radius: 8px;
     font-size: 16px;
+    height: 50px;
 }
 
 .cancel-btn {
@@ -284,11 +297,11 @@ body{
     height: 40px;
 }
 
-.cursor{
+.cursor {
     cursor: pointer;
 }
 
-.colortype{
+.colortype {
     border-radius: 100%;
     margin: 5px;
     width: 16px;
@@ -296,24 +309,24 @@ body{
     cursor: pointer;
 }
 
-.category-container{
+.category-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
 }
 
-.padding-right{
+.padding-right {
     margin-right: 10px;
 }
 
-.colortype:hover{
+.colortype:hover {
     border: 1px solid white;
     transform: scale(1.1);
     box-shadow: 0px 0px 4px 1px rgba(82, 82, 82, 0.69);
 }
 
-.highlighted-color{
+.highlighted-color {
     border: 1px solid white;
     transform: scale(1.1);
     box-shadow: 0px 0px 4px 1px rgba(82, 82, 82, 0.69);
@@ -346,7 +359,7 @@ body{
     justify-content: space-evenly;
     border: 1px solid lightgray;
     border-radius: 8px;
-    padding: 10px;
+    padding: 15px;
     justify-content: space-evenly;
     gap: 15px;
     align-items: center;
@@ -361,7 +374,7 @@ body{
 .plus-icon {
     position: absolute;
     right: 5px;
-    top: 28px;
+    top: 48px;
 }
 
 .category-dropdown-div {
@@ -375,6 +388,7 @@ body{
     border: 1px solid lightgray;
     border-radius: 8px;
     background-color: white;
+    height: 50px;
 }
 
 .assigned-dropdown-div {
@@ -388,9 +402,10 @@ body{
     border: 1px solid lightgray;
     border-radius: 8px;
     background-color: white;
+    height: 50px;
 }
 
-#showAssigned{
+#showAssigned {
     background-color: white;
 }
 
@@ -420,34 +435,37 @@ body{
     #add-task-section {
         padding: 8.9rem 0 0 180px;
     }
+
     .main-add-task-container {
         width: calc(100vw - 180px);
     }
-   
+
 }
+
 @media (max-width: 900px) {
-    
+
     .main-add-task-container {
         padding-left: 20px;
         padding-right: 20px;
     }
 }
+
 @media (max-width: 800px) {
-    
-    .add-task-container{
+
+    .add-task-container {
         display: flex;
         flex-direction: column;
     }
 
-    .line{
+    .line {
         display: none;
     }
 
-    .submit-btn-container{
+    .submit-btn-container {
         margin-top: 20px;
     }
-    
-    .main-add-task-container{
+
+    .main-add-task-container {
         padding-top: 20px;
         gap: 10px;
     }
@@ -457,21 +475,27 @@ body{
     #add-task-section {
         padding: 8.9rem 0 0 90px;
     }
+
     .main-add-task-container {
         width: calc(100vw - 90px);
     }
 }
+
 @media (max-width: 468px) {
-    #add-task-section{
+    #add-task-section {
         display: flex;
         justify-content: center;
         padding-left: 0px;
     }
+    .sectionHeaderMenu{
+        padding-left: 9px;
+    }
 
-    .main-add-task{
+    .main-add-task {
         padding-bottom: 80px;
     }
-    .main-add-task-container{
+
+    .main-add-task-container {
         padding-top: 10px;
         padding-left: 0px;
         padding-right: 0px;
@@ -479,24 +503,28 @@ body{
         width: unset;
         gap: 0px;
     }
-    .prio-input{
+
+    .prio-input {
         padding-left: 7px;
         padding-right: 7px;
         gap: 5px;
     }
-    .add-task-container{
+
+    .add-task-container {
         margin-left: 10px;
         margin-right: 10px;
         gap: 0px;
     }
-    .submit-btn-container{
+
+    .submit-btn-container {
         position: absolute;
         z-index: 100000;
         right: 20px;
         top: 20px;
         margin: 0;
     }
-    .cancel-btn{
+
+    .cancel-btn {
         display: none;
     }
 }
