@@ -58,6 +58,12 @@
 
     .task-status-container {
         width: 100%;
+        min-height: 280px;
+        overflow-x: scroll;
+    }
+
+    .task-status-container::-webkit-scrollbar{
+        display: none;
     }
 
     .task-container{
@@ -111,4 +117,83 @@
     .hide-mobile {
        display: none;
     }
-}
+
+    /*Task Popup*/
+
+    .task-popup-background {
+        background-color: #fff;
+        z-index: 2;
+    }
+
+    .task-popup {
+        padding: 16px;
+        position: absolute;
+        top: 85px;
+        bottom: 79px;
+        width: 100vw;
+        border-radius: 0;
+        height: auto !important;
+        overflow-x: scroll;
+    }
+
+    .close-task-popup {
+        display: none;
+    }
+
+    .mobile-close-task-popup {
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: 30px;
+    }
+
+    .task-popup h1  {
+        font-size: 30px;
+        margin-top: 10px;
+    }
+
+    .task-popup span, p {
+        font-size: 16px !important;
+    }
+
+    .category-tag {
+        margin: 0;
+    }
+
+    .assigned-contact-box {
+        margin-top: 16px;
+    }
+    
+    .delete-and-edit-task {
+        flex-direction: column !important;
+        max-height: 150px;
+        max-width: 35px;
+        margin-right: 0;
+        margin-left: 330px;
+        bottom: 5px !important;
+    }
+
+    .mobile-edit-and-delete {
+        margin: 8px;
+        border-radius: 15px !important;
+        border: 1px solid #2a3647;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /*edit task*/
+
+    .mobile-change-button {
+        position: absolute;
+        bottom: -110px;
+        margin-bottom: 5px;
+    }
+
+    .mobile-edit {
+        margin-bottom: 64px;
+    }
+    }
+    

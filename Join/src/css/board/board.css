@@ -182,6 +182,7 @@
 }
 
 .dragbox-shadow {
+    z-index: 0;
     height: 140px;
     width: 100%;
     background-color: rgba(9, 25, 49, 0.1);
@@ -276,6 +277,10 @@
     top: 30px;
     right: 30px;
     cursor: pointer;
+}
+
+.mobile-close-task-popup {
+    display: none;
 }
 
 .delete-and-edit-task {

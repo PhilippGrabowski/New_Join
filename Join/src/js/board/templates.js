@@ -26,7 +26,7 @@ function generateTaskCard(element, category, boxCount){
 
 function generateBoxShadow(container){
     return /*html*/`
-    <div class="dragbox-shadow d-none" id="dragbox-shadow-${container}"></div>
+    <div ondragover="event.stopPropagation()" class="dragbox-shadow d-none" id="dragbox-shadow-${container}"></div>
     `;
 }
 
@@ -43,8 +43,11 @@ function generatePopUpHTML(clickedElement, index){
         
         </div>
         <div class="flex-row delete-and-edit-task">
-                <img onclick="deletePopupTask(${index})" class="hover-white-button" src="src/img/deletebutton-task-popup.svg">
-                <div onclick="editTask(${index});" class="edit-task button-hover">
+            <div onclick="deletePopupTask(${index})" class="hover-white-button mobile-edit-and-delete" > 
+                <img src="src/img/delete-task.svg">
+            </div>
+               
+                <div onclick="editTask(${index});" class="edit-task button-hover mobile-edit-and-delete">
                     <img src="src/img/edit-task-popup.svg">
                 </div>
         </div>
@@ -84,7 +87,7 @@ function generateEditPopUp(currentTask, index){
             </div>
             <div id="prioValidationText"  class="d-none validation-text">Choose a priority</div>
         </div>
-        <div class="form-div">
+        <div class="form-div mobile-edit">
                 <span>Assigned to</span>
                 <div onclick="openAssignedTo('showAssignedPopUp', 'assignedPopUp'), event.stopPropagation()" id="assignedPopUp" class="assigned-dropdown-div cursor">
                     <div id="assignedPeoplePopUp">Assigned to</div>
@@ -98,7 +101,7 @@ function generateEditPopUp(currentTask, index){
                 </div>
                 <div id="assignedValidationTextPopUp"  class="d-none validation-text">Please assign the Task</div>
             </div>
-            <button onclick="saveChanges(${index});" class="button_option_2 flex-row curser button-hover">Ok
+            <button onclick="saveChanges(${index});" class="mobile-change-button button_option_2 flex-row curser button-hover">Ok
                         <i class='bx bx-check'></i>
                     </button>
     `;
