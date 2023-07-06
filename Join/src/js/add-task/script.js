@@ -631,12 +631,7 @@ function closeAddTask() {
     document.getElementById('subtask-content').value = '';
     document.getElementById('description').value = '';
     subtaskName = []; bool = []; category = [];
-    subtasks = [
-        {
-            "checked": bool,
-            "subtask_Name": subtaskName
-        }
-    ];
+    subtasks = [{ "checked": bool, "subtask_Name": subtaskName}];
     displaySubTask(); displayCategories(); displayCategoryHTML(); displayContacts(); resetCategoryText();
     if(isCategoryOpened){openCategories();}
     if(prio != 0){resetSelectedColor(0);}
