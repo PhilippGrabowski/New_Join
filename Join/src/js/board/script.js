@@ -403,7 +403,7 @@ function fillContacts(currentTask){
         const contact = contacts[i];
         contactsContainer.innerHTML += generateContactCheckbox(contact, i);
     }
-    
+    contactsContainer.innerHTML += `<div onclick="AddNewContact('assignedPopUp', 'showAssignedPopUp')" class="contact-container cursor">Invite New Contact</div>`;
 }
 
 function checkForAssignedStatus(currentTask){

@@ -43,7 +43,7 @@ function generatePopUpHTML(clickedElement, index){
         
         </div>
         <div class="flex-row delete-and-edit-task">
-            <div onclick="deletePopupTask(${index})" class="hover-white-button mobile-edit-and-delete" > 
+            <div onclick="deletePopupTask(${index})" class="delete-button hover-white-button mobile-edit-and-delete" > 
                 <img src="src/img/delete-task.svg">
             </div>
                

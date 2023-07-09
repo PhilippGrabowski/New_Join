@@ -274,20 +274,20 @@ function renderContacts() {
     let list = document.getElementById('showAssigned');
         list.innerHTML = '';
         for (let i = 0; i < contacts.length; i++) { list.innerHTML += returnRenderContactsHTML(i); }
-        list.innerHTML += ` <div onclick="AddNewContact()" class="contact-container cursor"> Invite New Contact </div>`;
+        list.innerHTML += ` <div onclick="AddNewContact('assigned', 'showAssigned')" class="contact-container cursor"> Invite New Contact </div>`;
 }
 
 /**
  * The function adds a new contact by removing a dropdown div, hiding a contact list, and replacing the
  * div's HTML with a new contact form.
 */
-function AddNewContact() {
-    let assignedForm = document.getElementById('assigned');
+function AddNewContact(assigned, showAssigned) {
+    let assignedForm = document.getElementById(assigned);
     isAssignedOpened = false;
     assignedForm.classList.remove('assigned-dropdown-div');
     assignedForm.classList.remove('cursor');
     assignedForm.onclick = '';
-    let contactsAs = document.getElementById('showAssigned');
+    let contactsAs = document.getElementById(showAssigned);
     contactsAs.classList.add('d-none');
     assignedForm.innerHTML = returnAddNewContactHTML();
 }

@@ -289,6 +289,16 @@
     justify-content: end;
 }
 
+.delete-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #2a3647;
+    border-radius: 10px 0 0 10px;
+    height: 50px;
+    width: 50px;
+}
+
 .edit-task {
     height: 50px;
     width: 50px;
@@ -410,7 +420,7 @@
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     border-top: none;
-    margin-top: -5px;
+    margin-top: -10px;
     height: 130px;
 }
 
