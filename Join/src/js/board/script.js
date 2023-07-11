@@ -41,6 +41,10 @@ function updateHTML(){
     }
 }
 
+/**
+ If the description in a task is too long for the task box on the board, this function shortens the text to fit. Full description is available in the popup.
+ */
+
 function checkDescriptionLength(element, boxCount){
     let descriptionBox = document.getElementById(`board-task-box-description${boxCount}`);
     if (element.length > 30) {
@@ -51,7 +55,6 @@ function checkDescriptionLength(element, boxCount){
 
 function getCategoryColor(element, boxCount){
     let categoryToSearch = categoryColors.filter(t => t['category'] === element);
-    console.log(categoryToSearch);
     let color = categoryToSearch[0]['color'];
     document.getElementById(`category-tag${boxCount}`).style = `background-color: ${color};`
 }
@@ -64,13 +67,9 @@ function checkForSubtask(element, boxCount){
     }
 }
 
-function checkForSubtaskPopUp(element, boxCount){
-    let subtask = element['subtask'][0]['subtask_Name'];
-    if(subtask.length > 0){
-        document.getElementById(`progressContainer`).classList.remove('d-none');
-        setPopUpProgress(element, boxCount);
-    }
-}
+/**
+    Checks the progress on subtasks and fills the progressbar accordingly.
+ */
 
 function setProgress(element, boxCount){
     const counts = {};
@@ -78,14 +77,11 @@ function setProgress(element, boxCount){
     for (let i = 0; i < arrayToSearch.length; i++) {
         counts[arrayToSearch[i]] = (counts[arrayToSearch[i]] + 1) || 1;   
     }
-    console.log(counts);
     
     let currentProgress = 100 / (arrayToSearch.length/counts['true']);
     if(!currentProgress){
         currentProgress = 0;
     }
-    
-    console.log(currentProgress)
 
     let progressBar = document.getElementById(`progress${boxCount}`);
     let countContainer = document.getElementById(`countContainer${boxCount}`);
@@ -95,37 +91,27 @@ function setProgress(element, boxCount){
         countContainer.innerHTML = `0/${arrayToSearch.length} Done`;
     };
     progressBar.style = `width: ${currentProgress}%`;
-
 }
 
-function setPopUpProgress(element, boxCount){
-    const counts = {};
-    let arrayToSearch = element['subtask'][0]['checked'];
-    for (let i = 0; i < arrayToSearch.length; i++) {
-        counts[arrayToSearch[i]] = (counts[arrayToSearch[i]] + 1) || 1;   
-    }
-    console.log(counts);
-    
-    let currentProgress = 100 / (arrayToSearch.length/counts['true']);
-    if(!currentProgress){
-        currentProgress = 0;
-    } else {
-        currentProgress = currentProgress.toFixed(0);
-    }
-    
-    console.log(currentProgress)
 
-    let progressBar = document.getElementById(`progress`);
-    let subtaskContainer = document.getElementById(`count-container`);
-    if (currentProgress > 0) {
-       subtaskContainer.innerHTML = `<div>${counts['true']}/${arrayToSearch.length} Done</div>`;
-    }else {
-        subtaskContainer.innerHTML = `<div>0/${arrayToSearch.length} Done</div>`;
-    };
-    progressBar.style = `width: ${currentProgress}%`;
+
+function checkForSubtaskPopUp(element, boxCount){
+    let subtask = element['subtask'][0]['subtask_Name'];
+    if(subtask.length > 0){
+        document.getElementById(`progressContainer`).classList.remove('d-none');
+        setPopUpProgress(element, boxCount);
+    }
 }
 
-async function checkBoxStatus(count){
+
+
+
+
+/**
+ * This is changing the subtask status between done and undone. After changing, the progressbar will be rerendered.
+ * @param {The position of the subtask in the array} count 
+ */
+async function changeSubtaskStatus(count){
     let checkbox = document.getElementById(`subtaskCheckbox${count}`);
     let currentTask = getCurrentTask();
     if(checkbox.checked){
@@ -141,11 +127,39 @@ async function checkBoxStatus(count){
       setPopUpProgress(currentTask, count +1000);
 }
 
+
+/**
+ * This is changing the progressbar after a subtask has been checked.
+ * @param {The current opened task in the popup} element 
+ */
+function setPopUpProgress(element){
+    const counts = {};
+    let arrayToSearch = element['subtask'][0]['checked'];
+    for (let i = 0; i < arrayToSearch.length; i++) {
+        counts[arrayToSearch[i]] = (counts[arrayToSearch[i]] + 1) || 1;   
+    }
+    
+    let currentProgress = 100 / (arrayToSearch.length/counts['true']);
+    if(!currentProgress){
+        currentProgress = 0;
+    } else {
+        currentProgress = currentProgress.toFixed(0);
+    }
+
+    let progressBar = document.getElementById(`progress`);
+    let subtaskContainer = document.getElementById(`count-container`);
+    if (currentProgress > 0) {
+       subtaskContainer.innerHTML = `<div>${counts['true']}/${arrayToSearch.length} Done</div>`;
+    }else {
+        subtaskContainer.innerHTML = `<div>0/${arrayToSearch.length} Done</div>`;
+    };
+    progressBar.style = `width: ${currentProgress}%`;
+}
+
 function getCurrentTask(){
    let currentPopUpHeadline = document.getElementsByClassName('task-popup-headline-main task-popup-margin');
    let currentHeadlineText = currentPopUpHeadline[0]['innerText'];
    let currentElement = tasks.filter(t => t['title'] === currentHeadlineText);
-   console.log(currentElement);
    return currentElement[0];
 }
 
@@ -211,14 +225,6 @@ function getIndexOfTask(id) {
 
 
 
-function hideAllTaskBoxes(){
-    for (let i = 0; i < tasks.length; i++) {
-        document.getElementById(`taskBox${i}`).classList.add('d-none');
-        
-    }
-}
-
-
 //<--------------------------------------------- Open and Close PopUps ------------------------------------------->
 
 async function openAddTask(status){
@@ -259,6 +265,18 @@ function openTaskPopUp(id){
     document.getElementById('task-popup-background').classList.remove('d-none');
 }
 
+function closeTaskPopUp(){
+    currentOpenedTask = '';
+    updateHTML();
+
+    document.getElementById('task-popup-background').classList.add('d-none');
+}
+
+
+/**
+ * This function checks whether a subtask has already been done or not
+ * @param {Id of the currently opened task in the popup} id 
+ */
 function getCheckBoxStatus(id){
     let index = getIndexOfTask(id)
     let currentTask = tasks[index];
@@ -274,12 +292,7 @@ function getCheckBoxStatus(id){
     }
 }
 
-function closeTaskPopUp(){
-    currentOpenedTask = '';
-    updateHTML();
 
-    document.getElementById('task-popup-background').classList.add('d-none');
-}
 
 function renderPopUpDetails(id){
     let taskPopUp = document.getElementById('popup-content');
@@ -287,6 +300,7 @@ function renderPopUpDetails(id){
     taskPopUp.innerHTML = '';
     taskPopUp.innerHTML += generatePopUpHTML(tasks[index], index);
 }
+
 
 
 function renderAssignedContacts(id){
@@ -306,7 +320,6 @@ function renderSubtasks(id){
     let subtaskContainer = document.getElementById(`subtask-container`);
     let temporaryArray = tasks.filter(t => t['id'] === id);
     let subtaskArray = temporaryArray[0]['subtask'][0]['subtask_Name'];
-    console.log(subtaskArray);
     for (let i = 0; i < subtaskArray.length; i++) {
         const subtask = subtaskArray[i];
         subtaskContainer.innerHTML += generateSubtaskSection(subtask, i);
@@ -315,6 +328,10 @@ function renderSubtasks(id){
     checkForSubtaskPopUp(tasks[index], index +1000);
 }
 
+/**
+ * This renders the initials of assigned contacts into bubbles. If more than three contacts are assigned it will display two bubbles with initals and one with the number of additional assigned contacts.
+ * @param {Currently opened task in popup} element 
+ */
 function renderContactInitials(element){
     let contactBox = document.getElementById(`assigned-contacts${element['id']}`)
     let assignedContacts = element['assigned'];
@@ -333,7 +350,6 @@ function renderContactInitials(element){
             contactBox.innerHTML += generateSmallContactBubbles(contact);
         }     
     }
-    
 }
 
 async function deletePopupTask(i) {
@@ -342,6 +358,13 @@ async function deletePopupTask(i) {
     updateHTML();
     closeTaskPopUp();
 }
+
+/*<-------------------------------------------------- functions for edit task ------------------------------------------> */
+
+/**
+ * This deletes the contents of the popup window and replaces it with inputs to edit the currently opened task.
+ * @param {index of task to edit} index 
+ */
 
 function editTask(index){
     let popUpWindow = document.getElementById('popup-content');
@@ -357,6 +380,10 @@ function editTask(index){
     renderContactInitials(currentTask);
 }
 
+/**
+ * Checks the prio of the opened task and highlights the set prio-button.
+ * @param {currently opened task} currentTask 
+ */
 function getPrioColor(currentTask){
     let currentPrio = currentTask['priority'][0]['priority'];
     let currentColor = currentTask['priority'][0]['color'];
@@ -376,6 +403,10 @@ function changePrio(i){
     resetUnselectedColor(changedPrio['priority'][0]['priority']);
 }
 
+/**
+ * After changing the prio of a task via button, this checks for the new prio and highlights the right button.
+ * @param {new set prio} newPrio 
+ */
 function resetUnselectedColor(newPrio){
     if (newPrio == 'urgent') {
         document.getElementById('mediumPopUp').style = '';
@@ -397,7 +428,10 @@ function resetUnselectedColor(newPrio){
     }
 }
 
-function fillContacts(currentTask){
+/**
+ * Renders all available contacts into a hidden dropdown menu.
+ */
+function fillContacts(){
     let contactsContainer = document.getElementById('showAssignedPopUp');
     for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
@@ -406,6 +440,11 @@ function fillContacts(currentTask){
     contactsContainer.innerHTML += `<div onclick="AddNewContact('assignedPopUp', 'showAssignedPopUp')" class="contact-container cursor">Invite New Contact</div>`;
 }
 
+
+/**
+ * When the assigned dropdown menue is opened, this checks which contacts have already been assigned to the task and checks them.
+ * @param {currently opened task} currentTask 
+ */
 function checkForAssignedStatus(currentTask){
     let assignedPeople = currentTask['assigned'];
     let namesToCheck = [];
@@ -424,10 +463,6 @@ function checkForAssignedStatus(currentTask){
     }
 }
 
-function changeCheckedStatus(i){
-    console.log(i)
-}
-
 function getIndexOfName(name, arr){
     let index = arr.indexOf(name);
     return index;
@@ -435,11 +470,14 @@ function getIndexOfName(name, arr){
 
 let changedAssignedContacts = [];
 
+/**
+ * Either adds or removes a contact from the assigned list of the opened task.
+ * @param {position of a contact in contacs array} i 
+ */
 function assignTaskPopUp(i){
     let checkbox = document.getElementById(`tickIdPopUp${i}`);
     let alreadyAssignedContacts = currentOpenedTask['assigned'];
     let contactToAssign = contacts[i];
-    console.log(checkbox);
     if (!checkbox.checked) {
         alreadyAssignedContacts.push(contactToAssign);
         checkbox.checked = true;
@@ -451,7 +489,10 @@ function assignTaskPopUp(i){
 }
 
 
-
+/**
+ * saves all the changes of edit task. CAUTION: THIS DOESN'T SAVE TO REMOTE STORAGE!!!
+ * @param {index of the opened task} index 
+ */
  async function saveChanges(index){
     let currentTask = tasks[index];
     let newTitle = document.getElementById('newTitle').value;
@@ -463,6 +504,13 @@ function assignTaskPopUp(i){
     updateHTML();
 }
 
+/**
+ * pushes changes from edited task to the tasks array and saves them in remote storage.
+ * @param {current opened task} currentTask 
+ * @param {new title from edit task} newTitle 
+ * @param {new description from edit task} newDescription 
+ * @param {new duedate from edit task} newDueDate 
+ */
 async function pushChanges(currentTask, newTitle, newDescription, newDueDate){
     let assignedContacts = currentTask['assigned']
     currentTask['title'] = newTitle;
@@ -474,6 +522,10 @@ async function pushChanges(currentTask, newTitle, newDescription, newDueDate){
     changedAssignedContacts.splice(0, changedAssignedContacts.length);
 }
 
+/**
+ * This combines the changed assigned contacts and the already existing assignations into one array and then removes all the duplicates.
+ * @param {assigned contacts before the edit} assignedContacts 
+ */
 async function pushContacts(assignedContacts){
     for (let i = 0; i < changedAssignedContacts.length; i++) {
         const contact = changedAssignedContacts[i];
@@ -494,17 +546,14 @@ function removeDuplicateObjects(arr) {
     const keys = new Set();
   
     for (const obj of arr) {
-      // Convert the object to a string to use as a unique key
       const key = JSON.stringify(obj);
-  
-      // If the key is not already present, add the object to the result array
       if (!keys.has(key)) {
         keys.add(key);
         uniqueObjects.push(obj);
       }
     }
     return uniqueObjects;
-  }
+}
 
 
 /**

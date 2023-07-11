@@ -289,7 +289,12 @@ function AddNewContact(assigned, showAssigned) {
     assignedForm.onclick = '';
     let contactsAs = document.getElementById(showAssigned);
     contactsAs.classList.add('d-none');
-    assignedForm.innerHTML = returnAddNewContactHTML();
+    if (assigned == 'assignedPopUp') {
+        assignedForm.innerHTML = returnAddNewContactHTML(assigned);
+    } else {
+        assignedForm.innerHTML = returnAddNewContactHTML();
+    }
+    
 }
 
 /**
@@ -297,6 +302,7 @@ function AddNewContact(assigned, showAssigned) {
  * symbol, and then displays the updated list of contacts.
 */
 function createContact(i) {
+    let assignedPopUp = document.getElementById('assignedPopUp');
     let newContact = document.getElementById('newContact');
     if (newContact.value.includes('@')) {
         contacts.push({
@@ -304,8 +310,15 @@ function createContact(i) {
             name: `${newContact.value}`,
             initials: '<img src="src/img/contacts-icon.svg" class="missing-img">'
         });
-        firstRender = true;
-        displayContacts();
+        if (i) {
+            assignedPopUp.innerHTML = regenerateAssignedPopUp();
+            fillContacts();
+            openAssignedTo('showAssignedPopUp', 'assignedPopUp');
+        } else {
+            firstRender = true;
+            displayContacts();
+        }
+        
     }
 }
 

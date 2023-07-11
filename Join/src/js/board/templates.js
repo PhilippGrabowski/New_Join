@@ -36,7 +36,7 @@ function generatePopUpHTML(clickedElement, index){
         <h1 id="popUpHeadline${clickedElement['id']}" class="task-popup-headline-main task-popup-margin">${clickedElement['title']}</h1>
         <span class="task-popup-text task-popup-margin">${clickedElement['description']}</span>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Due date:</h3> ${clickedElement['duedate']}</span>
-        <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Priority:</h3><div class="popup-urgency" style="background-color: ${clickedElement['priority'][0]['color']};"> ${clickedElement['priority'][0]['priority']}<img src="./src/img/${clickedElement['priority'][0]['priority']}.svg"></div></span>
+        <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Priority:</h3><div id="popUp-urgency-container" class="popup-urgency" style="background-color: ${clickedElement['priority'][0]['color']}; text-transform: capitalize;"> ${clickedElement['priority'][0]['priority']}<img class="urgency-img" src="./src/img/${clickedElement['priority'][0]['priority']}.svg"></div></span>
         <div id="subtask-container" class="subtask-container"></div>
         <span class="flex-row task-popup-margin task-popup-text"><h3 class="task-popup-headline-secondary">Assigned To:</h3></span>
         <div class="flex-column" id="task-popup-contacts">
@@ -147,7 +147,7 @@ function generateSmallNumberBubble(assignedContacts){
 
 function generateSubtaskSection(subtask, count){
     return /*html*/`
-    <div class="flex-row subtask-checkbox-popup"><input class="form-check-input" id="subtaskCheckbox${count}" onchange="checkBoxStatus(${count})" type="checkbox">${subtask}</div>
+    <div class="flex-row subtask-checkbox-popup"><input class="form-check-input" id="subtaskCheckbox${count}" onchange="changeSubtaskStatus(${count})" type="checkbox">${subtask}</div>
     
     `;
 }
@@ -160,5 +160,14 @@ function generatePopUpProgressBar(count){
     </div>
     <div id="count-container"></div>
     </div>
+    `;
+}
+
+function regenerateAssignedPopUp(){
+    return /*html*/`
+    <div onclick="openAssignedTo('showAssignedPopUp', 'assignedPopUp'), event.stopPropagation()" id="assignedPopUp" class="assigned-dropdown-div cursor">
+                    <div id="assignedPeoplePopUp">Assigned to</div>
+                    <img  class="cursor" src="src/img/dropdown-arrow.svg"  style='height: 42px; width: 14px'>
+                </div>
     `;
 }

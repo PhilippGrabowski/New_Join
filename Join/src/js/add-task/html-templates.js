@@ -77,13 +77,13 @@ function returnRenderContactsHTML(i) {
  * @returns a string of HTML code that creates a container for adding a new contact. The container
  * includes an input field for the contact email, a delete icon, and a tick icon.
 */
-function returnAddNewContactHTML() {
+function returnAddNewContactHTML(assigned) {
     return `
     <div class="add-contact-container">
     <input class="title-input" placeholder="Contact email" type="email" maxlength="31" id="newContact">
     <div>
     <img src="src/img/x.png" onclick="displayContacts(), resetFirstRender()" class="x-icon">
-    <img src="src/img/tick.png" onclick="createContact()" class="tick-icon">
+    <img src="src/img/tick.png" onclick="createContact(${assigned})" class="tick-icon">
     </div>
     </div>
     `

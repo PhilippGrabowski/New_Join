@@ -344,13 +344,13 @@
     justify-content: space-between;
     padding: 4px 18px;
     border-radius: 10px;
-    width: 130px;
+    width: 150px;
     height: 33px;
     color: #fff;
 }
 
-.popup-urgency img {
-    filter: invert(100%) sepia(67%) saturate(15%) hue-rotate(217deg) brightness(150%) contrast(104%);
+.urgency-img {
+    filter: brightness(0) invert(1);
 }
 
 .subtask-container {
