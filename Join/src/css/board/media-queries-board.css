@@ -13,24 +13,22 @@
     #tasks-container {
         flex-direction: column !important;
         margin-top: 32px;
-        overflow-y: visible;
     }
 
     .task-status-container {
         width: 100%;
         min-height: 280px;
-        overflow-x: scroll;
-    }
-
-    .task-status-container::-webkit-scrollbar{
-        display: none;
     }
 
     .task-container{
         flex-direction: row !important;
         margin-bottom: 8px;
         padding: 0;
-    
+        overflow-x: scroll;
+    }
+
+    .task-container::-webkit-scrollbar {
+        display: none;
     }
 
     .task-column-header {
@@ -41,6 +39,7 @@
     .board-task-box {
         margin-top: 0;
         margin-right: 8px;
+        min-width: 300px;
     }
 }
 
@@ -132,6 +131,12 @@
     #search-task {
         margin: 0;
     }
+
+    .task-container {
+        
+    }
+
+    
 
     
     /*Add Task overlay */
