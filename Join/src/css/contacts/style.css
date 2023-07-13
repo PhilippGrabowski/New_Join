@@ -538,6 +538,16 @@ input::placeholder {
     height: 100%;
     position: relative;
     overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#add_task_menu_container::-webkit-scrollbar {
+    width: 7px;
+}
+
+#add_task_menu_container::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: #A8A8A8;
 }
 
 #add_task_menu_container h2 {

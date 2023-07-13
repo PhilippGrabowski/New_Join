@@ -29,6 +29,12 @@
     }
 }
 
+@media (max-width: 1089px) {
+    #add_task_menu_window {
+        padding: 70px 20px;
+    }
+}
+
 @media (max-width: 1000px) {
     .contact_menu {
         flex-direction: column;

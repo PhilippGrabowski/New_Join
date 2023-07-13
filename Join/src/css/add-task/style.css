@@ -442,15 +442,12 @@ body {
 
 }
 
-@media (max-width: 900px) {
+@media (max-width: 980px) {
 
     .main-add-task-container {
         padding-left: 20px;
         padding-right: 20px;
     }
-}
-
-@media (max-width: 800px) {
 
     .add-task-container {
         display: flex;
